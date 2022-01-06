@@ -1,28 +1,28 @@
 <template>
   <div>
-    <EasyNormalContainer :buttonList="buttonList" :title="title"
-                         ref="container" :showSelection="isShow"
-                         @buttonClick="buttonClick" v-loading="loading"
-                         :noback="noback">
+    <EasyNormalContainer ref="container" v-loading="loading"
+                         :buttonList="buttonList" :noback="noback"
+                         :showSelection="isShow" :title="title"
+                         @buttonClick="buttonClick">
       <div slot="customize" style="width: 100%">
-        <el-form :model="refform" label-position="top" label-width="8vw" employedref="refform" ref="refform"
+        <el-form ref="refform" :model="refform" employedref="refform" label-position="top" label-width="8vw"
                  style="padding: 0.5vw">
           <el-row style="padding-top: 3%">
             <el-col :span="6">
               <el-form-item :label="$t('label.PFANS6011VIEW_YEARS')">
                 <el-date-picker
-                  :placeholder="$t('normal.error_09')"
-                  @change="changeYear"
-                  type="year"
-                  :disabled="true"
                   v-model="refform.year"
-                  style="width:10vw">
+                  :disabled="true"
+                  :placeholder="$t('normal.error_09')"
+                  style="width:10vw"
+                  type="year"
+                  @change="changeYear">
                 </el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="6">
               <el-form-item :label="$t('label.PFANS2036VIEW_DEPARTMENT')" prop="group_id">
-                <el-select v-model="refform.group_id" style="width: 20vw" :disabled="false"
+                <el-select v-model="refform.group_id" :disabled="false" style="width: 20vw"
                            @change="groupChange">
                   <el-option
                     v-for="item in grp_options"
@@ -35,220 +35,221 @@
             </el-col>
           </el-row>
           <el-row style="padding-bottom: 0.5%">
-            <el-table :data="tableData" border default-expand-all header-cell-class-name="sub_bg_color_blue" style="margin-top: 1%;font-size: 13px"
-                      row-key="wai_id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" height="540"
-                      highlight-current-row @current-change="handleCurrentChange" :span-method="this.listSpanMethod">
+            <el-table :data="tableData" :span-method="this.listSpanMethod" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" border
+                      default-expand-all
+                      header-cell-class-name="sub_bg_color_blue" height="540" highlight-current-row
+                      row-key="wai_id" style="margin-top: 1%;font-size: 13px" @current-change="handleCurrentChange">
               <el-table-column
-                show-overflow-tooltip
-                prop="themename"
                 :label="$t('label.PFANS1050FORMVIEW_THEMENAME')"
+                prop="themename"
+                show-overflow-tooltip
                 width="120">
               </el-table-column>
               <el-table-column
-                show-overflow-tooltip
-                prop="divide"
                 :label="$t('label.PFANS1050FORMVIEW_DIVIDE')"
+                prop="divide"
+                show-overflow-tooltip
                 width="120">
               </el-table-column>
               <el-table-column
-                show-overflow-tooltip
-                prop="toolsorgs"
                 :label="$t('label.PFANS1050FORMVIEW_TOOLSORGS')"
+                prop="toolsorgs"
+                show-overflow-tooltip
                 width="120">
               </el-table-column>
               <el-table-column
-                align="left"
-                show-overflow-tooltip
-                prop="contractnumber"
                 :label="$t('label.PFANS1050FORMVIEW_CONTRACTNUMBER')"
+                align="left"
+                prop="contractnumber"
+                show-overflow-tooltip
                 width="240">
               </el-table-column>
               <el-table-column
-                show-overflow-tooltip
+                :label="$t('label.PFANS1050FORMVIEW_CLAIMAMOUNT')"
                 align="center"
                 prop="claimamount"
-                :label="$t('label.PFANS1050FORMVIEW_CLAIMAMOUNT')"
+                show-overflow-tooltip
                 width="120">
               </el-table-column>
               <el-table-column
-                width="130"
-                prop="numbers"
+                :label="$t('label.PFANS1050FORMVIEW_NUMBERS')"
                 align="center"
-                :label="$t('label.PFANS1050FORMVIEW_NUMBERS')">
+                prop="numbers"
+                width="130">
               </el-table-column>
               <el-table-column
-                width="80"
+                :label="$t('label.PFANS1052FORMVIEW_STAFFRANK')"
                 align="left"
                 prop="staffrank"
-                :label="$t('label.PFANS1052FORMVIEW_STAFFRANK')">
+                width="80">
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1051MONTH4')">
+                :label="$t('label.PFANS1051MONTH4')">
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
                   prop="staffcustplan04">
                 </el-table-column>
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_AMOUNT')"
                   prop="staffcustactual04">
                 </el-table-column>
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1051MONTH5')">
+                :label="$t('label.PFANS1051MONTH5')">
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
                   prop="staffcustplan05">
                 </el-table-column>
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_AMOUNT')"
                   prop="staffcustactual05">
                 </el-table-column>
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1051MONTH6')">
+                :label="$t('label.PFANS1051MONTH6')">
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
                   prop="staffcustplan06">
                 </el-table-column>
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_AMOUNT')"
                   prop="staffcustactual06">
                 </el-table-column>
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
+                :label="$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
                 prop="workdifferentfirst">
               </el-table-column>
               <el-table-column
-                width="150"
-                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
-                prop="rankdifferentfirst">
+                :label="$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
+                prop="rankdifferentfirst"
+                width="150">
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1051MONTH7')">
+                :label="$t('label.PFANS1051MONTH7')">
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
                   prop="staffcustplan07">
                 </el-table-column>
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_AMOUNT')"
                   prop="staffcustactual07">
                 </el-table-column>
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1051MONTH8')">
+                :label="$t('label.PFANS1051MONTH8')">
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
                   prop="staffcustplan08">
                 </el-table-column>
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_AMOUNT')"
                   prop="staffcustactual08">
                 </el-table-column>
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1051MONTH9')">
+                :label="$t('label.PFANS1051MONTH9')">
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
                   prop="staffcustplan09">
                 </el-table-column>
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_AMOUNT')"
                   prop="staffcustactual09">
                 </el-table-column>
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
+                :label="$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
                 prop="workdifferentsecond">
               </el-table-column>
               <el-table-column
-                width="150"
-                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
-                prop="rankdifferentsecond">
+                :label="$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
+                prop="rankdifferentsecond"
+                width="150">
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1051MONTH10')">
+                :label="$t('label.PFANS1051MONTH10')">
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
                   prop="staffcustplan10">
                 </el-table-column>
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_AMOUNT')"
                   prop="staffcustactual10">
                 </el-table-column>
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1051MONTH11')">
+                :label="$t('label.PFANS1051MONTH11')">
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
                   prop="staffcustplan11">
                 </el-table-column>
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_AMOUNT')"
                   prop="staffcustactual11">
                 </el-table-column>
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1051MONTH12')">
+                :label="$t('label.PFANS1051MONTH12')">
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
                   prop="staffcustplan12">
                 </el-table-column>
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_AMOUNT')"
                   prop="staffcustactual12">
                 </el-table-column>
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
+                :label="$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
                 prop="workdifferentthird">
               </el-table-column>
               <el-table-column
-                width="150"
-                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
-                prop="rankdifferentthird">
+                :label="$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
+                prop="rankdifferentthird"
+                width="150">
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1051MONTH1')">
+                :label="$t('label.PFANS1051MONTH1')">
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
                   prop="staffcustplan01">
                 </el-table-column>
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_AMOUNT')"
                   prop="staffcustactual01">
                 </el-table-column>
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1051MONTH2')">
+                :label="$t('label.PFANS1051MONTH2')">
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
                   prop="staffcustplan02">
                 </el-table-column>
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_AMOUNT')"
                   prop="staffcustactual02">
                 </el-table-column>
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1051MONTH3')">
+                :label="$t('label.PFANS1051MONTH3')">
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
                   prop="staffcustplan03">
                 </el-table-column>
                 <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  :label="$t('label.PFANS1049FORMVIEW_AMOUNT')"
                   prop="staffcustactual03">
                 </el-table-column>
               </el-table-column>
               <el-table-column
-                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
+                :label="$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
                 prop="workdifferentfourth">
               </el-table-column>
               <el-table-column
-                width="150"
-                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
-                prop="rankdifferentfourth">
+                :label="$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
+                prop="rankdifferentfourth"
+                width="150">
               </el-table-column>
             </el-table>
           </el-row>
@@ -260,26 +261,26 @@
 
 <script>
 import EasyNormalContainer from '@/components/EasyNormalContainer';
-import {getCurrentRoleNew, getDepartmentById, getDictionaryInfo, getOrgInfo} from "../../../../utils/customize";
-import moment from "moment";
-import {Message} from "element-ui";
+import {getCurrentRoleNew, getDictionaryInfo, getOrgInfo} from '../../../../utils/customize';
+import moment from 'moment';
+import {Message} from 'element-ui';
 
 export default {
-  name: "PFANS1052VIEW",
+  name: 'PFANS1052VIEW',
   components: {
     EasyNormalContainer,
   },
-  data () {
+  data() {
     return {
       title: 'title.PFANS1052VIEW',
       refform: {
-        year:parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+        year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
         group_id: '',
       },
       //region scc 8/30 单元格合并 from
-      mergeAnt:false,
-      unmerge:['小计'],
-      merge:[3,4,5],//合同号，合同金额，pj起案
+      mergeAnt: false,
+      unmerge: ['小计'],
+      merge: [3, 4, 5],//合同号，合同金额，pj起案
       //endregion scc 8/30 单元格合并 to
       currentRow: null,
       hasChildren: true,
@@ -377,19 +378,19 @@ export default {
           staffcustactual03: ' ',
           workdifferentfourth: ' ',
           rankdifferentfourth: ' ',
-        }]
-      }]
-    }
+        }],
+      }],
+    };
   },
   mounted() {
-    this.getorglistname().then(val =>{
+    this.getorglistname().then(val => {
       this.getDepartInfo();
     });
   },
   methods: {
     //region scc add 根据数据情况合并table from
     //合并合同号
-    flitterData(){
+    flitterData() {
       let spanOneArr = [];
       let concatOne = 1;
       let conlength = 0;
@@ -400,35 +401,35 @@ export default {
         // concatOne = concatOne + conlength;
         concatOne = conlength + 1;
         // conlength = row.children.length
-          if(list.themename !== '合计') {
-            list.children.forEach((item, index) => {
-              if (index === 0) {
-                spanOneArr.push(1)
-                concatOne = 1;
-              } else {
-                if (this.unmerge.indexOf(item.themename) < 0) {
-                  if (item.contractnumber.trim() === list.children[index - 1].contractnumber.trim()) {
-                    spanOneArr[concatOne] += 1
-                    spanOneArr.push(0)
-                  } else {
-                    spanOneArr.push(1);
-                    concatOne = index + 1;
-                  }
+        if (list.themename !== '合计') {
+          list.children.forEach((item, index) => {
+            if (index === 0) {
+              spanOneArr.push(1);
+              concatOne = 1;
+            } else {
+              if (this.unmerge.indexOf(item.themename) < 0) {
+                if (item.contractnumber.trim() === list.children[index - 1].contractnumber.trim()) {
+                  spanOneArr[concatOne] += 1;
+                  spanOneArr.push(0);
                 } else {
-                  spanOneArr.push(1)
-                  concatOne++
+                  spanOneArr.push(1);
+                  concatOne = index + 1;
                 }
+              } else {
+                spanOneArr.push(1);
+                concatOne++;
               }
-            })
-          }
-          spanOne.push.apply(spanOne, spanOneArr);//拼接
-      })
+            }
+          });
+        }
+        spanOne.push.apply(spanOne, spanOneArr);//拼接
+      });
       // spanOne.push(1);//合计不合并
       spanOne.push.apply(spanOne, [1]);
       return spanOne;
     },
     //合并合同金额
-    flitterData1(){
+    flitterData1() {
       let spanOneArr = [];
       let concatOne = 1;
       let conlength = 0;
@@ -439,35 +440,35 @@ export default {
         // concatOne = concatOne + conlength;
         concatOne = conlength + 1;
         // conlength = row.children.length
-        if(list.themename !== '合计') {
+        if (list.themename !== '合计') {
           list.children.forEach((item, index) => {
             if (index === 0) {
-              spanOneArr.push(1)
+              spanOneArr.push(1);
               concatOne = 1;
             } else {
               if (this.unmerge.indexOf(item.themename) < 0) {
-                if (item.contractnumber.split("-")[0].trim() === list.children[index - 1].contractnumber.split("-")[0].trim()) {
-                  spanOneArr[concatOne] += 1
-                  spanOneArr.push(0)
+                if (item.contractnumber.split('-')[0].trim() === list.children[index - 1].contractnumber.split('-')[0].trim()) {
+                  spanOneArr[concatOne] += 1;
+                  spanOneArr.push(0);
                 } else {
                   spanOneArr.push(1);
                   concatOne = index + 1;
                 }
               } else {
-                spanOneArr.push(1)
-                concatOne++
+                spanOneArr.push(1);
+                concatOne++;
               }
             }
-          })
+          });
         }
         spanOne.push.apply(spanOne, spanOneArr);
-      })
+      });
       // spanOne.push(1);//合计不合并
       spanOne.push.apply(spanOne, [1]);
       return spanOne;
     },
     //合并pj起案
-    flitterData2(){
+    flitterData2() {
       let spanOneArr = [];
       let concatOne = 1;
       let conlength = 0;
@@ -478,58 +479,58 @@ export default {
         // concatOne = concatOne + conlength;
         concatOne = conlength + 1;
         // conlength = row.children.length
-        if(list.themename !== '合计') {
+        if (list.themename !== '合计') {
           list.children.forEach((item, index) => {
             if (index === 0) {
-              spanOneArr.push(1)
+              spanOneArr.push(1);
               concatOne = 1;
             } else {
               if (this.unmerge.indexOf(item.themename) < 0) {
-                if ((item.numbers === list.children[index - 1].numbers) && (item.contractnumber.split("-")[0].trim() === list.children[index - 1].contractnumber.split("-")[0].trim())) {
-                  spanOneArr[concatOne] += 1
-                  spanOneArr.push(0)
+                if ((item.numbers === list.children[index - 1].numbers) && (item.contractnumber.split('-')[0].trim() === list.children[index - 1].contractnumber.split('-')[0].trim())) {
+                  spanOneArr[concatOne] += 1;
+                  spanOneArr.push(0);
                 } else {
                   spanOneArr.push(1);
                   concatOne = index + 1;
                 }
               } else {
-                spanOneArr.push(1)
-                concatOne++
+                spanOneArr.push(1);
+                concatOne++;
               }
             }
-          })
+          });
         }
         spanOne.push.apply(spanOne, spanOneArr);
-      })
+      });
       // spanOne.push(1);//合计不合并
       spanOne.push.apply(spanOne, [1]);
       return spanOne;
     },
-    listSpanMethod ({ row, column, rowIndex, columnIndex }) {
-      if(!this.mergeAnt)return
-      if(this.merge[0] === columnIndex) {//合并合同号
-        const _row = this.flitterData(this.tableData)[rowIndex]
-        const _col = _row > 0 ? 1 : 0
+    listSpanMethod({row, column, rowIndex, columnIndex}) {
+      if (!this.mergeAnt) return;
+      if (this.merge[0] === columnIndex) {//合并合同号
+        const _row = this.flitterData(this.tableData)[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
         return {
           rowspan: _row,
-          colspan: _col
-        }
+          colspan: _col,
+        };
       }
-      if(this.merge[1] === columnIndex) {//合并合同金额
-        const _row = this.flitterData1(this.tableData)[rowIndex]
-        const _col = _row > 0 ? 1 : 0
+      if (this.merge[1] === columnIndex) {//合并合同金额
+        const _row = this.flitterData1(this.tableData)[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
         return {
           rowspan: _row,
-          colspan: _col
-        }
+          colspan: _col,
+        };
       }
-      if(this.merge[2] === columnIndex) {//合并pj起案
-        const _row = this.flitterData2(this.tableData)[rowIndex]
-        const _col = _row > 0 ? 1 : 0
+      if (this.merge[2] === columnIndex) {//合并pj起案
+        const _row = this.flitterData2(this.tableData)[rowIndex];
+        const _col = _row > 0 ? 1 : 0;
         return {
           rowspan: _row,
-          colspan: _col
-        }
+          colspan: _col,
+        };
       }
     },
     //endregion scc add 根据数据情况合并table to
@@ -539,7 +540,10 @@ export default {
     getDepartInfo() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1052Store/getDepartmentalInsert',{'year': this.refform.year, 'group_id': this.refform.group_id})
+        .dispatch('PFANS1052Store/getDepartmentalInsert', {
+          'year': this.refform.year,
+          'group_id': this.refform.group_id,
+        })
         .then(response => {
           if (response.length > 0) {
             let m = 1;
@@ -573,21 +577,21 @@ export default {
               }
             }
             // theme总计
-            this.tableData[this.tableData.length - 1].wai_id = m + "a";
+            this.tableData[this.tableData.length - 1].wai_id = m + 'a';
           } else {
             this.tableData = [];
           }
           this.mergeAnt = true;
-          this.loading = false
+          this.loading = false;
         })
         .catch(error => {
           this.$message.error({
             message: error,
             type: 'error',
-            duration: 5 * 1000
+            duration: 5 * 1000,
           });
-          this.loading = false
-        })
+          this.loading = false;
+        });
     },
     getorglistname() {
       return new Promise((resolve, reject) => {
@@ -601,12 +605,9 @@ export default {
             },
           );
           //add ccm 0112 兼职部门
-          if (this.$store.getters.userinfo.userinfo.otherorgs)
-          {
-            for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
-            {
-              if (others.centerid)
-              {
+          if (this.$store.getters.userinfo.userinfo.otherorgs) {
+            for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
+              if (others.centerid) {
                 this.$store.getters.orgGroupList.filter((item) => {
                   if (item.centerid === others.centerid) {
                     vote.push(
@@ -616,7 +617,7 @@ export default {
                       },
                     );
                   }
-                })
+                });
               }
             }
           }
@@ -631,14 +632,11 @@ export default {
                 },
               );
             }
-          })
+          });
           //add ccm 0112 兼职部门
-          if (this.$store.getters.userinfo.userinfo.otherorgs)
-          {
-            for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
-            {
-              if (others.centerid)
-              {
+          if (this.$store.getters.userinfo.userinfo.otherorgs) {
+            for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
+              if (others.centerid) {
                 this.$store.getters.orgGroupList.filter((item) => {
                   if (item.centerid === others.centerid) {
                     vote.push(
@@ -648,19 +646,16 @@ export default {
                       },
                     );
                   }
-                })
+                });
               }
             }
           }
           //add ccm 0112 兼职部门
-        }
-        else if (role === '4') //GM
+        } else if (role === '4') //GM
         {
           let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
-          if (centers)
-          {
-            if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
-            {
+          if (centers) {
+            if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined) {
               vote.push(
                 {
                   groupid: this.$store.getters.userinfo.userinfo.groupid,
@@ -672,9 +667,9 @@ export default {
         }
         const vote1 = [];
         if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
-          || this.$store.getters.roles.indexOf("11") != -1 //总经理
-          || this.$store.getters.roles.indexOf("16") != -1 //财务部长
-          || this.$store.getters.roles.indexOf("18") != -1) //企划部长部长
+          || this.$store.getters.roles.indexOf('11') != -1 //总经理
+          || this.$store.getters.roles.indexOf('16') != -1 //财务部长
+          || this.$store.getters.roles.indexOf('18') != -1) //企划部长部长
         {
           this.$store.getters.orgGroupList.filter((item) => {
             vote1.push(
@@ -683,43 +678,41 @@ export default {
                 groupname: item.centername,
               },
             );
-          })
+          });
           this.grp_options = vote1;
-        }
-        else
-        {
+        } else {
           this.grp_options = vote;
         }
         //去重
         let letoptionsdata = [];
         let arrId = [];
-        for(var item of this.grp_options){
-          if(arrId.indexOf(item['groupname']) == -1){
+        for (var item of this.grp_options) {
+          if (arrId.indexOf(item['groupname']) == -1) {
             arrId.push(item['groupname']);
             letoptionsdata.push(item);
           }
         }
         //针对经营管理统计到group修改 start
         let incfmyList = [];
-        for(let item of letoptionsdata){
-          if(getOrgInfo(item.groupid).encoding == ''){
-            incfmyList.push(item.groupid)
+        for (let item of letoptionsdata) {
+          if (getOrgInfo(item.groupid).encoding == '') {
+            incfmyList.push(item.groupid);
           }
         }
-        if(incfmyList.length > 0){
-          for(let item of incfmyList){
-            letoptionsdata = letoptionsdata.filter(letitem => letitem.groupid != item)
+        if (incfmyList.length > 0) {
+          for (let item of incfmyList) {
+            letoptionsdata = letoptionsdata.filter(letitem => letitem.groupid != item);
           }
           let orgInfo = [];
-          for(let item of incfmyList){
-            if(item){
-              if(getOrgInfo(item).orgs.length != 0){
-                orgInfo.push(getOrgInfo(item).orgs)
+          for (let item of incfmyList) {
+            if (item) {
+              if (getOrgInfo(item).orgs.length != 0) {
+                orgInfo.push(getOrgInfo(item).orgs);
               }
             }
           }
           let groInfo = orgInfo[0].filter(item => item.type == '2');
-          for(let item of groInfo){
+          for (let item of groInfo) {
             letoptionsdata.push(
               {
                 groupid: item._id,
@@ -730,13 +723,12 @@ export default {
         }
         //针对经营管理统计到group修改 end
         this.grp_options = letoptionsdata;
-        if (this.grp_options.length > 0)
-        {
+        if (this.grp_options.length > 0) {
           this.refform.group_id = this.grp_options[0].groupid;
         }
 
         //UPD CCM 20210422
-        resolve(this.grp_options)
+        resolve(this.grp_options);
       });
     },
     changeYear(val) {
@@ -764,21 +756,21 @@ export default {
           });
           return;
         }
-        let winopen =  'http://localhost:8085/jmreport/view/592585397002903552?';
-        winopen = winopen + 'year=' + this.refform.year + '&group_id=' + this.refform.group_id
-        window.open(winopen,'_blank');
+        let winopen = 'http://localhost:8085/jmreport/view/592585397002903552?';
+        winopen = winopen + 'year=' + this.refform.year + '&group_id=' + this.refform.group_id;
+        window.open(winopen, '_blank');
       }
       //endregion scc 21/9/1 upd 积木报表 to
     },
-  }
-}
+  },
+};
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style lang="scss" rel="stylesheet/scss" scoped>
 .el-table {
   overflow-x: auto;
   overflow-y: auto;
-  height:600px;
+  height: 600px;
 }
 
 .el-table__header-wrapper,
@@ -788,7 +780,7 @@ export default {
 }
 
 .el-table::after {
-//position: relative;
+  //position: relative;
 }
 
 .el-table--scrollable-x .el-table__body-wrapper {

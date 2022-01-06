@@ -1,18 +1,19 @@
 <template>
   <div
+    v-loading="loading"
+    :element-loading-text="$t('normal.waiting')"
     :style="{maxHeight:maxheight,minHeight:minheight,overflowY:'auto'}"
     class="easy_tree"
-    :element-loading-text="$t('normal.waiting')"
-    v-loading="loading"
   >
     <el-input
-      :placeholder="$t('normal.search')"
       v-if="showFilter"
       v-model="filterText"
+      :placeholder="$t('normal.search')"
     >
     </el-input>
 
     <el-tree
+      ref="treeCom"
       :check-strictly="checktrictly"
       :data="defaultlist"
       :default-expand-all="true"
@@ -22,10 +23,9 @@
       :node-key="nodeid"
       :props="defaultProps"
       :show-checkbox="showCheckbox"
-      @node-click="nodeClick"
       class="filter-tree"
-      ref="treeCom"
       style="margin-top:10px"
+      @node-click="nodeClick"
     >
     </el-tree>
   </div>
@@ -33,81 +33,81 @@
 
 <script>
 export default {
-  name: "Tree",
+  name: 'Tree',
   components: {},
   data() {
     return {
-      filterText: "",
-      loading: false
+      filterText: '',
+      loading: false,
     };
   },
   props: {
     //是否显示检索框
     showFilter: {
       type: Boolean,
-      default: true
+      default: true,
     },
     //是否显示checkbox
     showCheckbox: {
       type: Boolean,
-      default: true
+      default: true,
     },
     defaultProps: {
-      type: Object
+      type: Object,
     },
     checktrictly: {
       type: Boolean,
-      default: false
+      default: false,
     },
     defaultlist: {
       type: Array,
       default: function() {
         return [];
-      }
+      },
     },
     loadNode: {
       type: Function,
       default: function(node, resolve) {
         if (node.level === 0) {
-          return resolve([{ label: "region" }]);
+          return resolve([{label: 'region'}]);
         }
         if (node.level > 1) return resolve([]);
 
         setTimeout(() => {
           const data = [
             {
-              label: "leaf",
-              isLeaf: true
+              label: 'leaf',
+              isLeaf: true,
             },
             {
-              label: "zone"
-            }
+              label: 'zone',
+            },
           ];
 
           resolve(data);
         }, 500);
-      }
+      },
     },
     // 节点id
     nodeid: {
       type: String,
-      default: "_id"
+      default: '_id',
     },
     maxheight: {
-      type: String
+      type: String,
     },
     minheight: {
-      type: String
+      type: String,
     },
     renderContent: {
       type: Function,
-      default: function(h, { node, data, store }) {
+      default: function(h, {node, data, store}) {
         return <span style="font-size:14px">{node.label}</span>;
-      }
+      },
     },
     checkedList: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   watch: {
     filterText(val) {
@@ -125,15 +125,15 @@ export default {
             list.push(node);
           }
         }
-        this.$emit("InitData", list);
+        this.$emit('InitData', list);
         // })
       }
-    }
+    },
   },
   updated() {
     this.$nextTick(function() {
       if (this.$refs.treeCom.getCheckedNodes().length > 0) {
-        this.$emit("InitData", this.$refs.treeCom.getCheckedNodes());
+        this.$emit('InitData', this.$refs.treeCom.getCheckedNodes());
       }
     });
   },
@@ -146,13 +146,13 @@ export default {
       // if (this.$store.getters.operateId === node[this.nodeid]) {
       //   return;
       // }
-        // this.$store.commit("global/SET_OPERATEID", node[this.nodeid]);
-      this.$emit("nodeClick", node);
+      // this.$store.commit("global/SET_OPERATEID", node[this.nodeid]);
+      this.$emit('nodeClick', node);
     },
     getData() {
       return this.$refs.treeCom.data;
-    }
-  }
+    },
+  },
 };
 </script>
 

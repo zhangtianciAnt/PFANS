@@ -3,8 +3,8 @@ import request from '../../../../utils/request';
 export function getpurchaseApply() {
   return request({
     url: 'purchaseApply/get',
-    method: 'get'
-  })
+    method: 'get',
+  });
 }
 
 export function selectById(data) {
@@ -39,4 +39,5 @@ export function purdelete(data) {
     data: data,
   });
 }
+
 //endregion scc add 千元以下费用决裁删除 to

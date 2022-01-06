@@ -1,11 +1,11 @@
 import {
+  createFixedassets,
+  downLoad,
+  getAssetsnameList,
   getFixedassets,
   getFixedassetsOne,
   updateFixedassets,
-  createFixedassets,
-  getAssetsnameList,
-  downLoad
-} from './PFANS1009Api'
+} from './PFANS1009Api';
 
 const PFANS1009Store = {
   namespaced: true,
@@ -18,12 +18,12 @@ const PFANS1009Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     getFixedassetsOne({commit}, data) {
@@ -32,12 +32,12 @@ const PFANS1009Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     updateFixedassets({commit}, data) {
@@ -46,12 +46,12 @@ const PFANS1009Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     createFixedassets({commit}, data) {
@@ -60,12 +60,12 @@ const PFANS1009Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     getAssetsnameList({commit}, data) {
@@ -74,12 +74,12 @@ const PFANS1009Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     downLoad({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -87,10 +87,10 @@ const PFANS1009Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 
 export default PFANS1009Store;

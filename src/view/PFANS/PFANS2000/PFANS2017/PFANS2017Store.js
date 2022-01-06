@@ -1,4 +1,11 @@
-import {getFpans2017List, download,getPunDetail,getFpans2017Listowner,getTodayPunDetaillist,insertHistoricalCard} from './PFANS2017Api'
+import {
+  download,
+  getFpans2017List,
+  getFpans2017Listowner,
+  getPunDetail,
+  getTodayPunDetaillist,
+  insertHistoricalCard,
+} from './PFANS2017Api';
 
 const PFANS2017Store = {
   namespaced: true,
@@ -7,18 +14,18 @@ const PFANS2017Store = {
   actions: {
 
     //获取异常申请列表信息
-    getFpans2017List({commit},data) {
+    getFpans2017List({commit}, data) {
       return new Promise((resolve, reject) => {
         getFpans2017List(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //获取异常申请中查看打卡记录
     getFpans2017Listowner({commit}) {
@@ -27,12 +34,12 @@ const PFANS2017Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     download({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -40,8 +47,8 @@ const PFANS2017Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //获取打卡详细
     getPunDetail({commit}, data) {
@@ -50,12 +57,12 @@ const PFANS2017Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //获取当日考勤
     getTodayPunDetaillist({commit}) {
@@ -64,12 +71,12 @@ const PFANS2017Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //获取当日考勤
     insertHistoricalCard({commit}, params) {
@@ -78,13 +85,13 @@ const PFANS2017Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
-    }
+        });
+      });
+    },
   },
 
 };

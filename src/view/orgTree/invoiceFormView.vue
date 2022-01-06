@@ -1,36 +1,37 @@
 <template>
   <div>
-    <EasyNormalContainer :title="type==='1'?'创建开票信息':'编辑开票信息'" ref="container">
+    <EasyNormalContainer ref="container" :title="type==='1'?'创建开票信息':'编辑开票信息'">
       <div slot="customize">
-        <el-form :model="invoiceform" status-icon ref="invoiceform" label-width="8rem" style="width:80%;margin:5% auto" class="demo-ruleForm" v-loading="invoiceformloading">
+        <el-form ref="invoiceform" v-loading="invoiceformloading" :model="invoiceform" class="demo-ruleForm" label-width="8rem"
+                 status-icon style="width:80%;margin:5% auto">
           <el-form-item label="公司名称" prop="companyname">
-            <span>{{currentNode.companyname}}</span>
+            <span>{{ currentNode.companyname }}</span>
           </el-form-item>
-          <el-form-item label="纳税人识别号" prop="dutynumber" :rules="[
+          <el-form-item :rules="[
               { required: true, message: '请输入纳税人识别号', trigger: 'blur' },
-              { validator: dutynumberCheck, trigger: 'blur'}]">
+              { validator: dutynumberCheck, trigger: 'blur'}]" label="纳税人识别号" prop="dutynumber">
             <el-input v-model="invoiceform.dutynumber" auto-complete="off" placeholder="纳税人识别号"></el-input>
           </el-form-item>
-          <el-form-item label="开户行" prop="bankbranch" :rules="[
-              { required: true, message: '请输入开户行', trigger: 'blur' }]">
+          <el-form-item :rules="[
+              { required: true, message: '请输入开户行', trigger: 'blur' }]" label="开户行" prop="bankbranch">
             <el-input v-model="invoiceform.bankbranch" auto-complete="off" placeholder="开户行"></el-input>
           </el-form-item>
-          <el-form-item label="银行账号" prop="banknumber" :rules="[
+          <el-form-item :rules="[
               { required: true, message: '请输入银行账号', trigger: 'blur' },
-               { validator: dutynumberCheck, trigger: 'blur'}]">
+               { validator: dutynumberCheck, trigger: 'blur'}]" label="银行账号" prop="banknumber">
             <el-input v-model="invoiceform.banknumber" auto-complete="off" placeholder="银行账号"></el-input>
           </el-form-item>
-          <el-form-item label="地址" prop="companyaddress" :rules="[
-              { required: true, message: '请输入地址', trigger: 'blur' }]">
+          <el-form-item :rules="[
+              { required: true, message: '请输入地址', trigger: 'blur' }]" label="地址" prop="companyaddress">
             <el-input v-model="invoiceform.companyaddress" auto-complete="off" placeholder="地址"></el-input>
           </el-form-item>
-          <el-form-item label="电话" prop="phone" :rules="[
+          <el-form-item :rules="[
               { required: true, message: '请输入电话', trigger: 'blur' },
-              { validator: dutynumberCheck, trigger: 'blur'}]">
+              { validator: dutynumberCheck, trigger: 'blur'}]" label="电话" prop="phone">
             <el-input v-model="invoiceform.phone" auto-complete="off" placeholder="电话"></el-input>
           </el-form-item>
           <el-form-item>
-            <easy-button-bar @buttonClick="buttonClick" :data="buttonList"></easy-button-bar>
+            <easy-button-bar :data="buttonList" @buttonClick="buttonClick"></easy-button-bar>
           </el-form-item>
         </el-form>
       </div>
@@ -39,15 +40,16 @@
 </template>
 
 <script>
-import EasyNormalContainer from "@/components/EasyNormalContainer";
+import EasyNormalContainer from '@/components/EasyNormalContainer';
 import EasyButtonBar from '@/components/EasyButtonBar';
-import { validatAlphabets, validateNumber } from '@/utils/validate';
-import { getUUID } from '@/utils/customize';
+import {validateNumber} from '@/utils/validate';
+import {getUUID} from '@/utils/customize';
+
 export default {
-  name: "orgTreeFormView",
+  name: 'orgTreeFormView',
   components: {
     EasyNormalContainer,
-    EasyButtonBar
+    EasyButtonBar,
   },
   data() {
     return {
@@ -57,9 +59,9 @@ export default {
       invoiceform: this.$route.params.invoice,
       invoiceformloading: false,
       buttonList: [
-        { key: 'btnSave', name: '保存' },
-        { key: 'btnCancel', name: '取消' }
-      ]
+        {key: 'btnSave', name: '保存'},
+        {key: 'btnCancel', name: '取消'},
+      ],
     };
   },
   methods: {
@@ -83,10 +85,10 @@ export default {
       this.currentNode.invoiceinfo = this.invoiceform;
       let data = this.orgTree.data;
       this.$store
-        .dispatch("orgTreeStore/saveTree", data[0])
+        .dispatch('orgTreeStore/saveTree', data[0])
         .then(() => {
           this.invoiceformloading = false;
-          this.$refs.container.buttonClick("back");
+          this.$refs.container.buttonClick('back');
         })
         .catch(() => {
           this.invoiceformloading = false;
@@ -94,22 +96,22 @@ export default {
     },
     dutynumberCheck(rule, value, callback) {
       if (validateNumber(value)) {
-        callback()
+        callback();
       } else {
-        callback(new Error('只可以输入数字！'))
+        callback(new Error('只可以输入数字！'));
       }
     },
     cancelForm() {
-      this.$refs.container.buttonClick("back");
+      this.$refs.container.buttonClick('back');
     },
-    buttonClick (val) {
+    buttonClick(val) {
       if (val === 'btnSave') {
         this.submitForm('invoiceform');
       } else {
         this.cancelForm();
       }
     },
-  }
+  },
 };
 </script>
 <style lang='scss'>

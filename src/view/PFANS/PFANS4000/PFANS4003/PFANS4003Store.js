@@ -1,15 +1,11 @@
-import {
-  getpeoplewareList,
-  download,
-  importa
-} from './PFANS4003Api';
+import {download, getpeoplewareList} from './PFANS4003Api';
 
 const PFANS4003store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
-    getpeoplewareList({commit},data) {
+    getpeoplewareList({commit}, data) {
       return new Promise((resolve, reject) => {
         getpeoplewareList(data).then(response => {
           if (response.code === 0) {
@@ -28,11 +24,11 @@ const PFANS4003store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
-  }
+  },
 };
 
 export default PFANS4003store;

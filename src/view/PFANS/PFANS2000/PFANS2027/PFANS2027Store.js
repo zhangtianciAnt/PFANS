@@ -1,5 +1,12 @@
-import {getLunarbonus,getLunardetails,update,insertLunarbonus,getOne, createTodonotice,overTodonotice} from './PFANS2027Api'
-import {getPfans2016One} from "../PFANS2016/PFANS2016Api";
+import {
+  createTodonotice,
+  getLunarbonus,
+  getLunardetails,
+  getOne,
+  insertLunarbonus,
+  overTodonotice,
+  update,
+} from './PFANS2027Api';
 
 const PFANS2027Store = {
   namespaced: true,
@@ -7,47 +14,47 @@ const PFANS2027Store = {
   mutations: {},
   actions: {
     //查看列表
-    getLunarbonus({ commit },data) {
+    getLunarbonus({commit}, data) {
       return new Promise((resolve, reject) => {
         getLunarbonus(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //获取详情列表初始数据
-    getOne({ commit },data) {
+    getOne({commit}, data) {
       return new Promise((resolve, reject) => {
         getOne(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
-    getLunardetails({ commit },data) {
+    getLunardetails({commit}, data) {
       return new Promise((resolve, reject) => {
         getLunardetails(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //更新
@@ -57,12 +64,12 @@ const PFANS2027Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     // 发起待办
@@ -72,12 +79,12 @@ const PFANS2027Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     // 关闭评价
@@ -87,12 +94,12 @@ const PFANS2027Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //新建
@@ -102,14 +109,14 @@ const PFANS2027Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 export default PFANS2027Store;
 

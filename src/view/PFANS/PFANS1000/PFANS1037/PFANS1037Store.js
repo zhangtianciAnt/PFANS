@@ -15,12 +15,12 @@ const PFANS1037Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //获取列变
@@ -30,12 +30,12 @@ const PFANS1037Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //获取列变
@@ -45,14 +45,14 @@ const PFANS1037Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
-}
+  },
+};
 
 export default PFANS1037Store;

@@ -3,9 +3,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'PFANS1001View'
-  }
+export default {
+  name: 'PFANS1001View',
+};
 </script>
 
 <style scoped>

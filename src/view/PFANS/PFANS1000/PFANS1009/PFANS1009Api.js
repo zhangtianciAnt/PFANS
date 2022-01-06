@@ -1,43 +1,43 @@
-import request from '../../../../utils/request'
-import requestPdf from "../../../../utils/requestPdf";
+import request from '../../../../utils/request';
+import requestPdf from '../../../../utils/requestPdf';
 
 export function getFixedassets() {
   return request({
     url: 'fixedassets/get',
-    method: 'get'
-  })
+    method: 'get',
+  });
 }
 
 export function getFixedassetsOne(data) {
   return request({
     url: 'fixedassets/one',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function updateFixedassets(data) {
   return request({
     url: 'fixedassets/update',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function createFixedassets(data) {
   return request({
     url: 'fixedassets/create',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function getAssetsnameList(data) {
   return request({
     url: 'fixedassets/getAssetsnameList',
     method: 'POST',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function downLoad(data) {
@@ -45,7 +45,7 @@ export function downLoad(data) {
     url: 'fixedassets/downLoad1',
     method: 'get',
     params: data,
-    responseType: 'blob'
-  })
+    responseType: 'blob',
+  });
 }
 

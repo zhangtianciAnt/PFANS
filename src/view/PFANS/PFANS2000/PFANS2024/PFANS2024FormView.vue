@@ -1,43 +1,43 @@
 <template>
   <div>
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading"
-                         @disabled="setdisabled">
+    <EasyNormalContainer ref="container" v-loading="loading" :buttonList="buttonList" :canStart="canStart"
+                         :title="title" @buttonClick="buttonClick" @disabled="setdisabled" @end="end" @start="start"
+                         @workflowState="workflowState">
       <div slot="customize">
-        <el-form :model="form" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+        <el-form ref="form" :model="form" label-position="top" label-width="8vw" style="padding: 2vw">
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')" name="first">
               <div>
-                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
+                <el-form ref="form" :model="form" label-position="top" label-width="8vw">
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.center')">
-                        <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                        <el-input v-show='false' :disabled="true" style="width: 20vw"
-                                  v-model="form.center_id"></el-input>
+                        <el-input v-model="centerid" :disabled="true" style="width:20vw"></el-input>
+                        <el-input v-show='false' v-model="form.center_id" :disabled="true"
+                                  style="width: 20vw"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.group')">
-                        <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                        <el-input v-show='false' :disabled="true" style="width: 20vw"
-                                  v-model="form.group_id"></el-input>
+                        <el-input v-model="groupid" :disabled="true" style="width:20vw"></el-input>
+                        <el-input v-show='false' v-model="form.group_id" :disabled="true"
+                                  style="width: 20vw"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.team')">
-                        <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                        <el-input v-show='false' :disabled="true" style="width: 20vw" v-model="form.team_id"></el-input>
+                        <el-input v-model="teamid" :disabled="true" style="width:20vw"></el-input>
+                        <el-input v-show='false' v-model="form.team_id" :disabled="true" style="width: 20vw"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                 </el-form>
-                <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm">
+                <el-form ref="ruleForm" :model="form" :rules="rules" label-position="top" label-width="8vw">
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :error="error" :label="$t('label.user_name')" prop="user_id">
                         <user :disabled="true" :error="error" :selectType="selectType"
-                              :userlist="userlist" @getUserids="getUserids" style="width: 20vw"></user>
+                              :userlist="userlist" style="width: 20vw" @getUserids="getUserids"></user>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
@@ -74,14 +74,14 @@
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024VIEW_ENTRYYEAR')">
-                        <el-date-picker :disabled="true" style="width: 20vw" type="date"
-                                        v-model="form.entryyear"></el-date-picker>
+                        <el-date-picker v-model="form.entryyear" :disabled="true" style="width: 20vw"
+                                        type="date"></el-date-picker>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')">
-                        <el-date-picker :disabled="true" style="width: 20vw" type="date"
-                                        v-model="form.graduationyear"></el-date-picker>
+                        <el-date-picker v-model="form.graduationyear" :disabled="true" style="width: 20vw"
+                                        type="date"></el-date-picker>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
@@ -107,7 +107,7 @@
                     <!--</el-col>-->
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2023VIEW_YEARS')">
-                        {{form.year}}
+                        {{ form.year }}
                       </el-form-item>
                     </el-col>
 
@@ -115,25 +115,28 @@
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_BUSINESS')" prop="business">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 70vw" type="textarea" v-model="form.business"></el-input>
+                        <el-input v-model="form.business" :autosize="{ minRows: 3, maxRows: 4}"
+                                  :disabled="!disable" style="width: 70vw" type="textarea"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_FEATURES')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 6}" :disabled="!disable"
-                                  style="width: 70vw" type="textarea" v-model="form.features"
+                        <el-input v-model="form.features" :autosize="{ minRows: 3, maxRows: 6}"
+                                  :disabled="!disable" style="width: 70vw" type="textarea"
                         ></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col>
-                      <div><span style="margin-left: 1vw ; color: red ; font-size: 10px">{{$t('label.PFANS2024FORMVIEW_FEATURES1')}}</span>
+                      <div><span
+                        style="margin-left: 1vw ; color: red ; font-size: 10px">{{ $t('label.PFANS2024FORMVIEW_FEATURES1') }}</span>
                       </div>
-                      <div><span style="margin-left: 1vw ; color: red ; font-size: 10px">{{$t('label.PFANS2024FORMVIEW_FEATURES2')}}</span>
+                      <div><span
+                        style="margin-left: 1vw ; color: red ; font-size: 10px">{{ $t('label.PFANS2024FORMVIEW_FEATURES2') }}</span>
                       </div>
-                      <div><span style="margin-left: 1vw ; color: red ; font-size: 10px">{{$t('label.PFANS2024FORMVIEW_FEATURES3')}}</span>
+                      <div><span
+                        style="margin-left: 1vw ; color: red ; font-size: 10px">{{ $t('label.PFANS2024FORMVIEW_FEATURES3') }}</span>
                       </div>
                     </el-col>
                   </el-row>
@@ -142,20 +145,20 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2024FORMVIEW_SKILLRANKING')" name="second">
               <div>
-                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
+                <el-form ref="form" :model="form" label-position="top" label-width="8vw">
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_SKILLRANKING1')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 70vw" type="textarea" v-model="form.skillranking1"></el-input>
+                        <el-input v-model="form.skillranking1" :autosize="{ minRows: 3, maxRows: 4}"
+                                  :disabled="!disable" style="width: 70vw" type="textarea"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_SKILLRANKING2')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 70vw" type="textarea" v-model="form.skillranking2"></el-input>
+                        <el-input v-model="form.skillranking2" :autosize="{ minRows: 3, maxRows: 4}"
+                                  :disabled="!disable" style="width: 70vw" type="textarea"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -174,20 +177,20 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2024FORMVIEW_NEXTSKILLRANKING')" name="third">
               <div>
-                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
+                <el-form ref="form" :model="form" label-position="top" label-width="8vw">
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_SKILLRANKING1')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 70vw" type="textarea" v-model="form.nextskillranking1"></el-input>
+                        <el-input v-model="form.nextskillranking1" :autosize="{ minRows: 3, maxRows: 4}"
+                                  :disabled="!disable" style="width: 70vw" type="textarea"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_NEXTSKILLRANKING2')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 70vw" type="textarea" v-model="form.nextskillranking2"></el-input>
+                        <el-input v-model="form.nextskillranking2" :autosize="{ minRows: 3, maxRows: 4}"
+                                  :disabled="!disable" style="width: 70vw" type="textarea"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -206,24 +209,24 @@
             </el-tab-pane>
             <el-tab-pane :label=" thisyear + $t('label.PFANS2024FORMVIEW_FUTURE')" name="fourth">
               <div>
-                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
+                <el-form ref="form" :model="form" label-position="top" label-width="8vw">
                   <el-row>
                     <el-col :span="8">
                       <el-form-item
                         :label=" thisyear + $t('label.PFANS2024FORMVIEW_FUTURE1') + $t('label.PFANS2024FORMVIEW_FUTURE1PLACE')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 70vw" type="textarea"
-                                  v-model="form.future1"></el-input>
+                        <el-input v-model="form.future1" :autosize="{ minRows: 3, maxRows: 4}"
+                                  :disabled="!disable" style="width: 70vw"
+                                  type="textarea"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                 </el-form>
-                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
+                <el-form ref="form" :model="form" label-position="top" label-width="8vw">
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_FUTURE2')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                  style="width: 70vw" type="textarea" v-model="form.future2"></el-input>
+                        <el-input v-model="form.future2" :autosize="{ minRows: 3, maxRows: 4}"
+                                  :disabled="!disable" style="width: 70vw" type="textarea"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -242,26 +245,26 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2024FORMVIEW_PANE4')" name="fifth">
               <div>
-                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
+                <el-form ref="form" :model="form" label-position="top" label-width="8vw">
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS1002VIEW_PROMOTION')">
-                        <span style="margin-right: 1vw ">{{$t('label.PFANS1002VIEW_UNDETERMINED')}}</span>
+                        <span style="margin-right: 1vw ">{{ $t('label.PFANS1002VIEW_UNDETERMINED') }}</span>
                         <el-switch
-                          :disabled="!disable"
                           v-model="form.promotion"
+                          :disabled="!disable"
                           active-value="1"
                           inactive-value="0"
                           @change="getpromotion"
                         >
                         </el-switch>
-                        <span style="margin-left: 1vw ">{{$t('label.PFANS1002VIEW_DETERMINED')}}</span>
+                        <span style="margin-left: 1vw ">{{ $t('label.PFANS1002VIEW_DETERMINED') }}</span>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2024FORMVIEW_YEARSCHEDULE')" v-if="show">
-                        <el-date-picker :disabled="!disable" style="width: 20vw" type="date"
-                                        v-model="form.yearschedule"></el-date-picker>
+                      <el-form-item v-if="show" :label="$t('label.PFANS2024FORMVIEW_YEARSCHEDULE')">
+                        <el-date-picker v-model="form.yearschedule" :disabled="!disable" style="width: 20vw"
+                                        type="date"></el-date-picker>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -269,11 +272,11 @@
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2024FORMVIEW_TECHNOLOGY')">
                         <dicselect
-                          style="width: 70vw"
                           :code="code2"
                           :data="technology"
                           :disabled="!disable"
                           :multiple="multiple1"
+                          style="width: 70vw"
                           @change="gettechnology">
                         </dicselect>
                       </el-form-item>
@@ -303,221 +306,159 @@
   </div>
 </template>
 <script>
-  import EasyNormalContainer from "@/components/EasyNormalContainer";
-  import user from "../../../components/user.vue";
-  import dicselect from "../../../components/dicselect.vue";
-  import {Message} from 'element-ui';
-  import {getOrgInfoByUserId} from '@/utils/customize'
-  import moment from "moment";
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import user from '../../../components/user.vue';
+import dicselect from '../../../components/dicselect.vue';
+import {Message} from 'element-ui';
+import {getOrgInfoByUserId} from '@/utils/customize';
+import moment from 'moment';
 
-  export default {
-    name: 'PFANS2023FormView',
-    components: {
-      dicselect,
-      EasyNormalContainer,
-      user
-    },
-    data() {
-      var validateUserid = (rule, value, callback) => {
-        if (!value || value === '' || value === "undefined") {
-          callback(new Error(this.$t('normal.error_08') + this.$t('label.user_name')));
-          this.error = this.$t('normal.error_08') + this.$t('label.user_name');
-        } else {
-          callback();
-          this.error = '';
-        }
-      };
-      return {
-        thisyear: moment(new Date()).format('YYYY'),
-        centerid: '',
-        groupid: '',
-        teamid: '',
-        disable: false,
-        // staff: [],
-        technology: [],
-        checked: true,
-        checked1: true,
-        checked2: true,
-        checked3: true,
-        checked4: true,
-        show: false,
-        error: "",
-        selectType: "Single",
-        userlist: "",
-        activeName: 'first',
-        buttonList: [],
-        data: [],
-        loading: false,
-        title: "title.PFANS2024VIEW",
-        rules: {
-          user_id: [{
-            required: true,
-            validator: validateUserid,
-            trigger: 'change',
-          }],
-          business: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS2024FORMVIEW_BUSINESS'),
-              trigger: 'blur'
-            }
-          ],
-          // skilllevelafter: [
-          //     {
-          //         required: true,
-          //         message: this.$t('normal.error_08') + this.$t('label.PFANS2023FORMVIEW_RANK'),
-          //         trigger: 'change'
-          //     }
-          // ],
-        },
-        form: {
-          center_id: '',
-          group_id: '',
-          team_id: '',
-          user_id: '',
-          skilllevel: '',
-          // skilllevelafter: '',
-          schoolspecies: '',
-          graduationyear: '',
-          // contract: '',
-          entryyear: '',
-          business: '',
-          features: '',
-          technology: '',
-          // staff: '',
-          skillranking1: '',
-          skillranking2: '',
-          nextskillranking1: '',
-          nextskillranking2: '',
-          future1: '',
-          promotion: '',
-          future2: '',
-          yearschedule: '',
-          skillrankingfinished: "0",
-          nextskillrankingfinished: "0",
-          futurefinished: "0",
-          status: '',
-          finishstatus: '',
-        },
-        multiple: false,
-        multiple1: true,
-        code: 'PR021',
-        code1: 'PR022',
-        code2: 'PR017',
-        code3: 'PR018',
-        canStart: false,
-      }
-    },
-    mounted() {
-      if (this.$route.params._id) {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS2024Store/getDataOne', {"talentplan_id": this.$route.params._id})
-          .then(response => {
-            this.form = response;
-            let rst = getOrgInfoByUserId(response.user_id);
-            if (rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
-            }
-            this.userlist = this.form.user_id;
-            let lettechnology;
-            if (this.form.technology && this.form.technology.length > 0) {
-              lettechnology = this.form.technology.split(",");
-              for (var i = 0; i < lettechnology.length; i++) {
-                this.technology.push(lettechnology[i]);
-              }
-            }
-            // let letstaff;
-            // if (this.form.staff && this.form.staff.length > 0) {
-            //     letstaff = this.form.staff.split(",");
-            //     for (var i = 0; i < letstaff.length; i++) {
-            //         this.staff.push(letstaff[i]);
-            //     }
-            // }
-            if (this.form.promotion === '1') {
-              this.show = true;
-            } else {
-              this.show = false;
-              this.form.yearschedule = "";
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
+export default {
+  name: 'PFANS2023FormView',
+  components: {
+    dicselect,
+    EasyNormalContainer,
+    user,
+  },
+  data() {
+    var validateUserid = (rule, value, callback) => {
+      if (!value || value === '' || value === 'undefined') {
+        callback(new Error(this.$t('normal.error_08') + this.$t('label.user_name')));
+        this.error = this.$t('normal.error_08') + this.$t('label.user_name');
       } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== "") {
-          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+        callback();
+        this.error = '';
+      }
+    };
+    return {
+      thisyear: moment(new Date()).format('YYYY'),
+      centerid: '',
+      groupid: '',
+      teamid: '',
+      disable: false,
+      // staff: [],
+      technology: [],
+      checked: true,
+      checked1: true,
+      checked2: true,
+      checked3: true,
+      checked4: true,
+      show: false,
+      error: '',
+      selectType: 'Single',
+      userlist: '',
+      activeName: 'first',
+      buttonList: [],
+      data: [],
+      loading: false,
+      title: 'title.PFANS2024VIEW',
+      rules: {
+        user_id: [{
+          required: true,
+          validator: validateUserid,
+          trigger: 'change',
+        }],
+        business: [
+          {
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS2024FORMVIEW_BUSINESS'),
+            trigger: 'blur',
+          },
+        ],
+        // skilllevelafter: [
+        //     {
+        //         required: true,
+        //         message: this.$t('normal.error_08') + this.$t('label.PFANS2023FORMVIEW_RANK'),
+        //         trigger: 'change'
+        //     }
+        // ],
+      },
+      form: {
+        center_id: '',
+        group_id: '',
+        team_id: '',
+        user_id: '',
+        skilllevel: '',
+        // skilllevelafter: '',
+        schoolspecies: '',
+        graduationyear: '',
+        // contract: '',
+        entryyear: '',
+        business: '',
+        features: '',
+        technology: '',
+        // staff: '',
+        skillranking1: '',
+        skillranking2: '',
+        nextskillranking1: '',
+        nextskillranking2: '',
+        future1: '',
+        promotion: '',
+        future2: '',
+        yearschedule: '',
+        skillrankingfinished: '0',
+        nextskillrankingfinished: '0',
+        futurefinished: '0',
+        status: '',
+        finishstatus: '',
+      },
+      multiple: false,
+      multiple1: true,
+      code: 'PR021',
+      code1: 'PR022',
+      code2: 'PR017',
+      code3: 'PR018',
+      canStart: false,
+    };
+  },
+  mounted() {
+    if (this.$route.params._id) {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS2024Store/getDataOne', {'talentplan_id': this.$route.params._id})
+        .then(response => {
+          this.form = response;
+          let rst = getOrgInfoByUserId(response.user_id);
           if (rst) {
             this.centerid = rst.centerNmae;
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
-            this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
-            this.form.team_id = rst.teamId;
           }
-          this.form.user_id = this.$store.getters.userinfo.userid;
-        }
-      }
-    },
-    created() {
-      this.disable = this.$route.params.disabled;
-      if (this.disable) {
-        this.buttonList = [
-          {
-            key: "save",
-            name: "button.save",
-            disabled: false,
-            icon: "el-icon-check"
-          },
-          {
-            key: "complete",
-            name: "button.complete",
-            disabled: false,
-            icon: "el-icon-check"
+          this.userlist = this.form.user_id;
+          let lettechnology;
+          if (this.form.technology && this.form.technology.length > 0) {
+            lettechnology = this.form.technology.split(',');
+            for (var i = 0; i < lettechnology.length; i++) {
+              this.technology.push(lettechnology[i]);
+            }
           }
-        ];
-      }
-    },
-    methods: {
-      handleDownload() {
-        this.loading = true;
-        this.$store
-          .dispatch("PFANS2024Store/download", {})
-          .then(response => {
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: "error",
-              duration: 5 * 1000
-            });
-            this.loading = false;
+          // let letstaff;
+          // if (this.form.staff && this.form.staff.length > 0) {
+          //     letstaff = this.form.staff.split(",");
+          //     for (var i = 0; i < letstaff.length; i++) {
+          //         this.staff.push(letstaff[i]);
+          //     }
+          // }
+          if (this.form.promotion === '1') {
+            this.show = true;
+          } else {
+            this.show = false;
+            this.form.yearschedule = '';
+          }
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
           });
-      },
-      checkRequire() {
-        if (!this.form.user_id || !this.form.skilllevel || !this.form.business) {
-          this.activeName = 'first';
-        }
-      },
-      setdisabled(val) {
-        if (this.$route.params.disabled) {
-          this.disabled = val;
-        }
-      },
-      getUserids(val) {
-        this.userlist = val;
-        this.form.user_id = val;
-        let rst = getOrgInfoByUserId(val);
+          this.loading = false;
+        });
+    } else {
+      this.userlist = this.$store.getters.userinfo.userid;
+      if (this.userlist !== null && this.userlist !== '') {
+        let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         if (rst) {
           this.centerid = rst.centerNmae;
           this.groupid = rst.groupNmae;
@@ -525,151 +466,213 @@
           this.form.center_id = rst.centerId;
           this.form.group_id = rst.groupId;
           this.form.team_id = rst.teamId;
-        } else {
-          this.centerid = '';
-          this.groupid = '';
-          this.teamid = '';
-          this.form.center_id = '';
-          this.form.group_id = '';
-          this.form.team_id = '';
         }
-        if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
-          this.error = this.$t('normal.error_08') + this.$t('label.user_name');
-        } else {
-          this.error = "";
-        }
-      },
-      // getErrorType(val1) {
-      //     this.form.skilllevelafter = val1;
-      // },
-      getschoolspecie(val1) {
-        this.form.schoolspecies = val1;
-      },
-      gettechnology(val1) {
-        this.technology = val1;
-      },
-      // getstaff(val1) {
-      //     this.staff = val1;
-      // },
-      getpromotion(val) {
-        this.form.promotion = val;
-        if (val === '1') {
-          this.show = true;
-        } else {
-          this.show = false;
-          this.form.yearschedule = '';
-        }
-      },
-      workflowState(val) {
-        if (val.state === '1') {
-          this.form.status = '3';
-        } else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        this.buttonClick("update");
-      },
-      start(val) {
-        if (val.state === '0') {
-          this.form.status = '2';
-        } else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        // this.form.status = '2';
-        this.buttonClick("update");
-      },
-      end() {
-        this.form.status = '0';
-        this.buttonClick("update");
-      },
+        this.form.user_id = this.$store.getters.userinfo.userid;
+      }
+    }
+  },
+  created() {
+    this.disable = this.$route.params.disabled;
+    if (this.disable) {
+      this.buttonList = [
+        {
+          key: 'save',
+          name: 'button.save',
+          disabled: false,
+          icon: 'el-icon-check',
+        },
+        {
+          key: 'complete',
+          name: 'button.complete',
+          disabled: false,
+          icon: 'el-icon-check',
+        },
+      ];
+    }
+  },
+  methods: {
+    handleDownload() {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS2024Store/download', {})
+        .then(response => {
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    },
+    checkRequire() {
+      if (!this.form.user_id || !this.form.skilllevel || !this.form.business) {
+        this.activeName = 'first';
+      }
+    },
+    setdisabled(val) {
+      if (this.$route.params.disabled) {
+        this.disabled = val;
+      }
+    },
+    getUserids(val) {
+      this.userlist = val;
+      this.form.user_id = val;
+      let rst = getOrgInfoByUserId(val);
+      if (rst) {
+        this.centerid = rst.centerNmae;
+        this.groupid = rst.groupNmae;
+        this.teamid = rst.teamNmae;
+        this.form.center_id = rst.centerId;
+        this.form.group_id = rst.groupId;
+        this.form.team_id = rst.teamId;
+      } else {
+        this.centerid = '';
+        this.groupid = '';
+        this.teamid = '';
+        this.form.center_id = '';
+        this.form.group_id = '';
+        this.form.team_id = '';
+      }
+      if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
+        this.error = this.$t('normal.error_08') + this.$t('label.user_name');
+      } else {
+        this.error = '';
+      }
+    },
+    // getErrorType(val1) {
+    //     this.form.skilllevelafter = val1;
+    // },
+    getschoolspecie(val1) {
+      this.form.schoolspecies = val1;
+    },
+    gettechnology(val1) {
+      this.technology = val1;
+    },
+    // getstaff(val1) {
+    //     this.staff = val1;
+    // },
+    getpromotion(val) {
+      this.form.promotion = val;
+      if (val === '1') {
+        this.show = true;
+      } else {
+        this.show = false;
+        this.form.yearschedule = '';
+      }
+    },
+    workflowState(val) {
+      if (val.state === '1') {
+        this.form.status = '3';
+      } else if (val.state === '2') {
+        this.form.status = '4';
+      }
+      this.buttonClick('update');
+    },
+    start(val) {
+      if (val.state === '0') {
+        this.form.status = '2';
+      } else if (val.state === '2') {
+        this.form.status = '4';
+      }
+      // this.form.status = '2';
+      this.buttonClick('update');
+    },
+    end() {
+      this.form.status = '0';
+      this.buttonClick('update');
+    },
 
-      buttonClick(val) {
-        this.checkRequire();
-        this.$refs["ruleForm"].validate(valid => {
-          if (valid) {
-            // this.form.staff = "";
-            this.form.technology = "";
-            if (val === 'complete') {
-              this.form.finishstatus = '1';
-            } else {
-              this.form.finishstatus = '0';
-            }
-            // if (this.staff.length > 0) {
-            //     let letstaff = this.staff.splice(",");
-            //     for (var i = 0; i < letstaff.length; i++) {
-            //         this.form.staff = this.form.staff + letstaff[i] + ","
-            //     }
-            // }
-            // this.form.staff = this.form.staff.substring(0, this.form.staff.length - 1);
+    buttonClick(val) {
+      this.checkRequire();
+      this.$refs['ruleForm'].validate(valid => {
+        if (valid) {
+          // this.form.staff = "";
+          this.form.technology = '';
+          if (val === 'complete') {
+            this.form.finishstatus = '1';
+          } else {
+            this.form.finishstatus = '0';
+          }
+          // if (this.staff.length > 0) {
+          //     let letstaff = this.staff.splice(",");
+          //     for (var i = 0; i < letstaff.length; i++) {
+          //         this.form.staff = this.form.staff + letstaff[i] + ","
+          //     }
+          // }
+          // this.form.staff = this.form.staff.substring(0, this.form.staff.length - 1);
 
-            if (this.technology.length > 0) {
-              let lettechnology = this.technology.splice(",");
-              for (var i = 0; i < lettechnology.length; i++) {
-                this.form.technology = this.form.technology + lettechnology[i] + ","
-              }
+          if (this.technology.length > 0) {
+            let lettechnology = this.technology.splice(',');
+            for (var i = 0; i < lettechnology.length; i++) {
+              this.form.technology = this.form.technology + lettechnology[i] + ',';
             }
-            this.form.technology = this.form.technology.substring(0, this.form.technology.length - 1);
-            this.loading = true;
-            if (this.$route.params._id) {
-              this.form.talentplan_id = this.$route.params._id;
-              this.$store
-                .dispatch('PFANS2024Store/updatePfans2024', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if (val !== "update") {
-                    Message({
-                      message: this.$t("normal.success_02"),
-                      type: 'success',
-                      duration: 5 * 1000
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  }
-                })
-                .catch(error => {
-                  this.$message.error({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000
-                  });
-                  this.loading = false;
-                })
-            } else {
-              this.$store
-                .dispatch('PFANS2024Store/createPfans2024', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
+          }
+          this.form.technology = this.form.technology.substring(0, this.form.technology.length - 1);
+          this.loading = true;
+          if (this.$route.params._id) {
+            this.form.talentplan_id = this.$route.params._id;
+            this.$store
+              .dispatch('PFANS2024Store/updatePfans2024', this.form)
+              .then(response => {
+                this.data = response;
+                this.loading = false;
+                if (val !== 'update') {
                   Message({
-                    message: this.$t("normal.success_01"),
+                    message: this.$t('normal.success_02'),
                     type: 'success',
-                    duration: 5 * 1000
+                    duration: 5 * 1000,
                   });
                   if (this.$store.getters.historyUrl) {
                     this.$router.push(this.$store.getters.historyUrl);
                   }
-                })
-                .catch(error => {
-                  this.$message.error({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000
-                  });
-                  this.loading = false;
-                })
-            }
+                }
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
           } else {
-            Message({
-              message: this.$t("normal.error_12"),
-              type: 'error',
-              duration: 5 * 1000
-            });
+            this.$store
+              .dispatch('PFANS2024Store/createPfans2024', this.form)
+              .then(response => {
+                this.data = response;
+                this.loading = false;
+                Message({
+                  message: this.$t('normal.success_01'),
+                  type: 'success',
+                  duration: 5 * 1000,
+                });
+                if (this.$store.getters.historyUrl) {
+                  this.$router.push(this.$store.getters.historyUrl);
+                }
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
           }
-        })
-      },
-    }
-  }
+        } else {
+          Message({
+            message: this.$t('normal.error_12'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
+      });
+    },
+  },
+};
 </script>
 <style lang="scss" rel="stylesheet/scss">
 </style>

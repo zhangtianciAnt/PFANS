@@ -1,4 +1,9 @@
-import {getOffshore, getOffshoreOne, updateOffshore, createOffshore} from './PFANS1011Api'
+import {
+  createOffshore,
+  getOffshore,
+  getOffshoreOne,
+  updateOffshore,
+} from './PFANS1011Api';
 
 const PFANS1011Store = {
   namespaced: true,
@@ -11,12 +16,12 @@ const PFANS1011Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     getOffshoreOne({commit}, data) {
@@ -25,12 +30,12 @@ const PFANS1011Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     updateOffshore({commit}, data) {
@@ -39,12 +44,12 @@ const PFANS1011Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     createOffshore({commit}, data) {
@@ -53,14 +58,14 @@ const PFANS1011Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 
 export default PFANS1011Store;

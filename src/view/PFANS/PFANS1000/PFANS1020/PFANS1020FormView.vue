@@ -2,39 +2,39 @@
   <div style="min-height: 100%">
     <EasyNormalContainer
       ref="container"
-      :title="title"
-      @buttonClick="buttonClick"
       v-loading="loading"
       :buttonList="buttonList"
-      @workflowState="workflowState"
       :canStart="canStart"
-      @start="start"
-      @end="end"
-      :workflowCode="workflowCode"
       :enableSave="enableSave"
+      :title="title"
+      :workflowCode="workflowCode"
+      @buttonClick="buttonClick"
+      @end="end"
+      @start="start"
+      @workflowState="workflowState"
     >
       <div slot="customize">
         <el-form
-          :model="form"
-          label-width="8vw"
-          label-position="top"
-          style="padding: 3vw"
-          :rules="rules"
           ref="refform"
+          :model="form"
+          :rules="rules"
+          label-position="top"
+          label-width="8vw"
+          style="padding: 3vw"
         >
           <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1016FORMVIEW_CORRESPONDING')" prop='corresponding'>
-                <span style="margin-right: 1vw ">{{$t('label.PFANS1016FORMVIEW_INCOMPLETE')}}</span>
+                <span style="margin-right: 1vw ">{{ $t('label.PFANS1016FORMVIEW_INCOMPLETE') }}</span>
                 <el-switch
+                  v-model="form.corresponding"
                   :disabled="acceptShow"
-                  @change="getcorresponding"
                   active-value="1"
                   inactive-value="0"
-                  v-model="form.corresponding"
+                  @change="getcorresponding"
                 ></el-switch>
-                <span style="margin-left: 1vw ">{{$t('label.PFANS1016FORMVIEW_COMPLETE')}}</span>
+                <span style="margin-left: 1vw ">{{ $t('label.PFANS1016FORMVIEW_COMPLETE') }}</span>
               </el-form-item>
             </el-col>
           </el-row>
@@ -42,37 +42,37 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                <el-input v-model="centerid" :disabled="true" style="width:20vw"></el-input>
                 <el-input
                   v-show="false"
                   v-model="form.center_id"
                   :disabled="true"
-                  style="width: 20vw"
                   maxlength="36"
+                  style="width: 20vw"
                 ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                <el-input v-model="groupid" :disabled="true" style="width:20vw"></el-input>
                 <el-input
                   v-show="false"
                   v-model="form.group_id"
                   :disabled="true"
-                  style="width: 20vw"
                   maxlength="36"
+                  style="width: 20vw"
                 ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                <el-input v-model="teamid" :disabled="true" style="width:20vw"></el-input>
                 <el-input
                   v-show="false"
                   v-model="form.team_id"
                   :disabled="true"
-                  style="width: 20vw"
                   maxlength="36"
+                  style="width: 20vw"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -83,8 +83,8 @@
                   :error="erroruser"
                   :selectType="selectType"
                   :userlist="userlist"
-                  @getUserids="getUserids"
                   style="width: 20vw"
+                  @getUserids="getUserids"
                 ></user>
               </el-form-item>
             </el-col>
@@ -93,29 +93,29 @@
                 <el-input
                   v-model="form.type"
                   :disabled="!disabled1"
-                  style="width: 20vw"
                   maxlength="20"
+                  style="width: 20vw"
                 ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.application_date')" prop="dailypayment">
                 <el-date-picker
-                  :disabled="true"
-                  type="date"
                   v-model="form.dailypayment"
+                  :disabled="true"
                   style="width: 20vw"
+                  type="date"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
-              <div class="sub_color_blue">{{$t('label.PFANS1021FORMVIEW_DETAIL')}}</div>
+              <div class="sub_color_blue">{{ $t('label.PFANS1021FORMVIEW_DETAIL') }}</div>
             </el-col>
           </el-row>
           <el-row>
-            <el-table :data="tableD" border stripe header-cell-class-name="sub_bg_color_blue">
+            <el-table :data="tableD" border header-cell-class-name="sub_bg_color_blue" stripe>
               <el-table-column
                 :label="$t('label.PFANS2006VIEW_NO')"
                 align="center"
@@ -124,17 +124,17 @@
                 type="index"
               ></el-table-column>
               <el-table-column
+                :error="errorusername"
                 :label="$t('label.PFANS1020FORMVIEW_USERNAME')"
                 align="center"
                 prop="username"
-                :error="errorusername"
               >
                 <template slot-scope="scope">
                   <el-input
-                    :error="errorusername"
-                    :disabled="!disabled"
-                    :no="scope.row"
                     v-model="scope.row.username"
+                    :disabled="!disabled"
+                    :error="errorusername"
+                    :no="scope.row"
                   ></el-input>
                 </template>
               </el-table-column>
@@ -145,13 +145,13 @@
               >
                 <template slot-scope="scope">
                   <dicselect
-                    :no="scope.row"
                     :code="code"
                     :data="scope.row.rank"
-                    :multiple="multiple"
-                    @change="getRank"
-                    style="width: 11rem"
                     :disabled="!disabled"
+                    :multiple="multiple"
+                    :no="scope.row"
+                    style="width: 11rem"
+                    @change="getRank"
                   ></dicselect>
                 </template>
               </el-table-column>
@@ -162,9 +162,9 @@
               >
                 <template slot-scope="scope">
                   <el-input
+                    v-model="scope.row.mailaddress"
                     :disabled="!disabled"
                     :no="scope.row"
-                    v-model="scope.row.mailaddress"
                     maxlength="100"
                   ></el-input>
                 </template>
@@ -176,10 +176,10 @@
               >
                 <template slot-scope="scope">
                   <el-input
-                    :disabled="!disabled"
-                    maxlength="20"
-                    :no="scope.row"
                     v-model="scope.row.reason"
+                    :disabled="!disabled"
+                    :no="scope.row"
+                    maxlength="20"
                   ></el-input>
                 </template>
               </el-table-column>
@@ -187,18 +187,20 @@
                 <template slot-scope="scope">
                   <el-button
                     :disabled="!disabled"
-                    @click.native.prevent="deleteRow(scope.$index, tableD)"
                     plain
                     size="small"
                     type="danger"
-                  >{{$t('button.delete')}}</el-button>
+                    @click.native.prevent="deleteRow(scope.$index, tableD)"
+                  >{{ $t('button.delete') }}
+                  </el-button>
                   <el-button
                     :disabled="!disabled"
-                    @click="addRow()"
                     plain
                     size="small"
                     type="primary"
-                  >{{$t('button.insert')}}</el-button>
+                    @click="addRow()"
+                  >{{ $t('button.insert') }}
+                  </el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -210,88 +212,88 @@
 </template>
 
 <script>
-import EasyNormalContainer from "@/components/EasyNormalContainer";
-import dicselect from "../../../components/dicselect.vue";
-import user from "../../../components/user.vue";
-import { Message } from "element-ui";
-import {getDictionaryInfo, getCurrentRole4, getOrgInfoByUserId, getUserInfo, getCurrentRole} from "@/utils/customize";
-import org from "../../../components/org";
-import moment from "moment";
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import dicselect from '../../../components/dicselect.vue';
+import user from '../../../components/user.vue';
+import {Message} from 'element-ui';
+import {getCurrentRole, getCurrentRole4, getDictionaryInfo, getOrgInfoByUserId} from '@/utils/customize';
+import org from '../../../components/org';
+import moment from 'moment';
 
 export default {
-  name: "PFANS1020FormView",
+  name: 'PFANS1020FormView',
   components: {
     EasyNormalContainer,
     getOrgInfoByUserId,
     dicselect,
     user,
-    org
+    org,
   },
   data() {
     var checkuser = (rule, value, callback) => {
-      if (!value || value === "" || value === "undefined") {
+      if (!value || value === '' || value === 'undefined') {
         this.erroruser =
-          this.$t("normal.error_09") + this.$t("label.applicant");
+          this.$t('normal.error_09') + this.$t('label.applicant');
         return callback(
-          new Error(this.$t("normal.error_09") + this.$t("label.applicant"))
+          new Error(this.$t('normal.error_09') + this.$t('label.applicant')),
         );
       } else {
-        this.erroruser = "";
+        this.erroruser = '';
         return callback();
       }
     };
     var checkusername = (rule, value, callback) => {
-      if (!value || value === "" || value === "undefined") {
+      if (!value || value === '' || value === 'undefined') {
         this.errorusername =
-          this.$t("normal.error_09") + this.$t("label.applicant");
+          this.$t('normal.error_09') + this.$t('label.applicant');
         return callback(
-          new Error(this.$t("normal.error_09") + this.$t("label.applicant"))
+          new Error(this.$t('normal.error_09') + this.$t('label.applicant')),
         );
       } else {
-        this.errorusername = "";
+        this.errorusername = '';
         return callback();
       }
     };
     return {
-      centerid: "",
-      groupid: "",
-      teamid: "",
+      centerid: '',
+      groupid: '',
+      teamid: '',
       baseInfo: {},
-      userlist: "",
-      workflowCode: "",
+      userlist: '',
+      workflowCode: '',
       loading: false,
       //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
       acceptShow: 'true',
       enableSave: false,
       //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-      erroruser: "",
-      errorusername: "",
-      selectType: "Single",
-      title: "title.PFANS1020VIEW",
+      erroruser: '',
+      errorusername: '',
+      selectType: 'Single',
+      title: 'title.PFANS1020VIEW',
       buttonList: [],
       multiple: false,
       form: {
-        center_id: "",
-        group_id: "",
-        team_id: "",
-        user_id: "",
-        type: this.$t("menu.PFANS1020"),
+        center_id: '',
+        group_id: '',
+        team_id: '',
+        user_id: '',
+        type: this.$t('menu.PFANS1020'),
         //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
         corresponding: '',
         //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-        dailypayment: moment(new Date()).format("YYYY-MM-DD")
+        dailypayment: moment(new Date()).format('YYYY-MM-DD'),
       },
       tableD: [
         {
-          outsidedetailid: "",
-          outsideid: "",
-          username: "",
-          rank: "",
-          mailaddress: "",
-          reason: ""
-        }
+          outsidedetailid: '',
+          outsideid: '',
+          username: '',
+          rank: '',
+          mailaddress: '',
+          reason: '',
+        },
       ],
-      code: "PR063",
+      code: 'PR063',
       disabled: false,
       disabled1: false,
       menuList: [],
@@ -300,26 +302,26 @@ export default {
           {
             required: true,
             validator: checkuser,
-            trigger: "change"
-          }
+            trigger: 'change',
+          },
         ],
         username: [
           {
             required: true,
             validator: checkusername,
-            trigger: "change"
-          }
+            trigger: 'change',
+          },
         ],
         dailypayment: [
           {
             required: true,
             message:
-              this.$t("normal.error_09") + this.$t("label.application_date"),
-            trigger: "change"
-          }
-        ]
+              this.$t('normal.error_09') + this.$t('label.application_date'),
+            trigger: 'change',
+          },
+        ],
       },
-      canStart: false
+      canStart: false,
     };
   },
 
@@ -327,18 +329,18 @@ export default {
     this.loading = true;
     if (this.$route.params._id) {
       this.$store
-        .dispatch("PFANS1020Store/selectById", {
-          outsideid: this.$route.params._id
+        .dispatch('PFANS1020Store/selectById', {
+          outsideid: this.$route.params._id,
         })
         .then(response => {
           this.form = response.outside;
           let roleLC = getCurrentRole();
           if (roleLC == '1') {
             this.workflowCode = 'W0106';//总经理流程
-          // } else if(roleLC == '2' || roleLC == '3') { //GM Center
-          //   this.workflowCode = 'W0123'//新流程
-          }else { //TL 正式员工
-            this.workflowCode = 'W0027'
+            // } else if(roleLC == '2' || roleLC == '3') { //GM Center
+            //   this.workflowCode = 'W0123'//新流程
+          } else { //TL 正式员工
+            this.workflowCode = 'W0027';
           }
           let rst = getOrgInfoByUserId(response.outside.user_id);
           if (rst) {
@@ -351,14 +353,14 @@ export default {
           }
           for (let i = 0; i < this.tableD.length; i++) {
             if (this.tableD[i].rank != null) {
-              let rankFlg = getDictionaryInfo(this.tableD[i].rank)
+              let rankFlg = getDictionaryInfo(this.tableD[i].rank);
               if (rankFlg) {
                 this.tableD[i].rank = rankFlg.value1;
               }
             }
           }
           this.userlist = this.form.user_id;
-          if (this.form.status === "2") {
+          if (this.form.status === '2') {
             this.disable = false;
           }
           //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
@@ -382,14 +384,14 @@ export default {
         .catch(error => {
           this.$message.error({
             message: error,
-            type: "error",
-            duration: 5 * 1000
+            type: 'error',
+            duration: 5 * 1000,
           });
           this.loading = false;
         });
     } else {
       this.userlist = this.$store.getters.userinfo.userid;
-      if (this.userlist !== null && this.userlist !== "") {
+      if (this.userlist !== null && this.userlist !== '') {
         let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         if (rst) {
           this.centerid = rst.centerNmae;
@@ -409,11 +411,11 @@ export default {
     if (this.disabled) {
       this.buttonList = [
         {
-          key: "save",
-          name: "button.save",
+          key: 'save',
+          name: 'button.save',
           disabled: false,
-          icon: "el-icon-check"
-        }
+          icon: 'el-icon-check',
+        },
       ];
     }
   },
@@ -430,22 +432,22 @@ export default {
         this.form.group_id = rst.groupId;
         this.form.team_id = rst.teamId;
       } else {
-        this.centerid = "";
-        this.groupid = "";
-        this.teamid = "";
-        this.form.center_id = "";
-        this.form.group_id = "";
-        this.form.team_id = "";
+        this.centerid = '';
+        this.groupid = '';
+        this.teamid = '';
+        this.form.center_id = '';
+        this.form.group_id = '';
+        this.form.team_id = '';
       }
       if (
         !this.form.user_id ||
-        this.form.user_id === "" ||
-        val === "undefined"
+        this.form.user_id === '' ||
+        val === 'undefined'
       ) {
         this.erroruser =
-          this.$t("normal.error_09") + this.$t("label.applicant");
+          this.$t('normal.error_09') + this.$t('label.applicant');
       } else {
-        this.erroruser = "";
+        this.erroruser = '';
       }
     },
     // getUserids1(val, row) {
@@ -471,26 +473,26 @@ export default {
     },
     //<!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
     workflowState(val) {
-      if (val.state === "1") {
-        this.form.status = "3";
-      } else if (val.state === "2") {
-        this.form.status = "4";
+      if (val.state === '1') {
+        this.form.status = '3';
+      } else if (val.state === '2') {
+        this.form.status = '4';
       }
-      this.buttonClick("update");
+      this.buttonClick('update');
     },
     //add-ws-5-20-流程恒展开
     start(val) {
       if (val.state === '0') {
         this.form.status = '2';
-      }else if (val.state === '2') {
+      } else if (val.state === '2') {
         this.form.status = '4';
       }
-      this.buttonClick("update");
+      this.buttonClick('update');
     },
     //add-ws-5-20-流程恒展开
     end() {
-      this.form.status = "0";
-      this.buttonClick("update");
+      this.form.status = '0';
+      this.buttonClick('update');
     },
     deleteRow(index, rows) {
       if (rows.length > 1) {
@@ -498,28 +500,28 @@ export default {
       } else {
         this.tableD = [
           {
-            outsidedetailid: "",
-            outsideid: "",
-            username: "",
-            rank: "",
-            mailaddress: "",
-            reason: ""
-          }
+            outsidedetailid: '',
+            outsideid: '',
+            username: '',
+            rank: '',
+            mailaddress: '',
+            reason: '',
+          },
         ];
       }
     },
     addRow() {
       this.tableD.push({
-        outsidedetailid: "",
-        outsideid: "",
-        username: "",
-        rank: "",
-        mailaddress: "",
-        reason: ""
+        outsidedetailid: '',
+        outsideid: '',
+        username: '',
+        rank: '',
+        mailaddress: '',
+        reason: '',
       });
     },
     buttonClick(val) {
-      this.$refs["refform"].validate(valid => {
+      this.$refs['refform'].validate(valid => {
         if (valid) {
           this.loading = true;
           this.baseInfo = {};
@@ -527,10 +529,10 @@ export default {
           this.baseInfo.outsidedetail = [];
           for (let i = 0; i < this.tableD.length; i++) {
             if (
-              this.tableD[i].username !== "" ||
-              this.tableD[i].rank !== "" ||
-              this.tableD[i].mailaddress !== "" ||
-              this.tableD[i].reason !== ""
+              this.tableD[i].username !== '' ||
+              this.tableD[i].rank !== '' ||
+              this.tableD[i].mailaddress !== '' ||
+              this.tableD[i].reason !== ''
             ) {
               this.baseInfo.outsidedetail.push({
                 outsidedetailid: this.tableD[i].outsidedetailid,
@@ -538,22 +540,22 @@ export default {
                 username: this.tableD[i].username,
                 rank: this.tableD[i].rank,
                 mailaddress: this.tableD[i].mailaddress,
-                reason: this.tableD[i].reason
+                reason: this.tableD[i].reason,
               });
             }
           }
           if (this.$route.params._id) {
             this.baseInfo.outsideid = this.$route.params._id;
             this.$store
-              .dispatch("PFANS1020Store/update", this.baseInfo)
+              .dispatch('PFANS1020Store/update', this.baseInfo)
               .then(response => {
                 this.data = response;
                 this.loading = false;
-                if (val !== "update") {
+                if (val !== 'update') {
                   Message({
-                    message: this.$t("normal.success_02"),
-                    type: "success",
-                    duration: 5 * 1000
+                    message: this.$t('normal.success_02'),
+                    type: 'success',
+                    duration: 5 * 1000,
                   });
                   if (this.$store.getters.historyUrl) {
                     this.$router.push(this.$store.getters.historyUrl);
@@ -563,21 +565,21 @@ export default {
               .catch(error => {
                 this.$message.error({
                   message: error,
-                  type: "error",
-                  duration: 5 * 1000
+                  type: 'error',
+                  duration: 5 * 1000,
                 });
                 this.loading = false;
               });
           } else {
             this.$store
-              .dispatch("PFANS1020Store/insert", this.baseInfo)
+              .dispatch('PFANS1020Store/insert', this.baseInfo)
               .then(response => {
                 this.data = response;
                 this.loading = false;
                 Message({
-                  message: this.$t("normal.success_01"),
-                  type: "success",
-                  duration: 5 * 1000
+                  message: this.$t('normal.success_01'),
+                  type: 'success',
+                  duration: 5 * 1000,
                 });
                 if (this.$store.getters.historyUrl) {
                   this.$router.push(this.$store.getters.historyUrl);
@@ -586,24 +588,24 @@ export default {
               .catch(error => {
                 this.$message.error({
                   message: error,
-                  type: "error",
-                  duration: 5 * 1000
+                  type: 'error',
+                  duration: 5 * 1000,
                 });
                 this.loading = false;
               });
           }
         } else {
           this.$message.error({
-            message: this.$t("normal.error_12"),
-            type: "error",
-            duration: 5 * 1000
+            message: this.$t('normal.error_12'),
+            type: 'error',
+            duration: 5 * 1000,
           });
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
+<style lang="scss" rel="stylesheet/scss">
 </style>

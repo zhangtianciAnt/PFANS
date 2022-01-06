@@ -1,19 +1,19 @@
-import request from '@/utils/request'
+import request from '@/utils/request';
 
-export function getActionsAuth (data) {
+export function getActionsAuth(data) {
   return request({
     url: '/auth/getActionsAuth',
     method: 'get',
     params: {
-      ownerid: data
-    }
-  })
+      ownerid: data,
+    },
+  });
 }
 
-export function getNewActionAuth () {
+export function getNewActionAuth() {
   return request({
     url: '/auth/getNewActionAuth',
     method: 'get',
-  })
+  });
 }
 

@@ -1,8 +1,4 @@
-import {
-  getRouting,
-  selectById,
-  update,
-  insert} from './PFANS1016Api'
+import {getRouting, insert, selectById, update} from './PFANS1016Api';
 
 const PFANS1016Store = {
   namespaced: true,
@@ -15,12 +11,12 @@ const PFANS1016Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     selectById({commit}, data) {
@@ -29,12 +25,12 @@ const PFANS1016Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     update({commit}, data) {
@@ -43,12 +39,12 @@ const PFANS1016Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     insert({commit}, data) {
@@ -57,14 +53,14 @@ const PFANS1016Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 
 export default PFANS1016Store;

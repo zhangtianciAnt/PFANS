@@ -1,4 +1,11 @@
-import {createAppointmentCar, getAppointmentCar, getAppointmentCarOne, updateAppointmentCar,download,change} from './PFANS3006Api'
+import {
+  change,
+  createAppointmentCar,
+  download,
+  getAppointmentCar,
+  getAppointmentCarOne,
+  updateAppointmentCar,
+} from './PFANS3006Api';
 
 const PFANS3006Store = {
   namespaced: true,
@@ -11,12 +18,12 @@ const PFANS3006Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getAppointmentCarOne({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -24,12 +31,12 @@ const PFANS3006Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updateAppointmentCar({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -37,12 +44,12 @@ const PFANS3006Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //数据转结
     change({commit}, data) {
@@ -64,12 +71,12 @@ const PFANS3006Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     download({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -77,10 +84,10 @@ const PFANS3006Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
-    }
-  }
-}
+        });
+      });
+    },
+  },
+};
 
 export default PFANS3006Store;

@@ -1,4 +1,4 @@
-import request from '../../../../utils/request'
+import request from '../../../../utils/request';
 
 
 export function getPltab(data) {
@@ -29,12 +29,13 @@ export function insert(data) {
   return request({
     url: 'Pltab/insert',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
+
 export function list() {
   return request({
     url: 'Pltab/list',
-    method: 'get'
-  })
+    method: 'get',
+  });
 }

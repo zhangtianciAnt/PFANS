@@ -1,10 +1,4 @@
-import {
-  update,
-  create,
-  list,
-  slectlist,
-  slectlist2
-} from './PFANS8011Api'
+import {create, list, slectlist, slectlist2, update} from './PFANS8011Api';
 
 const PFANS8011Store = {
   namespaced: true,
@@ -74,7 +68,7 @@ const PFANS8011Store = {
         });
       });
     },
-  }
-}
+  },
+};
 
 export default PFANS8011Store;

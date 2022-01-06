@@ -1,17 +1,17 @@
 <template>
   <div>
     <EasyNormalContainer
-      :title="roleid===''?'创建角色':'编辑角色'"
       ref="container"
-      @buttonClick="buttonClick"
       :buttonList="buttonList"
-      @workflowState="workflowState"
       :canStart="canStart"
+      :title="roleid===''?'创建角色':'编辑角色'"
+      @buttonClick="buttonClick"
       @start="start"
+      @workflowState="workflowState"
     >
       <div slot="customize" style="margin-top: 4vw;">
         <el-row>
-          <el-steps :active="active" finish-status="success" align-center>
+          <el-steps :active="active" align-center finish-status="success">
             <el-step :title="roleid==='' ? '创建角色' : '编辑角色'"></el-step>
             <el-step title="应用权限"></el-step>
             <el-step title="功能权限&数据权限"></el-step>
@@ -19,37 +19,37 @@
         </el-row>
         <el-row v-show="active === 0">
           <div style="width: 100%; min-height:20rem; margin: 5% auto; border-radius: 0.5rem;">
-            <el-form label-width="8vw" label-position="top" :model="roleForm" ref="roleForm" status-icon>
+            <el-form ref="roleForm" :model="roleForm" label-position="top" label-width="8vw" status-icon>
               <el-row>
                 <el-col :offset="3" :span="16">
                   <el-form-item
-                    label="角色名称:"
-                    prop="rolename"
                     :rules="[
                              { required: true, message: '请输入角色名称', trigger: 'blur' }]"
+                    label="角色名称:"
+                    prop="rolename"
                   >
                   </el-form-item>
-                    <el-input v-model="roleForm.rolename" style="width:70vw"></el-input>
+                  <el-input v-model="roleForm.rolename" style="width:70vw"></el-input>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :offset="3" :span="16">
                   <el-form-item
-                    label="角色说明:"
-                    prop="description"
                     :rules="[
                                         { required: true, message: '请输入角色说明', trigger: 'blur' }]"
+                    label="角色说明:"
+                    prop="description"
                   >
                   </el-form-item>
-                    <el-input type="textarea" v-model="roleForm.description" style="width:70vw"></el-input>
+                  <el-input v-model="roleForm.description" style="width:70vw" type="textarea"></el-input>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :offset="3" :span="16">
                   <el-form-item label="是否默认角色:">
-                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                    <span style="margin-right: 1vw ">{{ $t('label.no') }}</span>
                     <el-switch v-model="roleForm.defaultrole"></el-switch>
-                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                    <span style="margin-left: 1vw ">{{ $t('label.yes') }}</span>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -60,14 +60,14 @@
           <el-col :offset="3" :span="16">
             <div style="width: 100%; min-height:20rem; margin: 5% auto;">
               <el-tree
-                :props="defaultProps"
-                :data="apptreedata"
-                show-checkbox
-                :default-expand-all="true"
                 ref="apptree"
+                :data="apptreedata"
+                :default-expand-all="true"
+                :props="defaultProps"
                 node-key="_id"
+                show-checkbox
               >
-                <span class="custom-tree-node" slot-scope="{ node, data }">
+                <span slot-scope="{ node, data }" class="custom-tree-node">
                   <span>{{ $t(node.label) }}</span>
                 </span>
               </el-tree>
@@ -78,17 +78,17 @@
           <el-col :offset="3" :span="16">
             <div style="width: 100%; min-height:20rem; margin: 5% auto;">
               <el-tree
-                :props="props"
-                :data="fundata"
-                show-checkbox
-                default-expand-all
                 ref="functiontree"
-                node-key="_id"
+                :data="fundata"
                 :expand-on-click-node="false"
+                :props="props"
+                default-expand-all
+                node-key="_id"
+                show-checkbox
               >
-                <span class="custom-tree-node" slot-scope="{ node, data }">
+                <span slot-scope="{ node, data }" class="custom-tree-node">
                   <span>
-                    <el-popover placement="right" trigger="hover" title="权限等级">
+                    <el-popover placement="right" title="权限等级" trigger="hover">
                       <span :slot="node.childNodes.length > 0?'':'reference'">{{ $t(node.label) }}</span>
                       <div
                         style="width: 100%; margin: 5% auto; border: 0.1rem solid rgba(0, 0, 0, 0.2); border-radius: 0.5rem;"
@@ -127,24 +127,24 @@
 </template>
 
 <script>
-import EasyNormalContainer from "@/components/EasyNormalContainer";
-import EasyTree from "@/components/EasyTree";
-import { validatAlphabets, validateNumber } from "@/utils/validate";
-import { Message } from "element-ui";
-import { menu } from "@/utils/menu";
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import EasyTree from '@/components/EasyTree';
+import {Message} from 'element-ui';
+import {menu} from '@/utils/menu';
+
 export default {
-  name: "roleFormView",
+  name: 'roleFormView',
   components: {
     EasyTree,
-    EasyNormalContainer
+    EasyNormalContainer,
   },
   data() {
     return {
-      roleid: "",
+      roleid: '',
       canStart: false,
       active: 0,
       downloading: false,
-      rolename: "",
+      rolename: '',
       roleinstaceid: null,
       hiddenbtn: true,
       dialogVisibleNew: false,
@@ -155,31 +155,31 @@ export default {
       disabled: false,
       buttonList: [
         {
-          key: "btnBackward",
-          name: "上一步",
+          key: 'btnBackward',
+          name: '上一步',
           disabled: true,
-          icon: "el-icon-arrow-left"
+          icon: 'el-icon-arrow-left',
         },
         {
-          key: "btnForward",
-          name: "下一步",
+          key: 'btnForward',
+          name: '下一步',
           disabled: false,
-          icon: "el-icon-arrow-right"
+          icon: 'el-icon-arrow-right',
         },
-        { key: "btnSave", name: "完成", disabled: true, icon: "el-icon-check" }
+        {key: 'btnSave', name: '完成', disabled: true, icon: 'el-icon-check'},
       ],
       roleForm: {
-        rolename: "",
-        defaultrole:false,
-        description: ""
+        rolename: '',
+        defaultrole: false,
+        description: '',
       },
       defaultProps: {
-        label: "name",
-        children: "children"
+        label: 'name',
+        children: 'children',
       },
       props: {
-        label: "name",
-        children: "actions"
+        label: 'name',
+        children: 'actions',
       },
       appdata: [],
       fundata: [],
@@ -187,14 +187,15 @@ export default {
       checkactionlist: [],
       checkedMenu: [],
       apptreedata: [],
-      checkedApp: []
+      checkedApp: [],
     };
   },
   methods: {
     workflowState(val) {
       console.log(val);
     },
-    start() {},
+    start() {
+    },
     next() {
       switch (this.active) {
         case 0:
@@ -205,7 +206,7 @@ export default {
         case 1:
           //this.getMenuTreeNodes();
           this.fundata = this.$refs.apptree.getCheckedNodes(true);
-          if (this.roleid != "") {
+          if (this.roleid != '') {
             this.getcheckactionlist();
           }
           this.active = this.active + 1;
@@ -214,53 +215,53 @@ export default {
       }
     },
     saverole() {
-      this.$emit("changeLoading", true);
+      this.$emit('changeLoading', true);
       this.getMenuTreeNodes();
       this.$store
-        .dispatch("roleStore/saveRole", this.roleForm)
+        .dispatch('roleStore/saveRole', this.roleForm)
         .then(response => {
-          this.$emit("changeLoading", false);
+          this.$emit('changeLoading', false);
           Message({
-            message: "保存成功！",
-            type: "success",
-            duration: 2 * 1000
+            message: '保存成功！',
+            type: 'success',
+            duration: 2 * 1000,
           });
-          this.$refs.container.buttonClick("back");
+          this.$refs.container.buttonClick('back');
         })
         .catch(error => {
-          this.$emit("changeLoading", false);
+          this.$emit('changeLoading', false);
           this.$message.error({
             message: error,
-            type: "error",
-            duration: 2 * 1000
+            type: 'error',
+            duration: 2 * 1000,
           });
         });
     },
     buttonClick(val) {
-      if (val === "btnBackward") {
+      if (val === 'btnBackward') {
         this.active = this.active - 1;
       }
-      if (val === "btnForward") {
+      if (val === 'btnForward') {
         this.next();
       }
-      if (val === "btnSave") {
+      if (val === 'btnSave') {
         this.saverole();
       }
-      if (val === "back") {
-        this.$refs.container.buttonClick("back");
+      if (val === 'back') {
+        this.$refs.container.buttonClick('back');
       }
     },
     getRoleInfo(roleid) {
-      this.$emit("changeLoading", true);
+      this.$emit('changeLoading', true);
       this.$store
-        .dispatch("roleStore/getRoleInfo", roleid)
+        .dispatch('roleStore/getRoleInfo', roleid)
         .then(response => {
           this.roleForm = response;
           this.fetch();
-          this.$emit("changeLoading", false);
+          this.$emit('changeLoading', false);
         })
         .catch(error => {
-          this.$emit("changeLoading", false);
+          this.$emit('changeLoading', false);
         });
     },
     submitForm() {
@@ -275,15 +276,15 @@ export default {
       return result;
     },
     fetch() {
-      this.$emit("changeLoading", true);
+      this.$emit('changeLoading', true);
       this.appdata = menu();
       this.appdata.map(item => {
         this.apptreedata = this.apptreedata.concat(item.menus);
       });
-      if (this.roleid != "") {
+      if (this.roleid != '') {
         this.getcheckmenulist();
       }
-      this.$emit("changeLoading", false);
+      this.$emit('changeLoading', false);
     },
     getcheckmenulist() {
       // let temp = [];
@@ -389,11 +390,11 @@ export default {
       this.roleForm.apps = this.checkedApp;
       this.roleForm.menus = checkedMenus;
       this.roleForm.actions = checkedActions;
-    }
+    },
   },
   mounted() {
     this.roleid = this.$route.params._id;
-    if (this.roleid != "") {
+    if (this.roleid != '') {
       this.getRoleInfo(this.roleid);
     } else {
       this.fetch();
@@ -404,8 +405,8 @@ export default {
       this.buttonList[0].disabled = val > 0 ? false : true;
       this.buttonList[1].disabled = val < 2 ? false : true;
       this.buttonList[2].disabled = val === 2 ? false : true;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang='scss'>

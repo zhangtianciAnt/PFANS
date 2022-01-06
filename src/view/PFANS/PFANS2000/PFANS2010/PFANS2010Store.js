@@ -1,112 +1,110 @@
 import {
-  getlist,
+  disclickUpdateStates,
+  getabnormalByuseridandDate,
   getAttendancelist,
   getAttendancelist1,
+  getAttendancelistCompared,
+  getlist,
+  selectAbnomalandOvertime,
+  selectAbnomaling,
   update,
   updStatus,
   updStatus1,
-  getAttendancelistCompared,
-  disclickUpdateStates,
-  selectAbnomalandOvertime,
-  selectAbnomaling,
-  getabnormalByuseridandDate
-} from './PFANS2010Api'
+} from './PFANS2010Api';
 
 const PFANS2010Store = {
   namespaced: true,
-  state: {
-  },
-  mutations: {
-  },
+  state: {},
+  mutations: {},
   actions: {
     //获取列表
-    getlist({ commit }, data) {
+    getlist({commit}, data) {
       return new Promise((resolve, reject) => {
         getlist(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
           //view添加分页 ztc 1130 fr
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    getlistFilter({ commit }, data) {
+    getlistFilter({commit}, data) {
       return new Promise((resolve, reject) => {
         getlistFilter(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
           //view添加分页 ztc 1130 to
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //获取详细 --日志使用
-    getAttendancelist({ commit }, data) {
+    getAttendancelist({commit}, data) {
       return new Promise((resolve, reject) => {
         getAttendancelist(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //获取详细 --考勤使用
-    getAttendancelist1({ commit }, data) {
+    getAttendancelist1({commit}, data) {
       return new Promise((resolve, reject) => {
         getAttendancelist1(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //获取离职考勤对比
-    getAttendancelistCompared({ commit }, data) {
+    getAttendancelistCompared({commit}, data) {
       return new Promise((resolve, reject) => {
         getAttendancelistCompared(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //更新数据
-    update({ commit }, data) {
+    update({commit}, data) {
       return new Promise((resolve, reject) => {
         update(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add_fjl_05/13   --添加审批正常结束后，自动变成承认状态
     //更新状态
@@ -116,12 +114,12 @@ const PFANS2010Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add_fjl_05/13   --添加审批正常结束后，自动变成承认状态
 
@@ -133,12 +131,12 @@ const PFANS2010Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     // add 0622 ccm --审批被驳回后，当月考勤数据全部变为未承认状态
     //add ccm 0716 离职一键驳回
@@ -148,63 +146,63 @@ const PFANS2010Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add ccm 0716 离职一键驳回
 
     //add ccm 2020729 考勤异常加班审批中的日期，考勤不允许承认
-    selectAbnomalandOvertime({ commit }, data) {
+    selectAbnomalandOvertime({commit}, data) {
       return new Promise((resolve, reject) => {
         selectAbnomalandOvertime(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add ccm 2020729 考勤异常加班审批中的日期，考勤不允许承认
 
     //add ccm 0804 查询欠勤是否已经全部申请
-    selectAbnomaling({ commit }, data) {
+    selectAbnomaling({commit}, data) {
       return new Promise((resolve, reject) => {
         selectAbnomaling(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add ccm 0804 查询欠勤是否已经全部申请
 
     //add ccm 0812 考情管理查看当天的异常申请数据
-    getabnormalByuseridandDate({ commit }, data) {
+    getabnormalByuseridandDate({commit}, data) {
       return new Promise((resolve, reject) => {
         getabnormalByuseridandDate(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
-    }
+        });
+      });
+    },
     //add ccm 0812 考情管理查看当天的异常申请数据
-  }
-}
+  },
+};
 
 export default PFANS2010Store;

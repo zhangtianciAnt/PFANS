@@ -1,19 +1,19 @@
 import {
-  getexpatriatesinfor,
-  getexpatrFliter,
-  getexpatriatesinforApplyOne,
-  getexpatriatesinforthisyear,
-  updateexpatriatesinforApply,
-  createexpatriatesinforApply,
-  updateexpatriatesinfor,
-  download,
-  getCompanyProject,
   crAccount,
   crAccount2,
-  getWithoutAuth,
+  createexpatriatesinforApply,
+  download,
+  getCompanyProject,
+  getexpatrFliter,
+  getexpatriatesinfor,
+  getexpatriatesinforApplyOne,
+  getexpatriatesinforthisyear,
   getforSysDiaLog,
-  getGroupexpDetail
-} from './PFANS6004Api'
+  getGroupexpDetail,
+  getWithoutAuth,
+  updateexpatriatesinfor,
+  updateexpatriatesinforApply,
+} from './PFANS6004Api';
 
 
 const PFANS6004Store = {
@@ -27,13 +27,13 @@ const PFANS6004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
           //页面增加分页 ztc 1129 fr
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getexpatrFliter() {
       return new Promise((resolve, reject) => {
@@ -41,13 +41,13 @@ const PFANS6004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
           //页面增加分页 ztc 1129 to
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     getexpatriatesinforthisyear() {
@@ -56,12 +56,12 @@ const PFANS6004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getexpatriatesinforApplyOne({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -69,12 +69,12 @@ const PFANS6004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //ccm add
@@ -84,12 +84,12 @@ const PFANS6004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //ccm add
 
@@ -99,12 +99,12 @@ const PFANS6004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     updateexpatriatesinfor({commit}, data) {
@@ -113,12 +113,12 @@ const PFANS6004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     createexpatriatesinforApply({commit}, data) {
@@ -127,12 +127,12 @@ const PFANS6004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     // setexpatriatesinforApply({commit}, data) {
@@ -154,64 +154,64 @@ const PFANS6004Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
-    getCompanyProject({commit},data) {
+    getCompanyProject({commit}, data) {
       return new Promise((resolve, reject) => {
         getCompanyProject(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
-    crAccount({commit},data) {
+    crAccount({commit}, data) {
       return new Promise((resolve, reject) => {
         crAccount(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
-    crAccount2({commit},data) {
+    crAccount2({commit}, data) {
       return new Promise((resolve, reject) => {
         crAccount2(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
-    getWithoutAuth({commit},data) {
+    getWithoutAuth({commit}, data) {
       return new Promise((resolve, reject) => {
         getWithoutAuth(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     // 项目dialog 体制 合同优化添加分页 ztc fr
     getforSysDiaLog({commit}, data) {
@@ -220,13 +220,13 @@ const PFANS6004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
-    }
+        });
+      });
+    },
   },
   // 项目dialog 体制 合同优化添加分页 ztc to
 };

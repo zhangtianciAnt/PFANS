@@ -1,10 +1,10 @@
 import {
+  getCostLast,
+  getCostList,
   getPltab,
   insert,
-  getCostList,
-  getCostLast,
-  list
-} from './PFANS1042Api'
+  list,
+} from './PFANS1042Api';
 
 const PFANS1042Store = {
   namespaced: true,
@@ -30,12 +30,12 @@ const PFANS1042Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getCostList({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -43,12 +43,12 @@ const PFANS1042Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getCostLast({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -56,26 +56,26 @@ const PFANS1042Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    insert({ commit },data) {
+    insert({commit}, data) {
       return new Promise((resolve, reject) => {
         insert(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 export default PFANS1042Store;

@@ -1,4 +1,4 @@
-import request from '../../../../utils/request'
+import request from '../../../../utils/request';
 import requestDownload from '../../../../utils/requestDownload';
 
 export function inserttodo(data) {
@@ -6,7 +6,7 @@ export function inserttodo(data) {
     url: 'bonussend/inserttodo',
     method: 'post',
     data: data,
-  })
+  });
 }
 
 export function getList(data) {
@@ -21,8 +21,8 @@ export function update(data) {
   return request({
     url: 'bonussend/update',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 //下载模板
@@ -31,6 +31,6 @@ export function download(data) {
     url: 'bonussend/download',
     method: 'get',
     params: data,
-    responseType: 'blob'
-  })
+    responseType: 'blob',
+  });
 }

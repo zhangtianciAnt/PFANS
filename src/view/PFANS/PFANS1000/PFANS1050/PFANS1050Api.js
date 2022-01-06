@@ -1,9 +1,9 @@
-import request from "../../../../utils/request"
+import request from '../../../../utils/request';
 
 export function getDepartmental(data) {
   return request({
     url: 'departmental/getDepartmental',
     method: 'post',
-    params: data
-  })
+    params: data,
+  });
 }

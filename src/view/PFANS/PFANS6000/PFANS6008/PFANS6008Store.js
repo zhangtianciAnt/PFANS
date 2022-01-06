@@ -1,6 +1,14 @@
-import {getCostList, insertCoststatistics, downloadExcel,getCostBygroupid,
-  getcostMonthList,getcostMonth,insertcoststatisticsdetail,checkcontract} from './PFANS6008Api'
-import {updateDeleginformation} from "../PFANS6006/PFANS6006Api";
+import {
+  checkcontract,
+  downloadExcel,
+  getCostBygroupid,
+  getCostList,
+  getcostMonth,
+  getcostMonthList,
+  insertCoststatistics,
+  insertcoststatisticsdetail,
+} from './PFANS6008Api';
+
 const PFANS6008Store = {
   namespaced: true,
   state: {},
@@ -12,12 +20,12 @@ const PFANS6008Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     insertCoststatistics({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -25,20 +33,20 @@ const PFANS6008Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     downloadExcel({commit}, data) {
       return new Promise((resolve, reject) => {
         downloadExcel(data).then(response => {
-          if ( response.type.indexOf("json") == -1 ) {
-            resolve(response)
+          if (response.type.indexOf('json') == -1) {
+            resolve(response);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
           // if (response.code === 0) {
           //   resolve(response.data);
@@ -47,8 +55,8 @@ const PFANS6008Store = {
           // }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getCostBygroupid({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -56,12 +64,12 @@ const PFANS6008Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add gbb 0803 月度费用统计列表 start
     getcostMonthList({commit}, data) {
@@ -70,12 +78,12 @@ const PFANS6008Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add gbb 0803 月度费用统计列表 end
 
@@ -86,12 +94,12 @@ const PFANS6008Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add gbb 0803 月度费用统计详情 end
 
@@ -102,12 +110,12 @@ const PFANS6008Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //gbb add 0805 添加費用統計 end
 
@@ -118,15 +126,15 @@ const PFANS6008Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //gbb add 0807 check是否已经生成个别合同 end
-  }
+  },
 };
 
 export default PFANS6008Store;

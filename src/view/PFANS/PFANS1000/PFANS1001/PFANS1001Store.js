@@ -1,10 +1,10 @@
-import {getBusiness,busdelete} from '../PFANS1002/PFANS1002Api';
-import {getJudgement,juddelete} from '../PFANS1004/PFANS1004Api';
-import {getpurchaseApply,purdelete} from '../PFANS1005/PFANS1005Api';
+import {busdelete, getBusiness} from '../PFANS1002/PFANS1002Api';
+import {getJudgement, juddelete} from '../PFANS1004/PFANS1004Api';
+import {getpurchaseApply, purdelete} from '../PFANS1005/PFANS1005Api';
 import {getLoanapplication} from '../PFANS1006/PFANS1006Api';
-import {getCommunication,comdelete} from '../PFANS1010/PFANS1010Api';
+import {comdelete, getCommunication} from '../PFANS1010/PFANS1010Api';
 import {getOffshore} from '../PFANS1011/PFANS1011Api';
-import {change} from "../../PFANS1000/PFANS1001/PFANS1001Api";
+import {change} from '../../PFANS1000/PFANS1001/PFANS1001Api';
 
 const PFANS1001Store = {
   namespaced: true,
@@ -19,12 +19,12 @@ const PFANS1001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //获取列表
@@ -34,12 +34,12 @@ const PFANS1001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //获取列变
     getpurchaseApply() {
@@ -48,12 +48,12 @@ const PFANS1001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
 //获取列变
@@ -63,12 +63,12 @@ const PFANS1001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //获取列变
@@ -78,12 +78,12 @@ const PFANS1001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //获取列变
     getOffshore() {
@@ -92,12 +92,12 @@ const PFANS1001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     change({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -177,7 +177,7 @@ const PFANS1001Store = {
     },
     //endregion scc add 其他业务决裁逻辑删除 to
 
-  }
-}
+  },
+};
 
 export default PFANS1001Store;

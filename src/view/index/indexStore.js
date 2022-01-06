@@ -1,7 +1,5 @@
-import {
-  get,getStatus
-} from './indexApi'
-import {givinglist} from "../PFANS/PFANS2000/PFANS2005/PFANS2005Api";
+import {get, getStatus} from './indexApi';
+
 const indexStore = {
   namespaced: true,
   state: {},
@@ -13,27 +11,27 @@ const indexStore = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    getStatus({ commit },data) {
+    getStatus({commit}, data) {
       return new Promise((resolve, reject) => {
         getStatus(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
-}
+  },
+};
 
 export default indexStore;

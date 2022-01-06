@@ -1,4 +1,14 @@
-import {getPurchase,getPurchaseOne,updatePurchase,createPurchase,downLoad,getPurchaseList,getworkfolwPurchaseData,change,purchdelete} from './PFANS3005Api'
+import {
+  change,
+  createPurchase,
+  downLoad,
+  getPurchase,
+  getPurchaseList,
+  getPurchaseOne,
+  getworkfolwPurchaseData,
+  purchdelete,
+  updatePurchase,
+} from './PFANS3005Api';
 
 
 const PFANS3005Store = {
@@ -25,8 +35,8 @@ const PFANS3005Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getPurchase() {
       return new Promise((resolve, reject) => {
@@ -34,12 +44,12 @@ const PFANS3005Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getPurchaseList() {
       return new Promise((resolve, reject) => {
@@ -47,12 +57,12 @@ const PFANS3005Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getPurchaseOne({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -60,12 +70,12 @@ const PFANS3005Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updatePurchase({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -73,12 +83,12 @@ const PFANS3005Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     createPurchase({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -86,12 +96,12 @@ const PFANS3005Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //采购业务数据流程查看详情
     getworkfolwPurchaseData({commit}, data) {
@@ -100,12 +110,12 @@ const PFANS3005Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //采购业务数据流程查看详情
 
@@ -125,7 +135,7 @@ const PFANS3005Store = {
     },
     //endregion scc add 购买决裁删除 to
 
-  }
+  },
 };
 
 export default PFANS3005Store;

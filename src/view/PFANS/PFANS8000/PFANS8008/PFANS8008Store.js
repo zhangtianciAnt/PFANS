@@ -1,10 +1,10 @@
 import {
   getInformation,
+  getListType,
+  getOneInformation,
   insertInformation,
   updateInformation,
-  getOneInformation,
-  getListType
-} from './PFANS8008Api'
+} from './PFANS8008Api';
 
 const PFANS8008Store = {
   namespaced: true,
@@ -15,12 +15,12 @@ const PFANS8008Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getListType() {
       return new Promise((resolve, reject) => {
@@ -28,53 +28,53 @@ const PFANS8008Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    insertInformation({ commit },data) {
+    insertInformation({commit}, data) {
       return new Promise((resolve, reject) => {
         insertInformation(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    updateInformation({ commit },data) {
+    updateInformation({commit}, data) {
       return new Promise((resolve, reject) => {
         updateInformation(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    getOneInformation({ commit },data) {
+    getOneInformation({commit}, data) {
       return new Promise((resolve, reject) => {
         getOneInformation(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
-    }
-  }
-}
+        });
+      });
+    },
+  },
+};
 
 export default PFANS8008Store;

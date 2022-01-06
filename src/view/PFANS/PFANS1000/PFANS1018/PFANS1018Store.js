@@ -1,4 +1,9 @@
-import {createglobalApply, getglobal, getglobalApplyOne, updateglobalApply,} from './PFANS1018Api'
+import {
+  createglobalApply,
+  getglobal,
+  getglobalApplyOne,
+  updateglobalApply,
+} from './PFANS1018Api';
 
 const PFANS1018Store = {
   namespaced: true,
@@ -11,12 +16,12 @@ const PFANS1018Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getglobalApplyOne({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -24,12 +29,12 @@ const PFANS1018Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updateglobalApply({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -37,12 +42,12 @@ const PFANS1018Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     createglobalApply({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -50,14 +55,14 @@ const PFANS1018Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 
 export default PFANS1018Store;

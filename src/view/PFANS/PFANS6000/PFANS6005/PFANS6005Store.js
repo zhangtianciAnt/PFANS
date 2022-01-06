@@ -1,4 +1,4 @@
-import {getpriceset, updatepriceset, getPricesetList} from './PFANS6005Api'
+import {getpriceset, getPricesetList, updatepriceset} from './PFANS6005Api';
 import {getExpatriatesinfor} from '../../PFANS1000/PFANS1038/PFANS1038Api';
 
 const PFANS6005Store = {
@@ -12,25 +12,25 @@ const PFANS6005Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    getExpatriatesinfor({ commit },id) {
+    getExpatriatesinfor({commit}, id) {
       return new Promise((resolve, reject) => {
         getExpatriatesinfor(id).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getPricesetList({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -38,12 +38,12 @@ const PFANS6005Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updatepriceset({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -51,15 +51,15 @@ const PFANS6005Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
-  }
+  },
 };
 
 export default PFANS6005Store;

@@ -1,27 +1,27 @@
-import request from '../../../../utils/request'
-import requestDownload from '../../../../utils/requestDownload'
+import request from '../../../../utils/request';
+import requestDownload from '../../../../utils/requestDownload';
 
 export function getAppointmentCar() {
   return request({
     url: 'appointmentcar/get',
-    method: 'get'
-  })
+    method: 'get',
+  });
 }
 
 export function getAppointmentCarOne(data) {
   return request({
     url: 'appointmentcar/one',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function updateAppointmentCar(data) {
   return request({
     url: 'appointmentcar/update',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 //数据转结
@@ -29,16 +29,16 @@ export function change(data) {
   return request({
     url: 'appointmentcar/change',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function createAppointmentCar(data) {
   return request({
     url: 'appointmentcar/create',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function download(data) {
@@ -46,8 +46,8 @@ export function download(data) {
     url: 'appointmentcar/download',
     method: 'post',
     data: data,
-    responseType: 'blob'
-  })
+    responseType: 'blob',
+  });
 }
 
 

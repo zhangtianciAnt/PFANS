@@ -1,21 +1,21 @@
 import {
+  chackcycle,
+  check,
+  createLoanapplication,
+  createpolicycontract,
+  exportjs,
+  getaward,
   getLoanapplication,
   getLoanapplicationOne,
-  updateLoanapplication,
-  createLoanapplication,
+  getLoanapplicationOne2,
   getpolicycontract,
   getpolicycontract2,
   getpolicycontract3,
-  chackcycle,
-  getaward,
   getpolicycontractOne,
-  check,
-  updatepolicycontract,
-  createpolicycontract,
-  exportjs,
-  getworkfolwPurchaseData,
-  getLoanapplicationOne2,
   getpublice,
+  getworkfolwPurchaseData,
+  updateLoanapplication,
+  updatepolicycontract,
 } from './PFANS1006Api';
 
 const PFANS1006Store = {
@@ -30,8 +30,8 @@ const PFANS1006Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add_fjl_0725  打印PDF   end
     //ADD-WS-7/14-禅道144任务
@@ -229,12 +229,12 @@ const PFANS1006Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //采购业务数据流程查看详情
     getpublice({commit}, data) {

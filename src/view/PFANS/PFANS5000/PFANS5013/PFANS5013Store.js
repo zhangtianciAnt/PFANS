@@ -1,5 +1,23 @@
-import {Listproject2,Listproject,getFpans5013List,selectById,update,insert,getcustomer,getexpat,select,getPjList,
-        getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2,getMyConProject,getMyConProject2,dataCarryover} from './PFANS5013Api'
+import {
+  dataCarryover,
+  getcustomer,
+  getexpat,
+  getFpans5013List,
+  getGroupTimestart,
+  getList2,
+  getMyConProject,
+  getMyConProject2,
+  getPjList,
+  getProjectList,
+  getTimestart,
+  insert,
+  Listproject,
+  Listproject2,
+  select,
+  selectById,
+  update,
+  updateTimestart,
+} from './PFANS5013Api';
 
 
 const PFANS5013Store = {
@@ -14,12 +32,12 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //更新流程
     update({commit}, data) {
@@ -28,66 +46,66 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //数据结转
     dataCarryover({commit}, data) {
       return new Promise((resolve, reject) => {
         dataCarryover(data).then(response => {
           if (response.code === 0) {
-        resolve(response.data);
-      } else {
-        reject(response.message)
-      }
-    }).catch(error => {
-        reject(error);
-    })
-    })
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
     },
     //获取流程
-    getFpans5013List({commit},data) {
+    getFpans5013List({commit}, data) {
       return new Promise((resolve, reject) => {
         getFpans5013List(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    selectById({ commit },data) {
+    selectById({commit}, data) {
       return new Promise((resolve, reject) => {
         selectById(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    select({ commit },data) {
+    select({commit}, data) {
       return new Promise((resolve, reject) => {
         select(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getcustomer({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -95,12 +113,12 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     getexpat({commit}, data) {
@@ -109,12 +127,12 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getPjList({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -122,12 +140,12 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getList2({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -135,12 +153,12 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getProjectList({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -148,12 +166,12 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getTimestart({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -161,12 +179,12 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getGroupTimestart({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -174,12 +192,12 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updateTimestart({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -187,12 +205,12 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add-ws-阚总日志问题修正
     getMyConProject2({commit}, data) {
@@ -201,12 +219,12 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add-ws-阚总日志问题修正
     getMyConProject({commit}, data) {
@@ -215,12 +233,12 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add-ws-6/5-禅道075任务，项目名称问题修正
     Listproject({commit}, data) {
@@ -229,12 +247,12 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     Listproject2({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -242,15 +260,15 @@ const PFANS5013Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add-ws-6/5-禅道075任务，项目名称问题修正
-  }
+  },
 };
 
 export default PFANS5013Store;

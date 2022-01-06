@@ -1,16 +1,19 @@
 import {
+  BusinessplanExport,
+  consumption,
   createBusinessplan,
-  getgroupcompanyen,
+  download,
   get,
-  selectById,
-  updateBusinessplan,
+  getBusBalns,
+  getgroup,
+  getgroupA1,
+  getgroupcompanyen,
   getPersonPlan,
   getPlan,
-  getgroupA1,
-  getgroup,
+  Pl,
+  selectById,
+  updateBusinessplan,
   whetherEditor,
-  download, BusinessplanExport,Pl, getBusBalns,
-  consumption
 } from './PFANS1036Api';
 
 const PFANS1036Store = {
@@ -159,8 +162,8 @@ const PFANS1036Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //endregion scc add 10/9 事业计划模板下载 to
 
@@ -168,15 +171,15 @@ const PFANS1036Store = {
     BusinessplanExport({commit}, data) {
       return new Promise((resolve, reject) => {
         BusinessplanExport(data).then(response => {
-          if ( response.type.indexOf("json") == -1 ) {
-            resolve(response)
+          if (response.type.indexOf('json') == -1) {
+            resolve(response);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //endregion scc add 事业计划PL导出 to
 
@@ -186,7 +189,7 @@ const PFANS1036Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
@@ -210,18 +213,18 @@ const PFANS1036Store = {
 //endregion scc add 保存部分PL to
 
     //region scc add 9/28 事业计划消耗 from
-    consumption({commit},data) {
+    consumption({commit}, data) {
       return new Promise((resolve, reject) => {
         consumption(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //endregion scc add 9/28 事业计划消耗 to
 

@@ -1,21 +1,21 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList"
+    <EasyNormalContainer ref="container"
+                         v-loading="loading"
+                         :buttonList="buttonList"
+                         :canStart="canStart" :enableSave="enableSave"
                          :title="title"
-                         @buttonClick="buttonClick"
-                         @end="end" @start="start"
-                         @workflowState="workflowState"
-                         @StartWorkflow="buttonClick"
-                         :enableSave="enableSave"
                          :workflowCode="workflowCode"
-                         :canStart="canStart"
-                         ref="container"
-                         v-loading="loading">
+                         @StartWorkflow="buttonClick"
+                         @buttonClick="buttonClick"
+                         @end="end"
+                         @start="start"
+                         @workflowState="workflowState">
       <div slot="customize">
-        <el-form :model="form1" :rules="rules1" label-position="top" label-width="6vw" ref="refform1">
+        <el-form ref="refform1" :model="form1" :rules="rules1" label-position="top" label-width="6vw">
           <el-dialog :title="$t('button.application')" :visible.sync="dialogVisibleC">
-            <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth"
-                          :error="errorclaimtype" prop="claimtype">
+            <el-form-item :error="errorclaimtype" :label="$t('label.PFANS1024VIEW_NUMBER')"
+                          :label-width="formLabelWidth" prop="claimtype">
               <!--              <dicselect-->
               <!--                :code="code"-->
               <!--                :data="form1.claimtype"-->
@@ -25,62 +25,62 @@
               <!--              </dicselect>-->
               <!--              <el-input v-model="form1.claimtype" style="width: 20vw" @change="getnumber"></el-input>-->
               <el-input-number
-                step-strictly
+                v-model="form1.claimtype"
                 :disabled="checknumber"
                 :max="1000000000"
                 :min="1"
                 :precision="0"
                 :step="1"
                 controls-position="right"
+                step-strictly
                 style="width:20vw"
-                v-model="form1.claimtype"
                 @change="getnumber"
               ></el-input-number>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth"
-                          v-show="show3">
-              <el-input v-model="form1.contractnumber" style="width: 20vw" :disabled="!disabled2"></el-input>
+            <el-form-item v-show="show3" :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')"
+                          :label-width="formLabelWidth">
+              <el-input v-model="form1.contractnumber" :disabled="!disabled2" style="width: 20vw"></el-input>
               <el-checkbox
                 v-if="checkeddisplay"
                 v-model="checked"
                 disabled
                 @change="getChecked"
-              >{{$t('label.PFANS1024VIEW_LETTERS')}}
+              >{{ $t('label.PFANS1024VIEW_LETTERS') }}
               </el-checkbox>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" :label-width="formLabelWidth"
-                          :error="errorcontracttype" prop="contracttype">
+            <el-form-item :error="errorcontracttype" :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')"
+                          :label-width="formLabelWidth" prop="contracttype">
               <dicselect :code="code2"
                          :data="form1.contracttype"
-                         @change="getcontracttype"
+                         :disabled="!disabled2"
                          style="width: 20vw"
-                         :disabled="!disabled2">
+                         @change="getcontracttype">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS1024VIEW_CAREERYEAR')" :label-width="formLabelWidth"
-                          :error="errorapplicationdate" prop="applicationdate">
+            <el-form-item :error="errorapplicationdate" :label="$t('label.PFANS1024VIEW_CAREERYEAR')"
+                          :label-width="formLabelWidth" prop="applicationdate">
               <dicselect :code="code3"
                          :data="form1.applicationdate"
-                         @change="getcareeryear1"
+                         :disabled="!disabled2"
                          style="width: 20vw"
-                         :disabled="!disabled2">
+                         @change="getcareeryear1">
               </dicselect>
               <dicselect :code="code4"
                          :data="form1.entrycondition"
-                         @change="getcareeryear2"
+                         :disabled="!disabled2"
                          style="width: 20vw"
-                         :disabled="!disabled2">
+                         @change="getcareeryear2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.department')" :label-width="formLabelWidth" prop="grouporglist"
-                          :error="errorgroup">
+            <el-form-item :error="errorgroup" :label="$t('label.department')" :label-width="formLabelWidth"
+                          prop="grouporglist">
               <org
+                :disabled="!checkGroupId"
+                :error="errorgroup"
                 :orglist="form1.grouporglist"
                 orgtype="4"
-                :error="errorgroup"
                 style="width: 20vw"
                 @getOrgids="getGroupId"
-                :disabled="!checkGroupId"
               ></org>
             </el-form-item>
             <!--<el-form-item :label="$t('label.PFANS1024VIEW_SIDEGROUP')" :label-width="formLabelWidth">
@@ -96,42 +96,42 @@
             <el-form-item :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')+'('+$t('label.PFANS1024VIEW_JAPANESE')+')'"
                           :label-width="formLabelWidth" prop="custojapanese">
               <div class="" style="width: 20vw">
-                <el-input class="content bg"
-                          v-model="form1.custojapanese" :disabled="true">
-                  <el-button :disabled="!disabled2" size="small" slot="append" icon="el-icon-search"
+                <el-input v-model="form1.custojapanese"
+                          :disabled="true" class="content bg">
+                  <el-button slot="append" :disabled="!disabled2" icon="el-icon-search" size="small"
                              @click="handleClickE()"></el-button>
                 </el-input>
               </div>
             </el-form-item>
             <el-dialog :visible.sync="dialogVisibleE"
-                       top="8vh" width="100vh"
-                       append-to-body>
+                       append-to-body top="8vh"
+                       width="100vh">
               <!--            zy-7/6-禅道213任务 start-->
               <el-table
-                :data="dataA.filter(data => !search || data.supchinese.toLowerCase().includes(search.toLowerCase())
+                ref="roletableA"
+                v-loading='loading' :data="dataA.filter(data => !search || data.supchinese.toLowerCase().includes(search.toLowerCase())
                 || data.supjapanese.toLowerCase().includes(search.toLowerCase())
                 || data.supenglish.toLowerCase().includes(search.toLowerCase())
-                || data.abbreviation.toLowerCase().includes(search.toLowerCase()))"
-                :row-key="rowid" @row-click="rowClickE" max-height="400" ref="roletableA"
-                v-loading='loading'>
+                || data.abbreviation.toLowerCase().includes(search.toLowerCase()))" :row-key="rowid" max-height="400"
+                @row-click="rowClickE">
                 <!--            zy-7/6-禅道213任务 end-->
-                <el-table-column property="supchinese" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                <el-table-column :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')" property="supchinese"
                                  width="120"></el-table-column>
                 <!--            zy-7/6-禅道213任务 start-->
-                <el-table-column property="supjapanese" :label="$t('label.PFANS6001VIEW_SUPJAPANESE')"
+                <el-table-column :label="$t('label.PFANS6001VIEW_SUPJAPANESE')" property="supjapanese"
                                  width="120"></el-table-column>
-                <el-table-column property="supenglish" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME2')"
+                <el-table-column :label="$t('label.PFANS6001VIEW_SUPPLIERNAME2')" property="supenglish"
                                  width="120"></el-table-column>
-                <el-table-column property="abbreviation" :label="$t('label.PFANS6001VIEW_ABBREVIATION')"
+                <el-table-column :label="$t('label.PFANS6001VIEW_ABBREVIATION')" property="abbreviation"
                                  width="120"></el-table-column>
                 <!--            zy-7/6-禅道213任务 end-->
                 <!--<el-table-column property="suppliercode" :label="$t('label.PFANS6003FORMVIEW_VENDORNUM')"-->
                 <!--width="120"></el-table-column>-->
-                <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
+                <el-table-column :label="$t('label.ASSETS1002VIEW_USERID')" property="liableperson"
                                  width="80"></el-table-column>
                 <!--<el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"-->
                 <!--width="120"></el-table-column>-->
-                <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                <el-table-column :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" property="protelephone"
                                  width="120"></el-table-column>
                 <!--<el-table-column property="commontperson" :label="$t('label.PFANS6002VIEW_COMMONTPERSON')"-->
                 <!--width="120"></el-table-column>-->
@@ -142,43 +142,43 @@
                   <template slot="header" slot-scope="scope">
                     <el-input
                       v-model="search"
-                      size="mini"
-                      placeholder="请输入供应商关键字搜索"/>
+                      placeholder="请输入供应商关键字搜索"
+                      size="mini"/>
                   </template>
                 </el-table-column>
               </el-table>
             </el-dialog>
 
-            <div class="dialog-footer" align="center">
+            <div align="center" class="dialog-footer">
               <!--@click="dialogFormVisible = false"-->
               <el-button v-if="show1">
-                  <span style="margin-right: 86%;" @click="click">{{$t('label.PFANS1026FORMVIEW_CONTRACTNUMBER')}}
+                  <span style="margin-right: 86%;" @click="click">{{ $t('label.PFANS1026FORMVIEW_CONTRACTNUMBER') }}
                   </span>
               </el-button>
-              <el-button @click="dialogVisibleB = false" v-if="show2">
-                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_ABANDONED')}}
+              <el-button v-if="show2" @click="dialogVisibleB = false">
+                  <span style="margin-right: 86%;">{{ $t('label.PFANS1026FORMVIEW_ABANDONED') }}
                   </span>
               </el-button>
             </div>
           </el-dialog>
         </el-form>
-        <el-form :model="form" :rules="rules" label-position="top" label-width="6vw" ref="refform" style="padding: 2vw">
+        <el-form ref="refform" :model="form" :rules="rules" label-position="top" label-width="6vw" style="padding: 2vw">
           <!--书类作成弹出框-->
           <el-dialog :visible.sync="dialogBook" width="30%">
-            <div class="dialog-footer" align="center">
+            <div align="center" class="dialog-footer">
               <el-row style=" margin-bottom: 20px;">
                 <el-col :span="24">
                   <el-button @click="clickData(7)">
-                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_AWARD')}}
+                  <span style="margin-right: 86%;">{{ $t('label.PFANS1026FORMVIEW_AWARD') }}
                   </span>
                   </el-button>
                 </el-col>
               </el-row>
               <!--              add-ws-7/22-禅道341任务-->
-              <el-row style=" margin-bottom: 20px;" v-if="this.checkindivdual === 1">
+              <el-row v-if="this.checkindivdual === 1" style=" margin-bottom: 20px;">
                 <el-col :span="24">
                   <el-button @click="clickData(8)">
-                  <span style="margin-right: 86%;">{{$t('label.PFANS1026FORMVIEW_INDIVIDUAL')}}
+                  <span style="margin-right: 86%;">{{ $t('label.PFANS1026FORMVIEW_INDIVIDUAL') }}
                   </span>
                   </el-button>
                 </el-col>
@@ -186,16 +186,16 @@
               <!--              add-ws-7/22-禅道341任务-->
             </div>
           </el-dialog>
-          <span>{{this.titleType}}</span>
-          <el-table :data="form.tabledata" stripe header-cell-class-name="sub_bg_color_grey height"
-                    :header-cell-style="getRowClass1">
+          <span>{{ this.titleType }}</span>
+          <el-table :data="form.tabledata" :header-cell-style="getRowClass1" header-cell-class-name="sub_bg_color_grey height"
+                    stripe>
             <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index"
                              width="50"></el-table-column>
             <el-table-column :label="$t('label.department')" align="center" width="100">
               <template slot-scope="scope">
-                <el-form-item :prop="'tabledata.' + scope.$index + '.department'" :error="errordepartment">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 5rem"
-                            maxlength='36'></el-input>
+                <el-form-item :error="errordepartment" :prop="'tabledata.' + scope.$index + '.department'">
+                  <el-input v-model="scope.row.department" :disabled="!disabled3" maxlength='36'
+                            style="width: 5rem"></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -203,19 +203,19 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.deployment'" :rules='rules.deployment'>
-                  <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem"
-                            maxlength='36'></el-input>
+                  <el-input v-model="scope.row.deployment" :disabled="!disabled3" maxlength='36'
+                            style="width: 11rem"></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
 
-            <el-table-column :label="$t('label.applicant')" align="center" prop="user_id" width="200"
-                             :error="erroruser">
+            <el-table-column :error="erroruser" :label="$t('label.applicant')" align="center" prop="user_id"
+                             width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.user_id'" :rules='rules.applicant'>
-                  <user :disabled="!disabled3" :no="scope.row" :error="erroruser" :selectType="selectType"
+                  <user :disabled="!disabled3" :error="erroruser" :no="scope.row" :selectType="selectType"
                         :userlist="scope.row.user_id"
-                        @getUserids="getUserids" style="width: 10.15rem"></user>
+                        style="width: 10.15rem" @getUserids="getUserids"></user>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -224,8 +224,8 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.applicationdate'">
-                  <el-date-picker :disabled="!disabled3" type="date" v-model="scope.row.applicationdate"
-                                  style="width: 11rem"></el-date-picker>
+                  <el-date-picker v-model="scope.row.applicationdate" :disabled="!disabled3" style="width: 11rem"
+                                  type="date"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -233,7 +233,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.contracttype'">
-                  <el-input :disabled="!disabled3" maxlength="20" v-model="scope.row.contracttype">
+                  <el-input v-model="scope.row.contracttype" :disabled="!disabled3" maxlength="20">
                   </el-input>
                 </el-form-item>
               </template>
@@ -242,7 +242,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.contractnumber'">
-                  <el-input :disabled="!disabled3" maxlength="20" v-model="scope.row.contractnumber">
+                  <el-input v-model="scope.row.contractnumber" :disabled="!disabled3" maxlength="20">
                   </el-input>
                 </el-form-item>
               </template>
@@ -254,11 +254,11 @@
                   <dicselect
                     :code="code5"
                     :data="scope.row.entrycondition"
-                    :no="scope.row"
+                    :disabled="book ? (!bookawardafter ? true:false) : !disabled"
                     :multiple="multiple"
-                    @change="getEntrycondition"
+                    :no="scope.row"
                     style="width: 11rem"
-                    :disabled="book ? (!bookawardafter ? true:false) : !disabled">
+                    @change="getEntrycondition">
                   </dicselect>
                 </el-form-item>
               </template>
@@ -267,8 +267,9 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.entrypayment'">
-                  <el-date-picker :disabled="book ? (!bookawardafter ? true:false) : !disabled" type="date" v-model="scope.row.entrypayment"
-                                  style="width: 11rem"></el-date-picker>
+                  <el-date-picker v-model="scope.row.entrypayment" :disabled="book ? (!bookawardafter ? true:false) : !disabled"
+                                  style="width: 11rem"
+                                  type="date"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -287,13 +288,13 @@
                   <!--                    style="width: 11rem"-->
                   <!--                    :disabled="!disabled">-->
                   <!--                  </dicselect>-->
-                  <monthlyrate :month="month9"
-                               :data="scope.row.currencyposition"
-                               :no="scope.row"
+                  <monthlyrate :data="scope.row.currencyposition"
+                               :disabled="!disabled"
+                               :month="month9"
                                :multiple="multiple"
-                               @change="getCurrencyposition"
+                               :no="scope.row"
                                style="width: 11rem"
-                               :disabled="!disabled">
+                               @change="getCurrencyposition">
                   </monthlyrate>
                   <!--                      add-ws-12/10-汇率字典-->
                   <!--<el-select :no="scope.row" v-model="scope.row.currencyposition"-->
@@ -310,7 +311,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.claimamount'">
-                  <el-input :disabled="true" maxlength="20" v-model="scope.row.claimamount">
+                  <el-input v-model="scope.row.claimamount" :disabled="true" maxlength="20">
                   </el-input>
                 </el-form-item>
               </template>
@@ -319,14 +320,14 @@
                              width="370">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.contractdate'" :rules='rules.contractdate'>
-                  <el-date-picker unlink-panels
-                                  class="bigWidth"
+                  <el-date-picker v-model="scope.row.contractdate"
                                   :disabled="!disabled"
-                                  v-model="scope.row.contractdate"
-                                  type="daterange"
                                   :end-placeholder="$t('label.enddate')"
                                   :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                                   :start-placeholder="$t('label.startdate')"
+                                  class="bigWidth"
+                                  type="daterange"
+                                  unlink-panels
                   ></el-date-picker>
                 </el-form-item>
               </template>
@@ -334,58 +335,60 @@
             <!--            upd-ws-01/16-禅道任务710-->
             <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
               <template slot-scope="scope">
-                <el-form-item prop="theme" :prop="'tabledata.' + scope.$index + '.theme'" >
+                <el-form-item :prop="'tabledata.' + scope.$index + '.theme'" prop="theme">
                   <div class="">
-                    <el-input class="content bg"
+                    <el-input v-model="scope.row.theme"
                               :disabled="true"
-                              v-model="scope.row.theme">
-                      <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search"
+                              class="content bg">
+                      <el-button slot="append" :disabled="!disabled" icon="el-icon-search" size="small"
                                  @click="handleClickB(scope.row)"></el-button>
                     </el-input>
                   </div>
                 </el-form-item>
                 <el-dialog :visible.sync="dialogVisibleB"
-                           top="8vh"
+                           append-to-body
                            size="40%"
-                           append-to-body>
+                           top="8vh">
                   <div>
-<!--                    add_qhr_20210707 取消theme区分-->
-<!--                    <el-select @change="changed" v-model="region">-->
-<!--                      <el-option :label="$t(titleB)" value="1"></el-option>-->
-<!--                      <el-option :label="$t(titleC)" value="2"></el-option>-->
-<!--                    </el-select>-->
+                    <!--                    add_qhr_20210707 取消theme区分-->
+                    <!--                    <el-select @change="changed" v-model="region">-->
+                    <!--                      <el-option :label="$t(titleB)" value="1"></el-option>-->
+                    <!--                      <el-option :label="$t(titleC)" value="2"></el-option>-->
+                    <!--                    </el-select>-->
                     <el-table
-                      :data="tableB.filter(data => !search1 || data.themename.toLowerCase().includes(search1.toLowerCase()))"
-                      height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                      @row-click="handleClickChange"
-                      v-loading='loading'>
-                      <el-table-column property="themename"
-                                       :label="$t('label.PFANS1043FORMVIEW_THEMENAME')"
-                                       width="120" show-overflow-tooltip></el-table-column>
-                      <el-table-column property="divide"
-                                       :label="$t('label.PFANS1039FORMVIEW_TEAM')"
-                                       width="120" show-overflow-tooltip></el-table-column>
-                      <el-table-column property="contract"
-                                       :label="$t('label.PFANS1043FORMVIEW_CONTRACT')"
-                                       width="120" show-overflow-tooltip></el-table-column>
-                      <el-table-column property="currency"
-                                       :label="$t('label.PFANS8011VIEW_CURRENCY')"
-                                       width="120" show-overflow-tooltip></el-table-column>
+                      v-loading='loading'
+                      :data="tableB.filter(data => !search1 || data.themename.toLowerCase().includes(search1.toLowerCase()))" height="500px" highlight-current-row style="width: 100%"
+                      tooltip-effect="dark"
+                      @row-click="handleClickChange">
+                      <el-table-column :label="$t('label.PFANS1043FORMVIEW_THEMENAME')"
+                                       property="themename"
+                                       show-overflow-tooltip width="120"></el-table-column>
+                      <el-table-column :label="$t('label.PFANS1039FORMVIEW_TEAM')"
+                                       property="divide"
+                                       show-overflow-tooltip width="120"></el-table-column>
+                      <el-table-column :label="$t('label.PFANS1043FORMVIEW_CONTRACT')"
+                                       property="contract"
+                                       show-overflow-tooltip width="120"></el-table-column>
+                      <el-table-column :label="$t('label.PFANS8011VIEW_CURRENCY')"
+                                       property="currency"
+                                       show-overflow-tooltip width="120"></el-table-column>
                       <el-table-column
                         align="right" width="230">
                         <template slot="header" slot-scope="scope">
                           <el-input
                             v-model="search1"
-                            size="mini"
-                            :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME3')"/>
+                            :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME3')"
+                            size="mini"/>
                         </template>
                       </el-table-column>
                     </el-table>
-<!--                      add  ml  211203  dialog分页   from-->
+                    <!--                      add  ml  211203  dialog分页   from-->
                     <div class="pagination-container" style="padding-top: 2rem">
                       <el-pagination :current-page.sync="listQuerySys.currentPage" :page-size="listQuerySys.pageSize"
-                                     :page-sizes="[20,30,50,9999]" :total="totalSysm" @current-change="handleCurrentChangeSys"
-                                     @size-change="handleSizeChangeSys" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                     :page-sizes="[20,30,50,9999]" :total="totalSysm"
+                                     layout="slot,sizes, ->,prev, pager, next, jumper"
+                                     @current-change="handleCurrentChangeSys"
+                                     @size-change="handleSizeChangeSys">
                         <slot><span class="front Content_front"
                                     style="padding-right: 0.5rem;font-weight: 400"></span></slot>
                       </el-pagination>
@@ -400,20 +403,20 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.extensiondate'">
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.extensiondate"
-                                  style="width: 11rem"></el-date-picker>
+                  <el-date-picker v-model="scope.row.extensiondate" :disabled="!disabled" style="width: 11rem"
+                                  type="date"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
 
             <!--取引先会社名-->
             <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center" width="120">
-              <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese"
-                               width="200" :error="errorcusto">
+              <el-table-column :error="errorcusto" :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center"
+                               prop="custojapanese" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custojapanese'" :rules='rules.custojapanese'>
                     <div class="">
-                      <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.custojapanese">
+                      <el-input v-model="scope.row.custojapanese" :disabled="!disabled" maxlength="255">
                       </el-input>
                     </div>
                   </el-form-item>
@@ -423,7 +426,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custoenglish'" :rules='rules.custoenglish'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.custoenglish">
+                    <el-input v-model="scope.row.custoenglish" :disabled="!disabled" maxlength="255">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -433,7 +436,7 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custoabbreviation'"
                                 :rules='rules.custoabbreviation'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.custoabbreviation">
+                    <el-input v-model="scope.row.custoabbreviation" :disabled="!disabled" maxlength="255">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -442,7 +445,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custochinese'" :rules="rules.custochinese">
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.custochinese">
+                    <el-input v-model="scope.row.custochinese" :disabled="!disabled" maxlength="255">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -454,7 +457,8 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placejapanese'" :rules='rules.placejapanese'>
-                    <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.placejapanese">
+                    <el-input v-model="scope.row.placejapanese" :disabled="book ? (!bookawardafter ? true:false) : !disabled"
+                              maxlength="255">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -463,7 +467,8 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placeenglish'" :rules='rules.placeenglish'>
-                    <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.placeenglish">
+                    <el-input v-model="scope.row.placeenglish" :disabled="book ? (!bookawardafter ? true:false) : !disabled"
+                              maxlength="255">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -472,7 +477,8 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placechinese'" :rules='rules.placechinese'>
-                    <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.placechinese">
+                    <el-input v-model="scope.row.placechinese" :disabled="book ? (!bookawardafter ? true:false) : !disabled"
+                              maxlength="255">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -483,7 +489,8 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responjapanese'">
-                    <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responjapanese">
+                    <el-input v-model="scope.row.responjapanese" :disabled="book ? (!bookawardafter ? true:false) : !disabled"
+                              maxlength="255">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -492,7 +499,8 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responerglish'" :rules='rules.responerglish'>
-                    <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responerglish">
+                    <el-input v-model="scope.row.responerglish" :disabled="book ? (!bookawardafter ? true:false) : !disabled"
+                              maxlength="255">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -500,7 +508,8 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center" prop="responphone" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responphone'" :rules='rules.responphone'>
-                    <el-input maxlength="100" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responphone">
+                    <el-input v-model="scope.row.responphone" :disabled="book ? (!bookawardafter ? true:false) : !disabled"
+                              maxlength="100">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -508,7 +517,8 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center" prop="responemail" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responemail'">
-                    <el-input maxlength="100" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responemail">
+                    <el-input v-model="scope.row.responemail" :disabled="book ? (!bookawardafter ? true:false) : !disabled"
+                              maxlength="100">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -519,7 +529,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
-                    <el-input maxlength="255" v-model="scope.row.conjapanese" :disabled="!disabled">
+                    <el-input v-model="scope.row.conjapanese" :disabled="!disabled" maxlength="255">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -527,7 +537,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="conenglish" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conenglish'">
-                    <el-input maxlength="255" v-model="scope.row.conenglish" :disabled="!disabled">
+                    <el-input v-model="scope.row.conenglish" :disabled="!disabled" maxlength="255">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -539,55 +549,57 @@
                     <!--                             v-model="scope.row.conchinese"-->
                     <!--                             @change="changePro" :disabled="!disabled">-->
                     <!--                    </project>-->
-                    <el-input maxlength="255" v-model="scope.row.conchinese" :disabled="!disabled">
+                    <el-input v-model="scope.row.conchinese" :disabled="!disabled" maxlength="255">
                     </el-input>
                   </el-form-item>
                 </template>
               </el-table-column>
             </el-table-column>
-            <el-table-column :label="$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')" align="center" prop="entrustednumber"
-                             width="260" :error="errorcontractnumber">
+            <el-table-column :error="errorcontractnumber" :label="$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')" align="center"
+                             prop="entrustednumber" width="260">
               <template slot-scope="scope">
                 <!--<user :disabled="!disabled" :no="scope.row" :error="errorcontractnumber" :selectType="selectType" :userlist="scope.row.entrustednumber"-->
                 <!--@getUserids="getContractnumber" style="width: 10.15rem"></user>-->
                 <el-form-item :prop="'tabledata.' + scope.$index + '.entrustednumber'" :rules='rules.entrustednumber'>
                   <div class="">
-                    <el-input class="content bg"
+                    <el-input v-model="scope.row.entrustednumber"
                               :disabled="true"
-                              v-model="scope.row.entrustednumber">
-                      <el-button :disabled="!disabled" size="small" slot="append" icon="el-icon-search"
+                              class="content bg">
+                      <el-button slot="append" :disabled="!disabled" icon="el-icon-search" size="small"
                                  @click="handleClickD(scope.row)"></el-button>
                     </el-input>
                   </div>
                 </el-form-item>
                 <el-dialog :visible.sync="dialogVisibleD"
-                           top="8vh"
-                           append-to-body>
-<!--                  add_qhr_20210908 添加筛选条件-->
-                  <el-table :data="tableD.filter(data => !search2 || data.contractnumber.toLowerCase().includes(search2.toLowerCase()))"
-                            :row-key="rowid" @row-click="rowClickD" max-height="400" ref="roletableD"
-                            v-loading='loading'>
-                    <el-table-column property="user_id" :label="$t('label.applicant')" width="120"></el-table-column>
-                    <el-table-column property="deployment" :label="$t('label.department')" width="120"></el-table-column>
-                    <el-table-column property="contractnumber" :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')"
+                           append-to-body
+                           top="8vh">
+                  <!--                  add_qhr_20210908 添加筛选条件-->
+                  <el-table
+                    ref="roletableD"
+                    v-loading='loading' :data="tableD.filter(data => !search2 || data.contractnumber.toLowerCase().includes(search2.toLowerCase()))" :row-key="rowid" max-height="400"
+                    @row-click="rowClickD">
+                    <el-table-column :label="$t('label.applicant')" property="user_id" width="120"></el-table-column>
+                    <el-table-column :label="$t('label.department')" property="deployment"
                                      width="120"></el-table-column>
-                    <el-table-column property="contracttype" :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')"
+                    <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')" property="contractnumber"
                                      width="120"></el-table-column>
-                    <el-table-column property="applicationdate" :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')"
+                    <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')" property="contracttype"
                                      width="120"></el-table-column>
-                    <el-table-column property="state" :label="$t('label.PFANS1024VIEW_STATE')"
+                    <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" property="applicationdate"
                                      width="120"></el-table-column>
-<!--                    region add_qhr_20210908 添加筛选条件-->
+                    <el-table-column :label="$t('label.PFANS1024VIEW_STATE')" property="state"
+                                     width="120"></el-table-column>
+                    <!--                    region add_qhr_20210908 添加筛选条件-->
                     <el-table-column
                       align="right" width="230">
                       <template slot="header" slot-scope="scope">
                         <el-input
                           v-model="search2"
-                          size="mini"
-                          :placeholder="$t('label.PFANS5009FORMVIEW_IMPORTCONT')"/>
+                          :placeholder="$t('label.PFANS5009FORMVIEW_IMPORTCONT')"
+                          size="mini"/>
                       </template>
                     </el-table-column>
-<!--                    endregion add_qhr_20210908 添加筛选条件-->
+                    <!--                    endregion add_qhr_20210908 添加筛选条件-->
                   </el-table>
                 </el-dialog>
               </template>
@@ -607,19 +619,20 @@
                              width="245">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarks'">
-                  <el-input :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.remarks" style="width:13vw">
+                  <el-input v-model="scope.row.remarks" :disabled="book ? (!bookawardafter ? true:false) : !disabled"
+                            style="width:13vw">
                   </el-input>
                 </el-form-item>
               </template>
             </el-table-column>
           </el-table>
-          <el-table :data="form.tableclaimtype" stripe header-cell-class-name="sub_bg_color_grey height"
-                    :header-cell-style="getRowClass1" style="padding-top: 2vw">
+          <el-table :data="form.tableclaimtype" :header-cell-style="getRowClass1" header-cell-class-name="sub_bg_color_grey height"
+                    stripe style="padding-top: 2vw">
             <!--111-->
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype" width="130">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimtype'" :rules='rules.claimtype'>
-                  <el-input :disabled="book ? true : !disabled3" v-model="scope.row.claimtype">
+                  <el-input v-model="scope.row.claimtype" :disabled="book ? true : !disabled3">
                   </el-input>
                 </el-form-item>
               </template>
@@ -629,8 +642,8 @@
                              width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.deliverydate'" :rules='rules.deliverydate'>
-                  <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.deliverydate"
-                                  style="width: 9rem"></el-date-picker>
+                  <el-date-picker v-model="scope.row.deliverydate" :disabled="book ? true : !disabled" style="width: 9rem"
+                                  type="date"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -639,16 +652,16 @@
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.completiondate'"
                               :rules='rules.completiondate'>
-                  <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.completiondate"
-                                  style="width: 9rem"></el-date-picker>
+                  <el-date-picker v-model="scope.row.completiondate" :disabled="book ? true : !disabled" style="width: 9rem"
+                                  type="date"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate" width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimdate'" :rules='rules.claimdate'>
-                  <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.claimdate"
-                                  style="width: 9rem"></el-date-picker>
+                  <el-date-picker v-model="scope.row.claimdate" :disabled="book ? true : !disabled" style="width: 9rem"
+                                  type="date"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -656,8 +669,8 @@
                              width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.supportdate'" :rules='rules.supportdate'>
-                  <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.supportdate"
-                                  style="width: 9rem"></el-date-picker>
+                  <el-date-picker v-model="scope.row.supportdate" :disabled="book ? true : !disabled" style="width: 9rem"
+                                  type="date"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -665,8 +678,9 @@
                              width="190">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimamount'" :rules='rules.claimamount'>
-                  <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
-                                   :disabled="book ? true : !disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                  <el-input-number v-model="scope.row.claimamount" :disabled="book ? true : !disabled" :max="1000000000"
+                                   :min="0" :precision="2" controls-position="right"
+                                   style="width: 11rem"></el-input-number>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -674,7 +688,7 @@
                              width="245">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarksqh'">
-                  <el-input :disabled="book ? true : !disabled" v-model="scope.row.remarksqh" style="width:13vw">
+                  <el-input v-model="scope.row.remarksqh" :disabled="book ? true : !disabled" style="width:13vw">
                   </el-input>
                 </el-form-item>
               </template>
@@ -682,39 +696,39 @@
           </el-table>
           <!--add-ws-6/22-禅道152任务-->
           <el-table
-            :data="DataList"
-            style="padding-top: 2vw"
-            header-cell-class-name="sub_bg_color_grey height" stripe
-            :header-cell-style="getRowClass1"
             v-if='checkdata'
+            :data="DataList"
+            :header-cell-style="getRowClass1" header-cell-class-name="sub_bg_color_grey height"
+            stripe
+            style="padding-top: 2vw"
           >
             <el-table-column
+              :label="$t('label.PFANS1022FORMVIEW_KIND')"
               align="center"
               prop="award"
-              :label="$t('label.PFANS1022FORMVIEW_KIND')"
               width="320px">
             </el-table-column>
             <el-table-column
+              :label="$t('label.PFANS1024VIEW_CLAIMTYPE')"
               align="center"
               prop="awardtype"
-              :label="$t('label.PFANS1024VIEW_CLAIMTYPE')"
               width="320px">
             </el-table-column>
             <el-table-column
+              :label="$t('label.PFANS1024VIEW_CREATEON')"
               align="center"
               prop="createon"
-              :label="$t('label.PFANS1024VIEW_CREATEON')"
               width="320px">
             </el-table-column>
             <el-table-column :label="$t('label.operation')" align="center" width="220">
               <template slot-scope="scope">
                 <el-button
-                  @click.native.prevent="viewdata(scope.row)"
-                  plain
                   :disabled="show10"
+                  plain
                   size="small"
                   type="primary"
-                >{{$t('button.open')}}
+                  @click.native.prevent="viewdata(scope.row)"
+                >{{ $t('button.open') }}
                 </el-button>
               </template>
             </el-table-column>
@@ -728,1717 +742,1704 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import {Message} from 'element-ui';
-  import dicselect from '../../../components/dicselect';
-  import {
-    getDictionaryInfo,
-    getOrgInfo,
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import {Message} from 'element-ui';
+import dicselect from '../../../components/dicselect';
+import {
+  accAdd,
+  getDictionaryInfo,
+  getOrgInfoByUserId,
+  getOrgInformation,
+  getStatus,
+  getSupplierinfor,
+  getUserInfo,
+} from '@/utils/customize';
+import user from '../../../components/user.vue';
+import org from '../../../components/org';
+import project from '../../../components/project';
+import moment from 'moment';
+import monthlyrate from '../../../components/monthlyrate';
+
+export default {
+  name: 'PFANS1024View',
+  components: {
+    monthlyrate,
+    EasyNormalContainer,
+    dicselect,
+    user,
+    org,
+    project,
     getOrgInfoByUserId,
-    getStatus,
-    getSupplierinfor,
-    getUserInfo,
-    getOrgInformation,
-    accAdd,
-  } from '@/utils/customize';
-  import user from '../../../components/user.vue';
-  import org from '../../../components/org';
-  import project from '../../../components/project';
-  import moment from 'moment';
-  import monthlyrate from '../../../components/monthlyrate';
 
-  export default {
-    name: 'PFANS1024View',
-    components: {
-      monthlyrate,
-      EasyNormalContainer,
-      dicselect,
-      user,
-      org,
-      project,
-      getOrgInfoByUserId,
-
-    },
-    data() {
-      var validateDeployment = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFBS')));
-        } else {
-          callback();
+  },
+  data() {
+    var validateDeployment = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_KFBS')));
+      } else {
+        callback();
+      }
+    };
+    var validateContractdate = (rule, value, callback) => {
+      if (Array.isArray(value)) {
+        if (value.length == 0) {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE')));
         }
-      };
-      var validateContractdate = (rule, value, callback) => {
-        if (Array.isArray(value)) {
-          if (value.length == 0) {
+        value.map(function(item) {
+          if (item === '') {
             callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE')));
           }
-          value.map(function(item) {
-            if (item === '') {
-              callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE')));
-            }
-          });
-          callback();
+        });
+        callback();
+      } else {
+        if (value === '') {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE')));
         } else {
-          if (value === '') {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE')));
-          } else {
-            callback();
-          }
+          callback();
         }
+      }
 
-      };
-      var validateCurrencyposition = (rule, value, callback) => {
+    };
+    var validateCurrencyposition = (rule, value, callback) => {
 
-        if (value === '') {
-          // 333
-          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CURRENCYPOSITION')));
-        } else {
-          callback();
-        }
-      };
-      var validateLoadingjudge = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_CHPDSSZ')));
-        } else {
-          callback();
-        }
-      };
-      var validateDeliveryfinshdate = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPZCR')));
-        } else {
-          callback();
-        }
-      };
-      var validateCustojapanese = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMHW')));
-        } else {
-          callback();
-        }
-      };
-      var validateCustoenglish = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMYW')));
-        } else {
-          callback();
-        }
-      };
-      var validateCustoabbreviation = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMLM')));
-        } else {
-          callback();
-        }
-        f;
-      };
-      var validateCustochinese = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMZWM')));
-        } else {
-          callback();
-        }
-      };
-      var validateBusinesscode = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_SYC')));
-        } else {
-          callback();
-        }
-      };
-      var validateVarto = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_TO')));
-        } else {
-          callback();
-        }
-      };
-      var validatePlacejapanese = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSRW')));
-        } else {
-          callback();
-        }
-      };
-      var validatePlaceenglish = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSYW')));
-        } else {
-          callback();
-        }
-      };
-      var validatePlacechinese = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSZW')));
-        } else {
-          callback();
-        }
-      };
+      if (value === '') {
+        // 333
+        callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CURRENCYPOSITION')));
+      } else {
+        callback();
+      }
+    };
+    var validateLoadingjudge = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_CHPDSSZ')));
+      } else {
+        callback();
+      }
+    };
+    var validateDeliveryfinshdate = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPZCR')));
+      } else {
+        callback();
+      }
+    };
+    var validateCustojapanese = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMHW')));
+      } else {
+        callback();
+      }
+    };
+    var validateCustoenglish = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMYW')));
+      } else {
+        callback();
+      }
+    };
+    var validateCustoabbreviation = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMLM')));
+      } else {
+        callback();
+      }
+      f;
+    };
+    var validateCustochinese = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYXHSMZWM')));
+      } else {
+        callback();
+      }
+    };
+    var validateBusinesscode = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_SYC')));
+      } else {
+        callback();
+      }
+    };
+    var validateVarto = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_TO')));
+      } else {
+        callback();
+      }
+    };
+    var validatePlacejapanese = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSRW')));
+      } else {
+        callback();
+      }
+    };
+    var validatePlaceenglish = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSYW')));
+      } else {
+        callback();
+      }
+    };
+    var validatePlacechinese = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZSZW')));
+      } else {
+        callback();
+      }
+    };
 
-      var validateResponerglish = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_DDZYW')));
-        } else {
-          callback();
+    var validateResponerglish = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_DDZYW')));
+      } else {
+        callback();
+      }
+    };
+    var validateResponphone = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1024FORMVIEW_DDZDH')));
+      } else {
+        callback();
+      }
+    };
+    var validateConjapanese = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYHW')));
+      } else {
+        callback();
+      }
+    };
+    var validateConenglish = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_DDZYW')));
+      } else {
+        callback();
+      }
+    };
+    var validateConchinese = (rule, value, callback) => {
+      if (Array.isArray(value)) {
+        if (value.length == 0) {
+          callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
+          return;
         }
-      };
-      var validateResponphone = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1024FORMVIEW_DDZDH')));
-        } else {
-          callback();
-        }
-      };
-      var validateConjapanese = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYHW')));
-        } else {
-          callback();
-        }
-      };
-      var validateConenglish = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_DDZYW')));
-        } else {
-          callback();
-        }
-      };
-      var validateConchinese = (rule, value, callback) => {
-        if (Array.isArray(value)) {
-          if (value.length == 0) {
+        value.map(function(item) {
+          if (item === '') {
             callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
-            return;
-          }
-          value.map(function(item) {
-            if (item === '') {
-              callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
 
-            }
-          });
-          callback();
-        } else {
-          if (value === '' && value != null && value != undefined) {
-            callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
-          } else {
-            callback();
           }
-        }
-      };
-      var validateDeliverydate = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPYDR')));
+        });
+        callback();
+      } else {
+        if (value === '' && value != null && value != undefined) {
+          callback(new Error(this.$t('label.PFANS1026FORMVIEW_QYZW')));
         } else {
           callback();
         }
-      };
-      /*333*/
-      var validateClaimtype = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error(this.$t('label.PFANS1024VIEW_CLAIMTYPE')));
-        } else {
-          callback();
-        }
-      };
-      var validateCompletiondate = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_JSWLR')));
-        } else {
-          callback();
-        }
-      };
-      var validateClaimdate = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_QQR')));
-        } else {
-          callback();
-        }
-      };
-      //add-ws-01/06-禅道任务710
-      var validateTheme = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_THEME')));
-        } else {
-          callback();
-        }
-      };
+      }
+    };
+    var validateDeliverydate = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_NPYDR')));
+      } else {
+        callback();
+      }
+    };
+    /*333*/
+    var validateClaimtype = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(this.$t('label.PFANS1024VIEW_CLAIMTYPE')));
+      } else {
+        callback();
+      }
+    };
+    var validateCompletiondate = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_JSWLR')));
+      } else {
+        callback();
+      }
+    };
+    var validateClaimdate = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_QQR')));
+      } else {
+        callback();
+      }
+    };
+    //add-ws-01/06-禅道任务710
+    var validateTheme = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_THEME')));
+      } else {
+        callback();
+      }
+    };
 //add-ws-01/06-禅道任务710
-      var validateSupportdate = (rule, value, callback) => {
-        if (!value) {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZFR')));
-        } else {
-          callback();
-        }
-      };
-      var validateClaimamount = (rule, value, callback) => {
-        if (value === '' && value != null && value != undefined) {
-          callback(new Error(this.$t('label.PFANS1026FORMVIEW_QQJE')));
-        } else {
-          callback();
-        }
-      };
-      //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
-      var valiEntrustednumber = (rule, value, callback) => {
-        if (value === '' && value != null && value != undefined) {
-          callback(new Error(this.$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')));
-        } else {
-          callback();
-        }
-      };
-      //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
-      var groupId = (rule, value, callback) => {
-        if (!this.form1.grouporglist || this.form1.grouporglist === '') {
-          callback(new Error(this.$t('normal.error_08') + this.$t('label.department')));
-          this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
-        } else {
-          callback();
-        }
-      };
-      var checkApplicationdate = (rule, value, callback) => {
+    var validateSupportdate = (rule, value, callback) => {
+      if (!value) {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZFR')));
+      } else {
+        callback();
+      }
+    };
+    var validateClaimamount = (rule, value, callback) => {
+      if (value === '' && value != null && value != undefined) {
+        callback(new Error(this.$t('label.PFANS1026FORMVIEW_QQJE')));
+      } else {
+        callback();
+      }
+    };
+    //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
+    var valiEntrustednumber = (rule, value, callback) => {
+      if (value === '' && value != null && value != undefined) {
+        callback(new Error(this.$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')));
+      } else {
+        callback();
+      }
+    };
+    //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
+    var groupId = (rule, value, callback) => {
+      if (!this.form1.grouporglist || this.form1.grouporglist === '') {
+        callback(new Error(this.$t('normal.error_08') + this.$t('label.department')));
+        this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
+      } else {
+        callback();
+      }
+    };
+    var checkApplicationdate = (rule, value, callback) => {
 //          if (!this.form1.applicationdate || this.form1.applicationdate === '' || !this.form1.entrycondition || this.form1.entrycondition === '') {
-        if (value === '') {
-          callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR')));
-          this.errorapplicationdate = this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR');
-        } else {
-          callback();
-        }
-      };
-      return {
-        // add  ml  211203  dialog分页  from
-        listQuerySys: {
-          currentPage: 1,
-          pageSize: 20,
-        },
-        totalSysm: 0,
-        // add  ml  211203  dialog分页  to
-        //add  ml  20210719  审批流程  from
-        enableSave: false,
-        canStart: false,
-        workflowCode: 'W0143',
-        //add  ml  20210719  审批流程  to
-        tableclaimtypeold:[],
-        //add-ws-01/06-禅道任务710
-        search1: '',
-        //add-ws-01/06-禅道任务710
-        // add_qhr_20210908 添加筛选条件
-        search2: '',
-        //add-ws-6/22-禅道152任务
-        checknumber: false,
-        show10: true,
-        IDname: '',
-        checkdata: false,
-        DataList: [{}],
-        //add-ws-6/22-禅道152任务
-        checkGroupId: false,
-        error: '',
-        errordepartment: '',
-        makeintoBaseInfo: {},
-        titleType: '',
-        titleType1: this.$t('label.PFANS1024VIEW_INTERNTECHNOLOGY'),
-        titleType2: this.$t('label.PFANS1024VIEW_INTERNSERVITUDE'),
-        titleType3: this.$t('label.PFANS1024VIEW_OVERSEASTECHNOLOGY'),
-        titleType4: this.$t('label.PFANS1024VIEW_OVERSEASSERVITUDE'),
-        // disabledCount7: false,
-        checked: false,
-        checkeddisplay: true,
-        dialogBook: false,
-        display: true,
-        options: [],
-        search: '',
-        contractnumbercount: '',
-        contractnumbercountok: '',
-        maketype: '',
-        selectType: 'Single',
-        letcontractnumber: '',
-        letcontracttype: '',
-        dialogFormVisible: false,
-        dialogVisibleE: false,
-        dialogVisibleC: false,
-        formLabelWidth: '120px',
-        multiple: false,
-        index: '',
-        user_id: '',
-        grouporglist: '',
-        groupinfo: ['', '', '', ''],
-        errorgroup: '',
-        errorcusto: '',
-        erroruser: '',
-        errorcontractnumber: '',
-        errorclaimtype: '',
-        errorcontracttype: '',
-        errorapplicationdate: '',
-        loading: false,
-        title: 'title.PFANS1024VIEW',
-        activeName: '',
-        //add-ws-7/22-禅道341任务
-        checkindivdual: '',
-        dates: '',
-        projectname: '',
-        //add-ws-7/22-禅道341任务
-        disabled: true,
-        disabled1: false,
-        disabled2: true,
-        disabled3: false,
-        disabled4: false,
-        book:false,
-        bookawardafter:true,
-        ruleSet: {
+      if (value === '') {
+        callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR')));
+        this.errorapplicationdate = this.$t('normal.error_09') + this.$t('label.PFANS1024VIEW_CAREERYEAR');
+      } else {
+        callback();
+      }
+    };
+    return {
+      // add  ml  211203  dialog分页  from
+      listQuerySys: {
+        currentPage: 1,
+        pageSize: 20,
+      },
+      totalSysm: 0,
+      // add  ml  211203  dialog分页  to
+      //add  ml  20210719  审批流程  from
+      enableSave: false,
+      canStart: false,
+      workflowCode: 'W0143',
+      //add  ml  20210719  审批流程  to
+      tableclaimtypeold: [],
+      //add-ws-01/06-禅道任务710
+      search1: '',
+      //add-ws-01/06-禅道任务710
+      // add_qhr_20210908 添加筛选条件
+      search2: '',
+      //add-ws-6/22-禅道152任务
+      checknumber: false,
+      show10: true,
+      IDname: '',
+      checkdata: false,
+      DataList: [{}],
+      //add-ws-6/22-禅道152任务
+      checkGroupId: false,
+      error: '',
+      errordepartment: '',
+      makeintoBaseInfo: {},
+      titleType: '',
+      titleType1: this.$t('label.PFANS1024VIEW_INTERNTECHNOLOGY'),
+      titleType2: this.$t('label.PFANS1024VIEW_INTERNSERVITUDE'),
+      titleType3: this.$t('label.PFANS1024VIEW_OVERSEASTECHNOLOGY'),
+      titleType4: this.$t('label.PFANS1024VIEW_OVERSEASSERVITUDE'),
+      // disabledCount7: false,
+      checked: false,
+      checkeddisplay: true,
+      dialogBook: false,
+      display: true,
+      options: [],
+      search: '',
+      contractnumbercount: '',
+      contractnumbercountok: '',
+      maketype: '',
+      selectType: 'Single',
+      letcontractnumber: '',
+      letcontracttype: '',
+      dialogFormVisible: false,
+      dialogVisibleE: false,
+      dialogVisibleC: false,
+      formLabelWidth: '120px',
+      multiple: false,
+      index: '',
+      user_id: '',
+      grouporglist: '',
+      groupinfo: ['', '', '', ''],
+      errorgroup: '',
+      errorcusto: '',
+      erroruser: '',
+      errorcontractnumber: '',
+      errorclaimtype: '',
+      errorcontracttype: '',
+      errorapplicationdate: '',
+      loading: false,
+      title: 'title.PFANS1024VIEW',
+      activeName: '',
+      //add-ws-7/22-禅道341任务
+      checkindivdual: '',
+      dates: '',
+      projectname: '',
+      //add-ws-7/22-禅道341任务
+      disabled: true,
+      disabled1: false,
+      disabled2: true,
+      disabled3: false,
+      disabled4: false,
+      book: false,
+      bookawardafter: true,
+      ruleSet: {
         // , 'theme'
-          //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
-          'save': ['contractnumber', 'theme','contractdate','entrustednumber'],
-          //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
-          'makeinto': ['contractnumber'],
-          '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
-          //add-ws-7/22-禅道341 个别合同
-          '8': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
-          //add-ws-7/22-禅道341 个别合同
-        },
-        rules1: {
-          claimtype: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_09') +
-                this.$t('label.PFANS1024VIEW_NUMBER'),
-              trigger: 'change',
-            },
-          ],
-
-          contracttype: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_09') +
-                this.$t('label.PFANS1024VIEW_CONTRACTTYPE'),
-              trigger: 'change',
-            },
-          ],
-
-          applicationdate: [
-            {
-              required: true,
-              validator: checkApplicationdate,
-              trigger: 'submit',
-            },
-          ],
-          grouporglist: [
-            {
-              required: true,
-              validator: groupId,
-              trigger: 'blur',
-            },
-          ],
-          custojapanese: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS1024VIEW_CUSTOMERNAME'),
-              trigger: 'change',
-            },
-
-          ],
-        },
-        rules: {
-          //add-ws-01/06-禅道任务710
-          theme: [
-            {validator: validateTheme},
-          ],
-          //add-ws-01/06-禅道任务710
-          group_id: [
-            {
-              required: true,
-              validator: groupId,
-              trigger: 'change',
-            },
-          ],
-          deployment: [
-            {validator: validateDeployment},
-          ],
-          contractdate: [
-            {validator: validateContractdate},
-          ],
-          currencyposition: [
-            {validator: validateCurrencyposition},
-          ],
-          loadingjudge: [
-            {validator: validateLoadingjudge},
-          ],
-          deliveryfinshdate: [
-            {validator: validateDeliveryfinshdate},
-          ],
-          custojapanese: [
-            {validator: validateCustojapanese},
-          ],
-          custoenglish: [
-            {validator: validateCustoenglish},
-          ],
-          custoabbreviation: [
-            {validator: validateCustoabbreviation},
-          ],
-          custochinese: [
-            {validator: validateCustochinese},
-          ],
-          businesscode: [
-            {validator: validateBusinesscode},
-          ],
-          varto: [
-            {validator: validateVarto},
-          ],
-          placejapanese: [
-            {validator: validatePlacejapanese},
-          ],
-          placeenglish: [
-            {validator: validatePlaceenglish},
-          ],
-          placechinese: [
-            {validator: validatePlacechinese},
-          ],
-          responerglish: [
-            {validator: validateResponerglish},
-          ],
-          responphone: [
-            {validator: validateResponphone},
-          ],
-          conjapanese: [
-            {validator: validateConjapanese},
-          ],
-          conenglish: [
-            {validator: validateConenglish},
-          ],
-          conchinese: [
-            {validator: validateConchinese},
-          ],
-          deliverydate: [
-            {validator: validateDeliverydate},
-          ],
-          claimtype: [
-            {validator: validateClaimtype},
-          ],
-          completiondate: [
-            {validator: validateCompletiondate},
-          ],
-          claimdate: [
-            {validator: validateClaimdate},
-          ],
-          supportdate: [
-            {validator: validateSupportdate},
-          ],
-          claimamount: [
-            {validator: validateClaimamount},
-          ],
-          //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
-          entrustednumber: [
-            {validator: valiEntrustednumber},
-          ],
-          //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
-        },
-        buttonList: [
+        //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
+        'save': ['contractnumber', 'theme', 'contractdate', 'entrustednumber'],
+        //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
+        'makeinto': ['contractnumber'],
+        '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
+        //add-ws-7/22-禅道341 个别合同
+        '8': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
+        //add-ws-7/22-禅道341 个别合同
+      },
+      rules1: {
+        claimtype: [
           {
-            key: 'application',
-            name: 'button.application',
-            disabled: false,
-          },
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-          },
-          {
-            key: 'makeinto',
-            name: 'button.makeinto',
-            disabled: false,
-          },
-          {
-            key: 'cancellation',
-            name: 'button.cancellation',
-            disabled: false,
+            required: true,
+            message:
+              this.$t('normal.error_09') +
+              this.$t('label.PFANS1024VIEW_NUMBER'),
+            trigger: 'change',
           },
         ],
-        form1: {
-          claimtype: '1',
-          contractnumber: '',
-          contracttype: '',
-          applicationdate: '',
-          entrycondition: 'HT003001',
-          grouporglist: '',
-          custojapanese: '',
-          suppliercode: '',
-          vendornum: '',
+
+        contracttype: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_09') +
+              this.$t('label.PFANS1024VIEW_CONTRACTTYPE'),
+            trigger: 'change',
+          },
+        ],
+
+        applicationdate: [
+          {
+            required: true,
+            validator: checkApplicationdate,
+            trigger: 'submit',
+          },
+        ],
+        grouporglist: [
+          {
+            required: true,
+            validator: groupId,
+            trigger: 'blur',
+          },
+        ],
+        custojapanese: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS1024VIEW_CUSTOMERNAME'),
+            trigger: 'change',
+          },
+
+        ],
+      },
+      rules: {
+        //add-ws-01/06-禅道任务710
+        theme: [
+          {validator: validateTheme},
+        ],
+        //add-ws-01/06-禅道任务710
+        group_id: [
+          {
+            required: true,
+            validator: groupId,
+            trigger: 'change',
+          },
+        ],
+        deployment: [
+          {validator: validateDeployment},
+        ],
+        contractdate: [
+          {validator: validateContractdate},
+        ],
+        currencyposition: [
+          {validator: validateCurrencyposition},
+        ],
+        loadingjudge: [
+          {validator: validateLoadingjudge},
+        ],
+        deliveryfinshdate: [
+          {validator: validateDeliveryfinshdate},
+        ],
+        custojapanese: [
+          {validator: validateCustojapanese},
+        ],
+        custoenglish: [
+          {validator: validateCustoenglish},
+        ],
+        custoabbreviation: [
+          {validator: validateCustoabbreviation},
+        ],
+        custochinese: [
+          {validator: validateCustochinese},
+        ],
+        businesscode: [
+          {validator: validateBusinesscode},
+        ],
+        varto: [
+          {validator: validateVarto},
+        ],
+        placejapanese: [
+          {validator: validatePlacejapanese},
+        ],
+        placeenglish: [
+          {validator: validatePlaceenglish},
+        ],
+        placechinese: [
+          {validator: validatePlacechinese},
+        ],
+        responerglish: [
+          {validator: validateResponerglish},
+        ],
+        responphone: [
+          {validator: validateResponphone},
+        ],
+        conjapanese: [
+          {validator: validateConjapanese},
+        ],
+        conenglish: [
+          {validator: validateConenglish},
+        ],
+        conchinese: [
+          {validator: validateConchinese},
+        ],
+        deliverydate: [
+          {validator: validateDeliverydate},
+        ],
+        claimtype: [
+          {validator: validateClaimtype},
+        ],
+        completiondate: [
+          {validator: validateCompletiondate},
+        ],
+        claimdate: [
+          {validator: validateClaimdate},
+        ],
+        supportdate: [
+          {validator: validateSupportdate},
+        ],
+        claimamount: [
+          {validator: validateClaimamount},
+        ],
+        //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
+        entrustednumber: [
+          {validator: valiEntrustednumber},
+        ],
+        //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
+      },
+      buttonList: [
+        {
+          key: 'application',
+          name: 'button.application',
+          disabled: false,
         },
-        form: {
-          //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
-          supplierinfor_id: '',
-          //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
-          tabledata: [],
-          tabledata2: undefined,
-          contractnumber: '',
-          claimtype: '1',
-          contracttype: '',
-          applicationdate: '',
-          entrycondition: '',
-          group_id: '',
-          maketype: '',
-          sidegroup: '',
-          deployment: '',
-          contractdate: [],
-          currencyposition: '',
-          loadingjudge: '',
-          deliveryfinshdate: '',
-          custojapanese: '',
-          custoenglish: '',
-          custoabbreviation: '',
-          custochinese: '',
-          businesscode: '',
-          varto: '',
-          placejapanese: '',
-          placeenglish: '',
-          placechinese: '',
-          responerglish: '',
-          responphone: '',
-          conjapanese: '',
-          conenglish: '',
-          conchinese: '',
-          deliverydate: '',
-          completiondate: '',
-          claimdate: '',
-          supportdate: '',
-          claimamount: '',
-          remarks: '',
-          remarksqh: '',
-          tableclaimtype: [],
+        {
+          key: 'save',
+          name: 'button.save',
+          disabled: false,
         },
-        formcustomer: {
-          custojapanese: '',
-          custoenglish: '',
-          custoabbreviation: '',
-          custochinese: '',
-          placejapanese: '',
-          placeenglish: '',
-          placechinese: '',
-          responjapanese: '',
-          responerglish: '',
-          responphone: '',
-          responemail: '',
+        {
+          key: 'makeinto',
+          name: 'button.makeinto',
+          disabled: false,
         },
+        {
+          key: 'cancellation',
+          name: 'button.cancellation',
+          disabled: false,
+        },
+      ],
+      form1: {
+        claimtype: '1',
+        contractnumber: '',
+        contracttype: '',
+        applicationdate: '',
+        entrycondition: 'HT003001',
+        grouporglist: '',
+        custojapanese: '',
+        suppliercode: '',
+        vendornum: '',
+      },
+      form: {
+        //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+        supplierinfor_id: '',
+        //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
         tabledata: [],
+        tabledata2: undefined,
+        contractnumber: '',
+        claimtype: '1',
+        contracttype: '',
+        applicationdate: '',
+        entrycondition: '',
+        group_id: '',
+        maketype: '',
+        sidegroup: '',
+        deployment: '',
+        contractdate: [],
+        currencyposition: '',
+        loadingjudge: '',
+        deliveryfinshdate: '',
+        custojapanese: '',
+        custoenglish: '',
+        custoabbreviation: '',
+        custochinese: '',
+        businesscode: '',
+        varto: '',
+        placejapanese: '',
+        placeenglish: '',
+        placechinese: '',
+        responerglish: '',
+        responphone: '',
+        conjapanese: '',
+        conenglish: '',
+        conchinese: '',
+        deliverydate: '',
+        completiondate: '',
+        claimdate: '',
+        supportdate: '',
+        claimamount: '',
+        remarks: '',
+        remarksqh: '',
         tableclaimtype: [],
-        code: 'HT001',
-        code1: 'PJ028',
-        code2: 'HT014',
-        code3: 'HT007',
-        code4: 'HT003',
-        code5: 'HT004',
-        code6: 'HT009',
-        code7: 'HT010',
-        code8: 'HT011',
-        //add-ws-12/10-汇率字典
-        // code9: 'PG019',
-        month9: moment(new Date()).format('YYYY-MM'),
-        //add-ws-12/10-汇率字典
-        code10: 'HT017',
-        show1: true,
-        show2: false,
-        show3: false,
-        tableB: [],
-        tableC: [],
-        tableD: [],
-        showTable1: true,
-        dialogVisibleB: false,
-        titleA: 'title.PFANS6002VIEW',
-        dialogVisibleA: false,
-        rowid: '',
-        rowA: 'customerinfor_id',
-        dataA: [],
-        recordData: [],
-        recordDataB: [],
-        region: '1',
-        titleB: 'menu.PFANS1040',
-        titleC: 'menu.PFANS1041',
-        projectResult: [],
-        recordDataD: [],
-        dialogVisibleD: false,
-        //add_qhr_20210707 添加年份参数
-        year: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ?
-               moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
-      };
-    },
-    mounted() {
-      //add-ws-6/22-禅道152任务
-      this.getaward();
-      this.IDname = this.$route.params._id;
-      //add-ws-6/22-禅道152任务
-      // let option1 = {};
-      // option1.name = getDictionaryInfo('PG019001').value1;
-      // option1.code = 'PG019001';
-      // option1.value = getDictionaryInfo('PG019001').value1;
-      // let option2 = {};
-      // option2.name = getDictionaryInfo('PG019002').value1;
-      // option2.code = 'PG019002';
-      // option2.value = getDictionaryInfo('PG019002').value1;
-      // let option3 = {};
-      // option3.name = getDictionaryInfo('PG019003').value1;
-      // option3.code = 'PG019003';
-      // option3.value = getDictionaryInfo('PG019003').value1;
-      // let option4 = {};
-      // option4.name = getDictionaryInfo('PG019004').value1;
-      // option4.code = 'PG019004';
-      // option4.value = getDictionaryInfo('PG019004').value1;
-      // this.options.push(option1);
-      // this.options.push(option2);
-      // this.options.push(option3);
-      // this.options.push(option4);
+      },
+      formcustomer: {
+        custojapanese: '',
+        custoenglish: '',
+        custoabbreviation: '',
+        custochinese: '',
+        placejapanese: '',
+        placeenglish: '',
+        placechinese: '',
+        responjapanese: '',
+        responerglish: '',
+        responphone: '',
+        responemail: '',
+      },
+      tabledata: [],
+      tableclaimtype: [],
+      code: 'HT001',
+      code1: 'PJ028',
+      code2: 'HT014',
+      code3: 'HT007',
+      code4: 'HT003',
+      code5: 'HT004',
+      code6: 'HT009',
+      code7: 'HT010',
+      code8: 'HT011',
+      //add-ws-12/10-汇率字典
+      // code9: 'PG019',
+      month9: moment(new Date()).format('YYYY-MM'),
+      //add-ws-12/10-汇率字典
+      code10: 'HT017',
+      show1: true,
+      show2: false,
+      show3: false,
+      tableB: [],
+      tableC: [],
+      tableD: [],
+      showTable1: true,
+      dialogVisibleB: false,
+      titleA: 'title.PFANS6002VIEW',
+      dialogVisibleA: false,
+      rowid: '',
+      rowA: 'customerinfor_id',
+      dataA: [],
+      recordData: [],
+      recordDataB: [],
+      region: '1',
+      titleB: 'menu.PFANS1040',
+      titleC: 'menu.PFANS1041',
+      projectResult: [],
+      recordDataD: [],
+      dialogVisibleD: false,
+      //add_qhr_20210707 添加年份参数
+      year: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ?
+        moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+    };
+  },
+  mounted() {
+    //add-ws-6/22-禅道152任务
+    this.getaward();
+    this.IDname = this.$route.params._id;
+    //add-ws-6/22-禅道152任务
+    // let option1 = {};
+    // option1.name = getDictionaryInfo('PG019001').value1;
+    // option1.code = 'PG019001';
+    // option1.value = getDictionaryInfo('PG019001').value1;
+    // let option2 = {};
+    // option2.name = getDictionaryInfo('PG019002').value1;
+    // option2.code = 'PG019002';
+    // option2.value = getDictionaryInfo('PG019002').value1;
+    // let option3 = {};
+    // option3.name = getDictionaryInfo('PG019003').value1;
+    // option3.code = 'PG019003';
+    // option3.value = getDictionaryInfo('PG019003').value1;
+    // let option4 = {};
+    // option4.name = getDictionaryInfo('PG019004').value1;
+    // option4.code = 'PG019004';
+    // option4.value = getDictionaryInfo('PG019004').value1;
+    // this.options.push(option1);
+    // this.options.push(option2);
+    // this.options.push(option3);
+    // this.options.push(option4);
 
-      if (this.$route.params._id) {
+    if (this.$route.params._id) {
 
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1026Store/get2', {'contractnumber': this.$route.params._id})
-          .then(response => {
-            let contractapplication = response.contractapplication;
-            let contractnumbercount = response.contractnumbercount;
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS1026Store/get2', {'contractnumber': this.$route.params._id})
+        .then(response => {
+          let contractapplication = response.contractapplication;
+          let contractnumbercount = response.contractnumbercount;
 
-            if (contractapplication.length > 0) {
-              for (let i = 0; i < contractapplication.length; i++) {
-                //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
-                this.form.supplierinfor_id = contractapplication[i].supplierinfor_id;
-                //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
-                /* //555 this.currencyposition
-               let currencyposition =  contractapplication[i].currencyposition;
-               this.currencyposition = currencyposition === 'PG019001'?'USB$':'￥';*/
-                // if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
-                //   contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
-                // }
-                this.maketype = contractapplication[i].maketype;
-                this.dates = contractapplication[i].dates;
-                this.projectname = contractapplication[i].projectname;
-                if (contractapplication[i].claimtype) {
-                  this.form1.claimtype = contractapplication[i].claimtype.replace('第', '').replace('回', '');
-                }
-                //契約書番号
-                this.letcontractnumber = contractapplication[i].contractnumber;
-                this.show3 = true;
-                this.form1.contractnumber = contractapplication[i].contractnumber;
-                //契約種類
-                this.form.contracttype = contractapplication[i].contracttype;
-                this.form1.contracttype = contractapplication[i].contracttype;
-                //事業年度
-                this.form.applicationdate = contractapplication[i].careeryear;
-                this.form1.applicationdate = contractapplication[i].careeryear;
-                //上下期
-                this.form.entrycondition = contractapplication[i].periods;
-                this.form1.entrycondition = contractapplication[i].periods;
+          if (contractapplication.length > 0) {
+            for (let i = 0; i < contractapplication.length; i++) {
+              //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+              this.form.supplierinfor_id = contractapplication[i].supplierinfor_id;
+              //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
+              /* //555 this.currencyposition
+             let currencyposition =  contractapplication[i].currencyposition;
+             this.currencyposition = currencyposition === 'PG019001'?'USB$':'￥';*/
+              // if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
+              //   contractapplication[i].currencyposition = getDictionaryInfo(contractapplication[i].currencyposition).value4;
+              // }
+              this.maketype = contractapplication[i].maketype;
+              this.dates = contractapplication[i].dates;
+              this.projectname = contractapplication[i].projectname;
+              if (contractapplication[i].claimtype) {
+                this.form1.claimtype = contractapplication[i].claimtype.replace('第', '').replace('回', '');
+              }
+              //契約書番号
+              this.letcontractnumber = contractapplication[i].contractnumber;
+              this.show3 = true;
+              this.form1.contractnumber = contractapplication[i].contractnumber;
+              //契約種類
+              this.form.contracttype = contractapplication[i].contracttype;
+              this.form1.contracttype = contractapplication[i].contracttype;
+              //事業年度
+              this.form.applicationdate = contractapplication[i].careeryear;
+              this.form1.applicationdate = contractapplication[i].careeryear;
+              //上下期
+              this.form.entrycondition = contractapplication[i].periods;
+              this.form1.entrycondition = contractapplication[i].periods;
 
-                this.form1.custojapanese = contractapplication[i].custojapanese;
-                this.formcustomer.custojapanese = contractapplication[i].custojapanese;
-                this.formcustomer.custoenglish = contractapplication[i].custoenglish;
-                this.formcustomer.custoabbreviation = contractapplication[i].custoabbreviation;
-                this.formcustomer.custochinese = contractapplication[i].custochinese;
-                this.formcustomer.placejapanese = contractapplication[i].placejapanese;
-                this.formcustomer.placeenglish = contractapplication[i].placeenglish;
-                this.formcustomer.placechinese = contractapplication[i].placechinese;
-                this.formcustomer.responjapanese = contractapplication[i].responjapanese;
-                this.formcustomer.responerglish = contractapplication[i].responerglish;
-                this.formcustomer.responphone = contractapplication[i].responphone;
-                this.formcustomer.responemail = contractapplication[i].responemail;
-                //グループ
-                this.getGroupId(contractapplication[i].group_id);
-                //先方组織
-                this.form.sidegroup = contractapplication[i].sidegroup;
-                //契約種類
-                let letabbreviation = getDictionaryInfo(contractapplication[i].contracttype);
-                if (letabbreviation != null) {
-                  contractapplication[i].contracttype = letabbreviation.value1;
-                }
-                if (contractapplication[i].contractdate !== '' && contractapplication[i].contractdate !== null) {
-                  let contractdate = contractapplication[i].contractdate;
-                  let contractdat = contractdate.slice(0, 10);
-                  let contractdate1 = contractdate.slice(contractdate.length - 10);
-                  contractapplication[i].contractdate = [contractdat, contractdate1];
-                }
-                // DEL_FJL  start
-                // if (contractapplication[i].conchinese != null && contractapplication[i].conchinese != '') {
-                //   let conchinese = contractapplication[i].conchinese;
-                //   if (typeof conchinese == 'string') {
-                //     conchinese = conchinese.split(',');
-                //     contractapplication[i].conchinese = conchinese;
-                //   }
-                // }
-                //   DEL_FJL  end
-                let o = Object.assign({}, contractapplication[i]);
-                this.form.tabledata.push(o);
-                if (this.maketype === '1') {
-                  this.titleType = this.titleType1;
-                } else if (this.maketype === '2') {
-                  this.titleType = this.titleType2;
-                } else if (this.maketype === '3') {
-                  this.titleType = this.titleType3;
-                } else if (this.maketype === '4') {
-                  this.titleType = this.titleType4;
-                }
+              this.form1.custojapanese = contractapplication[i].custojapanese;
+              this.formcustomer.custojapanese = contractapplication[i].custojapanese;
+              this.formcustomer.custoenglish = contractapplication[i].custoenglish;
+              this.formcustomer.custoabbreviation = contractapplication[i].custoabbreviation;
+              this.formcustomer.custochinese = contractapplication[i].custochinese;
+              this.formcustomer.placejapanese = contractapplication[i].placejapanese;
+              this.formcustomer.placeenglish = contractapplication[i].placeenglish;
+              this.formcustomer.placechinese = contractapplication[i].placechinese;
+              this.formcustomer.responjapanese = contractapplication[i].responjapanese;
+              this.formcustomer.responerglish = contractapplication[i].responerglish;
+              this.formcustomer.responphone = contractapplication[i].responphone;
+              this.formcustomer.responemail = contractapplication[i].responemail;
+              //グループ
+              this.getGroupId(contractapplication[i].group_id);
+              //先方组織
+              this.form.sidegroup = contractapplication[i].sidegroup;
+              //契約種類
+              let letabbreviation = getDictionaryInfo(contractapplication[i].contracttype);
+              if (letabbreviation != null) {
+                contractapplication[i].contracttype = letabbreviation.value1;
+              }
+              if (contractapplication[i].contractdate !== '' && contractapplication[i].contractdate !== null) {
+                let contractdate = contractapplication[i].contractdate;
+                let contractdat = contractdate.slice(0, 10);
+                let contractdate1 = contractdate.slice(contractdate.length - 10);
+                contractapplication[i].contractdate = [contractdat, contractdate1];
+              }
+              // DEL_FJL  start
+              // if (contractapplication[i].conchinese != null && contractapplication[i].conchinese != '') {
+              //   let conchinese = contractapplication[i].conchinese;
+              //   if (typeof conchinese == 'string') {
+              //     conchinese = conchinese.split(',');
+              //     contractapplication[i].conchinese = conchinese;
+              //   }
+              // }
+              //   DEL_FJL  end
+              let o = Object.assign({}, contractapplication[i]);
+              this.form.tabledata.push(o);
+              if (this.maketype === '1') {
+                this.titleType = this.titleType1;
+              } else if (this.maketype === '2') {
+                this.titleType = this.titleType2;
+              } else if (this.maketype === '3') {
+                this.titleType = this.titleType3;
+              } else if (this.maketype === '4') {
+                this.titleType = this.titleType4;
               }
             }
-            if (contractnumbercount.length > 0) {
-              for (let i = 0; i < contractnumbercount.length; i++) {
-                //决裁书已经进行中或是结束，编辑后，合同不可编辑
-                if (contractnumbercount[i].bookStatus === true ) {
-                  this.book = true;
-                  this.disabled3 = false;
-                  this.disabled = false;
-                }
-                else
-                {
-                  this.book = false;
-                }
-              }
-              this.form.tableclaimtype = contractnumbercount;
-              this.tableclaimtypeold = contractnumbercount;
-            }
-            //region scc add 解决番号废弃，撤销后，页面按钮不可用 from
-            if(this.$route.params._status){
-              if(this.$route.params._status === '0' || this.$route.params._status === '3'){
-                this.buttonList.forEach(item =>{
-                  if(item.key === 'application' || item.key === 'save' || item.key === 'makeinto' || item.key === 'cancellation'){
-                    item.disabled = false;
-                  }
-                })
-              }
-            }
-            //endregion scc add 解决番号废弃，撤销后，页面按钮不可用 from
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      } else {
-        this.buttonList[3].disabled = true;
-      }
-      //333
-      let userid = this.$store.getters.userinfo.userid;
-      if(this.buttonList.length >= 3){
-        this.buttonList[2].disabled = true;
-      }
-      if (userid !== null && userid !== '') {
-        let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-        if (lst !== null && lst !== '') {
-          this.form1.grouporglist = lst.centerId;
-          this.getGroupId(this.form1.grouporglist);
-          this.checkGroupId = true;
-        } else {
-          this.checkGroupId = false;
-        }
-      }
-
-      //get customer
-      this.getsupplierinfor();
-      //テーマ
-      //upd-ws-01/06-禅道任务710
-      //add_qhr_20210707 去掉参数
-      this.getdata();
-      //upd-ws-01/06-禅道任务710
-      //get project
-      this.getProjectList();
-      //get contractapplication type=1
-      this.getContract();
-    },
-    created() {
-      //add-ws-7/22-禅道341任务
-      if (this.$route.params._checkindivdual) {
-        if (this.$route.params._checkindivdual === '1') {
-          this.checkindivdual = 1;
-          if (this.$route.params.supplierinfor_id) {
-            //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
-            this.form.supplierinfor_id = this.$route.params.supplierinfor_id;
-            //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
-            this.dates = this.$route.params.dates,
-              this.dialogVisibleC = true;
-            this.checknumber = true;
-            this.loading = true;
-            this.$store
-              .dispatch('PFANS6003Store/getsupplierinfor2')
-              .then(response => {
-                for (let j = 0; j < response.length; j++) {
-                  if (response[j].supplierinfor_id === this.$route.params.supplierinfor_id) {
-                    let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
-                    if (supplierInfo) {
-                      response[j].supchinese = supplierInfo.supchinese;
-                      //        zy-7/6-禅道213任务 start
-                      response[j].supjapanese = supplierInfo.supjapanese;
-                      response[j].supenglish = supplierInfo.supenglish;
-                      response[j].abbreviation = supplierInfo.abbreviation;
-                      //        zy-7/6-禅道213任务 end
-                    }
-
-                    if (response[j].liableperson !== null && response[j].liableperson !== '') {
-                      let liableperson = getUserInfo(response[j].liableperson);
-                      if (liableperson) {
-                        response[j].liableperson = user.userinfo.customername;
-                      }
-                    }
-                    if (response[j].prochinese !== null && response[j].prochinese !== '') {
-                      let prochinese = getUserInfo(response[j].prochinese);
-                      if (prochinese) {
-                        response[j].prochinese = user.userinfo.customername;
-                      }
-                    }
-                    if (response[j].protelephone !== null && response[j].protelephone !== '') {
-                      let protelephone = getUserInfo(response[j].protelephone);
-                      if (protelephone) {
-                        response[j].protelephone = user.userinfo.customername;
-                      }
-                    }
-                    this.form1.custojapanese = response[j].supjapanese;
-                    this.formcustomer.custojapanese = response[j].supjapanese;
-                    this.formcustomer.custoenglish = response[j].supenglish;
-                    this.formcustomer.custoabbreviation = response[j].abbreviation;
-                    this.formcustomer.custochinese = response[j].supchinese;
-                    this.formcustomer.suppliercode = response[j].suppliercode;
-                    this.formcustomer.vendornum = response[j].vendornum;
-                    if (!response[j].addjapanese) {
-                      this.formcustomer.placejapanese = response[j].addchinese;
-                    } else {
-                      this.formcustomer.placejapanese = response[j].addjapanese;
-                    }
-                    this.formcustomer.placeenglish = response[j].addenglish;
-                    this.formcustomer.placechinese = response[j].addchinese;
-                    this.formcustomer.responjapanese = response[j].projapanese;
-                    this.formcustomer.responerglish = response[j].proenglish;
-                    this.formcustomer.responphone = response[j].protelephone;
-                    this.formcustomer.responemail = response[j].protemail;
-                  }
-                }
-                this.loading = false;
-              })
-              .catch(error => {
-                this.$message.error({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
           }
+          if (contractnumbercount.length > 0) {
+            for (let i = 0; i < contractnumbercount.length; i++) {
+              //决裁书已经进行中或是结束，编辑后，合同不可编辑
+              if (contractnumbercount[i].bookStatus === true) {
+                this.book = true;
+                this.disabled3 = false;
+                this.disabled = false;
+              } else {
+                this.book = false;
+              }
+            }
+            this.form.tableclaimtype = contractnumbercount;
+            this.tableclaimtypeold = contractnumbercount;
+          }
+          //region scc add 解决番号废弃，撤销后，页面按钮不可用 from
+          if (this.$route.params._status) {
+            if (this.$route.params._status === '0' || this.$route.params._status === '3') {
+              this.buttonList.forEach(item => {
+                if (item.key === 'application' || item.key === 'save' || item.key === 'makeinto' || item.key === 'cancellation') {
+                  item.disabled = false;
+                }
+              });
+            }
+          }
+          //endregion scc add 解决番号废弃，撤销后，页面按钮不可用 from
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    } else {
+      this.buttonList[3].disabled = true;
+    }
+    //333
+    let userid = this.$store.getters.userinfo.userid;
+    if (this.buttonList.length >= 3) {
+      this.buttonList[2].disabled = true;
+    }
+    if (userid !== null && userid !== '') {
+      let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+      if (lst !== null && lst !== '') {
+        this.form1.grouporglist = lst.centerId;
+        this.getGroupId(this.form1.grouporglist);
+        this.checkGroupId = true;
+      } else {
+        this.checkGroupId = false;
+      }
+    }
+
+    //get customer
+    this.getsupplierinfor();
+    //テーマ
+    //upd-ws-01/06-禅道任务710
+    //add_qhr_20210707 去掉参数
+    this.getdata();
+    //upd-ws-01/06-禅道任务710
+    //get project
+    this.getProjectList();
+    //get contractapplication type=1
+    this.getContract();
+  },
+  created() {
+    //add-ws-7/22-禅道341任务
+    if (this.$route.params._checkindivdual) {
+      if (this.$route.params._checkindivdual === '1') {
+        this.checkindivdual = 1;
+        if (this.$route.params.supplierinfor_id) {
+          //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+          this.form.supplierinfor_id = this.$route.params.supplierinfor_id;
+          //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
+          this.dates = this.$route.params.dates,
+            this.dialogVisibleC = true;
+          this.checknumber = true;
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS6003Store/getsupplierinfor2')
+            .then(response => {
+              for (let j = 0; j < response.length; j++) {
+                if (response[j].supplierinfor_id === this.$route.params.supplierinfor_id) {
+                  let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
+                  if (supplierInfo) {
+                    response[j].supchinese = supplierInfo.supchinese;
+                    //        zy-7/6-禅道213任务 start
+                    response[j].supjapanese = supplierInfo.supjapanese;
+                    response[j].supenglish = supplierInfo.supenglish;
+                    response[j].abbreviation = supplierInfo.abbreviation;
+                    //        zy-7/6-禅道213任务 end
+                  }
+
+                  if (response[j].liableperson !== null && response[j].liableperson !== '') {
+                    let liableperson = getUserInfo(response[j].liableperson);
+                    if (liableperson) {
+                      response[j].liableperson = user.userinfo.customername;
+                    }
+                  }
+                  if (response[j].prochinese !== null && response[j].prochinese !== '') {
+                    let prochinese = getUserInfo(response[j].prochinese);
+                    if (prochinese) {
+                      response[j].prochinese = user.userinfo.customername;
+                    }
+                  }
+                  if (response[j].protelephone !== null && response[j].protelephone !== '') {
+                    let protelephone = getUserInfo(response[j].protelephone);
+                    if (protelephone) {
+                      response[j].protelephone = user.userinfo.customername;
+                    }
+                  }
+                  this.form1.custojapanese = response[j].supjapanese;
+                  this.formcustomer.custojapanese = response[j].supjapanese;
+                  this.formcustomer.custoenglish = response[j].supenglish;
+                  this.formcustomer.custoabbreviation = response[j].abbreviation;
+                  this.formcustomer.custochinese = response[j].supchinese;
+                  this.formcustomer.suppliercode = response[j].suppliercode;
+                  this.formcustomer.vendornum = response[j].vendornum;
+                  if (!response[j].addjapanese) {
+                    this.formcustomer.placejapanese = response[j].addchinese;
+                  } else {
+                    this.formcustomer.placejapanese = response[j].addjapanese;
+                  }
+                  this.formcustomer.placeenglish = response[j].addenglish;
+                  this.formcustomer.placechinese = response[j].addchinese;
+                  this.formcustomer.responjapanese = response[j].projapanese;
+                  this.formcustomer.responerglish = response[j].proenglish;
+                  this.formcustomer.responphone = response[j].protelephone;
+                  this.formcustomer.responemail = response[j].protemail;
+                }
+              }
+              this.loading = false;
+            })
+            .catch(error => {
+              this.$message.error({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
         }
       }
-      //add-ws-7/22-禅道341任务
-      this.disabled = this.$route.params.disabled;
-      this.bookawardafter = this.$route.params.disabled;
-      //add-ws-6/22-禅道152任务
-      if (this.disabled) {
-        this.show10 = true;
-      } else {
-        this.show10 = false;
-      }
-      //add-ws-6/22-禅道152任务
-      if (!this.disabled || this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
-        this.buttonList = [];
-      }
+    }
+    //add-ws-7/22-禅道341任务
+    this.disabled = this.$route.params.disabled;
+    this.bookawardafter = this.$route.params.disabled;
+    //add-ws-6/22-禅道152任务
+    if (this.disabled) {
+      this.show10 = true;
+    } else {
+      this.show10 = false;
+    }
+    //add-ws-6/22-禅道152任务
+    if (!this.disabled || this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
+      this.buttonList = [];
+    }
 //      if(this.$route.params._id === ''){
 //        this.buttonList.splice(3, 1);
 //      }
+  },
+  methods: {
+    //add   ml   211203    dialog分页   from
+    handleCurrentChangeSys(val) {
+      this.listQuerySys.currentPage = val;
+      this.getdata();
     },
-    methods: {
-      //add   ml   211203    dialog分页   from
-      handleCurrentChangeSys(val) {
-        this.listQuerySys.currentPage = val;
-        this.getdata();
-      },
-      handleSizeChangeSys(val) {
-        this.listQuerySys.pageSize = val;
-        this.getdata();
-      },
-      //add   ml   211203    dialog分页   to
+    handleSizeChangeSys(val) {
+      this.listQuerySys.pageSize = val;
+      this.getdata();
+    },
+    //add   ml   211203    dialog分页   to
 
-      //add    ml   20210716  审批状态   from
-      workflowState(val) {
-        if (val.state === '1') {
-          this.form.tabledata[0].status = '3';
-        } else if (val.state === '2') {
-          this.form.tabledata[0].status = '4';
-        }
-        this.buttonClick("save");
-      },
-      start(val) {
-        if (val.state === '0') {
-          this.form.tabledata[0].status = '2';
-        } else if (val.state === '2') {
-          this.form.tabledata[0].status = '4';
-        }
-        this.buttonClick("save");
-      },
-      end() {
-        this.form.tabledata[0].status = '0';
-        // this.buttonClick("cancellation");
-        //region scc add 撤销时，更新数据 from
-        this.buttonClick("save");
-        //endregion scc add 撤销时，更新数据 to
-      },
-      //add    ml   20210716  审批状态   to
-      //add-ws-6/22-禅道152任务
-      getaward() {
-        this.DataList = [];
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1025Store/getDataOne2', {'contractnumber': this.$route.params._id})
-          .then(response => {
-            if (response.awardlist.length > 0) {
-              for (let i = 0; i < response.awardlist.length; i++) {
-                if (response.awardlist[i].createon !== null && response.awardlist[i].createon !== '') {
-                  response.awardlist[i].createon = moment(response.awardlist[i].createon).format('YYYY-MM-DD');
-                }
-                this.DataList.push({
-                  award_id: response.awardlist[i].award_id,
-                  award: this.$t('title.PFANS1025VIEW'),
-                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + Number(i + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
-                  createon: response.awardlist[i].createon,
-                });
-                this.checkdata = true;
+    //add    ml   20210716  审批状态   from
+    workflowState(val) {
+      if (val.state === '1') {
+        this.form.tabledata[0].status = '3';
+      } else if (val.state === '2') {
+        this.form.tabledata[0].status = '4';
+      }
+      this.buttonClick('save');
+    },
+    start(val) {
+      if (val.state === '0') {
+        this.form.tabledata[0].status = '2';
+      } else if (val.state === '2') {
+        this.form.tabledata[0].status = '4';
+      }
+      this.buttonClick('save');
+    },
+    end() {
+      this.form.tabledata[0].status = '0';
+      // this.buttonClick("cancellation");
+      //region scc add 撤销时，更新数据 from
+      this.buttonClick('save');
+      //endregion scc add 撤销时，更新数据 to
+    },
+    //add    ml   20210716  审批状态   to
+    //add-ws-6/22-禅道152任务
+    getaward() {
+      this.DataList = [];
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS1025Store/getDataOne2', {'contractnumber': this.$route.params._id})
+        .then(response => {
+          if (response.awardlist.length > 0) {
+            for (let i = 0; i < response.awardlist.length; i++) {
+              if (response.awardlist[i].createon !== null && response.awardlist[i].createon !== '') {
+                response.awardlist[i].createon = moment(response.awardlist[i].createon).format('YYYY-MM-DD');
               }
+              this.DataList.push({
+                award_id: response.awardlist[i].award_id,
+                award: this.$t('title.PFANS1025VIEW'),
+                awardtype: this.$t('label.PFANS1026FORMVIEW_D') + Number(i + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
+                createon: response.awardlist[i].createon,
+              });
+              this.checkdata = true;
             }
-            //add-ws-7/22-禅道341任务
-            if (response.individual.length > 0) {
-              for (let i = 0; i < response.individual.length; i++) {
-                if (response.individual[i].createon !== null && response.individual[i].createon !== '') {
-                  response.individual[i].createon = moment(response.individual[i].createon).format('YYYY-MM-DD');
-                }
-                this.DataList.push({
-                  award_id: response.individual[i].contractnumber,
-                  award: this.$t('title.PFANS1046VIEW'),
-                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + Number(i + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
-                  createon: response.individual[i].createon,
-                });
-                this.checkdata = true;
-              }
-            }
-            //add-ws-7/22-禅道341任务
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
-      viewdata(row) {
-        this.$store.commit('global/SET_HISTORYURL', '');
-        this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1024FormView');
-        if (row.award.substring(0, 3) === this.$t('title.PFANS1025VIEW')) {
-          this.$router.push({
-            name: 'PFANS1025FormView',
-            params: {
-              _checkdisable: this.disable,
-              check_id: this.IDname,
-              _checkname: true,
-              _id: row.award_id,
-              disabled: false,
-            },
-          });
+          }
           //add-ws-7/22-禅道341任务
-        } else {
-          this.$router.push({
-            name: 'PFANS1046View',
-            params: {
-              _id: row.award_id,
-            },
+          if (response.individual.length > 0) {
+            for (let i = 0; i < response.individual.length; i++) {
+              if (response.individual[i].createon !== null && response.individual[i].createon !== '') {
+                response.individual[i].createon = moment(response.individual[i].createon).format('YYYY-MM-DD');
+              }
+              this.DataList.push({
+                award_id: response.individual[i].contractnumber,
+                award: this.$t('title.PFANS1046VIEW'),
+                awardtype: this.$t('label.PFANS1026FORMVIEW_D') + Number(i + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
+                createon: response.individual[i].createon,
+              });
+              this.checkdata = true;
+            }
+          }
+          //add-ws-7/22-禅道341任务
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
           });
-        }
+          this.loading = false;
+        });
+    },
+    viewdata(row) {
+      this.$store.commit('global/SET_HISTORYURL', '');
+      this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1024FormView');
+      if (row.award.substring(0, 3) === this.$t('title.PFANS1025VIEW')) {
+        this.$router.push({
+          name: 'PFANS1025FormView',
+          params: {
+            _checkdisable: this.disable,
+            check_id: this.IDname,
+            _checkname: true,
+            _id: row.award_id,
+            disabled: false,
+          },
+        });
         //add-ws-7/22-禅道341任务
-      },
-      //add-ws-6/22-禅道152任务
-      getProjectList() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS5009Store/getSiteList2', {})
-          .then(response => {
-            this.projectResult = response.filter(value => {
-              return value.status === '4';
-            });
-            this.loading = false;
-          })
-          .catch(error => {
-            this.loading = false;
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
+      } else {
+        this.$router.push({
+          name: 'PFANS1046View',
+          params: {
+            _id: row.award_id,
+          },
+        });
+      }
+      //add-ws-7/22-禅道341任务
+    },
+    //add-ws-6/22-禅道152任务
+    getProjectList() {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS5009Store/getSiteList2', {})
+        .then(response => {
+          this.projectResult = response.filter(value => {
+            return value.status === '4';
           });
-      },
-      // DEL_FJL  start
-      // changePro(val, row) {
-      //   let nameJA = '';
-      //   for (let i = 0; i < val.length; i++) {
-      //     let result = this.projectResult.filter(value => {
-      //       return value.companyprojects_id === val[i];
-      //     });
-      //     nameJA += result[0].project_namejp + ',';
-      //   }
-      //   row.conchinese = val;
-      //   row.conjapanese = nameJA.substring(0, nameJA.length - 1);
-      // },
-      // DEL_FJL  enf
-      handleClickA(row) {
-        this.recordData = row;
-        this.dialogVisibleA = true;
-      },
-      rowClick(row) {
-        this.loading = true;
-        this.recordData.custojapanese = row.supjapanese;
-        this.recordData.custoenglish = row.supenglish;
-        this.recordData.custoabbreviation = row.abbreviation;
-        this.recordData.custochinese = row.supchinese;
-        this.recordData.suppliercode = row.suppliercode;
-        this.recordData.vendornum = row.vendornum;
-
-        this.recordData.placejapanese = row.addjapanese;
-        this.recordData.placeenglish = row.addenglish;
-        this.recordData.placechinese = row.addchinese;
-
-        this.recordData.responjapanese = row.projapanese;
-        this.recordData.responerglish = row.proenglish;
-        this.recordData.responphone = row.protelephone;
-        this.recordData.responemail = row.protemail;
-        this.dialogVisibleA = false;
-        this.loading = false;
-      },
-      //
-      handleClickE() {
-        //this.form.claimtype = this.$t('label.PFANS1026FORMVIEW_D') + this.form1.claimtype + this.$t('label.PFANS1026FORMVIEW_H');
-        this.form.claimtype = this.form1.claimtype;
-        this.dialogVisibleE = true;
-      },
-
-      rowClickE(row) {
-        this.form1.custojapanese = row.supjapanese;
-
-        this.formcustomer.custojapanese = row.supjapanese;
-        this.formcustomer.custoenglish = row.supenglish;
-        this.formcustomer.custoabbreviation = row.abbreviation;
-        this.formcustomer.custochinese = row.supchinese;
-        this.formcustomer.suppliercode = row.suppliercode;
-        this.formcustomer.vendornum = row.vendornum;
-
-        if (!row.addjapanese) {
-          this.formcustomer.placejapanese = row.addchinese;
-        } else {
-          this.formcustomer.placejapanese = row.addjapanese;
-        }
-
-        this.formcustomer.placeenglish = row.addenglish;
-        this.formcustomer.placechinese = row.addchinese;
-
-        this.formcustomer.responjapanese = row.projapanese;
-        this.formcustomer.responerglish = row.proenglish;
-        this.formcustomer.responphone = row.protelephone;
-        this.formcustomer.responemail = row.protemail;
-        this.dialogVisibleE = false;
-      },
-      //upd-ws-01/06-禅道任务710
-      handleClickB(row) {
-        this.recordDataB = row;
-        this.dialogVisibleB = true;
-      },
-      handleClickChange(row) {
-        this.recordDataB.theme = row.themename;
-        this.recordDataB.temaid = row.themeplandetail_id;
-        //add_qhr_20210707 添加themeinfor_id字段
-        this.recordDataB.themeinfor_id = row.themeinfor_id;
-        this.dialogVisibleB = false;
-      },
-      //add_qhr_20210707 取消theme区分
-      // changed() {
-      //   if (this.region === '2') {
-      //     this.getdata('1');
-      //   } else if (this.region === '1') {
-      //     this.getdata('0');
-      //   }
-      // },
-      //  upadte  ml  211203  dialog分页   from
-      getdata() {
-        this.tableB = [];
-        let params = {
-          currentPage: this.listQuerySys.currentPage,
-          pageSize: this.listQuerySys.pageSize,
-        }
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1043Store/getDiaLogPage', params)
-          // .dispatch('PFANS1043Store/themenametype', {'year': this.year}) //add_qhr_20210707 修改传参
-          .then(response => {
-            for (let j = 0; j < response.resultList.length; j++) {
-              if (response.resultList[j].branch != '' && response.resultList[j].branch != null) {
-                let letErrortype = getDictionaryInfo(response.resultList[j].branch);
-                if (letErrortype != null) {
-                  response.resultList[j].branch = letErrortype.value1;
-                }
-              }
-              if (response.resultList[j].contracttype != '' && response.resultList[j].contracttype != null) {
-                let letErrortype = getDictionaryInfo(response.resultList[j].contracttype);
-                if (letErrortype != null) {
-                  response.resultList[j].contracttype = letErrortype.value1;
-                }
-              }
-              // if (response[j].contracttype != '' && response[j].contracttype != null) {
-              //   let letErrortype = getDictionaryInfo(response[j].contracttype);
-              //   if (letErrortype != null) {
-              //     response[j].contracttype = letErrortype.value1;
-              //   }
-              // }
-              this.tableB.push(
-                {
-                  themeplandetail_id: response.resultList[j].themeplandetail_id,
-                  //add_qhr_20210707 添加字段值
-                  themeinfor_id: response.resultList[j].themeinfor_id,
-                  themename: response.resultList[j].themename,
-                  divide: response.resultList[j].branch,
-                  contract: response.resultList[j].contracttype,
-                  currency: response.resultList[j].contracttype,
-                },
-              );
-            }
-            this.totalSysm = response.total;
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
+          this.loading = false;
+        })
+        .catch(error => {
+          this.loading = false;
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
           });
-      },
-      //  upadte  ml  211203  dialog分页   to
-      //upd-ws-01/06-禅道任务710
-      //获取供应商列表
-      getsupplierinfor() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6003Store/getsupplierinfor2')
-          .then(response => {
-            for (let j = 0; j < response.length; j++) {
-              if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
-                let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
-                if (supplierInfo) {
-                  response[j].supchinese = supplierInfo.supchinese;
-                  //        zy-7/6-禅道213任务 start
-                  response[j].supjapanese = supplierInfo.supjapanese;
-                  response[j].supenglish = supplierInfo.supenglish;
-                  response[j].abbreviation = supplierInfo.abbreviation;
-                  //        zy-7/6-禅道213任务 end
-                }
-              }
-              if (response[j].liableperson !== null && response[j].liableperson !== '') {
-                let liableperson = getUserInfo(response[j].liableperson);
-                if (liableperson) {
-                  response[j].liableperson = user.userinfo.customername;
-                }
-              }
-              if (response[j].prochinese !== null && response[j].prochinese !== '') {
-                let prochinese = getUserInfo(response[j].prochinese);
-                if (prochinese) {
-                  response[j].prochinese = user.userinfo.customername;
-                }
-              }
-              if (response[j].protelephone !== null && response[j].protelephone !== '') {
-                let protelephone = getUserInfo(response[j].protelephone);
-                if (protelephone) {
-                  response[j].protelephone = user.userinfo.customername;
-                }
-              }
-              // if (response[j].commontperson !== null && response[j].commontperson !== '') {
-              //   let commontperson = getUserInfo(response[j].commontperson);
-              //   if (commontperson) {
-              //     response[j].commontperson = user.userinfo.customername;
-              //   }
-              // }
-              // if (response[j].comtelephone !== null && response[j].comtelephone !== '') {
-              //   let comtelephone = getUserInfo(response[j].comtelephone);
-              //   if (comtelephone) {
-              //     response[j].comtelephone = user.userinfo.customername;
-              //   }
-              // }
-              // if (response[j].addchinese !== null && response[j].addchinese !== '') {
-              //   let addchinese = getUserInfo(response[j].addchinese);
-              //   if (addchinese) {
-              //     response[j].addchinese = user.userinfo.customername;
-              //   }
-              // }
-              // if (response[j].perscale !== null && response[j].perscale !== '') {
-              //   let perscale = getDictionaryInfo(response[j].perscale);
-              //   if (perscale != null) {
-              //     response[j].perscale = perscale.value1;
-              //   }
-              // }
-            }
+        });
+    },
+    // DEL_FJL  start
+    // changePro(val, row) {
+    //   let nameJA = '';
+    //   for (let i = 0; i < val.length; i++) {
+    //     let result = this.projectResult.filter(value => {
+    //       return value.companyprojects_id === val[i];
+    //     });
+    //     nameJA += result[0].project_namejp + ',';
+    //   }
+    //   row.conchinese = val;
+    //   row.conjapanese = nameJA.substring(0, nameJA.length - 1);
+    // },
+    // DEL_FJL  enf
+    handleClickA(row) {
+      this.recordData = row;
+      this.dialogVisibleA = true;
+    },
+    rowClick(row) {
+      this.loading = true;
+      this.recordData.custojapanese = row.supjapanese;
+      this.recordData.custoenglish = row.supenglish;
+      this.recordData.custoabbreviation = row.abbreviation;
+      this.recordData.custochinese = row.supchinese;
+      this.recordData.suppliercode = row.suppliercode;
+      this.recordData.vendornum = row.vendornum;
 
-            this.dataA = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
+      this.recordData.placejapanese = row.addjapanese;
+      this.recordData.placeenglish = row.addenglish;
+      this.recordData.placechinese = row.addchinese;
+
+      this.recordData.responjapanese = row.projapanese;
+      this.recordData.responerglish = row.proenglish;
+      this.recordData.responphone = row.protelephone;
+      this.recordData.responemail = row.protemail;
+      this.dialogVisibleA = false;
+      this.loading = false;
+    },
+    //
+    handleClickE() {
+      //this.form.claimtype = this.$t('label.PFANS1026FORMVIEW_D') + this.form1.claimtype + this.$t('label.PFANS1026FORMVIEW_H');
+      this.form.claimtype = this.form1.claimtype;
+      this.dialogVisibleE = true;
+    },
+
+    rowClickE(row) {
+      this.form1.custojapanese = row.supjapanese;
+
+      this.formcustomer.custojapanese = row.supjapanese;
+      this.formcustomer.custoenglish = row.supenglish;
+      this.formcustomer.custoabbreviation = row.abbreviation;
+      this.formcustomer.custochinese = row.supchinese;
+      this.formcustomer.suppliercode = row.suppliercode;
+      this.formcustomer.vendornum = row.vendornum;
+
+      if (!row.addjapanese) {
+        this.formcustomer.placejapanese = row.addchinese;
+      } else {
+        this.formcustomer.placejapanese = row.addjapanese;
+      }
+
+      this.formcustomer.placeenglish = row.addenglish;
+      this.formcustomer.placechinese = row.addchinese;
+
+      this.formcustomer.responjapanese = row.projapanese;
+      this.formcustomer.responerglish = row.proenglish;
+      this.formcustomer.responphone = row.protelephone;
+      this.formcustomer.responemail = row.protemail;
+      this.dialogVisibleE = false;
+    },
+    //upd-ws-01/06-禅道任务710
+    handleClickB(row) {
+      this.recordDataB = row;
+      this.dialogVisibleB = true;
+    },
+    handleClickChange(row) {
+      this.recordDataB.theme = row.themename;
+      this.recordDataB.temaid = row.themeplandetail_id;
+      //add_qhr_20210707 添加themeinfor_id字段
+      this.recordDataB.themeinfor_id = row.themeinfor_id;
+      this.dialogVisibleB = false;
+    },
+    //add_qhr_20210707 取消theme区分
+    // changed() {
+    //   if (this.region === '2') {
+    //     this.getdata('1');
+    //   } else if (this.region === '1') {
+    //     this.getdata('0');
+    //   }
+    // },
+    //  upadte  ml  211203  dialog分页   from
+    getdata() {
+      this.tableB = [];
+      let params = {
+        currentPage: this.listQuerySys.currentPage,
+        pageSize: this.listQuerySys.pageSize,
+      };
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS1043Store/getDiaLogPage', params)
+        // .dispatch('PFANS1043Store/themenametype', {'year': this.year}) //add_qhr_20210707 修改传参
+        .then(response => {
+          for (let j = 0; j < response.resultList.length; j++) {
+            if (response.resultList[j].branch != '' && response.resultList[j].branch != null) {
+              let letErrortype = getDictionaryInfo(response.resultList[j].branch);
+              if (letErrortype != null) {
+                response.resultList[j].branch = letErrortype.value1;
+              }
+            }
+            if (response.resultList[j].contracttype != '' && response.resultList[j].contracttype != null) {
+              let letErrortype = getDictionaryInfo(response.resultList[j].contracttype);
+              if (letErrortype != null) {
+                response.resultList[j].contracttype = letErrortype.value1;
+              }
+            }
+            // if (response[j].contracttype != '' && response[j].contracttype != null) {
+            //   let letErrortype = getDictionaryInfo(response[j].contracttype);
+            //   if (letErrortype != null) {
+            //     response[j].contracttype = letErrortype.value1;
+            //   }
+            // }
+            this.tableB.push(
+              {
+                themeplandetail_id: response.resultList[j].themeplandetail_id,
+                //add_qhr_20210707 添加字段值
+                themeinfor_id: response.resultList[j].themeinfor_id,
+                themename: response.resultList[j].themename,
+                divide: response.resultList[j].branch,
+                contract: response.resultList[j].contracttype,
+                currency: response.resultList[j].contracttype,
+              },
+            );
+          }
+          this.totalSysm = response.total;
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
           });
-      },
-      handleClickD(row) {
-        this.recordDataD = row;
-        this.dialogVisibleD = true;
-      },
-      rowClickD(row) {
-        this.recordDataD.entrustednumber = row.contractnumber;
-        this.dialogVisibleD = false;
-      },
-      getContract() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1026Store/get2', {'type': '1'})
-          .then(response => {
-            let letcontractnumber = [];
-            let tabledata = response.contractapplication;
-            for (let i = 0; i < tabledata.length; i++) {
-              if (tabledata[i].state === '1' || tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-                tabledata[i].status = getStatus(tabledata[i].status);
-                let user = getUserInfo(tabledata[i].user_id);
-                if (user) {
-                  tabledata[i].user_id = getUserInfo(tabledata[i].user_id).userinfo.customername;
-                }
-                if (tabledata[i].applicationdate !== null && tabledata[i].applicationdate !== '') {
-                  tabledata[i].applicationdate = moment(tabledata[i].applicationdate).format('YYYY-MM-DD');
-                }
-                if (tabledata[i].contracttype !== null && tabledata[i].contracttype !== '') {
-                  let letContracttype = getDictionaryInfo(tabledata[i].contracttype);
-                  if (letContracttype != null) {
-                    tabledata[i].contracttype = letContracttype.value1;
-                  }
-                }
-                if (tabledata[i].contractnumber != '') {
-                  letcontractnumber.push(tabledata[i].contractnumber);
-                }
+          this.loading = false;
+        });
+    },
+    //  upadte  ml  211203  dialog分页   to
+    //upd-ws-01/06-禅道任务710
+    //获取供应商列表
+    getsupplierinfor() {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS6003Store/getsupplierinfor2')
+        .then(response => {
+          for (let j = 0; j < response.length; j++) {
+            if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
+              let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
+              if (supplierInfo) {
+                response[j].supchinese = supplierInfo.supchinese;
+                //        zy-7/6-禅道213任务 start
+                response[j].supjapanese = supplierInfo.supjapanese;
+                response[j].supenglish = supplierInfo.supenglish;
+                response[j].abbreviation = supplierInfo.abbreviation;
+                //        zy-7/6-禅道213任务 end
               }
             }
-            var arr = [];
-            let o;
-            for (var i = 0; i < letcontractnumber.length; i++) {
-              if (arr.indexOf(letcontractnumber[i]) == -1) {
-                arr.push(letcontractnumber[i]);
-                o = Object.assign([], tabledata[i]);
-                this.tableD.push(o);
+            if (response[j].liableperson !== null && response[j].liableperson !== '') {
+              let liableperson = getUserInfo(response[j].liableperson);
+              if (liableperson) {
+                response[j].liableperson = user.userinfo.customername;
               }
             }
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
+            if (response[j].prochinese !== null && response[j].prochinese !== '') {
+              let prochinese = getUserInfo(response[j].prochinese);
+              if (prochinese) {
+                response[j].prochinese = user.userinfo.customername;
+              }
+            }
+            if (response[j].protelephone !== null && response[j].protelephone !== '') {
+              let protelephone = getUserInfo(response[j].protelephone);
+              if (protelephone) {
+                response[j].protelephone = user.userinfo.customername;
+              }
+            }
+            // if (response[j].commontperson !== null && response[j].commontperson !== '') {
+            //   let commontperson = getUserInfo(response[j].commontperson);
+            //   if (commontperson) {
+            //     response[j].commontperson = user.userinfo.customername;
+            //   }
+            // }
+            // if (response[j].comtelephone !== null && response[j].comtelephone !== '') {
+            //   let comtelephone = getUserInfo(response[j].comtelephone);
+            //   if (comtelephone) {
+            //     response[j].comtelephone = user.userinfo.customername;
+            //   }
+            // }
+            // if (response[j].addchinese !== null && response[j].addchinese !== '') {
+            //   let addchinese = getUserInfo(response[j].addchinese);
+            //   if (addchinese) {
+            //     response[j].addchinese = user.userinfo.customername;
+            //   }
+            // }
+            // if (response[j].perscale !== null && response[j].perscale !== '') {
+            //   let perscale = getDictionaryInfo(response[j].perscale);
+            //   if (perscale != null) {
+            //     response[j].perscale = perscale.value1;
+            //   }
+            // }
+          }
+
+          this.dataA = response;
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
           });
-      },
-      getGroupId(val) {
-        this.form1.grouporglist = val;
-        this.grouporglist = val;
-        //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 start
-        let group = getOrgInformation(val);
-        if (group) {
-          //取有效组织 ztc fr
-          if(group.data.type === '2' && group.parent.data.encoding !== ''){
-            //取有效组织 ztc to
-            this.form1.grouporglist = group.parent.data._id;
-            this.grouporglist = group.parent.data._id;
-            this.groupinfo = [
-              group.parent.data._id,
-              group.parent.data.companyen === undefined ? "" : group.parent.data.companyen,
-              group.data.orgname === undefined ? "" : group.data.orgname,
-              group.parent.data.companyname === undefined ? "" : group.parent.data.companyname
-            ];
-          }
-          else{
-            this.groupinfo = [
-              val,
-              group.data.companyen === undefined ? "" : group.data.companyen,
-              group.data.orgname === undefined ? "" : group.data.orgname,
-              group.data.companyname === undefined ? "" : group.data.companyname
-            ];
-          }
-        }
-        //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 end
-        if (!val || this.form1.grouporglist === '') {
-          this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
-        } else {
-          this.errorgroup = '';
-        }
-        //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 start
-      },
-      getOrgInformation(id) {
-        let org = {};
-        let treeCom = this.$store.getters.orgs;
-
-        if (id && treeCom.getNode(id)) {
-          let node = id;
-          let type = treeCom.getNode(id).data.type || 0;
-          for (let index = parseInt(type); index >= 1; index--) {
-            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
-              org.teamname = treeCom.getNode(node).data.departmentname;
-              org.teamid = treeCom.getNode(node).data._id;
+          this.loading = false;
+        });
+    },
+    handleClickD(row) {
+      this.recordDataD = row;
+      this.dialogVisibleD = true;
+    },
+    rowClickD(row) {
+      this.recordDataD.entrustednumber = row.contractnumber;
+      this.dialogVisibleD = false;
+    },
+    getContract() {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS1026Store/get2', {'type': '1'})
+        .then(response => {
+          let letcontractnumber = [];
+          let tabledata = response.contractapplication;
+          for (let i = 0; i < tabledata.length; i++) {
+            if (tabledata[i].state === '1' || tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+              tabledata[i].status = getStatus(tabledata[i].status);
+              let user = getUserInfo(tabledata[i].user_id);
+              if (user) {
+                tabledata[i].user_id = getUserInfo(tabledata[i].user_id).userinfo.customername;
+              }
+              if (tabledata[i].applicationdate !== null && tabledata[i].applicationdate !== '') {
+                tabledata[i].applicationdate = moment(tabledata[i].applicationdate).format('YYYY-MM-DD');
+              }
+              if (tabledata[i].contracttype !== null && tabledata[i].contracttype !== '') {
+                let letContracttype = getDictionaryInfo(tabledata[i].contracttype);
+                if (letContracttype != null) {
+                  tabledata[i].contracttype = letContracttype.value1;
+                }
+              }
+              if (tabledata[i].contractnumber != '') {
+                letcontractnumber.push(tabledata[i].contractnumber);
+              }
             }
-            if (index === 2) {
-              org.groupname = treeCom.getNode(node).data.departmentname;
-              org.groupid = treeCom.getNode(node).data._id;
-              org.budgetunit = treeCom.getNode(node).data.encoding;
-            }
-            if (index === 1) {
-              org.centername = treeCom.getNode(node).data.companyname;
-              org.centerid = treeCom.getNode(node).data._id;
-            }
-            node = treeCom.getNode(node).parent.data._id;
           }
-          ({
-            centername: this.form.centername,
-            groupname: this.form.groupname,
-            teamname: this.form.teamname,
-            centerid: this.form.centerid,
-            groupid: this.form.groupid,
-            teamid: this.form.teamid,
-            budgetunit: this.form.budgetunit,
-          } = org);
-        }
-      },
-      getSidegroup(val) {
-        this.form.sidegroup = val;
-      },
-      getUserids(val, row) {
-        row.user_id = val;
-      },
-      getCusto(val, row) {
-        row.custojapanese = val;
-        if (!row.custojapanese || row.custojapanese === '' || val === 'undefined') {
-          this.errorcusto = this.$t('normal.error_09') + this.$t('label.applicant');
-        } else {
-          this.errorcusto = '';
-        }
-      },
-      getnumber(val) {
-        this.form1.claimtype = val;
-      },
-      getChecked(val) {
-        this.checked = val;
-        if (val === true) {
-          this.form.contractnumber = this.letcontractnumber;
-          this.disabled1 = true;
-          this.disabled2 = false;
-        } else {
-          this.disabled1 = false;
-          this.disabled2 = true;
-          this.form.contractnumber = '';
-        }
-      },
-      getContractnumber(val, row) {
-        row.entrustednumber = val;
-      },
-      getcontracttype(val) {
-        this.form1.contracttype = val;
-      },
-      getEntrycondition(val, row) {
-        row.entrycondition = val;
-      },
-      getcareeryear1(val) {
-        this.form1.applicationdate = val;
-        if (this.form1.entrycondition) {
-          this.errorapplicationdate = '';
-        }
-      },
-      getcareeryear2(val) {
-        this.form1.entrycondition = val;
-        if (this.form1.applicationdate) {
-          this.errorapplicationdate = '';
-        }
-      },
-      getCurrencyposition(val, row) {
-
-        row.currencyposition = val;
-
-      },
-      getcareeryear(val) {
-        this.form.career = val;
-      },
-      //日期区组件处理
-      getcontractdate(contractdate) {
-        if (contractdate != null) {
-          if (contractdate.length > 0) {
-            return moment(contractdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(contractdate[1]).format('YYYY-MM-DD');
-          } else {
-            return '';
+          var arr = [];
+          let o;
+          for (var i = 0; i < letcontractnumber.length; i++) {
+            if (arr.indexOf(letcontractnumber[i]) == -1) {
+              arr.push(letcontractnumber[i]);
+              o = Object.assign([], tabledata[i]);
+              this.tableD.push(o);
+            }
           }
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    },
+    getGroupId(val) {
+      this.form1.grouporglist = val;
+      this.grouporglist = val;
+      //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 start
+      let group = getOrgInformation(val);
+      if (group) {
+        //取有效组织 ztc fr
+        if (group.data.type === '2' && group.parent.data.encoding !== '') {
+          //取有效组织 ztc to
+          this.form1.grouporglist = group.parent.data._id;
+          this.grouporglist = group.parent.data._id;
+          this.groupinfo = [
+            group.parent.data._id,
+            group.parent.data.companyen === undefined ? '' : group.parent.data.companyen,
+            group.data.orgname === undefined ? '' : group.data.orgname,
+            group.parent.data.companyname === undefined ? '' : group.parent.data.companyname,
+          ];
+        } else {
+          this.groupinfo = [
+            val,
+            group.data.companyen === undefined ? '' : group.data.companyen,
+            group.data.orgname === undefined ? '' : group.data.orgname,
+            group.data.companyname === undefined ? '' : group.data.companyname,
+          ];
+        }
+      }
+      //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 end
+      if (!val || this.form1.grouporglist === '') {
+        this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
+      } else {
+        this.errorgroup = '';
+      }
+      //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 start
+    },
+    getOrgInformation(id) {
+      let org = {};
+      let treeCom = this.$store.getters.orgs;
+
+      if (id && treeCom.getNode(id)) {
+        let node = id;
+        let type = treeCom.getNode(id).data.type || 0;
+        for (let index = parseInt(type); index >= 1; index--) {
+          if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+            org.teamname = treeCom.getNode(node).data.departmentname;
+            org.teamid = treeCom.getNode(node).data._id;
+          }
+          if (index === 2) {
+            org.groupname = treeCom.getNode(node).data.departmentname;
+            org.groupid = treeCom.getNode(node).data._id;
+            org.budgetunit = treeCom.getNode(node).data.encoding;
+          }
+          if (index === 1) {
+            org.centername = treeCom.getNode(node).data.companyname;
+            org.centerid = treeCom.getNode(node).data._id;
+          }
+          node = treeCom.getNode(node).parent.data._id;
+        }
+        ({
+          centername: this.form.centername,
+          groupname: this.form.groupname,
+          teamname: this.form.teamname,
+          centerid: this.form.centerid,
+          groupid: this.form.groupid,
+          teamid: this.form.teamid,
+          budgetunit: this.form.budgetunit,
+        } = org);
+      }
+    },
+    getSidegroup(val) {
+      this.form.sidegroup = val;
+    },
+    getUserids(val, row) {
+      row.user_id = val;
+    },
+    getCusto(val, row) {
+      row.custojapanese = val;
+      if (!row.custojapanese || row.custojapanese === '' || val === 'undefined') {
+        this.errorcusto = this.$t('normal.error_09') + this.$t('label.applicant');
+      } else {
+        this.errorcusto = '';
+      }
+    },
+    getnumber(val) {
+      this.form1.claimtype = val;
+    },
+    getChecked(val) {
+      this.checked = val;
+      if (val === true) {
+        this.form.contractnumber = this.letcontractnumber;
+        this.disabled1 = true;
+        this.disabled2 = false;
+      } else {
+        this.disabled1 = false;
+        this.disabled2 = true;
+        this.form.contractnumber = '';
+      }
+    },
+    getContractnumber(val, row) {
+      row.entrustednumber = val;
+    },
+    getcontracttype(val) {
+      this.form1.contracttype = val;
+    },
+    getEntrycondition(val, row) {
+      row.entrycondition = val;
+    },
+    getcareeryear1(val) {
+      this.form1.applicationdate = val;
+      if (this.form1.entrycondition) {
+        this.errorapplicationdate = '';
+      }
+    },
+    getcareeryear2(val) {
+      this.form1.entrycondition = val;
+      if (this.form1.applicationdate) {
+        this.errorapplicationdate = '';
+      }
+    },
+    getCurrencyposition(val, row) {
+
+      row.currencyposition = val;
+
+    },
+    getcareeryear(val) {
+      this.form.career = val;
+    },
+    //日期区组件处理
+    getcontractdate(contractdate) {
+      if (contractdate != null) {
+        if (contractdate.length > 0) {
+          return moment(contractdate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(contractdate[1]).format('YYYY-MM-DD');
         } else {
           return '';
         }
-      },
-      getRowClass1({row, column, rowIndex, columnIndex}) {
+      } else {
+        return '';
+      }
+    },
+    getRowClass1({row, column, rowIndex, columnIndex}) {
 
-        if (column.level === 2 && columnIndex >= 0 && columnIndex < 4) {
-          return {
-            color: 'white',
-            background: '#99CCFF',
-            'border-bottom': '1px solid #99CCFF',
-            'border-right': '1px solid #73B9FF',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 4 && columnIndex < 7) {
-          return {
-            color: 'white',
-            background: '#99CC99',
-            'border-bottom': '1px solid #99CCFF',
-            'border-right': '1px solid #73CC73',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 7 && columnIndex < 11) {
-          return {
-            color: 'white',
-            background: '#CC99FF',
-            'border-right': '1px solid #B973FF',
-            'border-bottom': '1px solid #99CCFF',
-          };
-        }
-        if (column.level === 2 && columnIndex >= 11 && columnIndex < 14) {
-          return {
-            color: 'white',
-            background: '#CC9999',
-            'border-right': '1px solid #CC7373',
-            'border-bottom': '1px solid #99CCFF',
-          };
-        }
-        if (column.level === 1 && columnIndex >= 0 && columnIndex < 25) {
-          return {
-            color: 'white',
-            background: '#005BAA',
-          };
-        }
+      if (column.level === 2 && columnIndex >= 0 && columnIndex < 4) {
+        return {
+          color: 'white',
+          background: '#99CCFF',
+          'border-bottom': '1px solid #99CCFF',
+          'border-right': '1px solid #73B9FF',
+        };
+      }
+      if (column.level === 2 && columnIndex >= 4 && columnIndex < 7) {
+        return {
+          color: 'white',
+          background: '#99CC99',
+          'border-bottom': '1px solid #99CCFF',
+          'border-right': '1px solid #73CC73',
+        };
+      }
+      if (column.level === 2 && columnIndex >= 7 && columnIndex < 11) {
+        return {
+          color: 'white',
+          background: '#CC99FF',
+          'border-right': '1px solid #B973FF',
+          'border-bottom': '1px solid #99CCFF',
+        };
+      }
+      if (column.level === 2 && columnIndex >= 11 && columnIndex < 14) {
+        return {
+          color: 'white',
+          background: '#CC9999',
+          'border-right': '1px solid #CC7373',
+          'border-bottom': '1px solid #99CCFF',
+        };
+      }
+      if (column.level === 1 && columnIndex >= 0 && columnIndex < 25) {
+        return {
+          color: 'white',
+          background: '#005BAA',
+        };
+      }
 
-      },
-      addRowdata(isClone) {
-        //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
-        if (isClone) {
-          let olddata = JSON.parse(JSON.stringify(this.form.tabledata[0]));//this.form.contractnumber
-          olddata.contractnumber = this.letcontractnumber;
-          olddata.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
-          this.form.tabledata.push(olddata);
-        } else {
-          let o = {
-            contractapplication_id: '',
-            careeryear: this.form.applicationdate,
-            periods: this.form.entrycondition,
-            sidegroup: this.form.sidegroup,
-            group_id: this.groupinfo[0],
-            department: this.groupinfo[1],
-            orgnumber: this.groupinfo[2],
-            deployment: this.groupinfo[3],
-            applicationdate: moment(new Date()).format('YYYY-MM-DD'),
-            user_id: this.$store.getters.userinfo.userid,
-            contracttype: this.contracttype,
-            contractnumber: this.letcontractnumber,
-            entrycondition: '',
-            entrypayment: '',
-            extensiondate: '',
-            claimtype: this.form1.claimtype,
-            deliverydate: '',
-            completiondate: '',
-            claimdate: moment(new Date()).format('YYYY-MM-DD'),
-            claimamount: '',
-            currencyposition: '',
-            supportdate: '',
-            contractdate: [],
-            custojapanese: this.formcustomer.custojapanese,
-            custoenglish: this.formcustomer.custoenglish,
-            custoabbreviation: this.formcustomer.custoabbreviation,
-            custochinese: this.formcustomer.custochinese,
-            placejapanese: this.formcustomer.placejapanese,
-            placeenglish: this.formcustomer.placeenglish,
-            placechinese: this.formcustomer.placechinese,
-            responjapanese: this.formcustomer.responjapanese,
-            responerglish: this.formcustomer.responerglish,
-            responphone: this.formcustomer.responphone,
-            responemail: this.formcustomer.responemail,
-            conjapanese: '',
-            conenglish: '',
-            conchinese: '',
-            entrustednumber: '',
-            papercontract: '',
-            state: this.$t('label.PFANS8008FORMVIEW_EFFECTIVE'),
-            type: '0',
-            maketype: '',
-            theme: '',//追加
-            temaid: '',
-          };
-          this.form.tabledata.push(o);
-        }
-      },
-      addRowclaimtype() {
-        this.form.tableclaimtype.push({
-          contractnumbercount_id: '',
+    },
+    addRowdata(isClone) {
+      //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
+      if (isClone) {
+        let olddata = JSON.parse(JSON.stringify(this.form.tabledata[0]));//this.form.contractnumber
+        olddata.contractnumber = this.letcontractnumber;
+        olddata.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
+        this.form.tabledata.push(olddata);
+      } else {
+        let o = {
+          contractapplication_id: '',
+          careeryear: this.form.applicationdate,
+          periods: this.form.entrycondition,
+          sidegroup: this.form.sidegroup,
+          group_id: this.groupinfo[0],
+          department: this.groupinfo[1],
+          orgnumber: this.groupinfo[2],
+          deployment: this.groupinfo[3],
+          applicationdate: moment(new Date()).format('YYYY-MM-DD'),
+          user_id: this.$store.getters.userinfo.userid,
+          contracttype: this.contracttype,
           contractnumber: this.letcontractnumber,
-          claimtype: '1',
+          entrycondition: '',
+          entrypayment: '',
+          extensiondate: '',
+          claimtype: this.form1.claimtype,
           deliverydate: '',
           completiondate: '',
           claimdate: moment(new Date()).format('YYYY-MM-DD'),
           claimamount: '',
+          currencyposition: '',
           supportdate: '',
+          contractdate: [],
+          custojapanese: this.formcustomer.custojapanese,
+          custoenglish: this.formcustomer.custoenglish,
+          custoabbreviation: this.formcustomer.custoabbreviation,
+          custochinese: this.formcustomer.custochinese,
+          placejapanese: this.formcustomer.placejapanese,
+          placeenglish: this.formcustomer.placeenglish,
+          placechinese: this.formcustomer.placechinese,
+          responjapanese: this.formcustomer.responjapanese,
+          responerglish: this.formcustomer.responerglish,
+          responphone: this.formcustomer.responphone,
+          responemail: this.formcustomer.responemail,
+          conjapanese: '',
+          conenglish: '',
+          conchinese: '',
+          entrustednumber: '',
+          papercontract: '',
+          state: this.$t('label.PFANS8008FORMVIEW_EFFECTIVE'),
           type: '0',
           maketype: '',
-          rowindex: '',
-        });
-      },
-      //契約番号做成
-      click() {
-        this.$refs['refform1'].validate(valid => {
-          if (valid) {
-            this.form.claimtype = this.form1.claimtype;
-            this.form.contractnumber = this.form1.contractnumber;
-            this.form.contracttype = this.form1.contracttype;
-            this.form.applicationdate = this.form1.applicationdate;
-            this.form.entrycondition = this.form1.entrycondition;
-            this.form.custojapanese = this.form1.custojapanese;
-            if (this.$route.params._id) {
-              this.disabled = true;
-              this.disabled3 = false;
-              this.book = false;
-              this.handleClick();
-            } else {
-              if (this.form.tabledata.length > 0) {
-                this.$confirm(this.$t('normal.confirm_iscontinue'), this.$t('normal.info'), {
-                  confirmButtonText: this.$t('button.confirm'),
-                  cancelButtonText: this.$t('button.cancel'),
-                  type: 'warning',
-                }).then(() => {
-                  this.form.tabledata = [];
-                  this.form.tableclaimtype = [];
-                  this.disabled = true;
-                  this.disabled3 = false;
-                  this.book = false;
-                  this.handleClick();
-                  this.dialogVisibleC = false;
-                }).catch(() => {
-                  this.$message.info({
-                    type: 'info',
-                    message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
-                  });
-
-                });
-              } else {
+          theme: '',//追加
+          temaid: '',
+        };
+        this.form.tabledata.push(o);
+      }
+    },
+    addRowclaimtype() {
+      this.form.tableclaimtype.push({
+        contractnumbercount_id: '',
+        contractnumber: this.letcontractnumber,
+        claimtype: '1',
+        deliverydate: '',
+        completiondate: '',
+        claimdate: moment(new Date()).format('YYYY-MM-DD'),
+        claimamount: '',
+        supportdate: '',
+        type: '0',
+        maketype: '',
+        rowindex: '',
+      });
+    },
+    //契約番号做成
+    click() {
+      this.$refs['refform1'].validate(valid => {
+        if (valid) {
+          this.form.claimtype = this.form1.claimtype;
+          this.form.contractnumber = this.form1.contractnumber;
+          this.form.contracttype = this.form1.contracttype;
+          this.form.applicationdate = this.form1.applicationdate;
+          this.form.entrycondition = this.form1.entrycondition;
+          this.form.custojapanese = this.form1.custojapanese;
+          if (this.$route.params._id) {
+            this.disabled = true;
+            this.disabled3 = false;
+            this.book = false;
+            this.handleClick();
+          } else {
+            if (this.form.tabledata.length > 0) {
+              this.$confirm(this.$t('normal.confirm_iscontinue'), this.$t('normal.info'), {
+                confirmButtonText: this.$t('button.confirm'),
+                cancelButtonText: this.$t('button.cancel'),
+                type: 'warning',
+              }).then(() => {
+                this.form.tabledata = [];
+                this.form.tableclaimtype = [];
                 this.disabled = true;
                 this.disabled3 = false;
+                this.book = false;
                 this.handleClick();
                 this.dialogVisibleC = false;
-              }
-            }
-          } else {
-            this.dialogVisibleC = true;
-            Message({
-              message: this.$t('normal.error_12'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-          }
-        });
-      },
-      //add-ws-委托决裁书编辑时逻辑改变跟受託的相同
-      tipMes(contractNumber, index) {
-        this.$confirm(this.$t('normal.error_tipis'), this.$t('normal.info'), {
-          confirmButtonText: this.$t('button.confirm'),
-          cancelButtonText: this.$t('button.cancel'),
-          type: 'warning',
-        }).then(() => {
-          var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
-          this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
-        }).catch(() => {
-          this.$message.info({
-            type: 'info',
-            message: this.$t('label.PFANS1026FORMVIEW_tipis'),
-          });
-        });
-      },
-      //add-ws-委托决裁书编辑时逻辑改变跟受託的相同
-      handleClick() {
-        //請求方式
-        let letclaimtype = '';
-        let letbook = '';
-        //覚書
-        if (this.checked) {
-          letclaimtype = this.$t('label.PFANS1024VIEW_LETTERS');
-          let letcontractnumber = this.form.contractnumber.split('-');
-          if (letcontractnumber.length > 1) {
-            letbook = '-' + this.$t('label.PFANS1024VIEW_LETTERS').substring(0, 1) + (parseInt(letcontractnumber[1].substring(1, letcontractnumber[1].length)) + 1).toString();
-          } else {
-            letbook = '-' + this.$t('label.PFANS1024VIEW_LETTERS').substring(0, 1) + '1';
-          }
-          this.contractnumbercount = this.form.contractnumber.substr(10, 4).replace('0', '').replace('0', '').replace('0', '');
-        }
-        let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_ONE');
-        let letclaimtypetwo = letclaimtype + this.$t('label.PFANS1026FORMVIEW_TWO');
-        let letclaimtypethree = letclaimtype + this.$t('label.PFANS1026FORMVIEW_THREE');
-        let letclaimtypefour = letclaimtype + this.$t('label.PFANS1026FORMVIEW_FOUR');
-        //契約種類简称
-        let abbreviation = '';
-        let letabbreviation = getDictionaryInfo(this.form.contracttype);
-        if (letabbreviation != null) {
-          //契約種類
-          this.contracttype = letabbreviation.value1;
-          abbreviation = letabbreviation.value2;
-        }
-        //先方組織名编码
-        let sidegroup = this.formcustomer.vendornum;
-        if (sidegroup === undefined) {
-          this.dialogVisibleC = false;
-        }
-        // if (sidegroup === '' || sidegroup === undefined) {
-        //   Message({
-        //     message: this.$t('normal.error_15'),
-        //     type: 'error',
-        //     duration: 5 * 1000,
-        //   });
-        //   return;
-        // }
-        //事業年度
-        let applicationdate = '';
-        let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
-        if (letapplicationdate != null) {
-          applicationdate = letapplicationdate.value2;
-        }
-        //上下期
-        let entrycondition = '';
-        let letentrycondition = getDictionaryInfo(this.form.entrycondition);
-        if (letentrycondition != null) {
-          entrycondition = letentrycondition.value2;
-        }
-        //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号 + 供应商编码)
-        if (this.checked) {
-          this.letcontractnumber = this.form.contractnumber.split('-')[0] + letbook;
-        } else {
-          if (this.groupinfo[2] !== null) {
-            //选择group是判断组织编码为空时不可以创建合同
-            if(this.groupinfo[2].trim() !== ""){
-              this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + sidegroup + letbook;
-            }
-            else{
-              Message({
-                message: this.$t('normal.error_14'),
-                type: 'error',
-                duration: 5 * 1000,
+              }).catch(() => {
+                this.$message.info({
+                  type: 'info',
+                  message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
+                });
+
               });
-              return;
+            } else {
+              this.disabled = true;
+              this.disabled3 = false;
+              this.handleClick();
+              this.dialogVisibleC = false;
             }
+          }
+        } else {
+          this.dialogVisibleC = true;
+          Message({
+            message: this.$t('normal.error_12'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
+      });
+    },
+    //add-ws-委托决裁书编辑时逻辑改变跟受託的相同
+    tipMes(contractNumber, index) {
+      this.$confirm(this.$t('normal.error_tipis'), this.$t('normal.info'), {
+        confirmButtonText: this.$t('button.confirm'),
+        cancelButtonText: this.$t('button.cancel'),
+        type: 'warning',
+      }).then(() => {
+        var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+        this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
+      }).catch(() => {
+        this.$message.info({
+          type: 'info',
+          message: this.$t('label.PFANS1026FORMVIEW_tipis'),
+        });
+      });
+    },
+    //add-ws-委托决裁书编辑时逻辑改变跟受託的相同
+    handleClick() {
+      //請求方式
+      let letclaimtype = '';
+      let letbook = '';
+      //覚書
+      if (this.checked) {
+        letclaimtype = this.$t('label.PFANS1024VIEW_LETTERS');
+        let letcontractnumber = this.form.contractnumber.split('-');
+        if (letcontractnumber.length > 1) {
+          letbook = '-' + this.$t('label.PFANS1024VIEW_LETTERS').substring(0, 1) + (parseInt(letcontractnumber[1].substring(1, letcontractnumber[1].length)) + 1).toString();
+        } else {
+          letbook = '-' + this.$t('label.PFANS1024VIEW_LETTERS').substring(0, 1) + '1';
+        }
+        this.contractnumbercount = this.form.contractnumber.substr(10, 4).replace('0', '').replace('0', '').replace('0', '');
+      }
+      let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_ONE');
+      let letclaimtypetwo = letclaimtype + this.$t('label.PFANS1026FORMVIEW_TWO');
+      let letclaimtypethree = letclaimtype + this.$t('label.PFANS1026FORMVIEW_THREE');
+      let letclaimtypefour = letclaimtype + this.$t('label.PFANS1026FORMVIEW_FOUR');
+      //契約種類简称
+      let abbreviation = '';
+      let letabbreviation = getDictionaryInfo(this.form.contracttype);
+      if (letabbreviation != null) {
+        //契約種類
+        this.contracttype = letabbreviation.value1;
+        abbreviation = letabbreviation.value2;
+      }
+      //先方組織名编码
+      let sidegroup = this.formcustomer.vendornum;
+      if (sidegroup === undefined) {
+        this.dialogVisibleC = false;
+      }
+      // if (sidegroup === '' || sidegroup === undefined) {
+      //   Message({
+      //     message: this.$t('normal.error_15'),
+      //     type: 'error',
+      //     duration: 5 * 1000,
+      //   });
+      //   return;
+      // }
+      //事業年度
+      let applicationdate = '';
+      let letapplicationdate = getDictionaryInfo(this.form.applicationdate);
+      if (letapplicationdate != null) {
+        applicationdate = letapplicationdate.value2;
+      }
+      //上下期
+      let entrycondition = '';
+      let letentrycondition = getDictionaryInfo(this.form.entrycondition);
+      if (letentrycondition != null) {
+        entrycondition = letentrycondition.value2;
+      }
+      //契約書番号(契約種類 + 事業年度 + 上下期 + 社内組織番号 + 供应商编码)
+      if (this.checked) {
+        this.letcontractnumber = this.form.contractnumber.split('-')[0] + letbook;
+      } else {
+        if (this.groupinfo[2] !== null) {
+          //选择group是判断组织编码为空时不可以创建合同
+          if (this.groupinfo[2].trim() !== '') {
+            this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + sidegroup + letbook;
           } else {
             Message({
               message: this.$t('normal.error_14'),
@@ -2447,452 +2448,267 @@
             });
             return;
           }
-        }
-        //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
-        let isClone = false;
-        if (this.checked) {
-          for (let i = 0; i < this.form.tabledata.length; i++) {
-            this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-            if (this.form.tabledata[0].deliverycondition == 'HT009002') {
-              isClone = true;
-            }
-          }
-        }
-        this.addRowdata(isClone);
-
-        // if (this.form.claimtype === 'HT001001') {
-        //   this.addRowclaimtype();
-        //   this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-        // } else if (this.form.claimtype === 'HT001002') {
-        //   this.addRowclaimtype();
-        //   this.addRowclaimtype();
-        //   this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-        //   this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
-        // } else if (this.form.claimtype === 'HT001003') {
-        //   this.addRowclaimtype();
-        //   this.addRowclaimtype();
-        //   this.addRowclaimtype();
-        //   this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-        //   this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
-        //   this.form.tableclaimtype[2].claimtype = letclaimtypethree;
-        //
-        // } else if (this.form.claimtype === 'HT001004') {
-        //   this.addRowclaimtype();
-        //   this.addRowclaimtype();
-        //   this.addRowclaimtype();
-        //   this.addRowclaimtype();
-        //   this.form.tableclaimtype[0].claimtype = letclaimtypeone;
-        //   this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
-        //   this.form.tableclaimtype[2].claimtype = letclaimtypethree;
-        //   this.form.tableclaimtype[3].claimtype = letclaimtypefour;
-        // }
-        //add gbb 20210508 合同觉书的情况带入旧合同回数 start
-        let letint = 0;
-        let tableclaimtypenew = [];
-        if (this.checked) {
-          for (let i = 0; i < this.tableclaimtypeold.length; i++) {
-            if(i < this.form.claimtype){
-              letint = letint + 1;
-              let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
-              this.tableclaimtypeold[i].claimtype = letclaimtypeone;
-              this.tableclaimtypeold[i].contractnumbercount_id = '';
-              this.tableclaimtypeold[i].contractnumber = this.letcontractnumber;
-              tableclaimtypenew.push(this.tableclaimtypeold[i]);
-            }
-          }
-          this.form.tableclaimtype = tableclaimtypenew;
-        }
-        else{
-          this.form.tableclaimtype = [];
-          this.tableclaimtypeold = [];
-        }
-        for (let i = this.form.tableclaimtype.length; i < this.form.claimtype; i++) {
-          letint = letint + 1;
-          let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
-          this.addRowclaimtype();
-          this.form.tableclaimtype[i].claimtype = letclaimtypeone;
-          if (this.$route.params.bpcostcount) {
-            this.form.tableclaimtype[0].claimamount = this.$route.params.bpcostcount;
-          }
-        }
-        //add gbb 20210508 合同觉书的情况带入旧合同回数 end
-        if (this.form.contracttype === 'HT014001') {
-          this.titleType = this.titleType1;
-        } else if (this.form.contracttype === 'HT014002') {
-          this.titleType = this.titleType2;
-        } else if (this.form.contracttype === 'HT014003') {
-          this.titleType = this.titleType3;
-        } else if (this.form.contracttype === 'HT014004') {
-          this.titleType = this.titleType4;
-        }
-        this.getChecked(false);
-        this.dialogFormVisible = false;
-      },
-      //契約番号廃棄
-      clickDiscard() {
-        if (!this.show1) {
-          for (let i = 0; i < this.form.tabledata.length; i++) {
-            this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-          }
-        }
-        this.dialogFormVisible = false;
-
-      },
-      //存在check222
-      existCheck(contractNumber, index) {
-        // this.checkRequired()
-        this.loading = true;
-        if (contractNumber == null || contractNumber == undefined || contractNumber == '') {
-          Message({
-            message: this.$t('label.PFANS1026FORMVIEW_QXSQFH'),
-            type: 'success',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-          this.dialogBook = false;
-          return;
-        }
-        /*判断是否已经生产决裁书*/
-        this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
-          .then(response => {
-            let s = 'count' + index;
-            if (response[s] > 0) {
-              //add-ws-委托决裁书编辑时逻辑改变跟受託的相同
-              this.tipMes(contractNumber, index);
-              //add-ws-委托决裁书编辑时逻辑改变跟受託的相同
-              // Message({
-              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
-              //   type: 'success',
-              //   duration: 5 * 1000,
-              // });
-            } else {
-              var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
-              this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
-            }
-            this.loading = false;
-            this.dialogBook = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-            this.dialogBook = false;
-          });
-      },
-      //書類作成
-      clickData(val) {
-        this.existCheck(this.letcontractnumber, val);
-      },
-      paramsTitle() {
-        this.$router.push({
-          name: 'PFANS1024View',
-          params: {
-            title: 10,
-          },
-        });
-      },
-      //保存
-      handleSave(value) {
-        let baseInfo = {};
-
-        baseInfo.contractapplication = [];
-        baseInfo.contractnumbercount = [];
-        for (let i = 0; i < this.form.tabledata.length; i++) {
-          let o = {};
-          Object.assign(o, this.form.tabledata[i]);
-          // if (this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null) {
-          //   for (let k = 0; k < this.options.length; k++) {
-          //     if (this.form.tabledata[i].currencyposition === this.options[k].value) {
-          //       o.currencyposition = this.options[k].code;
-          //     }
-          //   }
-          // }
-          //add  ml   20210707    合同期间check   from
-          if(!this.form.tabledata[i].contractdate || this.form.tabledata[i].contractdate === ''){
-            Message({
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return;
-          }
-          //add  ml   20210707    合同期间check   to
-          o.contractdate = this.getcontractdate(this.form.tabledata[i].contractdate);
-          o.contracttype = this.form.contracttype;
-          if (this.form.contracttype === 'HT014001') {
-            o.maketype = '1';
-          } else if (this.form.contracttype === 'HT014002') {
-            o.maketype = '2';
-          } else if (this.form.contracttype === 'HT014003') {
-            o.maketype = '3';
-          } else if (this.form.contracttype === 'HT014004') {
-            o.maketype = '4';
-          }
-
-          let counttype = 0;
-          for (let t = 0; t < this.form.tableclaimtype.length; t++)
-          {
-            if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
-            {
-              counttype = counttype+1;
-            }
-          }
-
-          if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-            let letclaimamount = 0;
-            for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-              if (counttype === this.form.tableclaimtype.length || counttype ===0)
-              {
-                //解决浮点加法计算问题 -start ztc fr
-                letclaimamount = accAdd(letclaimamount,Number(this.form.tableclaimtype[j].claimamount));
-                //解决浮点加法计算问题 -start ztc to
-              }
-              else
-              {
-                if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
-                {
-                  //解决浮点加法计算问题 -start ztc fr
-                  letclaimamount = accAdd(letclaimamount,Number(this.form.tableclaimtype[j].claimamount));
-                  //解决浮点加法计算问题 -start ztc to
-                }
-              }
-            }
-            o.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
-            o.claimamount = letclaimamount;
-            //add-ws-7/22-禅道341任务
-            o.checkindivdual = this.checkindivdual;
-            o.dates = this.dates;
-
-            o.projectname = this.form.tabledata[i].conchinese;
-            //add-ws-7/22-禅道341任务
-            //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
-            o.supplierinfor_id = this.form.supplierinfor_id;
-            //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
-          }
-          // DEL_FJL  start
-          // if (Array.isArray(this.form.tabledata[i].conchinese)) {
-          //   o.conchinese = this.form.tabledata[i].conchinese.join(',');
-          // }
-          // DEL_FJL  end
-          baseInfo.contractapplication.push(o);
-        }
-//        baseInfo.contractapplication = this.tabledata;
-        baseInfo.contractnumbercount = this.form.tableclaimtype;
-        this.makeintoBaseInfo = {};
-        this.makeintoBaseInfo = baseInfo;
-        if (value === 'makeinto') {
-          this.handleIndexDisabled();
-        }
-        else if (value === 'cancellation') {
-            //废弃
-            this.handleCancellation(baseInfo);
         } else {
-          this.handleSaveContract(value, baseInfo);
-
-        }
-      },
-      //废弃
-      handleCancellation(baseInfo) {
-          this.loading = true;
-          if (this.$route.params._id) {
-              this.$store.dispatch('PFANS1026Store/update', baseInfo)
-                  .then(response => {
-                      this.data = response;
-                      Message({
-                          message: this.$t('normal.success_02'),
-                          type: 'success',
-                          duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                      this.paramsTitle();
-                  })
-                  .catch(error => {
-                      this.$message.error({
-                          message: error,
-                          type: 'error',
-                          duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                  });
-          }
-      },
-      //contractapplication save
-      handleSaveContract(value, baseInfo, tabledata) {
-        this.validateByType(value, valid => {
-          if (valid) {
-            //add-ws-请求金额不可为0check添加
-            let checksum = 0;
-            let error = 0;
-            for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-              if (parseFloat(this.form.tableclaimtype[j].claimamount) === 0
-                || this.form.tableclaimtype[j].claimamount === ''
-                || this.form.tableclaimtype[j].claimamount === undefined) {
-                checksum = checksum + 1;
-              }
-            }
-            if (checksum != 0) {
-              error = error + 1;
-              Message({
-                message: this.$t('label.PFANS1026FORMVIEW_CHECKERRORMONEY'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              return;
-            }
-            //add-ws-请求金额不可为0check添加
-            if (error === 0) {
-              this.loading = true;
-              if (this.$route.params._id) {
-
-                this.$store.dispatch('PFANS1026Store/update', baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    if (tabledata) {
-                      this.handleSaveNumber(tabledata);
-                    } else {
-                      Message({
-                        message: this.$t('normal.success_02'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                      this.paramsTitle();
-                    }
-
-                  })
-                  .catch(error => {
-                    this.$message.error({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              } else {
-                this.$store.dispatch('PFANS1026Store/insert', baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    if (tabledata) {
-                      this.handleSaveNumber(tabledata);
-                    } else {
-                      Message({
-                        message: this.$t('normal.success_01'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                      this.paramsTitle();
-                    }
-
-                  })
-                  .catch(error => {
-                    this.$message.error({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              }
-            }
-          } else {
-            Message({
-              message: this.$t('normal.error_12'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-          }
-        });
-      },
-      handleSaveNumber(tabledata) {
-//            this.validateByType(index, valid => {
-//              if (valid) {
-        this.loading = true;
-        this.$store.dispatch('PFANS1026Store/insertBook', tabledata)
-          .then(response => {
-            //add-ws-7/1-禅道152任务
-            this.$store.commit('global/SET_HISTORYURL', '');
-            this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1024FormView');
-            if (response.awardlist2 != '') {
-              this.$router.push({
-                name: 'PFANS1025FormView',
-                params: {
-                  _checkdisable: this.disable,
-                  check_id: this.IDname,
-                  _checkname: true,
-                  _id: response.awardlist2,
-                  disabled: true,
-                  //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
-                  supplierinfor_id: this.form.supplierinfor_id,
-                  //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
-                },
-              });
-            }
-            //add-ws-7/1-禅道152任务
-            //add-ws-7/22-禅道341任务
-            if (response.individuallist != '') {
-              this.$router.push({
-                name: 'PFANS1046View',
-                params: {
-                  _id: response.individuallist,
-                },
-              });
-            }
-            //add-ws-7/22-禅道341任务
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-//              }
-//            });
-      },
-      //indexDisabled
-      handleIndexDisabled() {
-        if (this.letcontractnumber == null || this.letcontractnumber == undefined || this.letcontractnumber == '') {
           Message({
-            message: this.$t('label.PFANS1026FORMVIEW_QXSQFH'),
+            message: this.$t('normal.error_14'),
             type: 'error',
             duration: 5 * 1000,
           });
           return;
         }
-        this.loading = true;
-        this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: this.letcontractnumber})
+      }
+      //纳品进步状况=纳品作成完了，如果生成觉书，要在觉书那条把原来的copy过来。
+      let isClone = false;
+      if (this.checked) {
+        for (let i = 0; i < this.form.tabledata.length; i++) {
+          this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+          if (this.form.tabledata[0].deliverycondition == 'HT009002') {
+            isClone = true;
+          }
+        }
+      }
+      this.addRowdata(isClone);
+
+      // if (this.form.claimtype === 'HT001001') {
+      //   this.addRowclaimtype();
+      //   this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+      // } else if (this.form.claimtype === 'HT001002') {
+      //   this.addRowclaimtype();
+      //   this.addRowclaimtype();
+      //   this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+      //   this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+      // } else if (this.form.claimtype === 'HT001003') {
+      //   this.addRowclaimtype();
+      //   this.addRowclaimtype();
+      //   this.addRowclaimtype();
+      //   this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+      //   this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+      //   this.form.tableclaimtype[2].claimtype = letclaimtypethree;
+      //
+      // } else if (this.form.claimtype === 'HT001004') {
+      //   this.addRowclaimtype();
+      //   this.addRowclaimtype();
+      //   this.addRowclaimtype();
+      //   this.addRowclaimtype();
+      //   this.form.tableclaimtype[0].claimtype = letclaimtypeone;
+      //   this.form.tableclaimtype[1].claimtype = letclaimtypetwo;
+      //   this.form.tableclaimtype[2].claimtype = letclaimtypethree;
+      //   this.form.tableclaimtype[3].claimtype = letclaimtypefour;
+      // }
+      //add gbb 20210508 合同觉书的情况带入旧合同回数 start
+      let letint = 0;
+      let tableclaimtypenew = [];
+      if (this.checked) {
+        for (let i = 0; i < this.tableclaimtypeold.length; i++) {
+          if (i < this.form.claimtype) {
+            letint = letint + 1;
+            let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
+            this.tableclaimtypeold[i].claimtype = letclaimtypeone;
+            this.tableclaimtypeold[i].contractnumbercount_id = '';
+            this.tableclaimtypeold[i].contractnumber = this.letcontractnumber;
+            tableclaimtypenew.push(this.tableclaimtypeold[i]);
+          }
+        }
+        this.form.tableclaimtype = tableclaimtypenew;
+      } else {
+        this.form.tableclaimtype = [];
+        this.tableclaimtypeold = [];
+      }
+      for (let i = this.form.tableclaimtype.length; i < this.form.claimtype; i++) {
+        letint = letint + 1;
+        let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
+        this.addRowclaimtype();
+        this.form.tableclaimtype[i].claimtype = letclaimtypeone;
+        if (this.$route.params.bpcostcount) {
+          this.form.tableclaimtype[0].claimamount = this.$route.params.bpcostcount;
+        }
+      }
+      //add gbb 20210508 合同觉书的情况带入旧合同回数 end
+      if (this.form.contracttype === 'HT014001') {
+        this.titleType = this.titleType1;
+      } else if (this.form.contracttype === 'HT014002') {
+        this.titleType = this.titleType2;
+      } else if (this.form.contracttype === 'HT014003') {
+        this.titleType = this.titleType3;
+      } else if (this.form.contracttype === 'HT014004') {
+        this.titleType = this.titleType4;
+      }
+      this.getChecked(false);
+      this.dialogFormVisible = false;
+    },
+    //契約番号廃棄
+    clickDiscard() {
+      if (!this.show1) {
+        for (let i = 0; i < this.form.tabledata.length; i++) {
+          this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+        }
+      }
+      this.dialogFormVisible = false;
+
+    },
+    //存在check222
+    existCheck(contractNumber, index) {
+      // this.checkRequired()
+      this.loading = true;
+      if (contractNumber == null || contractNumber == undefined || contractNumber == '') {
+        Message({
+          message: this.$t('label.PFANS1026FORMVIEW_QXSQFH'),
+          type: 'success',
+          duration: 5 * 1000,
+        });
+        this.loading = false;
+        this.dialogBook = false;
+        return;
+      }
+      /*判断是否已经生产决裁书*/
+      this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
+        .then(response => {
+          let s = 'count' + index;
+          if (response[s] > 0) {
+            //add-ws-委托决裁书编辑时逻辑改变跟受託的相同
+            this.tipMes(contractNumber, index);
+            //add-ws-委托决裁书编辑时逻辑改变跟受託的相同
+            // Message({
+            //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
+            //   type: 'success',
+            //   duration: 5 * 1000,
+            // });
+          } else {
+            var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+            this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
+          }
+          this.loading = false;
+          this.dialogBook = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+          this.dialogBook = false;
+        });
+    },
+    //書類作成
+    clickData(val) {
+      this.existCheck(this.letcontractnumber, val);
+    },
+    paramsTitle() {
+      this.$router.push({
+        name: 'PFANS1024View',
+        params: {
+          title: 10,
+        },
+      });
+    },
+    //保存
+    handleSave(value) {
+      let baseInfo = {};
+
+      baseInfo.contractapplication = [];
+      baseInfo.contractnumbercount = [];
+      for (let i = 0; i < this.form.tabledata.length; i++) {
+        let o = {};
+        Object.assign(o, this.form.tabledata[i]);
+        // if (this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null) {
+        //   for (let k = 0; k < this.options.length; k++) {
+        //     if (this.form.tabledata[i].currencyposition === this.options[k].value) {
+        //       o.currencyposition = this.options[k].code;
+        //     }
+        //   }
+        // }
+        //add  ml   20210707    合同期间check   from
+        if (!this.form.tabledata[i].contractdate || this.form.tabledata[i].contractdate === '') {
+          Message({
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          return;
+        }
+        //add  ml   20210707    合同期间check   to
+        o.contractdate = this.getcontractdate(this.form.tabledata[i].contractdate);
+        o.contracttype = this.form.contracttype;
+        if (this.form.contracttype === 'HT014001') {
+          o.maketype = '1';
+        } else if (this.form.contracttype === 'HT014002') {
+          o.maketype = '2';
+        } else if (this.form.contracttype === 'HT014003') {
+          o.maketype = '3';
+        } else if (this.form.contracttype === 'HT014004') {
+          o.maketype = '4';
+        }
+
+        let counttype = 0;
+        for (let t = 0; t < this.form.tableclaimtype.length; t++) {
+          if (this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1) {
+            counttype = counttype + 1;
+          }
+        }
+
+        if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+          let letclaimamount = 0;
+          for (let j = 0; j < this.form.tableclaimtype.length; j++) {
+            if (counttype === this.form.tableclaimtype.length || counttype === 0) {
+              //解决浮点加法计算问题 -start ztc fr
+              letclaimamount = accAdd(letclaimamount, Number(this.form.tableclaimtype[j].claimamount));
+              //解决浮点加法计算问题 -start ztc to
+            } else {
+              if (this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1) {
+                //解决浮点加法计算问题 -start ztc fr
+                letclaimamount = accAdd(letclaimamount, Number(this.form.tableclaimtype[j].claimamount));
+                //解决浮点加法计算问题 -start ztc to
+              }
+            }
+          }
+          o.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
+          o.claimamount = letclaimamount;
+          //add-ws-7/22-禅道341任务
+          o.checkindivdual = this.checkindivdual;
+          o.dates = this.dates;
+
+          o.projectname = this.form.tabledata[i].conchinese;
+          //add-ws-7/22-禅道341任务
+          //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+          o.supplierinfor_id = this.form.supplierinfor_id;
+          //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
+        }
+        // DEL_FJL  start
+        // if (Array.isArray(this.form.tabledata[i].conchinese)) {
+        //   o.conchinese = this.form.tabledata[i].conchinese.join(',');
+        // }
+        // DEL_FJL  end
+        baseInfo.contractapplication.push(o);
+      }
+//        baseInfo.contractapplication = this.tabledata;
+      baseInfo.contractnumbercount = this.form.tableclaimtype;
+      this.makeintoBaseInfo = {};
+      this.makeintoBaseInfo = baseInfo;
+      if (value === 'makeinto') {
+        this.handleIndexDisabled();
+      } else if (value === 'cancellation') {
+        //废弃
+        this.handleCancellation(baseInfo);
+      } else {
+        this.handleSaveContract(value, baseInfo);
+
+      }
+    },
+    //废弃
+    handleCancellation(baseInfo) {
+      this.loading = true;
+      if (this.$route.params._id) {
+        this.$store.dispatch('PFANS1026Store/update', baseInfo)
           .then(response => {
-            this.dialogBook = true;
-            // if (response.count7 === 0) {
-            //   this.disabledCount7 = false;
-            // } else {
-            //   this.disabledCount7 = true;
-            // }
-            // let error = 0;
-            // for (let i = 0; i < this.form.tabledata.length; i++) {
-            //   if (this.form.tabledata.currencyposition == undefined || this.form.tabledata.contractdate == undefined) {
-            //     error = error + 1;
-            //   }
-            // }
-            // for (let i = 0; i < this.form.tableclaimtype.length; i++) {
-            //   if (this.form.tableclaimtype.deliverydate == undefined) {
-            //     error = error + 1;
-            //   }
-            // }
-            // if (error != 0) {
-            //   Message({
-            //     message: this.$t('normal.error_08') +
-            //       this.$t('label.PFANS1024VIEW_CONTR'),
-            //     type: 'error',
-            //     duration: 5 * 1000,
-            //   });
-            // }
+            this.data = response;
+            Message({
+              message: this.$t('normal.success_02'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
             this.loading = false;
+            this.paramsTitle();
           })
           .catch(error => {
             this.$message.error({
@@ -2902,136 +2718,309 @@
             });
             this.loading = false;
           });
-      },
-      //resign  del scc   20210722  存在同名方法 from
-      // paramsTitle() {
-      //   this.$router.push({
-      //     name: 'PFANS1024View',
-      //   });
-      // },
-      // end resign del scc 20210722  存在同名方法 to
-      checkparamsTitle() {
-        let letparamslist = this.$route.params.letparams;
-        this.$router.push({
-          name: 'PFANS6010FormView',
-          params: {
-            letparams: letparamslist,
-          },
-        });
-      },
-      buttonClick(val) {
-        if (val === 'back') {
-          if (this.$route.params.letparams != null && this.$route.params.letparams != '' && this.$route.params.letparams != undefined) {
-            if (this.$route.params.letparams) {
-              this.checkparamsTitle();
+      }
+    },
+    //contractapplication save
+    handleSaveContract(value, baseInfo, tabledata) {
+      this.validateByType(value, valid => {
+        if (valid) {
+          //add-ws-请求金额不可为0check添加
+          let checksum = 0;
+          let error = 0;
+          for (let j = 0; j < this.form.tableclaimtype.length; j++) {
+            if (parseFloat(this.form.tableclaimtype[j].claimamount) === 0
+              || this.form.tableclaimtype[j].claimamount === ''
+              || this.form.tableclaimtype[j].claimamount === undefined) {
+              checksum = checksum + 1;
             }
-          } else {
-            this.paramsTitle();
           }
-        } else if (val === 'application') {
-          this.display = true;
-          this.checkeddisplay = true;
-          this.dialogVisibleC = true;
-          this.show1 = true;
-          this.show2 = false;
-          if (!this.$route.params._id) {
-
-            /*this.form1.claimtype = 'HT001001';
-            this.form1.contracttype = 'HT014001';
-            this.form1.applicationdate = 'HT007001';
-            this.form1.entrycondition = 'HT003001';*/
-          } else {
-            this.getChecked(true);
-          }
-        }
-        //add  ml  20210706   契约番号废弃check   from
-        if (val === 'cancellation') {
-          if( this.form.tabledata[0].user_id !== this.$store.getters.userinfo.userid ){
+          if (checksum != 0) {
+            error = error + 1;
             Message({
-              message: this.$t('label.PFANS1026FORMVIEW_CANCELLATION'),
-              type: 'info',
-              duration: 2 * 1000,
+              message: this.$t('label.PFANS1026FORMVIEW_CHECKERRORMONEY'),
+              type: 'error',
+              duration: 5 * 1000,
             });
             return;
           }
-          this.$store.dispatch('PFANS1026Store/getProject', {'contractnumber': this.$route.params._id})
-            .then(response => {
-              if( response == true){
-                this.$confirm(this.$t('normal.confirm_discardcontractsp'), this.$t('normal.info'), {
-                  confirmButtonText: this.$t('button.confirm'),
-                  cancelButtonText: this.$t('button.cancel'),
-                  type: 'warning',
-                }).then(() => {
-                  this.$store.commit('global/SET_OPERATEID', this.IDname);
-                  this.$refs.container.$refs.workflow.startWorkflow();
-                }).catch(() => {
-                  this.$message.info({
-                    type: 'info',
-                    message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
-                  });
-                  return;
-                });
-              } else {
-                this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
-                  confirmButtonText: this.$t('button.confirm'),
-                  cancelButtonText: this.$t('button.cancel'),
-                  type: 'warning',
-                }).then(() => {
-                  for (let i = 0; i < this.form.tabledata.length; i++) {
-                    this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-                    this.form.tabledata[i].entrycondition = 'HT004001';
-                  }
-                  this.handleSave('cancellation');
-                }).catch(() => {
-                  this.$message.info({
-                    type: 'info',
-                    message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
-                  });
-                  return;
-                });
-              }
-            })
-        }
-        //add  ml  20210706   契约番号废弃check   to
-        if (val === 'save') {
-          this.handleSave('save');
-        }
-        if (val === 'makeinto') {
-          this.handleSave('makeinto');
-        }
-      },
-      validateByType: function(type, cb) {
-        let that = this;
-        let countIndex = 0;
-        let rowCount = that.form.tabledata.length || 0;
-        let rowCount2 = that.form.tableclaimtype.length || 0;
-        let myRule = this.ruleSet[type] || [];
+          //add-ws-请求金额不可为0check添加
+          if (error === 0) {
+            this.loading = true;
+            if (this.$route.params._id) {
 
-        if (myRule.length <= 0) {
-          cb(true);
-        }
-        this.$refs['refform'].clearValidate();
-        let pros = [];
-        myRule.forEach(function(item, index, array) {
-          let dataName = 'tabledata';
-          let maxCount = rowCount;
-          if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount', 'claimtype'].indexOf(item) >= 0) {
-            dataName = 'tableclaimtype';
-            maxCount = rowCount2;
-            for (var k = 0; k < maxCount; k++) {
-              var itIndex = dataName + '.' + k + '.' + item;
-              let pro = new Promise(function(resolve, reject) {
-                that.$refs['refform'].validateField(itIndex, function(msg) {
-                  if (msg != '') {
-                    countIndex++;
+              this.$store.dispatch('PFANS1026Store/update', baseInfo)
+                .then(response => {
+                  this.data = response;
+                  if (tabledata) {
+                    this.handleSaveNumber(tabledata);
+                  } else {
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                    this.paramsTitle();
                   }
-                  resolve(msg);
+
+                })
+                .catch(error => {
+                  this.$message.error({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
                 });
-              });
-              pros.push(pro);
+            } else {
+              this.$store.dispatch('PFANS1026Store/insert', baseInfo)
+                .then(response => {
+                  this.data = response;
+                  if (tabledata) {
+                    this.handleSaveNumber(tabledata);
+                  } else {
+                    Message({
+                      message: this.$t('normal.success_01'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                    this.paramsTitle();
+                  }
+
+                })
+                .catch(error => {
+                  this.$message.error({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
             }
-          } else if (rowCount > 0) {
-            var itIndex = dataName + '.' + (rowCount - 1) + '.' + item;
+          }
+        } else {
+          Message({
+            message: this.$t('normal.error_12'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
+      });
+    },
+    handleSaveNumber(tabledata) {
+//            this.validateByType(index, valid => {
+//              if (valid) {
+      this.loading = true;
+      this.$store.dispatch('PFANS1026Store/insertBook', tabledata)
+        .then(response => {
+          //add-ws-7/1-禅道152任务
+          this.$store.commit('global/SET_HISTORYURL', '');
+          this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1024FormView');
+          if (response.awardlist2 != '') {
+            this.$router.push({
+              name: 'PFANS1025FormView',
+              params: {
+                _checkdisable: this.disable,
+                check_id: this.IDname,
+                _checkname: true,
+                _id: response.awardlist2,
+                disabled: true,
+                //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+                supplierinfor_id: this.form.supplierinfor_id,
+                //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
+              },
+            });
+          }
+          //add-ws-7/1-禅道152任务
+          //add-ws-7/22-禅道341任务
+          if (response.individuallist != '') {
+            this.$router.push({
+              name: 'PFANS1046View',
+              params: {
+                _id: response.individuallist,
+              },
+            });
+          }
+          //add-ws-7/22-禅道341任务
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+//              }
+//            });
+    },
+    //indexDisabled
+    handleIndexDisabled() {
+      if (this.letcontractnumber == null || this.letcontractnumber == undefined || this.letcontractnumber == '') {
+        Message({
+          message: this.$t('label.PFANS1026FORMVIEW_QXSQFH'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+        return;
+      }
+      this.loading = true;
+      this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: this.letcontractnumber})
+        .then(response => {
+          this.dialogBook = true;
+          // if (response.count7 === 0) {
+          //   this.disabledCount7 = false;
+          // } else {
+          //   this.disabledCount7 = true;
+          // }
+          // let error = 0;
+          // for (let i = 0; i < this.form.tabledata.length; i++) {
+          //   if (this.form.tabledata.currencyposition == undefined || this.form.tabledata.contractdate == undefined) {
+          //     error = error + 1;
+          //   }
+          // }
+          // for (let i = 0; i < this.form.tableclaimtype.length; i++) {
+          //   if (this.form.tableclaimtype.deliverydate == undefined) {
+          //     error = error + 1;
+          //   }
+          // }
+          // if (error != 0) {
+          //   Message({
+          //     message: this.$t('normal.error_08') +
+          //       this.$t('label.PFANS1024VIEW_CONTR'),
+          //     type: 'error',
+          //     duration: 5 * 1000,
+          //   });
+          // }
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    },
+    //resign  del scc   20210722  存在同名方法 from
+    // paramsTitle() {
+    //   this.$router.push({
+    //     name: 'PFANS1024View',
+    //   });
+    // },
+    // end resign del scc 20210722  存在同名方法 to
+    checkparamsTitle() {
+      let letparamslist = this.$route.params.letparams;
+      this.$router.push({
+        name: 'PFANS6010FormView',
+        params: {
+          letparams: letparamslist,
+        },
+      });
+    },
+    buttonClick(val) {
+      if (val === 'back') {
+        if (this.$route.params.letparams != null && this.$route.params.letparams != '' && this.$route.params.letparams != undefined) {
+          if (this.$route.params.letparams) {
+            this.checkparamsTitle();
+          }
+        } else {
+          this.paramsTitle();
+        }
+      } else if (val === 'application') {
+        this.display = true;
+        this.checkeddisplay = true;
+        this.dialogVisibleC = true;
+        this.show1 = true;
+        this.show2 = false;
+        if (!this.$route.params._id) {
+
+          /*this.form1.claimtype = 'HT001001';
+          this.form1.contracttype = 'HT014001';
+          this.form1.applicationdate = 'HT007001';
+          this.form1.entrycondition = 'HT003001';*/
+        } else {
+          this.getChecked(true);
+        }
+      }
+      //add  ml  20210706   契约番号废弃check   from
+      if (val === 'cancellation') {
+        if (this.form.tabledata[0].user_id !== this.$store.getters.userinfo.userid) {
+          Message({
+            message: this.$t('label.PFANS1026FORMVIEW_CANCELLATION'),
+            type: 'info',
+            duration: 2 * 1000,
+          });
+          return;
+        }
+        this.$store.dispatch('PFANS1026Store/getProject', {'contractnumber': this.$route.params._id})
+          .then(response => {
+            if (response == true) {
+              this.$confirm(this.$t('normal.confirm_discardcontractsp'), this.$t('normal.info'), {
+                confirmButtonText: this.$t('button.confirm'),
+                cancelButtonText: this.$t('button.cancel'),
+                type: 'warning',
+              }).then(() => {
+                this.$store.commit('global/SET_OPERATEID', this.IDname);
+                this.$refs.container.$refs.workflow.startWorkflow();
+              }).catch(() => {
+                this.$message.info({
+                  type: 'info',
+                  message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+                });
+                return;
+              });
+            } else {
+              this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
+                confirmButtonText: this.$t('button.confirm'),
+                cancelButtonText: this.$t('button.cancel'),
+                type: 'warning',
+              }).then(() => {
+                for (let i = 0; i < this.form.tabledata.length; i++) {
+                  this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+                  this.form.tabledata[i].entrycondition = 'HT004001';
+                }
+                this.handleSave('cancellation');
+              }).catch(() => {
+                this.$message.info({
+                  type: 'info',
+                  message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+                });
+                return;
+              });
+            }
+          });
+      }
+      //add  ml  20210706   契约番号废弃check   to
+      if (val === 'save') {
+        this.handleSave('save');
+      }
+      if (val === 'makeinto') {
+        this.handleSave('makeinto');
+      }
+    },
+    validateByType: function(type, cb) {
+      let that = this;
+      let countIndex = 0;
+      let rowCount = that.form.tabledata.length || 0;
+      let rowCount2 = that.form.tableclaimtype.length || 0;
+      let myRule = this.ruleSet[type] || [];
+
+      if (myRule.length <= 0) {
+        cb(true);
+      }
+      this.$refs['refform'].clearValidate();
+      let pros = [];
+      myRule.forEach(function(item, index, array) {
+        let dataName = 'tabledata';
+        let maxCount = rowCount;
+        if (['deliverydate', 'completiondate', 'claimdate', 'supportdate', 'claimamount', 'claimtype'].indexOf(item) >= 0) {
+          dataName = 'tableclaimtype';
+          maxCount = rowCount2;
+          for (var k = 0; k < maxCount; k++) {
+            var itIndex = dataName + '.' + k + '.' + item;
             let pro = new Promise(function(resolve, reject) {
               that.$refs['refform'].validateField(itIndex, function(msg) {
                 if (msg != '') {
@@ -3042,49 +3031,61 @@
             });
             pros.push(pro);
           }
+        } else if (rowCount > 0) {
+          var itIndex = dataName + '.' + (rowCount - 1) + '.' + item;
+          let pro = new Promise(function(resolve, reject) {
+            that.$refs['refform'].validateField(itIndex, function(msg) {
+              if (msg != '') {
+                countIndex++;
+              }
+              resolve(msg);
+            });
+          });
+          pros.push(pro);
+        }
 
-        });
-        if (pros.length == 0) {
-          cb();
-          return;
-        }
-        Promise.all(pros).then(function(values) {
-          let isOk = true;
-          values.forEach(function(val) {
-            if (val != undefined && val != '') {
-              isOk = false;
-            }
-          });
-          cb(isOk);
-        });
-        if (countIndex > 0 && type !== 'save') {
-          Message({
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
-            type: 'error',
-            duration: 5 * 1000,
-          });
-        }
-      },
-    },
-    //region scc add 番号废弃，撤销，查看流程后按钮状态 from
-    watch:{
-      buttonList:{
-        handler(){
-          if(this.$route.params._status){
-            if(this.$route.params._status === '0' || this.$route.params._status === '3'){
-              this.buttonList.forEach(item =>{
-                if(item.key === 'application' || item.key === 'save' || item.key === 'makeinto' || item.key === 'cancellation'){
-                  item.disabled = false;
-                }
-              })
-            }
+      });
+      if (pros.length == 0) {
+        cb();
+        return;
+      }
+      Promise.all(pros).then(function(values) {
+        let isOk = true;
+        values.forEach(function(val) {
+          if (val != undefined && val != '') {
+            isOk = false;
           }
-        },
-        deep: true,
+        });
+        cb(isOk);
+      });
+      if (countIndex > 0 && type !== 'save') {
+        Message({
+          message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
       }
     },
-    //endregion scc add 番号废弃，撤销，查看流程后按钮状态 to
-  };
+  },
+  //region scc add 番号废弃，撤销，查看流程后按钮状态 from
+  watch: {
+    buttonList: {
+      handler() {
+        if (this.$route.params._status) {
+          if (this.$route.params._status === '0' || this.$route.params._status === '3') {
+            this.buttonList.forEach(item => {
+              if (item.key === 'application' || item.key === 'save' || item.key === 'makeinto' || item.key === 'cancellation') {
+                item.disabled = false;
+              }
+            });
+          }
+        }
+      },
+      deep: true,
+    },
+  },
+  //endregion scc add 番号废弃，撤销，查看流程后按钮状态 to
+};
 </script>
 
 <style scoped>

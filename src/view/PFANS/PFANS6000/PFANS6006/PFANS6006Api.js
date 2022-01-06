@@ -1,12 +1,12 @@
-import request from '../../../../utils/request'
+import request from '../../../../utils/request';
 
 
 export function updateDeleginformation(data) {
   return request({
     url: 'delegainformation/update',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function getYears(data) {

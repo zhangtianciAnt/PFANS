@@ -1,10 +1,11 @@
-import request from "../../../../utils/request"
+import request from '../../../../utils/request';
 import requestDownload from '../../../../utils/requestExcel';
+
 export function list() {
   return request({
     url: 'incomeexpenditure/list',
-    method: 'get'
-  })
+    method: 'get',
+  });
 }
 
 export function selectlist(data) {
@@ -12,14 +13,15 @@ export function selectlist(data) {
     url: 'incomeexpenditure/selectlist',
     method: 'get',
     params: data,
-  })
+  });
 }
+
 export function insert(data) {
   return request({
     url: 'incomeexpenditure/insert',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function getradio(data) {
@@ -27,5 +29,5 @@ export function getradio(data) {
     url: 'incomeexpenditure/getradio',
     method: 'get',
     params: data,
-  })
+  });
 }

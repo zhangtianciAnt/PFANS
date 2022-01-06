@@ -1,4 +1,9 @@
-import {createPfans2018, getFpans2018List, updatePfans2018,getPfans2018One} from './PFANS2018Api'
+import {
+  createPfans2018,
+  getFpans2018List,
+  getPfans2018One,
+  updatePfans2018,
+} from './PFANS2018Api';
 
 const PFANS2018Store = {
   namespaced: true,
@@ -12,12 +17,12 @@ const PFANS2018Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     updatePfans2018({commit}, data) {
@@ -26,12 +31,12 @@ const PFANS2018Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     getFpans2018List({commit}) {
@@ -40,28 +45,28 @@ const PFANS2018Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
-    getPfans2018One({ commit },data) {
+    getPfans2018One({commit}, data) {
       return new Promise((resolve, reject) => {
         getPfans2018One(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 
 export default PFANS2018Store;

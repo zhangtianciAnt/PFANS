@@ -1,31 +1,32 @@
 <template>
   <div>
     <EasyNormalContainer
+      v-loading="loading"
       :buttonList="buttonList"
-      :title="title"
-      :noback="false" @disabled="setdisabled"
+      :noback="false" :title="title"
       @buttonClick="buttonClick"
-      v-loading="loading">
+      @disabled="setdisabled">
 
       <div slot="customize">
-        <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
+        <el-form ref="reff" label-position="top" label-width="8vw" style="padding: 2vw">
           <el-form-item>
             <el-row style="padding-top: 1%;padding-bottom: 2%">
               <el-col :span="8">
                 <div class="block">
                   <el-date-picker
                     v-model="weeks"
-                    type="week"
-                    @change="weekChange"
+                    :placeholder="$t('normal.error_09')"
                     format="yyyy-WW"
-                    :placeholder="$t('normal.error_09')">
+                    type="week"
+                    @change="weekChange">
                   </el-date-picker>
                 </div>
               </el-col>
             </el-row>
             <el-table
-              :data="Datatable" border stripe style="width: 100%" ref="multipleTable"
-              tooltip-effect="dark" @selection-change="handleSelectionChange" :header-cell-style="{background:'#005BAA',color:'white'}">
+              ref="multipleTable" :data="Datatable" :header-cell-style="{background:'#005BAA',color:'white'}" border stripe
+              style="width: 100%" tooltip-effect="dark"
+              @selection-change="handleSelectionChange">
               <!--checkbox-->
               <el-table-column
                 type="selection"
@@ -33,11 +34,11 @@
               </el-table-column>
               <!--姓名-->
               <el-table-column
+                v-if='false'
                 :label="$t('label.user_name')"
-                align="center"
-                width="130" v-if='false'>
+                align="center" width="130">
                 <template slot-scope="scope">
-                  <span>{{scope.row.userid}}</span>
+                  <span>{{ scope.row.userid }}</span>
                 </template>
               </el-table-column>
 
@@ -47,7 +48,7 @@
                 align="center"
                 width="130">
                 <template slot-scope="scope">
-                  <span>{{scope.row.name}}</span>
+                  <span>{{ scope.row.name }}</span>
                 </template>
               </el-table-column>
 
@@ -57,7 +58,7 @@
                 align="center"
                 width="130">
                 <template slot-scope="scope">
-                  <span>{{scope.row.company}}</span>
+                  <span>{{ scope.row.company }}</span>
                 </template>
               </el-table-column>
 
@@ -67,7 +68,7 @@
                 align="center"
                 width="130">
                 <template slot-scope="scope">
-                  <span>{{scope.row.employeetype}}</span>
+                  <span>{{ scope.row.employeetype }}</span>
                 </template>
               </el-table-column>
 
@@ -77,7 +78,7 @@
                 align="center"
                 width="130">
                 <template slot-scope="scope">
-                  <span>{{scope.row.timestart1}}</span>
+                  <span>{{ scope.row.timestart1 }}</span>
                 </template>
               </el-table-column>
 
@@ -87,7 +88,7 @@
                 align="center"
                 width="130">
                 <template slot-scope="scope">
-                  <span>{{scope.row.timestart2}}</span>
+                  <span>{{ scope.row.timestart2 }}</span>
                 </template>
               </el-table-column>
 
@@ -97,7 +98,7 @@
                 align="center"
                 width="130">
                 <template slot-scope="scope">
-                  <span>{{scope.row.timestart3}}</span>
+                  <span>{{ scope.row.timestart3 }}</span>
                 </template>
               </el-table-column>
 
@@ -107,7 +108,7 @@
                 align="center"
                 width="130">
                 <template slot-scope="scope">
-                  <span>{{scope.row.timestart4}}</span>
+                  <span>{{ scope.row.timestart4 }}</span>
                 </template>
               </el-table-column>
 
@@ -117,7 +118,7 @@
                 align="center"
                 width="130">
                 <template slot-scope="scope">
-                  <span>{{scope.row.timestart5}}</span>
+                  <span>{{ scope.row.timestart5 }}</span>
                 </template>
               </el-table-column>
 
@@ -127,7 +128,7 @@
                 align="center"
                 width="130">
                 <template slot-scope="scope">
-                  <span>{{scope.row.timestart6}}</span>
+                  <span>{{ scope.row.timestart6 }}</span>
                 </template>
               </el-table-column>
 
@@ -137,7 +138,7 @@
                 align="center"
                 width="130">
                 <template slot-scope="scope">
-                  <span>{{scope.row.timestart7}}</span>
+                  <span>{{ scope.row.timestart7 }}</span>
                 </template>
               </el-table-column>
 
@@ -150,266 +151,220 @@
 </template>
 
 <script>
-  import EasyNormalContainer from "@/components/EasyNormalContainer";
-  import {Message} from 'element-ui';
-  import {getUserInfo,getCooperinterviewList,getCooperinterviewListByAccount,getOrgInfo} from '@/utils/customize';
-  import moment from "moment";
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import {Message} from 'element-ui';
+import {getCooperinterviewListByAccount, getOrgInfo, getUserInfo} from '@/utils/customize';
+import moment from 'moment';
 
-  export default {
-    name: 'PFANS5012FormView',
-    components: {
-      EasyNormalContainer,
+export default {
+  name: 'PFANS5012FormView',
+  components: {
+    EasyNormalContainer,
+  },
+
+  data() {
+    return {
+      loading: false,
+      title: 'title.PFANS5012FORMVIEW',
+      weeks: moment(new Date()).format('YYYY-MM-DD'),
+      buttonList: [],
+      //一天的毫秒数
+      millisecond: 1000 * 60 * 60 * 24,
+      monday: '',
+      Datatable: [],
+      disabled: false,
+      baseInfo: {},
+      day1: '',
+      day2: '',
+      day3: '',
+      day4: '',
+      day5: '',
+      day6: '',
+      day7: '',
+      starttime: '',
+      endtime: '',
+      buttonList: [
+        // //承认
+        // {
+        //   'key': 'recognition',
+        //   'name': 'button.recognition',
+        //   'disabled': false,
+        //   'icon': 'el-icon-plus'
+        // },
+        // // 拒绝
+        // {
+        //   'key': 'refuse',
+        //   'name': 'button.refuse',
+        //   'disabled': false,
+        //   'icon': 'el-icon-edit'
+        // },
+      ],
+    };
+  },
+  methods: {
+    setdisabled(val) {
+      if (this.$route.params.disabled) {
+        this.disabled = val;
+      }
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
     },
 
-    data() {
-      return {
-        loading: false,
-        title: 'title.PFANS5012FORMVIEW',
-        weeks:moment(new Date()).format("YYYY-MM-DD"),
-        buttonList: [],
-        //一天的毫秒数
-        millisecond: 1000 * 60 * 60 * 24,
-        monday: '',
-        Datatable:[],
-        disabled: false,
-        baseInfo:{},
-        day1: '',
-        day2: '',
-        day3: '',
-        day4: '',
-        day5: '',
-        day6: '',
-        day7: '',
-        starttime: '',
-        endtime: '',
-        buttonList: [
-          // //承认
-          // {
-          //   'key': 'recognition',
-          //   'name': 'button.recognition',
-          //   'disabled': false,
-          //   'icon': 'el-icon-plus'
-          // },
-          // // 拒绝
-          // {
-          //   'key': 'refuse',
-          //   'name': 'button.refuse',
-          //   'disabled': false,
-          //   'icon': 'el-icon-edit'
-          // },
-        ],
-      };
+    weekChange(value) {
+      this.weeks = moment(value).format('YYYY-MM-DD');
+      this.selectData(value);
     },
-    methods: {
-      setdisabled(val){
-        if(this.$route.params.disabled){
-          this.disabled = val;
-        }
-      },
-      handleSelectionChange(val) {
-        this.multipleSelection = val;
-      },
 
-      weekChange(value){
-        this.weeks = moment(value).format('YYYY-MM-DD');
-        this.selectData(value);
-      },
+    getDateinitial(value) {
+      //周
+      var week = value.getDay();
+      //返回date是一周中的某一天
+      var week = value.getDay();
+      //返回date是一个月中的某一天
+      var month = value.getDate();
+      //减去的天数
+      var minusDay = week != 0 ? week - 1 : 6;
+      //本周 周一
+      var monday = new Date(value.getTime() - (minusDay * this.millisecond));
+      this.monday = new Date(value.getTime() - (minusDay * this.millisecond));
+      //本周 周日
+      var sunday = new Date(monday.getTime() + (6 * this.millisecond));
+      this.starttime = moment(monday).format('YYYY-MM-DD');
+      this.endtime = moment(sunday).format('YYYY-MM-DD');
+      //星期一
+      this.day1 = moment(monday.setDate(monday.getDate())).format('M' + this.$t('label.month') + 'D' + this.$t('label.day'));
+      //星期二
+      this.day2 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t('label.month') + 'D' + this.$t('label.day'));
+      this.day3 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t('label.month') + 'D' + this.$t('label.day'));
+      this.day4 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t('label.month') + 'D' + this.$t('label.day'));
+      this.day5 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t('label.month') + 'D' + this.$t('label.day'));
+      //星期六
+      this.day6 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t('label.month') + 'D' + this.$t('label.day'));
+      //星期日
+      this.day7 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t('label.month') + 'D' + this.$t('label.day'));
+    },
 
-      getDateinitial(value){
-        //周
-        var week = value.getDay();
-        //返回date是一周中的某一天
-        var week = value.getDay();
-        //返回date是一个月中的某一天
-        var month = value.getDate();
-        //减去的天数
-        var minusDay = week != 0 ? week - 1 : 6;
-        //本周 周一
-        var monday = new Date(value.getTime() - (minusDay * this.millisecond));
-        this.monday = new Date(value.getTime() - (minusDay * this.millisecond));
-        //本周 周日
-        var sunday = new Date(monday.getTime() + (6 * this.millisecond));
-        this.starttime = moment(monday).format('YYYY-MM-DD')
-        this.endtime = moment(sunday).format('YYYY-MM-DD');
-        //星期一
-        this.day1 = moment(monday.setDate(monday.getDate())).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
-        //星期二
-        this.day2 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
-        this.day3 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
-        this.day4 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
-        this.day5 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
-        //星期六
-        this.day6 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
-        //星期日
-        this.day7 = moment(monday.setDate(monday.getDate() + 1)).format('M' + this.$t("label.month") + 'D' + this.$t("label.day"));
-      },
-
-      selectData(val){
-        this.getDateinitial(val);
-        let info = [
-          this.$route.params._id,
-          [this.starttime,this.endtime]
-        ];
-        if (this.$route.params._id) {
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS5001Store/getGroupTimestart', info)
-            .then(response => {
-              this.Datatable = [];
-              for(let i = 0; i < response.length; i ++){
-                let letinitial = [
-                  {starttime: this.starttime,timestart:''},
-                  {starttime: moment(new Date(this.monday.getTime() + (1 * this.millisecond))).format('YYYY-MM-DD'),timestart:''},
-                  {starttime: moment(new Date(this.monday.getTime() + (2 * this.millisecond))).format('YYYY-MM-DD'),timestart:''},
-                  {starttime: moment(new Date(this.monday.getTime() + (3 * this.millisecond))).format('YYYY-MM-DD'),timestart:''},
-                  {starttime: moment(new Date(this.monday.getTime() + (4 * this.millisecond))).format('YYYY-MM-DD'),timestart:''},
-                  {starttime: moment(new Date(this.monday.getTime() + (5 * this.millisecond))).format('YYYY-MM-DD'),timestart:''},
-                  {starttime: moment(new Date(this.monday.getTime() + (6 * this.millisecond))).format('YYYY-MM-DD'),timestart:''},
-                ];
-                let letdata = {};
-                letdata.userid = response[i].createby;
-                let user = getUserInfo(response[i].createby);
-                if(user){
-                  letdata.name = user.userinfo.customername;
-                  let group = getOrgInfo(user.userinfo.centerid);
-                  if(group){
-                    letdata.company = group.companyen;
-                  }
-                  if (this.$i18n) {
-                    letdata.employeetype = this.$t("label.PFANS5001FORMVIEW_INCOMMUNITY");
-                  }
-                }
-                else{
-                  let co = getCooperinterviewListByAccount(response[i].createby);
-                  if(co){
-                    letdata.name = co.expname;
-                    letdata.company = co.suppliername;
-                    if (this.$i18n) {
-                      letdata.employeetype = this.$t("label.PFANS5001FORMVIEW_OUTCOMMUNITY");
-                    }
-                  }
-                }
-                let letlogdate  = response[i].logdate.split(",");
-                let lettimestart  = response[i].timestart.split(",");
-                if(letlogdate){
-                  for(let j = 0; j < letlogdate.length; j ++){
-                    for(let x = 0; x < letinitial.length; x ++){
-                      if(letinitial[x].starttime === letlogdate[j]){
-                        letinitial[x].timestart = Number(letinitial[x].timestart) + Number(lettimestart[j]);
-                      }
-                    }
-                  }
-                }
-                //add-ws-5/28-No.48
-                let timestart1 =  letinitial[0].timestart
-                let timestart2 =  letinitial[1].timestart
-                let timestart3 =  letinitial[2].timestart
-                let timestart4 =  letinitial[3].timestart
-                let timestart5 =  letinitial[4].timestart
-                let timestart6 =  letinitial[5].timestart
-                let timestart7 =  letinitial[6].timestart
-                if(timestart1){
-                  letdata.timestart1 = (timestart1).toFixed(2);
-                }else{
-                  letdata.timestart1 = '';
-                }
-                if(timestart2){
-                  letdata.timestart2 = (timestart2).toFixed(2);
-                }else{
-                  letdata.timestart2 = '';
-                }
-                if(timestart3){
-                  letdata.timestart3 = (timestart3).toFixed(2);
-                }else{
-                  letdata.timestart3 = '';
-                }
-                if(timestart4){
-                  letdata.timestart4 = (timestart4).toFixed(2);
-                }else{
-                  letdata.timestart4 = '';
-                }
-                if(timestart5){
-                  letdata.timestart5 = (timestart5).toFixed(2);
-                }else{
-                  letdata.timestart5 = '';
-                }
-                if(timestart6){
-                  letdata.timestart6 = (timestart6).toFixed(2);
-                }else{
-                  letdata.timestart6 = '';
-                }
-                if(timestart7){
-                  letdata.timestart7 = (timestart7).toFixed(2);
-                }else{
-                  letdata.timestart7 = '';
-                }
-                //add-ws-5/28-No.48
-                this.Datatable.push(letdata);
-              }
-              this.loading = false;
-            })
-            .catch(error => {
-              this.$message.error({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            });
-        }
-      },
-
-      buttonClick(val) {
-        if(this.multipleSelection === undefined){
-            Message({
-                message: this.$t('normal.info_01'),
-                type: 'info',
-                duration: 2 * 1000
-            });
-            return;
-        }
-        if(this.multipleSelection.length === 0){
-            Message({
-                message: this.$t('normal.info_01'),
-                type: 'info',
-                duration: 2 * 1000
-            });
-            return;
-        }
-        this.baseInfo = {};
-        this.baseInfo.logmanagement = [];
-        if(val === 'recognition'){
-          //View页面的总工数增加，选择行消失
-          this.baseInfo.confirmstatus = '1';
-        }
-        if(val === 'refuse'){
-          //选择行消失，在仪表盘的改用户收到一条代办事项
-          this.baseInfo.confirmstatus = '2';
-        }
-        this.baseInfo.starttime = this.starttime;
-        this.baseInfo.endtime = this.endtime;
-        for (let i = 0;i < this.multipleSelection.length;i++){
-          this.baseInfo.logmanagement.push({
-            createby: this.multipleSelection[i].userid
-          });
-        }
+    selectData(val) {
+      this.getDateinitial(val);
+      let info = [
+        this.$route.params._id,
+        [this.starttime, this.endtime],
+      ];
+      if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS5001Store/updateTimestart', this.baseInfo)
+          .dispatch('PFANS5001Store/getGroupTimestart', info)
           .then(response => {
-            this.data = response;
-            for (let i = 0;i < this.Datatable.length;i++){
-              for (let j = 0;j < this.multipleSelection.length;j++){
-                  if(this.Datatable[i].userid === this.multipleSelection[j].userid){
-                    this.Datatable.splice(i, 1);
+            this.Datatable = [];
+            for (let i = 0; i < response.length; i++) {
+              let letinitial = [
+                {starttime: this.starttime, timestart: ''},
+                {
+                  starttime: moment(new Date(this.monday.getTime() + (1 * this.millisecond))).format('YYYY-MM-DD'),
+                  timestart: '',
+                },
+                {
+                  starttime: moment(new Date(this.monday.getTime() + (2 * this.millisecond))).format('YYYY-MM-DD'),
+                  timestart: '',
+                },
+                {
+                  starttime: moment(new Date(this.monday.getTime() + (3 * this.millisecond))).format('YYYY-MM-DD'),
+                  timestart: '',
+                },
+                {
+                  starttime: moment(new Date(this.monday.getTime() + (4 * this.millisecond))).format('YYYY-MM-DD'),
+                  timestart: '',
+                },
+                {
+                  starttime: moment(new Date(this.monday.getTime() + (5 * this.millisecond))).format('YYYY-MM-DD'),
+                  timestart: '',
+                },
+                {
+                  starttime: moment(new Date(this.monday.getTime() + (6 * this.millisecond))).format('YYYY-MM-DD'),
+                  timestart: '',
+                },
+              ];
+              let letdata = {};
+              letdata.userid = response[i].createby;
+              let user = getUserInfo(response[i].createby);
+              if (user) {
+                letdata.name = user.userinfo.customername;
+                let group = getOrgInfo(user.userinfo.centerid);
+                if (group) {
+                  letdata.company = group.companyen;
+                }
+                if (this.$i18n) {
+                  letdata.employeetype = this.$t('label.PFANS5001FORMVIEW_INCOMMUNITY');
+                }
+              } else {
+                let co = getCooperinterviewListByAccount(response[i].createby);
+                if (co) {
+                  letdata.name = co.expname;
+                  letdata.company = co.suppliername;
+                  if (this.$i18n) {
+                    letdata.employeetype = this.$t('label.PFANS5001FORMVIEW_OUTCOMMUNITY');
                   }
+                }
               }
+              let letlogdate = response[i].logdate.split(',');
+              let lettimestart = response[i].timestart.split(',');
+              if (letlogdate) {
+                for (let j = 0; j < letlogdate.length; j++) {
+                  for (let x = 0; x < letinitial.length; x++) {
+                    if (letinitial[x].starttime === letlogdate[j]) {
+                      letinitial[x].timestart = Number(letinitial[x].timestart) + Number(lettimestart[j]);
+                    }
+                  }
+                }
+              }
+              //add-ws-5/28-No.48
+              let timestart1 = letinitial[0].timestart;
+              let timestart2 = letinitial[1].timestart;
+              let timestart3 = letinitial[2].timestart;
+              let timestart4 = letinitial[3].timestart;
+              let timestart5 = letinitial[4].timestart;
+              let timestart6 = letinitial[5].timestart;
+              let timestart7 = letinitial[6].timestart;
+              if (timestart1) {
+                letdata.timestart1 = (timestart1).toFixed(2);
+              } else {
+                letdata.timestart1 = '';
+              }
+              if (timestart2) {
+                letdata.timestart2 = (timestart2).toFixed(2);
+              } else {
+                letdata.timestart2 = '';
+              }
+              if (timestart3) {
+                letdata.timestart3 = (timestart3).toFixed(2);
+              } else {
+                letdata.timestart3 = '';
+              }
+              if (timestart4) {
+                letdata.timestart4 = (timestart4).toFixed(2);
+              } else {
+                letdata.timestart4 = '';
+              }
+              if (timestart5) {
+                letdata.timestart5 = (timestart5).toFixed(2);
+              } else {
+                letdata.timestart5 = '';
+              }
+              if (timestart6) {
+                letdata.timestart6 = (timestart6).toFixed(2);
+              } else {
+                letdata.timestart6 = '';
+              }
+              if (timestart7) {
+                letdata.timestart7 = (timestart7).toFixed(2);
+              } else {
+                letdata.timestart7 = '';
+              }
+              //add-ws-5/28-No.48
+              this.Datatable.push(letdata);
             }
             this.loading = false;
-            Message({
-              message: this.$t('normal.success_02'),
-              type: 'success',
-              duration: 5 * 1000,
-            });
           })
           .catch(error => {
             this.$message.error({
@@ -417,14 +372,77 @@
               type: 'error',
               duration: 5 * 1000,
             });
-            this.loading = false;
           });
-      },
+      }
     },
-    mounted() {
-      this.selectData(new Date());
+
+    buttonClick(val) {
+      if (this.multipleSelection === undefined) {
+        Message({
+          message: this.$t('normal.info_01'),
+          type: 'info',
+          duration: 2 * 1000,
+        });
+        return;
+      }
+      if (this.multipleSelection.length === 0) {
+        Message({
+          message: this.$t('normal.info_01'),
+          type: 'info',
+          duration: 2 * 1000,
+        });
+        return;
+      }
+      this.baseInfo = {};
+      this.baseInfo.logmanagement = [];
+      if (val === 'recognition') {
+        //View页面的总工数增加，选择行消失
+        this.baseInfo.confirmstatus = '1';
+      }
+      if (val === 'refuse') {
+        //选择行消失，在仪表盘的改用户收到一条代办事项
+        this.baseInfo.confirmstatus = '2';
+      }
+      this.baseInfo.starttime = this.starttime;
+      this.baseInfo.endtime = this.endtime;
+      for (let i = 0; i < this.multipleSelection.length; i++) {
+        this.baseInfo.logmanagement.push({
+          createby: this.multipleSelection[i].userid,
+        });
+      }
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS5001Store/updateTimestart', this.baseInfo)
+        .then(response => {
+          this.data = response;
+          for (let i = 0; i < this.Datatable.length; i++) {
+            for (let j = 0; j < this.multipleSelection.length; j++) {
+              if (this.Datatable[i].userid === this.multipleSelection[j].userid) {
+                this.Datatable.splice(i, 1);
+              }
+            }
+          }
+          this.loading = false;
+          Message({
+            message: this.$t('normal.success_02'),
+            type: 'success',
+            duration: 5 * 1000,
+          });
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
     },
-  };
+  },
+  mounted() {
+    this.selectData(new Date());
+  },
+};
 </script>
 
 <style scoped>

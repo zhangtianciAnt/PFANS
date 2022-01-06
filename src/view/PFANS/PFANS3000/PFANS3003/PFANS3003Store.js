@@ -2,9 +2,8 @@ import {
   createBusinessCard,
   getBusinessCard,
   getBusinessCardOne,
-  updateBusinessCard
-}
-from './PFANS3003Api'
+  updateBusinessCard,
+} from './PFANS3003Api';
 
 const PFANS3003Store = {
   namespaced: true,
@@ -17,12 +16,12 @@ const PFANS3003Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getBusinessCardOne({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -30,12 +29,12 @@ const PFANS3003Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updateBusinessCard({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -43,12 +42,12 @@ const PFANS3003Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     createBusinessCard({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -56,14 +55,14 @@ const PFANS3003Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
-    }
-  }
-}
+        });
+      });
+    },
+  },
+};
 
 export default PFANS3003Store;

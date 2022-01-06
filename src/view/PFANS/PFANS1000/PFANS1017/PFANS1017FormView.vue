@@ -1,27 +1,27 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         @workflowState="workflowState" v-loading="loading" :workflowCode="workflowCode"
-                         :canStart="canStart" @start="start" @end="end" :enableSave="enableSave">
+    <EasyNormalContainer ref="container" v-loading="loading" :buttonList="buttonList" :canStart="canStart"
+                         :enableSave="enableSave" :title="title" :workflowCode="workflowCode"
+                         @buttonClick="buttonClick" @end="end" @start="start" @workflowState="workflowState">
       <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
       <!--:enableSave="enableSave"-->
       <!--//end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+        <el-form ref="refform" :model="form" :rules="rules" label-position="top" label-width="8vw"
                  style="padding:3vw">
           <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1016FORMVIEW_CORRESPONDING')" prop='corresponding'>
-                <span style="margin-right: 1vw ">{{$t('label.PFANS1016FORMVIEW_INCOMPLETE')}}</span>
+                <span style="margin-right: 1vw ">{{ $t('label.PFANS1016FORMVIEW_INCOMPLETE') }}</span>
                 <el-switch
+                  v-model="form.corresponding"
                   :disabled="acceptShow"
-                  @change="getcorresponding"
                   active-value="1"
                   inactive-value="0"
-                  v-model="form.corresponding"
+                  @change="getcorresponding"
                 ></el-switch>
-                <span style="margin-left: 1vw ">{{$t('label.PFANS1016FORMVIEW_COMPLETE')}}</span>
+                <span style="margin-left: 1vw ">{{ $t('label.PFANS1016FORMVIEW_COMPLETE') }}</span>
               </el-form-item>
             </el-col>
           </el-row>
@@ -31,9 +31,9 @@
               <el-form-item :label="$t('label.center')">
                 <org :disabled="!disable"
                      :orglist="form.center_id"
-                     @getOrgids="getCenterid"
                      orgtype="1"
                      style="width: 20vw"
+                     @getOrgids="getCenterid"
                 ></org>
               </el-form-item>
             </el-col>
@@ -41,9 +41,9 @@
               <el-form-item :label="$t('label.group')">
                 <org :disabled="!disable"
                      :orglist="form.group_id"
-                     @getOrgids="getGroupId"
                      orgtype="2"
                      style="width: 20vw"
+                     @getOrgids="getGroupId"
                 ></org>
               </el-form-item>
             </el-col>
@@ -51,9 +51,9 @@
               <el-form-item :label="$t('label.team')">
                 <org :disabled="true"
                      :orglist="form.team_id"
-                     @getOrgids="getTeamid"
                      orgtype="3"
                      style="width: 20vw"
+                     @getOrgids="getTeamid"
                 ></org>
               </el-form-item>
             </el-col>
@@ -61,22 +61,22 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="true"
+                <user v-model="form.user_id"
+                      :disabled="true"
                       :error="error"
                       :selectType="selectType"
                       :userlist="userlist"
-                      @getUserids="getUserids"
                       style="width:20vw"
-                      v-model="form.user_id"
+                      @getUserids="getUserids"
                 ></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')">
-                <el-input :disabled="true"
-                          style="width:20vw"
-                          v-model="form.type"
+                <el-input v-model="form.type"
+                          :disabled="true"
                           maxlength='36'
+                          style="width:20vw"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -86,8 +86,8 @@
                            :data="form.subtype"
                            :disabled="!disable"
                            :multiple="multiple"
-                           @change="changesubtype"
-                           style="width:20vw">
+                           style="width:20vw"
+                           @change="changesubtype">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -95,28 +95,28 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.application')" prop="application">
-                <el-date-picker :disabled="true"
+                <el-date-picker v-model="form.application"
+                                :disabled="true"
                                 style="width:20vw"
                                 type="date"
-                                v-model="form.application"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.email')" prop="email">
-                <el-input :disabled="!disable"
+                <el-input v-model="form.email"
+                          :disabled="!disable"
                           maxlength="100"
                           style="width:20vw"
-                          v-model="form.email"
                 ></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1017FORMVIEW_EXTENSION')" prop="extension">
-                <el-input :disabled="!disable"
-                          style="width:20vw"
-                          v-model="form.extension"
+                <el-input v-model="form.extension"
+                          :disabled="!disable"
                           maxlength="20"
+                          style="width:20vw"
                 ></el-input>
               </el-form-item>
             </el-col>
@@ -128,8 +128,8 @@
                            :data="form.idtype"
                            :disabled="!disable"
                            :multiple="multiple"
-                           @change="changeidtype"
-                           style="width:20vw">
+                           style="width:20vw"
+                           @change="changeidtype">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -137,22 +137,22 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6005FORMVIEW_NOTE')">
-                <el-input :disabled="!disable"
+                <el-input v-model="form.remark"
+                          :disabled="!disable"
                           style="width:72vw"
                           type="textarea"
-                          v-model="form.remark"
                 ></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="30">
-              <div class="sub_color_blue">{{$t('label.PFANS1017VIEW_MINGXI')}}</div>
+              <div class="sub_color_blue">{{ $t('label.PFANS1017VIEW_MINGXI') }}</div>
             </el-col>
           </el-row>
           <el-row style="padding-top:1.5rem">
             <el-col :span="24">
-              <el-table :data="tableT" stripe border header-cell-class-name="sub_bg_color_blue" style="width: 72vw">
+              <el-table :data="tableT" border header-cell-class-name="sub_bg_color_blue" stripe style="width: 72vw">
                 <el-table-column :label="$t('label.PFANS2007VIEW_NUMBER')" align="center" fixed prop="content"
                                  type="index"></el-table-column>
                 <!--<el-table-column :label="$t('label.PFANS1017FORMVIEW_USERTYPE')" align="center" width="150">-->
@@ -170,21 +170,21 @@
                 <!--</el-table-column>-->
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_USERNAME')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.username" maxlength="20"
+                    <el-input v-model="scope.row.username" :disabled="!disable" :no="scope.row" maxlength="20"
                               style="width: 100%">
                     </el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_SURNAME')" align="center" width="130">
                   <template slot-scope="scope">
-                    <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.surname" maxlength="20"
+                    <el-input v-model="scope.row.surname" :disabled="!disable" :no="scope.row" maxlength="20"
                               style="width: 100%">
                     </el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_MING')" align="center" width="130">
                   <template slot-scope="scope">
-                    <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.ming" maxlength="20"
+                    <el-input v-model="scope.row.ming" :disabled="!disable" :no="scope.row" maxlength="20"
                               style="width: 100%">
                     </el-input>
                   </template>
@@ -192,19 +192,19 @@
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_ACCOUNTTYPE')" align="center" width="150">
                   <template slot-scope="scope">
                     <dicselect
-                      :no="scope.row"
                       :code="code7"
                       :data="scope.row.accounttype"
                       :disabled="!disable"
                       :multiple="multiple"
-                      @change="changeaccounttype"
+                      :no="scope.row"
                       style="width: 100%"
+                      @change="changeaccounttype"
                     ></dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_ACCOUNT')" align="center" width="160">
                   <template slot-scope="scope">
-                    <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.account" maxlength="100"
+                    <el-input v-model="scope.row.account" :disabled="!disable" :no="scope.row" maxlength="100"
                               style="width: 100%">
                     </el-input>
                   </template>
@@ -212,32 +212,32 @@
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_TRANSMISSION')" align="center" width="150">
                   <template slot-scope="scope">
                     <dicselect
-                      :no="scope.row"
                       :code="code4"
                       :data="scope.row.transmission"
                       :disabled="!disable"
                       :multiple="multiple"
-                      @change="changetransmission"
+                      :no="scope.row"
                       style="width: 100%"
+                      @change="changetransmission"
                     ></dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="160">
                   <template slot-scope="scope">
                     <el-date-picker
-                      :no="scope.row"
+                      v-model="scope.row.waitfortime"
                       :disabled="!disable"
+                      :no="scope.row"
                       style="width: 100%"
                       type="date"
-                      v-model="scope.row.waitfortime"
                     ></el-date-picker>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="200">
                   <template slot-scope="scope">
                     <!--                    <el-input :disabled="true" style="width:20vw" v-model="scope.row.budgetunit"></el-input>-->
-                    <el-select clearable style="width: 100%" v-model="scope.row.budgetunit" :disabled="!disable"
-                               :placeholder="$t('normal.error_09')">
+                    <el-select v-model="scope.row.budgetunit" :disabled="!disable" :placeholder="$t('normal.error_09')" clearable
+                               style="width: 100%">
                       <el-option
                         v-for="item in options1"
                         :key="item.value"
@@ -251,24 +251,24 @@
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_CYBOZU')" align="center" width="150">
                   <template slot-scope="scope">
                     <dicselect
-                      :no="scope.row"
                       :code="code5"
                       :data="scope.row.cybozu"
                       :disabled="!disable"
                       :multiple="multiple"
-                      @change="changecybozu"
+                      :no="scope.row"
                       style="width: 100%"
+                      @change="changecybozu"
                     ></dicselect>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_WAITFORTIME')" align="center" width="160">
                   <template slot-scope="scope">
                     <el-date-picker
-                      :no="scope.row"
+                      v-model="scope.row.expecttime"
                       :disabled="!disable"
+                      :no="scope.row"
                       style="width: 100%"
                       type="date"
-                      v-model="scope.row.expecttime"
                     ></el-date-picker>
                   </template>
                 </el-table-column>
@@ -300,27 +300,27 @@
                 <!--                del_fjl_06/02  --与前两列重复 start-->
                 <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.preparefor" style="width: 100%">
+                    <el-input v-model="scope.row.preparefor" :disabled="!disable" :no="scope.row" style="width: 100%">
                     </el-input>
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-button
-                      @click.native.prevent="deleteRow(scope.$index, tableT)"
-                      type="danger"
-                      size="small"
-                      plain
                       :disabled="!disable"
-                    >{{$t('button.delete')}}
+                      plain
+                      size="small"
+                      type="danger"
+                      @click.native.prevent="deleteRow(scope.$index, tableT)"
+                    >{{ $t('button.delete') }}
                     </el-button>
                     <el-button
-                      @click="addRow()"
-                      type="primary"
-                      size="small"
-                      plain
                       :disabled="!disable"
-                    >{{$t('button.insert')}}
+                      plain
+                      size="small"
+                      type="primary"
+                      @click="addRow()"
+                    >{{ $t('button.insert') }}
                     </el-button>
                   </template>
                 </el-table-column>
@@ -333,351 +333,223 @@
   </div>
 </template>
 <script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import dicselect from '../../../components/dicselect.vue';
-    import {Message} from 'element-ui';
-    import user from '../../../components/user.vue';
-    import {getCurrentRole, getCurrentRole4, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
-    import {validateEmail} from '@/utils/validate';
-    import moment from 'moment';
-    import org from '../../../components/org';
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import dicselect from '../../../components/dicselect.vue';
+import {Message} from 'element-ui';
+import user from '../../../components/user.vue';
+import {getCurrentRole, getCurrentRole4, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+import {validateEmail} from '@/utils/validate';
+import moment from 'moment';
+import org from '../../../components/org';
 
-    export default {
-    name: 'PFANS1017FormView',
-    components: {
-      EasyNormalContainer,
-      dicselect,
-      user,
-        org
-    },
-    data() {
-      var validateUserid = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
-          callback(new Error(this.$t('normal.error_08') + this.$t('label.applicant')));
-          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
-        } else {
-          callback();
-          this.error = '';
-        }
-      };
-      var checkemail = (rule, value, callback) => {
-        if (this.form.email !== null && this.form.email !== '') {
-          if (!validateEmail(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
-      return {
-        options1: [],
-        centerid: '',
-        groupid: '',
-        teamid: '',
-        workflowCode: '',
-        buttonList: [],
-        baseInfo: {},
-        multiple: false,
-        //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-        acceptShow: 'true',
-        enableSave: false,
-        //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-        loading: false,
-          checkGro: false,
-        selectType: 'Single',
-        error: '',
-        title: 'title.PFANS1017VIEW',
-        userlist: '',
-        tabIndex: 0,
-        form: {
-          center_id: '',
-          group_id: '',
-          team_id: '',
-          user_id: '',
-          type: this.$t('menu.PFANS1017'),
-          subtype: '',
-          //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-          corresponding: '',
-          //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-          application: moment(new Date()).format('YYYY-MM-DD'),
-          email: '',
-          remark: '',
-          extension: '',
-          idtype: '',
-        },
-        tableT: [{
-          number: '',
-          // usertype: '',
-          username: '',
-          surname: '',
-          ming: '',
-          account: '',
-          transmission: '',
-          accounttype: '',
-          waitfortime: '',
-          budgetunit: '',
-          cybozu: '',
-          expecttime: '',
-          domainaccount: '',
-          forwardtime: '',
-          preparefor: '',
-        }],
-        code1: 'PJ037',
-        code2: 'PJ038',
-        // code3: 'PJ039',
-        code4: 'PJ040',
-        code5: 'PJ041',
-        code6: 'PG001',
-        // 邮箱类型
-        code7: 'PJ046',
-        disabled: false,
-        rules: {
-          user_id: [{
-            required: true,
-            validator: validateUserid,
-            trigger: 'change',
-          }],
-          subtype: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.subtype'),
-            trigger: 'change',
-          }],
-          application: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.application'),
-            trigger: 'change',
-          }],
-          email: [
-            {validator: checkemail, trigger: 'change'}],
-          extension: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
-              trigger: 'change'
-            }],
-          idtype: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS1017FORMVIEW_IDTYPE'),
-            trigger: 'change',
-          }],
-        },
-        canStart: false,
-      };
-    },
-    created() {
-      this.disable = this.$route.params.disabled;
-      if (this.disable) {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
+export default {
+  name: 'PFANS1017FormView',
+  components: {
+    EasyNormalContainer,
+    dicselect,
+    user,
+    org,
+  },
+  data() {
+    var validateUserid = (rule, value, callback) => {
+      if (!value || value === '' || value === 'undefined') {
+        callback(new Error(this.$t('normal.error_08') + this.$t('label.applicant')));
+        this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+      } else {
+        callback();
+        this.error = '';
       }
-    },
-    mounted() {
+    };
+    var checkemail = (rule, value, callback) => {
+      if (this.form.email !== null && this.form.email !== '') {
+        if (!validateEmail(value)) {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
+        } else {
+          callback();
+        }
+      } else {
+        callback();
+      }
+    };
+    return {
+      options1: [],
+      centerid: '',
+      groupid: '',
+      teamid: '',
+      workflowCode: '',
+      buttonList: [],
+      baseInfo: {},
+      multiple: false,
+      //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+      acceptShow: 'true',
+      enableSave: false,
+      //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+      loading: false,
+      checkGro: false,
+      selectType: 'Single',
+      error: '',
+      title: 'title.PFANS1017VIEW',
+      userlist: '',
+      tabIndex: 0,
+      form: {
+        center_id: '',
+        group_id: '',
+        team_id: '',
+        user_id: '',
+        type: this.$t('menu.PFANS1017'),
+        subtype: '',
+        //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+        corresponding: '',
+        //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+        application: moment(new Date()).format('YYYY-MM-DD'),
+        email: '',
+        remark: '',
+        extension: '',
+        idtype: '',
+      },
+      tableT: [{
+        number: '',
+        // usertype: '',
+        username: '',
+        surname: '',
+        ming: '',
+        account: '',
+        transmission: '',
+        accounttype: '',
+        waitfortime: '',
+        budgetunit: '',
+        cybozu: '',
+        expecttime: '',
+        domainaccount: '',
+        forwardtime: '',
+        preparefor: '',
+      }],
+      code1: 'PJ037',
+      code2: 'PJ038',
+      // code3: 'PJ039',
+      code4: 'PJ040',
+      code5: 'PJ041',
+      code6: 'PG001',
+      // 邮箱类型
+      code7: 'PJ046',
+      disabled: false,
+      rules: {
+        user_id: [{
+          required: true,
+          validator: validateUserid,
+          trigger: 'change',
+        }],
+        subtype: [{
+          required: true,
+          message: this.$t('normal.error_09') + this.$t('label.subtype'),
+          trigger: 'change',
+        }],
+        application: [{
+          required: true,
+          message: this.$t('normal.error_09') + this.$t('label.application'),
+          trigger: 'change',
+        }],
+        email: [
+          {validator: checkemail, trigger: 'change'}],
+        extension: [
+          {
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
+            trigger: 'change',
+          }],
+        idtype: [{
+          required: true,
+          message: this.$t('normal.error_09') + this.$t('label.PFANS1017FORMVIEW_IDTYPE'),
+          trigger: 'change',
+        }],
+      },
+      canStart: false,
+    };
+  },
+  created() {
+    this.disable = this.$route.params.disabled;
+    if (this.disable) {
+      this.buttonList = [
+        {
+          key: 'save',
+          name: 'button.save',
+          disabled: false,
+          icon: 'el-icon-check',
+        },
+      ];
+    }
+  },
+  mounted() {
 
-      if (this.$route.params._id) {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1017Store/selectById', {'psdcd_id': this.$route.params._id})
-          .then(response => {
-            let rst = getOrgInfoByUserId(response.psdcd.user_id);
-            if (rst) {
-                //upd_fjl_0927
-                if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                    this.checkGro = true;
-                } else {
-                    this.checkGro = false;
-                }
-                // this.centerid = rst.centerNmae;
-                // this.groupid = rst.groupNmae;
-                // this.teamid = rst.teamNmae;
-                //upd_fjl_0927
+    if (this.$route.params._id) {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS1017Store/selectById', {'psdcd_id': this.$route.params._id})
+        .then(response => {
+          let rst = getOrgInfoByUserId(response.psdcd.user_id);
+          if (rst) {
+            //upd_fjl_0927
+            if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+              this.checkGro = true;
+            } else {
+              this.checkGro = false;
             }
-            if (this.form.status === '2') {
-              this.disable = false;
-            }
-            this.userlist = response.user_id;
-            this.form = response.psdcd;
-            let roleLC = getCurrentRole();
-            if (roleLC == '1') {
-              this.workflowCode = 'W0103';//总经理流程
+            // this.centerid = rst.centerNmae;
+            // this.groupid = rst.groupNmae;
+            // this.teamid = rst.teamNmae;
+            //upd_fjl_0927
+          }
+          if (this.form.status === '2') {
+            this.disable = false;
+          }
+          this.userlist = response.user_id;
+          this.form = response.psdcd;
+          let roleLC = getCurrentRole();
+          if (roleLC == '1') {
+            this.workflowCode = 'W0103';//总经理流程
             // } else if(roleLC == '2' || roleLC == '3') { //GM Center
             //   this.workflowCode = 'W0120'//新流程
-            }else { //TL 正式员工
-              this.workflowCode = 'W0024'
-            }
-            if (response.psdcddetail.length > 0) {
-              this.tableT = response.psdcddetail;
-            }
-            //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-            let role = getCurrentRole4();
-            if (role === '0') {
-              if (this.form.status === '4') {
-                this.enableSave = true;
-                if (this.disable) {
-                  this.acceptShow = false;
-                } else {
-                  this.acceptShow = true;
-                }
+          } else { //TL 正式员工
+            this.workflowCode = 'W0024';
+          }
+          if (response.psdcddetail.length > 0) {
+            this.tableT = response.psdcddetail;
+          }
+          //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+          let role = getCurrentRole4();
+          if (role === '0') {
+            if (this.form.status === '4') {
+              this.enableSave = true;
+              if (this.disable) {
+                this.acceptShow = false;
               } else {
                 this.acceptShow = true;
-                this.enableSave = false;
               }
+            } else {
+              this.acceptShow = true;
+              this.enableSave = false;
             }
-            //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-            this.userlist = this.form.user_id;
-            this.getBudt(this.form.center_id);
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
+          }
+          //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+          this.userlist = this.form.user_id;
+          this.getBudt(this.form.center_id);
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
           });
-      } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== '') {
-          this.form.user_id = this.$store.getters.userinfo.userid;
-          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
-          //     this.tableT[0].budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-          // }
-          if (rst) {
-            this.centerid = rst.centerNmae;
-            this.groupid = rst.groupNmae;
-            this.teamid = rst.teamNmae;
-            this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
-            this.form.team_id = rst.teamId;
-            this.getBudt(this.form.center_id);
-              //add_fjl_0927
-              // if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-              //     this.form.group_id = rst.groupId;
-              //     this.checkGro = true;
-              // } else {
-              //     this.checkGro = false;
-              // }
-              //add_fjl_0927
-          }
-        }
-      }
-    },
-    methods: {
-      getOrgInformation(id) {
-        let org = {};
-        let treeCom = this.$store.getters.orgs;
-        if (id && treeCom.getNode(id)) {
-          let node = id;
-          let type = treeCom.getNode(id).data.type || 0;
-          for (let index = parseInt(type); index >= 1; index--) {
-            if (index === 2) {
-              org.groupname = treeCom.getNode(node).data.departmentname;
-              org.group_id = treeCom.getNode(node).data._id;
-            }
-            if (index === 1) {
-              org.centername = treeCom.getNode(node).data.companyname;
-              org.center_id = treeCom.getNode(node).data._id;
-            }
-            node = treeCom.getNode(node).parent.data._id;
-          }
-          ({
-            centername: this.form.centername,
-            groupname: this.form.groupname,
-            center_id: this.form.center_id,
-            group_id: this.form.group_id,
-          } = org);
-        }
-      },
-        //add_fjl_0927
-        getCenterid(val) {
-            this.form.center_id = val;
-          if (this.tableT.length > 0) {
-            for (let i = 0; i < this.tableT.length; i++) {
-              this.tableT[i].budgetunit = '';
-            }
-          }
-          this.getBudt(val);
-          if(val === ""){
-            this.form.group_id = "";
-          }
-        },
-        getGroupId(val) {
-            this.form.group_id = val;
-            if (this.tableT.length > 0) {
-                for (let i = 0; i < this.tableT.length; i++) {
-                    this.tableT[i].budgetunit = '';
-                }
-            }
-          if(val != ""){
-            this.getOrgInformation(val);
-            this.getBudt(val);
-          }else{
-            this.getBudt(this.form.center_id);
-          }
-        },
-        getTeamid(val) {
-            this.form.team_id = val;
-        },
-        //add_fjl_0927
-      getBudt(val) {
-          this.options1 = [];
-          if (val === '' || val === null) {
-              return;
-          }
-        //ADD_FJL  修改人员预算编码
-          // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-        if(getOrgInfo(val)) {
-          let butinfo = (getOrgInfo(val).encoding).substring(0,3);
-          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-          if (dic.length > 0) {
-            for (let i = 0; i < dic.length; i++) {
-              if (butinfo === (dic[i].value1).substring(0,3)) {
-                this.options1.push({
-                  lable: dic[i].value2 + '_' + dic[i].value3,
-                  value: dic[i].code,
-                })
-              }
-            }
-          }
-          if(this.options1.length === 0) {
-            if (getOrgInfo(this.form.group_id)) {
-              let butinfo = (getOrgInfo(this.form.group_id).encoding).substring(0, 3);
-              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-              if (dic.length > 0) {
-                for (let i = 0; i < dic.length; i++) {
-                  if (butinfo === (dic[i].value1).substring(0,3)) {
-                    this.options1.push({
-                      lable: dic[i].value2 + '_' + dic[i].value3,
-                      value: dic[i].code,
-                    });
-                  }
-                }
-              }
-            }
-          }
-        }
-          // }
-        //ADD_FJL  修改人员预算编码
-      },
-      // <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
-      getcorresponding(val) {
-        this.form.corresponding = val;
-      },
-      //<!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
-      getUserids(val) {
-        this.form.user_id = val;
-        let rst = getOrgInfoByUserId(val);
-        // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
-        //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          this.loading = false;
+        });
+    } else {
+      this.userlist = this.$store.getters.userinfo.userid;
+      if (this.userlist !== null && this.userlist !== '') {
+        this.form.user_id = this.$store.getters.userinfo.userid;
+        let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+        // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+        //     this.tableT[0].budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
         // }
         if (rst) {
           this.centerid = rst.centerNmae;
@@ -686,214 +558,342 @@
           this.form.center_id = rst.centerId;
           this.form.group_id = rst.groupId;
           this.form.team_id = rst.teamId;
-        } else {
-          this.centerid = '';
-          this.groupid = '';
-          this.teamid = '';
-          this.form.center_id = '';
-          this.form.group_id = '';
-          this.form.team_id = '';
+          this.getBudt(this.form.center_id);
+          //add_fjl_0927
+          // if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+          //     this.form.group_id = rst.groupId;
+          //     this.checkGro = true;
+          // } else {
+          //     this.checkGro = false;
+          // }
+          //add_fjl_0927
         }
-        if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
-          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
-        } else {
-          this.error = '';
+      }
+    }
+  },
+  methods: {
+    getOrgInformation(id) {
+      let org = {};
+      let treeCom = this.$store.getters.orgs;
+      if (id && treeCom.getNode(id)) {
+        let node = id;
+        let type = treeCom.getNode(id).data.type || 0;
+        for (let index = parseInt(type); index >= 1; index--) {
+          if (index === 2) {
+            org.groupname = treeCom.getNode(node).data.departmentname;
+            org.group_id = treeCom.getNode(node).data._id;
+          }
+          if (index === 1) {
+            org.centername = treeCom.getNode(node).data.companyname;
+            org.center_id = treeCom.getNode(node).data._id;
+          }
+          node = treeCom.getNode(node).parent.data._id;
         }
-      },
-      workflowState(val) {
-        if (val.state === '1') {
-          this.form.status = '3';
-        } else if (val.state === '2') {
-          this.form.status = '4';
+        ({
+          centername: this.form.centername,
+          groupname: this.form.groupname,
+          center_id: this.form.center_id,
+          group_id: this.form.group_id,
+        } = org);
+      }
+    },
+    //add_fjl_0927
+    getCenterid(val) {
+      this.form.center_id = val;
+      if (this.tableT.length > 0) {
+        for (let i = 0; i < this.tableT.length; i++) {
+          this.tableT[i].budgetunit = '';
         }
-        this.buttonClick('update');
-      },
-      //upd 审批流程 fr
-      // start(val) {
-      //   this.form.status = '2';
-      //   this.buttonClick("update");
-      // },
-      start(val) {
-        if (val.state === '0') {
-          this.form.status = '2';
-        } else if (val.state === '2') {
-          this.form.status = '4';
+      }
+      this.getBudt(val);
+      if (val === '') {
+        this.form.group_id = '';
+      }
+    },
+    getGroupId(val) {
+      this.form.group_id = val;
+      if (this.tableT.length > 0) {
+        for (let i = 0; i < this.tableT.length; i++) {
+          this.tableT[i].budgetunit = '';
         }
-        this.buttonClick('update');
-      },
-      //upd 审批流程 to
-      end() {
-        this.form.status = '0';
-        this.buttonClick('update');
-      },
-      changesubtype(val) {
-        this.form.subtype = val;
-      },
-      changeidtype(val) {
-        this.form.idtype = val;
-      },
-      // changeusertype(val, row) {
-      //     row.usertype = val;
-      // },
-      changeaccounttype(val, row) {
-        row.accounttype = val;
-      },
-      changetransmission(val, row) {
-        row.transmission = val;
-      },
-      changecybozu(val, row) {
-        row.cybozu = val;
-      },
-      getBudgetunit(val, row) {
-        row.budgetunit = val;
-      },
-      changedomainaccount(val, row) {
-        row.domainaccount = val;
-      },
-      deleteRow(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableT = [{
-            psdcddetail_id: '',
-            psdcd_id: '',
-            // usertype: ' ',
-            username: '',
-            surname: '',
-            ming: '',
-            account: '',
-            transmission: ' ',
-            accounttype: ' ',
-            waitfortime: '',
-            budgetunit: ' ',
-            cybozu: ' ',
-            expecttime: '',
-            domainaccount: ' ',
-            forwardtime: '',
-            preparefor: '',
-          }]
+      }
+      if (val != '') {
+        this.getOrgInformation(val);
+        this.getBudt(val);
+      } else {
+        this.getBudt(this.form.center_id);
+      }
+    },
+    getTeamid(val) {
+      this.form.team_id = val;
+    },
+    //add_fjl_0927
+    getBudt(val) {
+      this.options1 = [];
+      if (val === '' || val === null) {
+        return;
+      }
+      //ADD_FJL  修改人员预算编码
+      // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+      if (getOrgInfo(val)) {
+        let butinfo = (getOrgInfo(val).encoding).substring(0, 3);
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+        if (dic.length > 0) {
+          for (let i = 0; i < dic.length; i++) {
+            if (butinfo === (dic[i].value1).substring(0, 3)) {
+              this.options1.push({
+                lable: dic[i].value2 + '_' + dic[i].value3,
+                value: dic[i].code,
+              });
+            }
+          }
         }
-      },
-      addRow() {
-        this.tableT.push({
+        if (this.options1.length === 0) {
+          if (getOrgInfo(this.form.group_id)) {
+            let butinfo = (getOrgInfo(this.form.group_id).encoding).substring(0, 3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+              for (let i = 0; i < dic.length; i++) {
+                if (butinfo === (dic[i].value1).substring(0, 3)) {
+                  this.options1.push({
+                    lable: dic[i].value2 + '_' + dic[i].value3,
+                    value: dic[i].code,
+                  });
+                }
+              }
+            }
+          }
+        }
+      }
+      // }
+      //ADD_FJL  修改人员预算编码
+    },
+    // <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+    getcorresponding(val) {
+      this.form.corresponding = val;
+    },
+    //<!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+    getUserids(val) {
+      this.form.user_id = val;
+      let rst = getOrgInfoByUserId(val);
+      // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+      //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+      // }
+      if (rst) {
+        this.centerid = rst.centerNmae;
+        this.groupid = rst.groupNmae;
+        this.teamid = rst.teamNmae;
+        this.form.center_id = rst.centerId;
+        this.form.group_id = rst.groupId;
+        this.form.team_id = rst.teamId;
+      } else {
+        this.centerid = '';
+        this.groupid = '';
+        this.teamid = '';
+        this.form.center_id = '';
+        this.form.group_id = '';
+        this.form.team_id = '';
+      }
+      if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
+        this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+      } else {
+        this.error = '';
+      }
+    },
+    workflowState(val) {
+      if (val.state === '1') {
+        this.form.status = '3';
+      } else if (val.state === '2') {
+        this.form.status = '4';
+      }
+      this.buttonClick('update');
+    },
+    //upd 审批流程 fr
+    // start(val) {
+    //   this.form.status = '2';
+    //   this.buttonClick("update");
+    // },
+    start(val) {
+      if (val.state === '0') {
+        this.form.status = '2';
+      } else if (val.state === '2') {
+        this.form.status = '4';
+      }
+      this.buttonClick('update');
+    },
+    //upd 审批流程 to
+    end() {
+      this.form.status = '0';
+      this.buttonClick('update');
+    },
+    changesubtype(val) {
+      this.form.subtype = val;
+    },
+    changeidtype(val) {
+      this.form.idtype = val;
+    },
+    // changeusertype(val, row) {
+    //     row.usertype = val;
+    // },
+    changeaccounttype(val, row) {
+      row.accounttype = val;
+    },
+    changetransmission(val, row) {
+      row.transmission = val;
+    },
+    changecybozu(val, row) {
+      row.cybozu = val;
+    },
+    getBudgetunit(val, row) {
+      row.budgetunit = val;
+    },
+    changedomainaccount(val, row) {
+      row.domainaccount = val;
+    },
+    deleteRow(index, rows) {
+      if (rows.length > 1) {
+        rows.splice(index, 1);
+      } else {
+        this.tableT = [{
           psdcddetail_id: '',
           psdcd_id: '',
-          // usertype: '',
+          // usertype: ' ',
           username: '',
           surname: '',
           ming: '',
           account: '',
-          transmission: '',
-          accounttype: '',
+          transmission: ' ',
+          accounttype: ' ',
           waitfortime: '',
-          budgetunit: '',
-          cybozu: '',
+          budgetunit: ' ',
+          cybozu: ' ',
           expecttime: '',
-          domainaccount: '',
+          domainaccount: ' ',
           forwardtime: '',
           preparefor: '',
-          rowindex: '',
-        });
-      },
-      buttonClick(val) {
-        this.$refs['refform'].validate(valid => {
-          if (valid) {
-            this.loading = true;
-            this.baseInfo = {};
-            this.form.application = moment(this.form.application).format('YYYY-MM-DD');
-            this.baseInfo.psdcd = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.psdcddetail = [];
-            for (let i = 0; i < this.tableT.length; i++) {
-              if (this.tableT[i].number !== '' || this.tableT[i].usertype !== '' || this.tableT[i].username !== '' ||
-                this.tableT[i].surname !== '' || this.tableT[i].ming !== '' || this.tableT[i].account !== '' ||
-                this.tableT[i].transmission !== '' || this.tableT[i].accounttype !== '' || this.tableT[i].waitfortime !== '' || this.tableT[i].budgetunit !== '' ||
-                this.tableT[i].cybozu !== '' || this.tableT[i].expecttime !== '' || this.tableT[i].domainaccount !== '' ||
-                this.tableT[i].forwardtime !== '' || this.tableT[i].preparefor !== '') {
-                this.baseInfo.psdcddetail.push(
-                  {
-                    psdcddetail_id: this.tableT[i].psdcddetail_id,
-                    psdcd_id: this.tableT[i].psdcd_id,
-                    number: this.tableT[i].number,
-                    // usertype: this.tableT[i].usertype,
-                    username: this.tableT[i].username,
-                    surname: this.tableT[i].surname,
-                    ming: this.tableT[i].ming,
-                    account: this.tableT[i].account,
-                    transmission: this.tableT[i].transmission,
-                    accounttype: this.tableT[i].accounttype,
-                    waitfortime: this.tableT[i].waitfortime,
-                    budgetunit: this.tableT[i].budgetunit,
-                    cybozu: this.tableT[i].cybozu,
-                    expecttime: this.tableT[i].expecttime,
-                    domainaccount: this.tableT[i].domainaccount,
-                    forwardtime: this.tableT[i].forwardtime,
-                    preparefor: this.tableT[i].preparefor,
-                  },
-                );
-              }
+        }];
+      }
+    },
+    addRow() {
+      this.tableT.push({
+        psdcddetail_id: '',
+        psdcd_id: '',
+        // usertype: '',
+        username: '',
+        surname: '',
+        ming: '',
+        account: '',
+        transmission: '',
+        accounttype: '',
+        waitfortime: '',
+        budgetunit: '',
+        cybozu: '',
+        expecttime: '',
+        domainaccount: '',
+        forwardtime: '',
+        preparefor: '',
+        rowindex: '',
+      });
+    },
+    buttonClick(val) {
+      this.$refs['refform'].validate(valid => {
+        if (valid) {
+          this.loading = true;
+          this.baseInfo = {};
+          this.form.application = moment(this.form.application).format('YYYY-MM-DD');
+          this.baseInfo.psdcd = JSON.parse(JSON.stringify(this.form));
+          this.baseInfo.psdcddetail = [];
+          for (let i = 0; i < this.tableT.length; i++) {
+            if (this.tableT[i].number !== '' || this.tableT[i].usertype !== '' || this.tableT[i].username !== '' ||
+              this.tableT[i].surname !== '' || this.tableT[i].ming !== '' || this.tableT[i].account !== '' ||
+              this.tableT[i].transmission !== '' || this.tableT[i].accounttype !== '' || this.tableT[i].waitfortime !== '' || this.tableT[i].budgetunit !== '' ||
+              this.tableT[i].cybozu !== '' || this.tableT[i].expecttime !== '' || this.tableT[i].domainaccount !== '' ||
+              this.tableT[i].forwardtime !== '' || this.tableT[i].preparefor !== '') {
+              this.baseInfo.psdcddetail.push(
+                {
+                  psdcddetail_id: this.tableT[i].psdcddetail_id,
+                  psdcd_id: this.tableT[i].psdcd_id,
+                  number: this.tableT[i].number,
+                  // usertype: this.tableT[i].usertype,
+                  username: this.tableT[i].username,
+                  surname: this.tableT[i].surname,
+                  ming: this.tableT[i].ming,
+                  account: this.tableT[i].account,
+                  transmission: this.tableT[i].transmission,
+                  accounttype: this.tableT[i].accounttype,
+                  waitfortime: this.tableT[i].waitfortime,
+                  budgetunit: this.tableT[i].budgetunit,
+                  cybozu: this.tableT[i].cybozu,
+                  expecttime: this.tableT[i].expecttime,
+                  domainaccount: this.tableT[i].domainaccount,
+                  forwardtime: this.tableT[i].forwardtime,
+                  preparefor: this.tableT[i].preparefor,
+                },
+              );
             }
-            if (this.$route.params._id) {
-              this.form.psdcd_id = this.$route.params._id;
-              this.$store
-                .dispatch('PFANS1017Store/update', this.baseInfo)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if (val !== 'update') {
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  }
-                })
-                .catch(error => {
-                  this.$message.error({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-            } else {
-              this.loading = true;
-              this.$store
-                .dispatch('PFANS1017Store/insert', this.baseInfo)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
+          }
+          if (this.$route.params._id) {
+            this.form.psdcd_id = this.$route.params._id;
+            this.$store
+              .dispatch('PFANS1017Store/update', this.baseInfo)
+              .then(response => {
+                this.data = response;
+                this.loading = false;
+                if (val !== 'update') {
                   Message({
-                    message: this.$t('normal.success_01'),
+                    message: this.$t('normal.success_02'),
                     type: 'success',
                     duration: 5 * 1000,
                   });
                   if (this.$store.getters.historyUrl) {
                     this.$router.push(this.$store.getters.historyUrl);
                   }
-                })
-                .catch(error => {
-                  this.$message.error({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
+                }
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
                 });
-            }
+                this.loading = false;
+              });
           } else {
-            Message({
-              message: this.$t("normal.error_12"),
-              type: 'error',
-              duration: 5 * 1000
-            });
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS1017Store/insert', this.baseInfo)
+              .then(response => {
+                this.data = response;
+                this.loading = false;
+                Message({
+                  message: this.$t('normal.success_01'),
+                  type: 'success',
+                  duration: 5 * 1000,
+                });
+                if (this.$store.getters.historyUrl) {
+                  this.$router.push(this.$store.getters.historyUrl);
+                }
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
           }
-        });
-      },
+        } else {
+          Message({
+            message: this.$t('normal.error_12'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
+      });
     },
-  };
+  },
+};
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

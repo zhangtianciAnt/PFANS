@@ -1,10 +1,4 @@
-import {
-  getPage,
-  get,
-  one,
-  update,
-  downLoad
-} from './PFANS1031Api'
+import {downLoad, get, getPage, one, update} from './PFANS1031Api';
 
 const PFANS1031Store = {
   namespaced: true,
@@ -17,12 +11,12 @@ const PFANS1031Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //  add  ml  211130  分页  from
     getPage() {
@@ -31,12 +25,12 @@ const PFANS1031Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //  add  ml  211130  分页  to
     one({commit}, data) {
@@ -45,12 +39,12 @@ const PFANS1031Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     update({commit}, data) {
@@ -59,12 +53,12 @@ const PFANS1031Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     downLoad({commit}, data) {
@@ -73,9 +67,9 @@ const PFANS1031Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
-}
+  },
+};
 export default PFANS1031Store;

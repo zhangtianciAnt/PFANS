@@ -1,9 +1,9 @@
 <template>
-  <EasyNormalContainer :buttonList="buttonList" :title="title"
-                       @buttonClick="buttonClick"
-                       ref="container" v-loading="loading"> l
+  <EasyNormalContainer ref="container" v-loading="loading"
+                       :buttonList="buttonList"
+                       :title="title" @buttonClick="buttonClick"> l
     <div slot="customize">
-      <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
+      <el-form ref="reff" :model="form" :rules="rules" label-position="top" label-width="8vw" style="padding: 2vw">
         <el-row>
           <el-col :span="8">
             <el-form-item :label="$t('label.center')">
@@ -26,10 +26,10 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1043FORMVIEW_YEAR')" prop="year">
               <el-date-picker
-                style="width: 20vw"
+                v-model="form.year"
                 :disabled="!disable"
-                type="year"
-                v-model="form.year">
+                style="width: 20vw"
+                type="year">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -37,13 +37,13 @@
         <el-row>
           <el-col :span="8">
             <el-form-item :label="$t('label.applicant')">
-              <user :disabled="true" :selectType="selectType" :userlist="userlist"
-                    style="width: 20vw" v-model="form.user_id"></user>
+              <user v-model="form.user_id" :disabled="true" :selectType="selectType"
+                    :userlist="userlist" style="width: 20vw"></user>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item :label="$t('label.date')">
-              <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.data">
+              <el-date-picker v-model="form.data" :disabled="!disable" style="width:20vw">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -52,8 +52,8 @@
         <el-row>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1043FORMVIEW_THEMENAME')" prop="themename">
-              <el-input :disabled="!disable" style="width:20vw"
-                        v-model="form.themename"></el-input>
+              <el-input v-model="form.themename" :disabled="!disable"
+                        style="width:20vw"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -62,8 +62,8 @@
                          :data="form.divide"
                          :disabled="!disable"
                          :multiple="multiple"
-                         @change="getdivide"
-                         style="width:20vw">
+                         style="width:20vw"
+                         @change="getdivide">
               </dicselect>
             </el-form-item>
           </el-col>
@@ -75,8 +75,8 @@
                          :data="form.contract"
                          :disabled="!disable"
                          :multiple="multiple"
-                         @change="getcontract"
-                         style="width:20vw">
+                         style="width:20vw"
+                         @change="getcontract">
               </dicselect>
             </el-form-item>
           </el-col>
@@ -86,27 +86,27 @@
                          :data="form.currency"
                          :disabled="!disable"
                          :multiple="multiple"
-                         @change="getcurrency"
-                         style="width:20vw">
+                         style="width:20vw"
+                         @change="getcurrency">
               </dicselect>
             </el-form-item>
           </el-col>
           <el-col :span="8">
-            <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
-                          v-show="show1" prop="toolsorgs">
+            <el-form-item v-show="show1"
+                          :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" prop="toolsorgs">
               <div class="dpSupIndex" style="width: 20vw">
                 <el-container>
-                  <el-input style="width: 20vw"
+                  <el-input v-model="form.toolsorgs"
                             :disabled="true"
-                            v-model="form.toolsorgs">
+                            style="width: 20vw">
                   </el-input>
-                  <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible2 = true"
-                             size="small"></el-button>
+                  <el-button :disabled="!disable" icon="el-icon-search" size="small"
+                             @click="dialogTableVisible2 = true"></el-button>
                   <el-dialog :visible.sync="dialogTableVisible2"
+                             append-to-body
                              center
-                             size="50%"
-                             top="8vh" lock-scroll
-                             append-to-body>
+                             lock-scroll size="50%"
+                             top="8vh">
                     <div style="text-align: center">
                       <el-row style="text-align: center;height: 90%;overflow: hidden">
                         <el-table
@@ -115,24 +115,24 @@
                           )"
                           height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                           @row-click="handleClickChange2">
-                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="protelephone"
-                                           :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
-                                           width="120" show-overflow-tooltip></el-table-column>
+                          <el-table-column :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')" property="custchinese"
+                                           show-overflow-tooltip width="120"></el-table-column>
+                          <el-table-column :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" property="thecompany"
+                                           show-overflow-tooltip width="120"></el-table-column>
+                          <el-table-column :label="$t('label.ASSETS1002VIEW_USERID')" property="liableperson"
+                                           show-overflow-tooltip width="120"></el-table-column>
+                          <el-table-column :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" property="prochinese"
+                                           show-overflow-tooltip width="120"></el-table-column>
+                          <el-table-column :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                           property="protelephone"
+                                           show-overflow-tooltip width="120"></el-table-column>
                           <el-table-column
                             align="right" width="230">
                             <template slot="header" slot-scope="scope">
                               <el-input
                                 v-model="search2"
-                                size="mini"
-                                :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"/>
+                                :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"
+                                size="mini"/>
                             </template>
                           </el-table-column>
                         </el-table>
@@ -145,46 +145,46 @@
                 </el-container>
               </div>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
-                          v-show="show2" prop="toolsorgs">
+            <el-form-item v-show="show2"
+                          :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" prop="toolsorgs">
               <div class="dpSupIndex" style="width: 20vw">
                 <el-container>
-                  <input style="width: 20vw" v-model="form.toolsorgs"
-                         :disabled="true">
-                  <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"
-                             size="small"></el-button>
-                  <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center
-                             size="50%"
-                             top="8vh" lock-scroll
-                             append-to-body>
+                  <input v-model="form.toolsorgs" :disabled="true"
+                         style="width: 20vw">
+                  <el-button :disabled="!disable" icon="el-icon-search" size="small"
+                             @click="dialogTableVisible = true"></el-button>
+                  <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" append-to-body
+                             center
+                             lock-scroll size="50%"
+                             top="8vh">
                     <div style="text-align: center">
                       <el-row style="text-align: center;height: 90%;overflow: hidden">
                         <el-table
                           :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
                           height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                           @row-click="handleClickChange">
-                          <el-table-column property="suppliername"
-                                           :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="payeename"
-                                           :label="$t('label.PFANS1012VIEW_PAYEENAME')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="vendornum"
-                                           :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="payeebankaccountnumber"
-                                           :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="payeebankaccount"
-                                           :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
-                                           width="120" show-overflow-tooltip></el-table-column>
+                          <el-table-column :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                           property="suppliername"
+                                           show-overflow-tooltip width="120"></el-table-column>
+                          <el-table-column :label="$t('label.PFANS1012VIEW_PAYEENAME')"
+                                           property="payeename"
+                                           show-overflow-tooltip width="120"></el-table-column>
+                          <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
+                                           property="vendornum"
+                                           show-overflow-tooltip width="120"></el-table-column>
+                          <el-table-column :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"
+                                           property="payeebankaccountnumber"
+                                           show-overflow-tooltip width="120"></el-table-column>
+                          <el-table-column :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
+                                           property="payeebankaccount"
+                                           show-overflow-tooltip width="120"></el-table-column>
                           <el-table-column
                             align="right" width="230">
                             <template slot="header" slot-scope="scope">
                               <el-input
                                 v-model="search"
-                                size="mini"
-                                :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME')"/>
+                                :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME')"
+                                size="mini"/>
                             </template>
                           </el-table-column>
                         </el-table>
@@ -197,11 +197,11 @@
                 </el-container>
               </div>
             </el-form-item>
-            <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" v-show="show3" :error="errorgroup"
+            <el-form-item v-show="show3" :error="errorgroup" :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
                           prop="toolsorgs">
               <org :disabled="!disable" :error="errorgroup" :orglist="form.toolsorgs" orgtype="4"
-                   @getOrgids="setToolsorgs"
-                   style="width:20vw"></org>
+                   style="width:20vw"
+                   @getOrgids="setToolsorgs"></org>
             </el-form-item>
           </el-col>
         </el-row>
@@ -212,8 +212,8 @@
                          :data="form.otherone"
                          :disabled="!disable"
                          :multiple="multiple"
-                         @change="getotherone"
-                         style="width:20vw">
+                         style="width:20vw"
+                         @change="getotherone">
               </dicselect>
             </el-form-item>
           </el-col>
@@ -223,8 +223,8 @@
                          :data="form.othertwo"
                          :disabled="!disable"
                          :multiple="multiple"
-                         @change="getothertwo"
-                         style="width:20vw">
+                         style="width:20vw"
+                         @change="getothertwo">
               </dicselect>
             </el-form-item>
           </el-col>
@@ -234,16 +234,16 @@
                          :data="form.otherthree"
                          :disabled="!disable"
                          :multiple="multiple"
-                         @change="getotherthree"
-                         style="width:20vw">
+                         style="width:20vw"
+                         @change="getotherthree">
               </dicselect>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')">
-            <el-input :disabled="!disable" style="width: 72vw" type="textarea"
-                      v-model="form.remark">
+            <el-input v-model="form.remark" :disabled="!disable" style="width: 72vw"
+                      type="textarea">
             </el-input>
           </el-form-item>
         </el-row>
@@ -256,11 +256,7 @@
 import EasyNormalContainer from '@/components/EasyNormalContainer';
 import user from '../../../components/user.vue';
 import dicselect from '../../../components/dicselect';
-import {
-  getOrgInfoByUserId,
-  getUserInfo,
-  getDictionaryInfo,
-} from '@/utils/customize';
+import {getDictionaryInfo, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
 import {Message} from 'element-ui';
 import moment from 'moment';
 import org from '../../../components/org';
@@ -294,7 +290,7 @@ export default {
         themename: '',
         centerid: '',
         groupid: '',
-        year: parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1+'' : moment(new Date()).format('YYYY'),
+        year: parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY'),
         user_id: '',
         data: '',
         divide: '',

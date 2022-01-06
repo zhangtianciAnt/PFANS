@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-select v-model="value" placeholder="请选择"@change="change" size="mini">
+    <el-select v-model="value" placeholder="请选择" size="mini" @change="change">
       <el-option
         v-for="item in options"
         :key="item.value"
@@ -12,41 +12,40 @@
 </template>
 
 <script>
-  export default {
-    name: "index",
-    components: {},
-    data() {
-      return {
-        options: [{
-          value: 'zh_CN',
-          label: this.$t('normal.zh_CN')
-        }, {
-          value: 'ja',
-          label: this.$t('normal.ja')
-        }],
-        value: this.$i18n.locale
-      };
+export default {
+  name: 'index',
+  components: {},
+  data() {
+    return {
+      options: [{
+        value: 'zh_CN',
+        label: this.$t('normal.zh_CN'),
+      }, {
+        value: 'ja',
+        label: this.$t('normal.ja'),
+      }],
+      value: this.$i18n.locale,
+    };
+  },
+  props: {},
+  methods: {
+    change(val) {
+      this.$i18n.locale = val;
+      localStorage.setItem('lang', this.$i18n.locale);
+      this.options = [{
+        value: 'zh_CN',
+        label: this.$t('normal.zh_CN'),
+      }, {
+        value: 'ja',
+        label: this.$t('normal.ja'),
+      }];
     },
-    props: {
-    },
-    methods: {
-      change(val){
-        this.$i18n.locale = val
-        localStorage.setItem('lang', this.$i18n.locale)
-        this.options=[{
-          value: 'zh_CN',
-          label: this.$t('normal.zh_CN')
-        }, {
-          value: 'ja',
-          label: this.$t('normal.ja')
-        }]
-      }
-    },
-    mounted() {
+  },
+  mounted() {
 
-    },
-    watch: {}
-  }
+  },
+  watch: {},
+};
 </script>
 <style lang='scss'>
 

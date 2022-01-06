@@ -1,53 +1,56 @@
 <template>
   <div class="main_bg_color" style="overflow-x: hidden">
-    <el-menu :default-active="Index" mode="vertical" @select="handleSelect" menu-trigger="click" unique-opened router
-             :active-text-color="activeTextColor" :collapse="isCollapse" @open="openExpalin" @close="openExpalin"
-             active-text-color="#005BAA">
+    <el-menu :active-text-color="activeTextColor" :collapse="isCollapse" :default-active="Index" active-text-color="#005BAA" menu-trigger="click" mode="vertical"
+             router unique-opened @close="openExpalin" @open="openExpalin"
+             @select="handleSelect">
       <el-submenu v-for="ob in data"
                   v-if="ob && ob.children && ob.children.length > 0 && Object.keys(ob.children[0]).length > 0"
-                  :index="ob._id" :key="ob._id" v-show="ob.menuvisible" class="title1">
+                  v-show="ob.menuvisible" :key="ob._id" :index="ob._id" class="title1">
         <template slot="title">
           <!--<i :class="ob.menuicon" v-if="ob.menuicon"></i>-->
-          <span>{{$t(ob.name)}}</span>
+          <span>{{ $t(ob.name) }}</span>
         </template>
         <el-submenu v-for="obi in ob.children"
                     v-if="obi && obi.children && obi.children.length > 0 && Object.keys(obi.children[0]).length > 0"
-                    :index="obi._id" :key="obi._id" v-show="obi.menuvisible" class="title2">
+                    v-show="obi.menuvisible" :key="obi._id" :index="obi._id" class="title2">
           <template slot="title">
             <!--<i :class="obi.menuicon" v-if="obi.menuicon"></i>-->
-            <span style="color: black">{{$t(obi.name)}}</span>
+            <span style="color: black">{{ $t(obi.name) }}</span>
           </template>
 
           <el-submenu v-for="cobi in obi.children"
                       v-if="cobi && cobi.children && cobi.children.length > 0 && Object.keys(cobi.children[0]).length > 0"
-                      :index="cobi._id" :key="cobi._id" v-show="cobi.menuvisible" class="title2">
+                      v-show="cobi.menuvisible" :key="cobi._id" :index="cobi._id" class="title2">
             <template slot="title">
               <!--<i :class="cobi.menuicon" v-if="cobi.menuicon"></i>-->
-              <span style="color: black">{{$t(cobi.name)}}</span>
+              <span style="color: black">{{ $t(cobi.name) }}</span>
             </template>
-            <el-menu-item v-for="cobii in cobi.children" v-if="cobii.menuvisible" :key="cobii._id" :index="cobii.menuurl" v-show="cobii.menuvisible" class="title3">
-              <el-tooltip class="item" effect="dark" :content="$t(cobii.name)" placement="right-end" v-if="$t(cobii.name).length > 6">
-              <span>{{$t(cobii.name).substr(0,6)+".."}}</span>
+            <el-menu-item v-for="cobii in cobi.children" v-if="cobii.menuvisible" v-show="cobii.menuvisible"
+                          :key="cobii._id" :index="cobii.menuurl" class="title3">
+              <el-tooltip v-if="$t(cobii.name).length > 6" :content="$t(cobii.name)" class="item" effect="dark"
+                          placement="right-end">
+                <span>{{ $t(cobii.name).substr(0, 6) + '..' }}</span>
               </el-tooltip>
-              <span v-else>{{$t(cobii.name)}}</span>
+              <span v-else>{{ $t(cobii.name) }}</span>
               <!--<i class="el-icon-right"></i>-->
             </el-menu-item>
           </el-submenu>
-          <el-menu-item v-else :key="cobi._id" :index="cobi.menuurl" v-show="cobi.menuvisible" class="title3">
-            <el-tooltip class="item" effect="dark" :content="$t(cobi.name)" placement="right-end" v-if="$t(cobi.name).length > 7">
-            <span>{{$t(cobi.name).substr(0,7)+".."}}</span>
+          <el-menu-item v-else v-show="cobi.menuvisible" :key="cobi._id" :index="cobi.menuurl" class="title3">
+            <el-tooltip v-if="$t(cobi.name).length > 7" :content="$t(cobi.name)" class="item" effect="dark"
+                        placement="right-end">
+              <span>{{ $t(cobi.name).substr(0, 7) + '..' }}</span>
             </el-tooltip>
-            <span v-else>{{$t(cobi.name)}}</span>
+            <span v-else>{{ $t(cobi.name) }}</span>
             <!--<i class="el-icon-right"></i>-->
           </el-menu-item>
         </el-submenu>
-        <el-menu-item v-else :key="obi._id" :index="obi.menuurl" v-show="obi.menuvisible" class="title3">
-          <span>{{$t(obi.name)}}</span>
+        <el-menu-item v-else v-show="obi.menuvisible" :key="obi._id" :index="obi.menuurl" class="title3">
+          <span>{{ $t(obi.name) }}</span>
           <!--<i class="el-icon-right"></i>-->
         </el-menu-item>
       </el-submenu>
-      <el-menu-item v-else :index="ob.menuurl" v-show="ob.menuvisible" class="title3">
-        <span>{{$t(ob.name)}}</span>
+      <el-menu-item v-else v-show="ob.menuvisible" :index="ob.menuurl" class="title3">
+        <span>{{ $t(ob.name) }}</span>
         <!--<i class="el-icon-right"></i>-->
       </el-menu-item>
       <!-- <div class="menu-footer" @click="isCollapse=!isCollapse">
@@ -60,127 +63,129 @@
 </template>
 
 <script>
-  export default {
-    name: "vertical",
-    components: {},
-    data() {
-      return {
-        Index:"/index"
-      };
+export default {
+  name: 'vertical',
+  components: {},
+  data() {
+    return {
+      Index: '/index',
+    };
+  },
+  computed: {
+    deg() {
+      return this.isCollapse === false ? '0deg' : '180deg';
     },
-    computed: {
-      deg() {
-        return this.isCollapse === false ? "0deg" : "180deg";
-      }
+  },
+  props: {
+    isCollapse: {
+      type: Boolean,
+      default: false,
     },
-    props: {
-      isCollapse: {
-        type: Boolean,
-        default: false
+    backgroundColor: {
+      type: String,
+      default: '#ffffff',
+    },
+    textColor: {
+      type: String,
+      default: '#303133',
+    },
+    activeTextColor: {
+      type: String,
+      default: '#005BAA',
+    },
+    data: {
+      type: Array,
+      default: function() {
+        return [];
       },
-      backgroundColor: {
-        type: String,
-        default: "#ffffff"
-      },
-      textColor: {
-        type: String,
-        default: "#303133"
-      },
-      activeTextColor: {
-        type: String,
-        default: "#005BAA"
-      },
-      data: {
-        type: Array,
-        default: function () {
-          return [
-          ];
-        }
-      },
-      handleSelect: {
-        type: Function,
-        default:function () {
+    },
+    handleSelect: {
+      type: Function,
+      default: function() {
 
-        }
       },
-      activeIndex:{
-        type:String,
-        default:"/index"
-      }
     },
-    methods: {
-      openExpalin(index,indexPath){
-        let explainList = ['PERSONNELMATTERS','FINANCIAL','PFANSBP','MANAGEMENT']
-        if(explainList.indexOf(index) != -1){
-          this.$router.push({
-            name: 'EasyExplain',
-            query:{
-              type:index
-            }
-          })
-        }
+    activeIndex: {
+      type: String,
+      default: '/index',
+    },
+  },
+  methods: {
+    openExpalin(index, indexPath) {
+      let explainList = ['PERSONNELMATTERS', 'FINANCIAL', 'PFANSBP', 'MANAGEMENT'];
+      if (explainList.indexOf(index) != -1) {
+        this.$router.push({
+          name: 'EasyExplain',
+          query: {
+            type: index,
+          },
+        });
+      }
 
-      }
     },
-    mounted() {
+  },
+  mounted() {
+  },
+  watch: {
+    activeIndex(val) {
+      this.Index = val;
+      this.$router.push(val);
+      // this.$nextTick(function () {
+      //   this.Index = val;
+      //   this.$router.push(val);
+      // });
     },
-    watch: {
-      activeIndex(val){
-        this.Index = val;
-        this.$router.push(val);
-        // this.$nextTick(function () {
-        //   this.Index = val;
-        //   this.$router.push(val);
-        // });
-      }
-    }
-  };
+  },
+};
 </script>
 <style lang='scss' scoped>
-  .menu-footer {
-    height: 48px;
-    line-height: 48px;
-  }
+.menu-footer {
+  height: 48px;
+  line-height: 48px;
+}
 
-  .menu-trigger {
-    cursor: pointer;
-    width: 90%;
-    margin: 0 auto;
-    text-align: center;
-  }
-  /deep/ .el-menu-item{
-    height: 38px !important;
-    line-height: 38px !important;
-    min-width: 120px;
-    max-width: 200px;
-    overflow-x: hidden;
-    overflow-y:hidden;
-    /*border: #005BAA 1px solid;*/
-  }
-  /deep/ .el-submenu__title{
-    /*background-image: linear-gradient(to right, #005BAA , white);*/
-    /*background-color: #005BAA;*/
-    color: white;
-    height: 38px;
-    line-height: 38px;
-    padding-left: 20px !important;
-    border: #005BAA 1px solid;
-  }
+.menu-trigger {
+  cursor: pointer;
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+}
 
-  /deep/ .el-submenu__title:hover {
-    background-color: transparent;
-  }
+/deep/ .el-menu-item {
+  height: 38px !important;
+  line-height: 38px !important;
+  min-width: 120px;
+  max-width: 200px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  /*border: #005BAA 1px solid;*/
+}
 
-  .title1 {
-    background-color: #005BAA;
-  }
+/deep/ .el-submenu__title {
+  /*background-image: linear-gradient(to right, #005BAA , white);*/
+  /*background-color: #005BAA;*/
+  color: white;
+  height: 38px;
+  line-height: 38px;
+  padding-left: 20px !important;
+  border: #005BAA 1px solid;
+}
 
-  .title2 {
-    background-color: #BDD8EE !important;
-    margin-left: 25px;
-  }
-  .title3 {
-    margin-left: 25px;
-    padding-left: 20px !important;
-  }
+/deep/ .el-submenu__title:hover {
+  background-color: transparent;
+}
+
+.title1 {
+  background-color: #005BAA;
+}
+
+.title2 {
+  background-color: #BDD8EE !important;
+  margin-left: 25px;
+}
+
+.title3 {
+  margin-left: 25px;
+  padding-left: 20px !important;
+}
 </style>

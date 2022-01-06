@@ -1,4 +1,12 @@
-import {getInsertInfo, getUpdateInfo, getList, getOneInfo, download, insertlots, getDepartment} from './ASSETS1001Api'
+import {
+  download,
+  getDepartment,
+  getInsertInfo,
+  getList,
+  getOneInfo,
+  getUpdateInfo,
+  insertlots,
+} from './ASSETS1001Api';
 
 const ASSETS1001Store = {
   namespaced: true,
@@ -12,12 +20,12 @@ const ASSETS1001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     getUpdateInfo({commit}, data) {
@@ -26,12 +34,12 @@ const ASSETS1001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     getList({commit}, data) {
@@ -40,12 +48,12 @@ const ASSETS1001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     getDepartment({commit}) {
@@ -54,12 +62,12 @@ const ASSETS1001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getOneInfo({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -67,12 +75,12 @@ const ASSETS1001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     download({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -80,8 +88,8 @@ const ASSETS1001Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     insertlots({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -89,14 +97,14 @@ const ASSETS1001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 
 export default ASSETS1001Store;

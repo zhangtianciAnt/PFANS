@@ -1,70 +1,70 @@
 <template>
-  <el-drawer append-to-body destroy-on-close custom-class="custimize_drawer" @close="close"
-             :visible.sync="open" :show-close="false" :withHeader="false"
-             size="70%">
-    <PFANS2026FormView ref="child" v-show="url === 'PFANS2026FormView'"></PFANS2026FormView>
+  <el-drawer :show-close="false" :visible.sync="open" :withHeader="false" append-to-body
+             custom-class="custimize_drawer" destroy-on-close size="70%"
+             @close="close">
+    <PFANS2026FormView v-show="url === 'PFANS2026FormView'" ref="child"></PFANS2026FormView>
   </el-drawer>
 </template>
 
 <script>
 
-  import PFANS2026FormView from '@/view/PFANS/PFANS2000/PFANS2026/PFANS2026FormView.vue';
+import PFANS2026FormView from '@/view/PFANS/PFANS2000/PFANS2026/PFANS2026FormView.vue';
 
-  export default {
-    name: 'PFANS2026Pop',
-    components: {
-      PFANS2026FormView,
+export default {
+  name: 'PFANS2026Pop',
+  components: {
+    PFANS2026FormView,
+  },
+  data() {
+    return {
+      open: false,
+      bkParams: {},
+    };
+  },
+  props: {
+    url: {
+      type: String,
+      default: '',
     },
-    data() {
-      return {
-        open: false,
-        bkParams: {},
-      };
+    params: {
+      // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+      //type: String,
+      type: Object,
+      // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
+      default: {},
     },
-    props: {
-      url: {
-        type: String,
-        default: '',
-      },
-      params: {
-          // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
-          //type: String,
-          type: Object,
-          // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
-        default: {},
-      },
+  },
+  methods: {
+    close() {
+      for (let key in this.$route.params) {
+        this.$route.params[key] = '';
+      }
+      for (let key in this.bkParams) {
+        this.$route.params[key] = this.bkParams[key];
+      }
+      this.$refs.child.$refs.container.Pop = false;
+      this.bkParams = {};
     },
-    methods: {
-      close() {
-        for (let key in this.$route.params) {
-          this.$route.params[key] = '';
+  },
+  watch: {
+    open(val) {
+      if (val) {
+        this.bkParams = [...this.$route.params];
+        for (let key in this.params) {
+          this.$route.params[key] = this.params[key];
         }
-        for (let key in this.bkParams) {
-          this.$route.params[key] = this.bkParams[key];
-        }
-        this.$refs.child.$refs.container.Pop = false;
-        this.bkParams = {};
-      },
+        this.$nextTick(function() {
+          this.$refs.child.$refs.container.Pop = true;
+        });
+      }
     },
-    watch: {
-      open(val) {
-        if (val) {
-          this.bkParams = [...this.$route.params];
-          for (let key in this.params) {
-            this.$route.params[key] = this.params[key];
-          }
-                this.$nextTick(function () {
-                    this.$refs.child.$refs.container.Pop = true;
-                });
-        }
-      },
-    },
-  };
+  },
+};
 </script>
 
 <style lang='scss'>
-  .custimize_drawer {
-    -webkit-box-sizing: border-box;
-    overflow: auto !important;
-  }
+.custimize_drawer {
+  -webkit-box-sizing: border-box;
+  overflow: auto !important;
+}
 </style>

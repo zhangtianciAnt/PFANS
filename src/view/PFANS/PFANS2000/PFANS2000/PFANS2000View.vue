@@ -11,21 +11,21 @@
 </template>
 
 <script>
-    import EasyDictionary from "@/components/EasyDictionary";
-    import svg from "@/assets/svg/网站建设.svg";
+import EasyDictionary from '@/components/EasyDictionary';
+import svg from '@/assets/svg/网站建设.svg';
 
-    let moment = require("moment");
-  export default {
-    name: 'PFANS2000View',
-    components: {
-        EasyDictionary
-    },
-    data() {
-      return {
-        svg:svg
-      }
-    }
-  }
+let moment = require('moment');
+export default {
+  name: 'PFANS2000View',
+  components: {
+    EasyDictionary,
+  },
+  data() {
+    return {
+      svg: svg,
+    };
+  },
+};
 </script>
 
 <style scoped>

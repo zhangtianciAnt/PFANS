@@ -1,28 +1,28 @@
 import {
-  getindividualPage,
-  getPages,
-  getPage,
-  get,
-  get2,
-  update,
-  insert,
-  insertBook,
+  dataCarryover,
   existCheck,
   existN,
   existQ,
-  getList,
-  getPe,
-  purchaseExistCheck,
-  getindividual,
   generatesta,
-  getworkfolwPurchaseData,
+  get,
+  get2,
+  getContranumber,
+  getforContDiaLog,
+  getindividual,
+  getindividualPage,
+  getList,
   getNapinQinqiu,
   getNaPpinAftercount,
-  dataCarryover,
-  getforContDiaLog,
+  getPage,
+  getPages,
+  getPe,
   getProject,
-  getContranumber
-  } from './PFANS1026Api';
+  getworkfolwPurchaseData,
+  insert,
+  insertBook,
+  purchaseExistCheck,
+  update,
+} from './PFANS1026Api';
 
 const PFANS1026Store = {
   namespaced: true,
@@ -36,8 +36,8 @@ const PFANS1026Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getindividual({commit}) {
       return new Promise((resolve, reject) => {
@@ -131,12 +131,12 @@ const PFANS1026Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //项目dialog 体制 合同优化添加分页 ztc to
     getList({commit}, data) {
@@ -244,18 +244,18 @@ const PFANS1026Store = {
       });
     },
     //add ccm 0725  采购合同chongfucheck
-    purchaseExistCheck({ commit },data) {
+    purchaseExistCheck({commit}, data) {
       return new Promise((resolve, reject) => {
         purchaseExistCheck(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add ccm 0725  采购合同chongfucheck
     //采购业务数据流程查看详情
@@ -265,12 +265,12 @@ const PFANS1026Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //采购业务数据流程查看详情
 
@@ -324,14 +324,14 @@ const PFANS1026Store = {
       return new Promise((resolve, reject) => {
         dataCarryover(data).then(response => {
           if (response.code === 0) {
-        resolve(response.data);
-      } else {
-        reject(response.message);
-      }
-    }).catch(error => {
-        reject(error);
-    });
-    });
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
     },
 
     //获取合同时间，用于合同check scc
@@ -352,4 +352,4 @@ const PFANS1026Store = {
   },
 };
 
-  export default PFANS1026Store;
+export default PFANS1026Store;

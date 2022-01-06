@@ -1,4 +1,13 @@
-import {createPfans2024, getFpans2024List, updatePfans2024,getDataOne,create,download,getDataList,dataCarryover} from './PFANS2024Api';
+import {
+  create,
+  createPfans2024,
+  dataCarryover,
+  download,
+  getDataList,
+  getDataOne,
+  getFpans2024List,
+  updatePfans2024,
+} from './PFANS2024Api';
 
 const PFANS2024Store = {
   namespaced: true,
@@ -12,12 +21,12 @@ const PFANS2024Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //更新流程
     updatePfans2024({commit}, data) {
@@ -26,67 +35,67 @@ const PFANS2024Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //获取流程
-    getFpans2024List({commit},data) {
+    getFpans2024List({commit}, data) {
       return new Promise((resolve, reject) => {
         getFpans2024List(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add-ws-6/4-禅道031-人才育成修改
-    getDataList({commit},data) {
+    getDataList({commit}, data) {
       return new Promise((resolve, reject) => {
         getDataList(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add-ws-6/4-禅道031-人才育成修改
-    getDataOne({ commit },data) {
+    getDataOne({commit}, data) {
       return new Promise((resolve, reject) => {
         getDataOne(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    create({ commit },data) {
+    create({commit}, data) {
       return new Promise((resolve, reject) => {
         create(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     download({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -94,25 +103,25 @@ const PFANS2024Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //数据结转
-    dataCarryover({commit},data) {
+    dataCarryover({commit}, data) {
       return new Promise((resolve, reject) => {
         dataCarryover(data).then(response => {
           if (response.code === 0) {
-        resolve(response.data);
-      } else {
-        reject(response.message)
-      }
-    }).catch(error => {
-        reject(error);
-    })
-    })
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
     },
-  }
+  },
 };
 
 export default PFANS2024Store;

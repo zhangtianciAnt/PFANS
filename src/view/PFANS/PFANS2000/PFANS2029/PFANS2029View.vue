@@ -1,43 +1,44 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" ref="roletable" @rowClick="rowClick" @reget="getFpans2029List"
-                     :title="title" @buttonClick="buttonClick" v-loading="loading" :showSelection="isShow"
-                     :rowid="rowid">
+    <EasyNormalTable ref="roletable" v-loading="loading" :buttonList="buttonList" :columns="columns" :data="data"
+                     :rowid="rowid"
+                     :showSelection="isShow" :title="title" @buttonClick="buttonClick" @reget="getFpans2029List"
+                     @rowClick="rowClick">
       <el-date-picker
-        :placeholder="$t('normal.error_09')"
-        @change="changeddate"
         slot="customize"
+        v-model="months"
+        :placeholder="$t('normal.error_09')"
         style="margin-right:1vw;width:11vw"
         type="month"
-        v-model="months">
+        @change="changeddate">
       </el-date-picker>
     </EasyNormalTable>
     <!--历史考勤维护-->
     <el-container>
-      <el-dialog :title="$t('label.PFANS2017VIEW_HISTORY')" :visible.sync="dialogTableVisible_h" center
-                 size="50%"
-                 top="8vh" lock-scroll
-                 append-to-body>
+      <el-dialog :title="$t('label.PFANS2017VIEW_HISTORY')" :visible.sync="dialogTableVisible_h" append-to-body
+                 center
+                 lock-scroll size="50%"
+                 top="8vh">
         <div style="text-align: center">
           <el-row>
             <el-col :span="24">
               <el-date-picker
                 v-model="perioDate"
-                class="bigWidth"
                 :disabled="false"
-                type="daterange"
-                unlink-panels
-                style="width:20vw"
-                :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-                :start-placeholder="$t('label.startdate')"
                 :end-placeholder="$t('label.enddate')"
                 :picker-options="pickerOptions"
+                :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                :start-placeholder="$t('label.startdate')"
+                class="bigWidth"
+                style="width:20vw"
+                type="daterange"
+                unlink-panels
               >
               </el-date-picker>
             </el-col>
           </el-row>
           <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="submit2()">{{$t('button.confirm')}}</el-button>
+          <el-button type="primary" @click="submit2()">{{ $t('button.confirm') }}</el-button>
           </span>
         </div>
       </el-dialog>
@@ -46,39 +47,39 @@
       <div>
         <div style="margin-top: 1rem;margin-left: 28%">
           <el-upload
-            drag
             ref="uploader"
             :action="postAction"
-            :on-success="handleSuccess"
             :before-upload="handleChange"
             :headers="authHeader"
             :limit=1
             :on-remove="this.clear"
+            :on-success="handleSuccess"
+            drag
             multiple
           >
             <i class="el-icon-upload"></i>
-            <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
+            <div>{{ $t('label.PFANS2005FORMVIEW_MBYQ') }}</div>
           </el-upload>
         </div>
         <el-row>
-          <span v-if="this.resultShow">{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+          <span v-if="this.resultShow">{{ $t('label.PFANS2005FORMVIEW_CG') }}{{ this.successCount }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
           <span v-if="this.resultShow"
-          >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
+          >{{ $t('label.PFANS2005FORMVIEW_SB') }}{{ this.errorCount }}</span>
         </el-row>
-        <span v-if="this.Message">{{this.cuowu}}</span>
+        <span v-if="this.Message">{{ this.cuowu }}</span>
         <div v-if="this.result">
           <el-table :data="message">
-            <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" width="120%" prop="hang">
+            <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" prop="hang" width="120%">
             </el-table-column>
             <el-table-column :label="$t('label.PFANS2017VIEW_ERROR')" align="center" prop="error">
             </el-table-column>
           </el-table>
           <div class="pagination-container" style="padding-top: 2rem">
             <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
-                           :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"
-                           @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
+                           :page-sizes="[5,10,20,30,50]" :total="total" layout="slot,sizes, ->,prev, pager, next, jumper"
+                           @current-change="handleCurrentChange" @size-change="handleSizeChange">
               <slot><span class="front Content_front"
-                          style="padding-right: 0.5rem;font-weight: 400">{{$t('table.pagesize')}}</span></slot>
+                          style="padding-right: 0.5rem;font-weight: 400">{{ $t('table.pagesize') }}</span></slot>
             </el-pagination>
           </div>
         </div>
@@ -87,439 +88,434 @@
   </div>
 </template>
 <script>
-  import {getToken} from '@/utils/auth'
-  import EasyNormalTable from "@/components/EasyBigDataTable";
-  import {Message} from 'element-ui';
-  import moment from "moment";
-  import {
-    Decrypt,
-    getCooperinterviewListByAccount,
-    getDepartmentById,
-    getCurrentRole9
-  } from '@/utils/customize';
+import {getToken} from '@/utils/auth';
+import EasyNormalTable from '@/components/EasyBigDataTable';
+import {Message} from 'element-ui';
+import moment from 'moment';
+import {Decrypt, getCooperinterviewListByAccount, getCurrentRole9, getDepartmentById} from '@/utils/customize';
 
-  export default {
-    name: 'PFANS2029View',
-    components: {
-      EasyNormalTable
-    },
-    data() {
-      return {
-        //获取打卡记录时间范围
-        pickerOptions: {
-            disabledDate(time) {
-                return time.getTime() > Date.now() - 8.64e7;
-            },
+export default {
+  name: 'PFANS2029View',
+  components: {
+    EasyNormalTable,
+  },
+  data() {
+    return {
+      //获取打卡记录时间范围
+      pickerOptions: {
+        disabledDate(time) {
+          return time.getTime() > Date.now() - 8.64e7;
         },
-        months: moment(new Date()).format('YYYY-MM'),
-        totaldata: [],
-        listQuery: {
-          page: 1,
-          limit: 5
-        },
-        total: 0,
-        message: [{hang: '', error: '',}],
-        daoru: false,
-        authHeader: {'x-auth-token': getToken()},
-        postAction: process.env.BASE_API + '/punchcardrecord/importUser',
-        addActionUrl: '',
-        resultShow: false,
-        result: false,
-        file: null,
-        successCount: 0,
-        errorCount: 0,
-        selectedlist: [],
-        selectedlistJob: [],
-        Message: false,
-        cuowu: '',
-        perioDate: '',
-        downloadLoading: false,
-        punchcardrecord_date: '',
-        jobnumber: '',
-        user_id: '',
-        loading: false,
-        dialogTableVisible_h: false,
-        title: "title.PFANS2017VIEW",
-        data: [],
-        tableList: [],
-        working: "",
-        starttime: "",
-        columns: [
-          {
-            code: 'user_id',
-            label: 'label.user_name',
-            width: 90,
-            fix: false,
-            filter: false
-          },
-          {
-            code: 'group_id',
-            label: 'label.department',
-            width: 160,
-            fix: false,
-            filter: false
-          },
-          {
-            code: 'suppliername',
-            label: 'label.PFANS6001VIEW_SUPPLIERNAME',
-            width: 160,
-            fix: false,
-            filter: false
-          },
-          {
-            code: 'punchcardrecord_date',
-            label: 'label.date',
-            width: 110,
-            fix: false,
-            filter: false
-          },
-          {
-            code: 'time_start',
-            label: 'label.PFANS2017VIEW_START',
-            width: 110,
-            fix: false,
-            filter: false
-          },
-          {
-            code: 'time_end',
-            label: 'label.PFANS2017VIEW_END',
-            width: 110,
-            fix: false,
-            filter: false
-          },
-          {
-            code: 'worktime',
-            label: 'label.PFANS2017VIEW_COUNTTIME',
-            width: 140,
-            fix: false,
-            filter: false
-          },
-          {
-            code: 'absenteeismam',
-            label: 'label.PFANS2017VIEW_ABSENTEEISMAM',
-            width: 140,
-            fix: false,
-            filter: false
-          },
-          // ADD-LXX
-          {
-            code: 'afternoon',
-            label: 'label.PFANS2017VIEW_AFTERNOON',
-            width: 140,
-            fix: false,
-            filter: false
-          },
-          // ADD-LXX
-        ],
-        buttonList: [
-          // {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
-          {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
-          // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
-          {'key': 'detail', 'name': 'button.detailed', 'disabled': false, icon: 'el-icon-s-grid'},
-          {'key': 'history', 'name': 'button.history', 'disabled': false, icon: 'el-icon-s-grid'},
-        ],
-        isShow: true,
-        rowid: "punchcardrecord_id"
-      };
-    },
-    mounted() {
-      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
-      //this.roles = getCurrentRole11();
-      this.roles = getCurrentRole9();
-      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
-      if (this.roles === '0') {
-        this.buttonList[2].disabled = false;
-      } else {
-        this.buttonList[2].disabled = true;
-      }
-      this.getFpans2029List();
-    },
-    methods: {
-      rowClick(row) {
-        this.jobnumber = row.jobnumber;
-        this.user_id = row.user_id;
-        this.punchcardrecord_date = row.punchcardrecord_date;
       },
-      getFpans2029List() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS2029Store/getFpans2029List', {dates: this.months})
-          .then(response => {
-            for (let j = 0; j < response.length; j++) {
-              let supplierInfor = getCooperinterviewListByAccount(response[j].user_id);
-              if (supplierInfor) {
-                response[j].user_id = supplierInfor.expname;
-                response[j].suppliername = supplierInfor.suppliername;
-              }
-              //所属group
-              if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
-                response[j].group_id = getDepartmentById(response[j].group_id);
-              }
-              if (response[j].punchcardrecord_date !== null && response[j].punchcardrecord_date !== "") {
-                response[j].punchcardrecord_date = moment(response[j].punchcardrecord_date).format("YYYY-MM-DD");
-              }
-              if (response[j].time_start !== null && response[j].time_start !== "") {
-                response[j].time_start = moment(response[j].time_start).format("HH:mm");
-              }
-              if (response[j].time_end !== null && response[j].time_end !== "") {
-                response[j].time_end = moment(response[j].time_end).format("HH:mm");
-              }
-              // ADD-ws-No.221-有效时长添加
-              if (response[j].outgoinghours === '0.00') {
-                response[j].outgoinghours = '';
-              }
-              // ADD-ws-No.221-有效时长添加
-              //系统服务下午四点取得考勤数据时不显示结束时间
-              if (response[j].punchcardrecord_date === moment(new Date()).format('YYYY-MM-DD')) {
-                response[j].time_end = "";
-              }
-              response[j].afternoon = Number(parseFloat(response[j].worktime) - parseFloat(response[j].absenteeismam)).toFixed(3)
-              if (response[j].afternoon === "0.0" || response[j].afternoon === "0.00" || response[j].afternoon === "0.000") {
-                response[j].afternoon = ""
-              }
-              if (response[j].worktime === "0.0" || response[j].worktime === "0.00" || response[j].worktime === "0.000") {
-                response[j].worktime = "";
-              }
-              if (response[j].absenteeismam === "0.0" || response[j].absenteeismam === "0.00" || response[j].absenteeismam === "0.000") {
-                response[j].absenteeismam = "";
-              }
+      months: moment(new Date()).format('YYYY-MM'),
+      totaldata: [],
+      listQuery: {
+        page: 1,
+        limit: 5,
+      },
+      total: 0,
+      message: [{hang: '', error: ''}],
+      daoru: false,
+      authHeader: {'x-auth-token': getToken()},
+      postAction: process.env.BASE_API + '/punchcardrecord/importUser',
+      addActionUrl: '',
+      resultShow: false,
+      result: false,
+      file: null,
+      successCount: 0,
+      errorCount: 0,
+      selectedlist: [],
+      selectedlistJob: [],
+      Message: false,
+      cuowu: '',
+      perioDate: '',
+      downloadLoading: false,
+      punchcardrecord_date: '',
+      jobnumber: '',
+      user_id: '',
+      loading: false,
+      dialogTableVisible_h: false,
+      title: 'title.PFANS2017VIEW',
+      data: [],
+      tableList: [],
+      working: '',
+      starttime: '',
+      columns: [
+        {
+          code: 'user_id',
+          label: 'label.user_name',
+          width: 90,
+          fix: false,
+          filter: false,
+        },
+        {
+          code: 'group_id',
+          label: 'label.department',
+          width: 160,
+          fix: false,
+          filter: false,
+        },
+        {
+          code: 'suppliername',
+          label: 'label.PFANS6001VIEW_SUPPLIERNAME',
+          width: 160,
+          fix: false,
+          filter: false,
+        },
+        {
+          code: 'punchcardrecord_date',
+          label: 'label.date',
+          width: 110,
+          fix: false,
+          filter: false,
+        },
+        {
+          code: 'time_start',
+          label: 'label.PFANS2017VIEW_START',
+          width: 110,
+          fix: false,
+          filter: false,
+        },
+        {
+          code: 'time_end',
+          label: 'label.PFANS2017VIEW_END',
+          width: 110,
+          fix: false,
+          filter: false,
+        },
+        {
+          code: 'worktime',
+          label: 'label.PFANS2017VIEW_COUNTTIME',
+          width: 140,
+          fix: false,
+          filter: false,
+        },
+        {
+          code: 'absenteeismam',
+          label: 'label.PFANS2017VIEW_ABSENTEEISMAM',
+          width: 140,
+          fix: false,
+          filter: false,
+        },
+        // ADD-LXX
+        {
+          code: 'afternoon',
+          label: 'label.PFANS2017VIEW_AFTERNOON',
+          width: 140,
+          fix: false,
+          filter: false,
+        },
+        // ADD-LXX
+      ],
+      buttonList: [
+        // {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
+        {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
+        // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
+        {'key': 'detail', 'name': 'button.detailed', 'disabled': false, icon: 'el-icon-s-grid'},
+        {'key': 'history', 'name': 'button.history', 'disabled': false, icon: 'el-icon-s-grid'},
+      ],
+      isShow: true,
+      rowid: 'punchcardrecord_id',
+    };
+  },
+  mounted() {
+    //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+    //this.roles = getCurrentRole11();
+    this.roles = getCurrentRole9();
+    //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    if (this.roles === '0') {
+      this.buttonList[2].disabled = false;
+    } else {
+      this.buttonList[2].disabled = true;
+    }
+    this.getFpans2029List();
+  },
+  methods: {
+    rowClick(row) {
+      this.jobnumber = row.jobnumber;
+      this.user_id = row.user_id;
+      this.punchcardrecord_date = row.punchcardrecord_date;
+    },
+    getFpans2029List() {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS2029Store/getFpans2029List', {dates: this.months})
+        .then(response => {
+          for (let j = 0; j < response.length; j++) {
+            let supplierInfor = getCooperinterviewListByAccount(response[j].user_id);
+            if (supplierInfor) {
+              response[j].user_id = supplierInfor.expname;
+              response[j].suppliername = supplierInfor.suppliername;
             }
-            this.data = response;
-            this.tableList = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          })
-      },
-      handleSizeChange(val) {
-        this.listQuery.limit = val
-        this.getList()
-      },
-      handleCurrentChange(val) {
-        this.listQuery.page = val
-        this.getList()
-      },
-      getList() {
-        this.loading = true
-        let start = (this.listQuery.page - 1) * this.listQuery.limit
-        let end = this.listQuery.page * this.listQuery.limit
-        if (this.totaldata) {
-          let pList = this.totaldata.slice(start, end)
-          this.message = pList
-          this.total = this.totaldata.length
-        }
-        this.loading = false
-      },
-      handleChange(file, fileList) {
-        this.clear(true);
-      },
-      submit2() {
-        if (this.perioDate === '' || this.perioDate === null || this.perioDate === undefined) {
-          Message({
-            message: this.$t('label.PFANS2017VIEW_WARNING'),
-            type: 'warning',
+            //所属group
+            if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
+              response[j].group_id = getDepartmentById(response[j].group_id);
+            }
+            if (response[j].punchcardrecord_date !== null && response[j].punchcardrecord_date !== '') {
+              response[j].punchcardrecord_date = moment(response[j].punchcardrecord_date).format('YYYY-MM-DD');
+            }
+            if (response[j].time_start !== null && response[j].time_start !== '') {
+              response[j].time_start = moment(response[j].time_start).format('HH:mm');
+            }
+            if (response[j].time_end !== null && response[j].time_end !== '') {
+              response[j].time_end = moment(response[j].time_end).format('HH:mm');
+            }
+            // ADD-ws-No.221-有效时长添加
+            if (response[j].outgoinghours === '0.00') {
+              response[j].outgoinghours = '';
+            }
+            // ADD-ws-No.221-有效时长添加
+            //系统服务下午四点取得考勤数据时不显示结束时间
+            if (response[j].punchcardrecord_date === moment(new Date()).format('YYYY-MM-DD')) {
+              response[j].time_end = '';
+            }
+            response[j].afternoon = Number(parseFloat(response[j].worktime) - parseFloat(response[j].absenteeismam)).toFixed(3);
+            if (response[j].afternoon === '0.0' || response[j].afternoon === '0.00' || response[j].afternoon === '0.000') {
+              response[j].afternoon = '';
+            }
+            if (response[j].worktime === '0.0' || response[j].worktime === '0.00' || response[j].worktime === '0.000') {
+              response[j].worktime = '';
+            }
+            if (response[j].absenteeismam === '0.0' || response[j].absenteeismam === '0.00' || response[j].absenteeismam === '0.000') {
+              response[j].absenteeismam = '';
+            }
+          }
+          this.data = response;
+          this.tableList = response;
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
             duration: 5 * 1000,
           });
+          this.loading = false;
+        });
+    },
+    handleSizeChange(val) {
+      this.listQuery.limit = val;
+      this.getList();
+    },
+    handleCurrentChange(val) {
+      this.listQuery.page = val;
+      this.getList();
+    },
+    getList() {
+      this.loading = true;
+      let start = (this.listQuery.page - 1) * this.listQuery.limit;
+      let end = this.listQuery.page * this.listQuery.limit;
+      if (this.totaldata) {
+        let pList = this.totaldata.slice(start, end);
+        this.message = pList;
+        this.total = this.totaldata.length;
+      }
+      this.loading = false;
+    },
+    handleChange(file, fileList) {
+      this.clear(true);
+    },
+    submit2() {
+      if (this.perioDate === '' || this.perioDate === null || this.perioDate === undefined) {
+        Message({
+          message: this.$t('label.PFANS2017VIEW_WARNING'),
+          type: 'warning',
+          duration: 5 * 1000,
+        });
+      } else {
+        var jobnumberAnt = '';
+        if (this.$refs.roletable.selectedList.length > 1) {
+          for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
+            this.selectedlistJob.push(this.$refs.roletable.selectedList[i].jobnumber);
+          }
+          //去重
+          var newArr = [];
+          for (var i = 0; i < this.selectedlistJob.length; i++) {
+            if (newArr.indexOf(this.selectedlistJob[i]) < 0) {
+              newArr.push(this.selectedlistJob[i]);
+            }
+          }
+          for (let i = 0; i < newArr.length; i++) {
+            if (i == newArr.length - 1) {
+              jobnumberAnt += newArr[i];
+            } else {
+              jobnumberAnt += newArr[i] + ',';
+            }
+          }
         } else {
-          var jobnumberAnt = '';
-          if (this.$refs.roletable.selectedList.length > 1) {
-            for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
-              this.selectedlistJob.push(this.$refs.roletable.selectedList[i].jobnumber);
-            }
-            //去重
-            var newArr = [];
-            for (var i = 0; i < this.selectedlistJob.length; i++) {
-              if (newArr.indexOf(this.selectedlistJob[i]) < 0) {
-                newArr.push(this.selectedlistJob[i]);
-              }
-            }
-            for (let i = 0; i < newArr.length; i++) {
-              if (i == newArr.length - 1) {
-                jobnumberAnt += newArr[i]
-              } else {
-                jobnumberAnt += newArr[i] + ','
-              }
-            }
-          } else {
-            jobnumberAnt = this.$refs.roletable.selectedList[0].jobnumber
-          }
-          let params = {
-            strStartDate: moment(this.perioDate[0]).format('YYYY-MM-DD'),
-            strendDate: moment(this.perioDate[1]).format('YYYY-MM-DD'),
-            strFlg: '2',
-            staffNo: jobnumberAnt,
-          }
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS2017Store/insertHistoricalCard', params)
-            .then(response => {
-              Message({
-                message: this.$t('label.PFANS2017VIEW_ERRORCHECK1'),
-                type: 'success',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            }).catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
+          jobnumberAnt = this.$refs.roletable.selectedList[0].jobnumber;
+        }
+        let params = {
+          strStartDate: moment(this.perioDate[0]).format('YYYY-MM-DD'),
+          strendDate: moment(this.perioDate[1]).format('YYYY-MM-DD'),
+          strFlg: '2',
+          staffNo: jobnumberAnt,
+        };
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2017Store/insertHistoricalCard', params)
+          .then(response => {
+            Message({
+              message: this.$t('label.PFANS2017VIEW_ERRORCHECK1'),
+              type: 'success',
               duration: 5 * 1000,
             });
             this.loading = false;
+          }).catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
           });
-          this.dialogTableVisible_h = false;
-          this.getFpans2029List();
-        }
-      },
-      changeddate(val) {
-          this.months = moment(val).format('YYYY-MM');
-          this.getFpans2029List();
-      },
-      handleSuccess(response, file, fileList) {
-        if (response.code !== 0) {
-          this.cuowu = response.message;
-          this.Message = true;
-        } else {
-          response.data = JSON.parse(Decrypt(response.data));
-          let datalist = [];
-          for (let c = 0; c < response.data.length; c++) {
-            let error = response.data[c];
-            error = error.substring(0, 3);
-            if (error === this.$t("label.PFANS2005FORMVIEW_SB")) {
-              this.errorCount = response.data[c].substring(4)
-              this.resultShow = true;
-            }
-            if (error === this.$t("label.PFANS2005FORMVIEW_CG")) {
-              this.successCount = response.data[c].substring(4)
-              this.resultShow = true;
-            }
-            if (error === this.$t("label.PFANS2017VIEW_D")) {
-              let obj = {};
-              var str = response.data[c];
-              var aPos = str.indexOf(this.$t("label.PFANS2017VIEW_BAN"));
-              var bPos = str.indexOf(this.$t("label.PFANS2017VIEW_DE"));
-              var r = str.substr(aPos + 1, bPos - aPos - 1);
-              obj.hang = r;
-              obj.error = response.data[c].substring(6);
-              datalist[c] = obj;
-            }
-            this.message = datalist;
-            this.totaldata = this.message;
-            if (this.errorCount === "0") {
-              this.result = false;
-            } else {
-              this.result = true;
-            }
-            this.getList();
-            this.getFpans2029List();
+          this.loading = false;
+        });
+        this.dialogTableVisible_h = false;
+        this.getFpans2029List();
+      }
+    },
+    changeddate(val) {
+      this.months = moment(val).format('YYYY-MM');
+      this.getFpans2029List();
+    },
+    handleSuccess(response, file, fileList) {
+      if (response.code !== 0) {
+        this.cuowu = response.message;
+        this.Message = true;
+      } else {
+        response.data = JSON.parse(Decrypt(response.data));
+        let datalist = [];
+        for (let c = 0; c < response.data.length; c++) {
+          let error = response.data[c];
+          error = error.substring(0, 3);
+          if (error === this.$t('label.PFANS2005FORMVIEW_SB')) {
+            this.errorCount = response.data[c].substring(4);
+            this.resultShow = true;
           }
-        }
-      },
-      clear(safe) {
-        this.file = null;
-        this.resultShow = false;
-        this.Message = false;
-        this.result = false;
-        if (!safe) {
-          if (this.$refs.uploader != undefined) {
-            this.$refs.uploader.clearFiles();
+          if (error === this.$t('label.PFANS2005FORMVIEW_CG')) {
+            this.successCount = response.data[c].substring(4);
+            this.resultShow = true;
           }
-        }
-      },
-      formatJson(filterVal, jsonData) {
-        return jsonData.map(v => filterVal.map(j => {
-          if (j === 'timestamp') {
-            return parseTime(v[j])
+          if (error === this.$t('label.PFANS2017VIEW_D')) {
+            let obj = {};
+            var str = response.data[c];
+            var aPos = str.indexOf(this.$t('label.PFANS2017VIEW_BAN'));
+            var bPos = str.indexOf(this.$t('label.PFANS2017VIEW_DE'));
+            var r = str.substr(aPos + 1, bPos - aPos - 1);
+            obj.hang = r;
+            obj.error = response.data[c].substring(6);
+            datalist[c] = obj;
+          }
+          this.message = datalist;
+          this.totaldata = this.message;
+          if (this.errorCount === '0') {
+            this.result = false;
           } else {
-            return v[j]
+            this.result = true;
           }
-        }))
-      },
-      buttonClick(val) {
-        this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-        // if (val === 'import') {
-        //     this.daoru = true;
-        //     this.clear(false);
-        // } else
-        if (val === 'history') {
-          if (this.$refs.roletable.selectedList.length === 0) {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000,
-            });
-            return;
-          }else{
-            this.dialogTableVisible_h = true;
-          }
+          this.getList();
+          this.getFpans2029List();
         }
-        if (val === 'export') {
-          if (this.$refs.roletable.selectedList.length === 0) {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
-          this.selectedlist = this.$refs.roletable.selectedList;
-          import('@/vendor/Export2Excel').then(excel => {
-            const tHeader = [this.$t('label.user_name'), this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.date'), this.$t('label.PFANS2017VIEW_START'), this.$t('label.PFANS2017VIEW_END'), this.$t('label.PFANS2017VIEW_EFFECTIVEDURATION')];
-            const filterVal = ['user_id', 'center_id', 'group_id', 'team_id', 'punchcardrecord_date', 'time_start', 'time_end', 'outgoinghours'];
-            const list = this.selectedlist;
-            const data = this.formatJson(filterVal, list);
-            excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS2029'));
-          })
+      }
+    },
+    clear(safe) {
+      this.file = null;
+      this.resultShow = false;
+      this.Message = false;
+      this.result = false;
+      if (!safe) {
+        if (this.$refs.uploader != undefined) {
+          this.$refs.uploader.clearFiles();
         }
-        if (val === 'detail') {
-          if (this.jobnumber === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'PFANS2029FormView',
-            params: {
-              jobnumber: this.jobnumber,
-              user_id: this.user_id,
-              punchcardrecord_date: this.punchcardrecord_date,
-            }
-          })
+      }
+    },
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => {
+        if (j === 'timestamp') {
+          return parseTime(v[j]);
+        } else {
+          return v[j];
         }
+      }));
+    },
+    buttonClick(val) {
+      this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+      // if (val === 'import') {
+      //     this.daoru = true;
+      //     this.clear(false);
+      // } else
+      if (val === 'history') {
+        if (this.$refs.roletable.selectedList.length === 0) {
+          Message({
+            message: this.$t('normal.info_01'),
+            type: 'info',
+            duration: 2 * 1000,
+          });
+          return;
+        } else {
+          this.dialogTableVisible_h = true;
+        }
+      }
+      if (val === 'export') {
+        if (this.$refs.roletable.selectedList.length === 0) {
+          Message({
+            message: this.$t('normal.info_01'),
+            type: 'info',
+            duration: 2 * 1000,
+          });
+          return;
+        }
+        this.selectedlist = this.$refs.roletable.selectedList;
+        import('@/vendor/Export2Excel').then(excel => {
+          const tHeader = [this.$t('label.user_name'), this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.date'), this.$t('label.PFANS2017VIEW_START'), this.$t('label.PFANS2017VIEW_END'), this.$t('label.PFANS2017VIEW_EFFECTIVEDURATION')];
+          const filterVal = ['user_id', 'center_id', 'group_id', 'team_id', 'punchcardrecord_date', 'time_start', 'time_end', 'outgoinghours'];
+          const list = this.selectedlist;
+          const data = this.formatJson(filterVal, list);
+          excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS2029'));
+        });
+      }
+      if (val === 'detail') {
+        if (this.jobnumber === '') {
+          Message({
+            message: this.$t('normal.info_01'),
+            type: 'info',
+            duration: 2 * 1000,
+          });
+          return;
+        }
+        this.$router.push({
+          name: 'PFANS2029FormView',
+          params: {
+            jobnumber: this.jobnumber,
+            user_id: this.user_id,
+            punchcardrecord_date: this.punchcardrecord_date,
+          },
+        });
+      }
 
-        //   else if('export2' === val){
-        //   this.loading = true;
-        //   this.$store
-        //     .dispatch('PFANS2029Store/download', {})
-        //     .then(response => {
-        //       this.loading = false;
-        //     })
-        //     .catch(error => {
-        //       this.$message.error({
-        //         message: error,
-        //         type: 'error',
-        //         duration: 5 * 1000
-        //       });
-        //       this.loading = false;
-        //     })
-        // }
-      },
-    }
-  }
+      //   else if('export2' === val){
+      //   this.loading = true;
+      //   this.$store
+      //     .dispatch('PFANS2029Store/download', {})
+      //     .then(response => {
+      //       this.loading = false;
+      //     })
+      //     .catch(error => {
+      //       this.$message.error({
+      //         message: error,
+      //         type: 'error',
+      //         duration: 5 * 1000
+      //       });
+      //       this.loading = false;
+      //     })
+      // }
+    },
+  },
+};
 </script>
-<style rel="stylesheet/scss" lang="scss" scoped>
-  .el-icon-upload {
-    font-size: 6rem;
-    color: #ffffff;
-    text-align: center;
-  }
+<style lang="scss" rel="stylesheet/scss" scoped>
+.el-icon-upload {
+  font-size: 6rem;
+  color: #ffffff;
+  text-align: center;
+}
 </style>

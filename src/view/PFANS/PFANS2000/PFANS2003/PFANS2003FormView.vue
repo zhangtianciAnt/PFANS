@@ -1,26 +1,26 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick"
-                         ref="container" v-loading="loading" @disabled="setdisabled">
+    <EasyNormalContainer ref="container" v-loading="loading" :buttonList="buttonList"
+                         :title="title" @buttonClick="buttonClick" @disabled="setdisabled">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+        <el-form ref="refform" :model="form" :rules="rules" label-position="top" label-width="8vw"
                  style="padding:3vw" type="border-card">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="name">
-                <el-input :disabled="!disabled" maxlength='20' style="width:20vw" v-model="form.name"></el-input>
+                <el-input v-model="form.name" :disabled="!disabled" maxlength='20' style="width:20vw"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.sex')" prop="sex">
                 <dicselect
+                  v-model="form.sex"
                   :code="code1"
                   :data="form.sex"
                   :disabled="!disabled"
                   :multiple="multiple"
-                  @change="changesex"
                   style="width:20vw"
-                  v-model="form.sex">
+                  @change="changesex">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -30,12 +30,12 @@
                 prop="birthday"
               >
                 <el-date-picker
+                  v-model="form.birthday"
                   :disabled="!disabled"
                   :placeholder="$t('normal.error_09')"
                   class="width"
-                  type="date"
                   style="width:20vw"
-                  v-model="form.birthday"
+                  type="date"
                 ></el-date-picker>
               </el-form-item>
             </el-col>
@@ -44,10 +44,10 @@
             <el-col :span="8">
               <el-form-item :error="erroracceptdate" :label="$t('label.PFANS2003VIEW_ACCEPTDATE')" prop="accept_date">
                 <el-date-picker
+                  v-model="form.accept_date"
                   :disabled="!disabled"
                   style="width:20vw"
-                  type="date"
-                  v-model="form.accept_date">
+                  type="date">
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -55,8 +55,8 @@
               <el-form-item :error="errorinterviewdep" :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')"
                             prop="interviewdep">
                 <org :disabled="!disabled" :error="errorinterviewdep"
-                     :orglist="form.interviewdep" @getOrgids="getInterviewDep"
-                     orgtype="2" style="width:20vw">
+                     :orglist="form.interviewdep" orgtype="2"
+                     style="width:20vw" @getOrgids="getInterviewDep">
                 </org>
               </el-form-item>
             </el-col>
@@ -64,10 +64,10 @@
               <el-form-item :error="errorinterviewdate" :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDATE')"
                             prop="interview_date">
                 <el-date-picker
+                  v-model="form.interview_date"
                   :disabled="!disabled"
                   style="width:20vw"
-                  type="date"
-                  v-model="form.interview_date">
+                  type="date">
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -75,32 +75,33 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_WHETHERENTRY')" prop="whetherentry">
-                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
-                <el-switch :disabled="!disabled"
-                           @change="changewhetherentry"
+                <span style="margin-right: 1vw ">{{ $t('label.no') }}</span>
+                <el-switch v-model="modelwhetherentry"
+                           :disabled="!disabled"
                            active-value="0"
                            inactive-value="1"
-                           v-model="modelwhetherentry"
+                           @change="changewhetherentry"
                 ></el-switch>
-                <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                <span style="margin-left: 1vw ">{{ $t('label.yes') }}</span>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_RESULT')">
-                <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
-                <el-switch :disabled="!result1"
+                <span style="margin-right: 1vw ">{{ $t('label.no') }}</span>
+                <el-switch v-model="modelresult"
+                           :disabled="!result1"
                            active-value="0"
                            inactive-value="1"
-                           v-model="modelresult"
                            @change="changgeResult"
                 ></el-switch>
-                <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                <span style="margin-left: 1vw ">{{ $t('label.yes') }}</span>
               </el-form-item>
             </el-col>
             <!--            add-ws-8/4-禅道任务296-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2001VIEW_RECRUITID')">
-                <el-select v-model="form.recruit_id" :disabled="!disabled" style="width: 20vw" clearable @change="getrecruitid">
+                <el-select v-model="form.recruit_id" :disabled="!disabled" clearable style="width: 20vw"
+                           @change="getrecruitid">
                   <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -118,10 +119,10 @@
               <el-table
                 :data="tableData"
                 :summary-method="getAverage"
-                border stripe
+                border header-cell-class-name="sub_bg_color_blue"
                 show-summary
+                stripe
                 style="width:46vw"
-                header-cell-class-name="sub_bg_color_blue"
               >
                 <el-table-column
                   :label="$t('label.PFANS2002FORMVIEW_INTERVIEWER')"
@@ -139,9 +140,9 @@
                       :disabled="!disabled"
                       :no="scope.row"
                       :userlist="scope.row.interviewer"
-                      @getUserids="getInterviewerids"
                       selectType="Single"
                       style="width:100%"
+                      @getUserids="getInterviewerids"
                     ></user>
                   </template>
                 </el-table-column>
@@ -152,12 +153,12 @@
                 >
                   <template slot-scope="scope">
                     <el-input-number
+                      v-model="scope.row.score"
                       :disabled="!disabled"
                       :max="10"
                       :min="0"
                       :precision="1"
                       :step="0.1"
-                      v-model="scope.row.score"
                       style="width:100%"
                     ></el-input-number>
                   </template>
@@ -166,19 +167,19 @@
                   <template slot-scope="scope">
                     <el-button
                       :disabled="!disabled"
-                      @click.native.prevent="deleteRow(scope.$index, tableData)"
                       plain
                       size="small"
                       type="danger"
-                    >{{$t('button.delete')}}
+                      @click.native.prevent="deleteRow(scope.$index, tableData)"
+                    >{{ $t('button.delete') }}
                     </el-button>
                     <el-button
                       :disabled="!disabled"
-                      @click="addRow()"
                       plain
                       size="small"
                       type="primary"
-                    >{{$t('button.insert')}}
+                      @click="addRow()"
+                    >{{ $t('button.insert') }}
                     </el-button>
                   </template>
                 </el-table-column>
@@ -194,19 +195,19 @@
                 <org :disabled="!disabled"
                      :error="errorrecommenddep"
                      :orglist="form.recommenddep"
-                     @getOrgids="getRecommendDep"
                      orgtype="2"
                      style="width:20vw"
+                     @getOrgids="getRecommendDep"
                 ></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_RECOMMENDDATE')" prop="recommend_date">
                 <el-date-picker
+                  v-model="form.recommend_date"
                   :disabled="!disabled"
                   style="width:20vw"
-                  type="date"
-                  v-model="form.recommend_date">
+                  type="date">
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -219,8 +220,8 @@
                   :data="form.source"
                   :disabled="!disabled"
                   :multiple="multiple"
-                  @change="getsource"
-                  style="width:20vw">
+                  style="width:20vw"
+                  @change="getsource">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -229,12 +230,12 @@
             <!--wxl 0409 start-->
             <el-col :span="8">
               <el-form-item
+                v-show="other3_show"
                 :label="$t('label.PFANS2002FORMVIEW_OTHER')"
                 prop="other3"
-                v-show="other3_show"
               >
-                <el-input :disabled="!disabled" class="width" maxlength="20" style="width:20vw"
-                          v-model="form.other"></el-input>
+                <el-input v-model="form.other" :disabled="!disabled" class="width" maxlength="20"
+                          style="width:20vw"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -242,9 +243,9 @@
                 <user
                   :disabled="!disabled"
                   :userlist="userlist"
-                  @getUserids="getUserids"
                   selectType="Single"
                   style="width:20vw"
+                  @getUserids="getUserids"
                 ></user>
               </el-form-item>
             </el-col>
@@ -281,15 +282,15 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="contactinformation">
-                <el-input :disabled="!disabled" maxlength="20" style="width:20vw"
-                          v-model="form.contactinformation"></el-input>
+                <el-input v-model="form.contactinformation" :disabled="!disabled" maxlength="20"
+                          style="width:20vw"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.email')" prop="email">
                 <el-input
-                  :disabled="!disabled" maxlength="100" style="width:20vw"
-                  v-model="form.email"></el-input>
+                  v-model="form.email" :disabled="!disabled" maxlength="100"
+                  style="width:20vw"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -302,8 +303,8 @@
                   :data="form.rn"
                   :disabled="!disabled"
                   :multiple="multiple"
-                  @change="changedutysalary"
-                  style="width:20vw">
+                  style="width:20vw"
+                  @change="changedutysalary">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -311,32 +312,32 @@
             <el-col :span="8">
               <el-form-item :label="this.$t('label.PFANS2003FORMVIEW_SALARY') + this.$t('label.yuan')">
                 <el-input-number
+                  v-model="form.salary"
                   :disabled="!disabled"
                   :max="1000000000"
                   :min="0"
                   :precision="2"
                   controls-position="right"
-                  style="width:20vw"
-                  v-model="form.salary"></el-input-number>
+                  style="width:20vw"></el-input-number>
               </el-form-item>
             </el-col>
             <!--职责给-->
             <el-col :span="8">
-              <el-form-item :label="this.$t('label.PFANS2003FORMVIEW_DUTYSALARY') + this.$t('label.yuan')" >
+              <el-form-item :label="this.$t('label.PFANS2003FORMVIEW_DUTYSALARY') + this.$t('label.yuan')">
                 <el-input-number
+                  v-model="form.dutysalary"
                   :disabled="!disablelevel"
                   :min="0"
                   :precision="2"
                   controls-position="right"
-                  style="width:20vw"
-                  v-model="form.dutysalary"></el-input-number>
+                  style="width:20vw"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003VIEW_SCHOOL')" prop="school">
-                <el-input :disabled="!disabled" maxlength='20' style="width:20vw" v-model="form.school"></el-input>
+                <el-input v-model="form.school" :disabled="!disabled" maxlength='20' style="width:20vw"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -346,8 +347,8 @@
                   :data="form.supplement"
                   :disabled="!disabled"
                   :multiple="multiple"
-                  @change="changesupplement"
-                  style="width:20vw">
+                  style="width:20vw"
+                  @change="changesupplement">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -360,14 +361,14 @@
                   :data="form.technology"
                   :disabled="!disabled"
                   :multiple="multiple"
-                  @change="gettechnology"
-                  style="width:20vw">
+                  style="width:20vw"
+                  @change="gettechnology">
                 </dicselect>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_SPECIALITY')">
-                <el-input :disabled="!disabled" style="width:20vw" v-model="form.speciality"></el-input>
+                <el-input v-model="form.speciality" :disabled="!disabled" style="width:20vw"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -376,15 +377,15 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_RESULTSHOWS')">
-                <el-input :disabled="!disabled" style="width:72vw" type="textarea"
-                          v-model="form.resultshows"></el-input>
+                <el-input v-model="form.resultshows" :disabled="!disabled" style="width:72vw"
+                          type="textarea"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="!disabled" style="width:72vw" type="textarea" v-model="form.remarks"></el-input>
+                <el-input v-model="form.remarks" :disabled="!disabled" style="width:72vw" type="textarea"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -394,230 +395,239 @@
   </div>
 </template>
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import {Message} from 'element-ui';
-  import dicselect from '../../../components/dicselect.vue';
-  import user from '../../../components/user.vue';
-  import org from '../../../components/org';
-  import moment from 'moment';
-  import {telephoneNumber, validateEmail} from '@/utils/validate';
-  import {getUserInfoName, getUserInfo} from '@/utils/customize';
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import {Message} from 'element-ui';
+import dicselect from '../../../components/dicselect.vue';
+import user from '../../../components/user.vue';
+import org from '../../../components/org';
+import moment from 'moment';
+import {telephoneNumber, validateEmail} from '@/utils/validate';
+import {getUserInfo, getUserInfoName} from '@/utils/customize';
 
-  export default {
-    name: 'PFANS2003FormView',
-    components: {
-      EasyNormalContainer,
-      dicselect,
-      user,
-      org,
-    },
-    data() {
-      var validateUserid = (rule, value, callback) => {
-        if (rule.required && (!value || value === '' || value === 'undefined')) {
-          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_MEMBER')));
-          this.error = this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_MEMBER');
-        } else {
-          callback();
-          this.error = '';
-        }
-      };
-      var validateinterviewdepid = (rule, value, callback) => {
+export default {
+  name: 'PFANS2003FormView',
+  components: {
+    EasyNormalContainer,
+    dicselect,
+    user,
+    org,
+  },
+  data() {
+    var validateUserid = (rule, value, callback) => {
+      if (rule.required && (!value || value === '' || value === 'undefined')) {
+        callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_MEMBER')));
+        this.error = this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_MEMBER');
+      } else {
+        callback();
+        this.error = '';
+      }
+    };
+    var validateinterviewdepid = (rule, value, callback) => {
+      if (!value || value === '' || value === 'undefined') {
+        callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')));
+        this.errorinterviewdep = this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP');
+      } else {
+        callback();
+        this.errorinterviewdep = '';
+      }
+    };
+    var validaterecommenddepid = (rule, value, callback) => {
+      if (this.modelwhetherentry === '1') {
+        callback();
+        this.errorrecommenddep = '';
+      } else if (this.modelwhetherentry === '0') {
         if (!value || value === '' || value === 'undefined') {
-          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')));
-          this.errorinterviewdep = this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP');
-        } else {
-          callback();
-          this.errorinterviewdep = '';
-        }
-      };
-      var validaterecommenddepid = (rule, value, callback) => {
-        if (this.modelwhetherentry === '1') {
-          callback();
-          this.errorrecommenddep = '';
-        } else if (this.modelwhetherentry === '0') {
-          if (!value || value === '' || value === 'undefined') {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2003VIEW_RECOMMENDDEP')));
-            this.errorrecommenddep = this.$t('normal.error_08') + this.$t('label.PFANS2003VIEW_RECOMMENDDEP');
-          } else {
-            callback();
-          }
-        }
-      };
-      var validatesourceid = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
-          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2003VIEW_SOURCE')));
-          this.error = this.$t('normal.error_08') + this.$t('label.PFANS2003VIEW_SOURCE');
-        } else {
-          callback();
-          this.error = '';
-        }
-      };
-      var validateTel = (rule, value, callback) => {
-        if (this.form.contactinformation !== null && this.form.contactinformation !== '') {
-          if (telephoneNumber(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')));
-          } else {
-            callback();
-          }
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2003VIEW_RECOMMENDDEP')));
+          this.errorrecommenddep = this.$t('normal.error_08') + this.$t('label.PFANS2003VIEW_RECOMMENDDEP');
         } else {
           callback();
         }
-      };
-      var checkemail = (rule, value, callback) => {
-        if (this.form.email !== null && this.form.email !== '') {
-          if (!validateEmail(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
-          } else {
-            callback();
-          }
+      }
+    };
+    var validatesourceid = (rule, value, callback) => {
+      if (!value || value === '' || value === 'undefined') {
+        callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2003VIEW_SOURCE')));
+        this.error = this.$t('normal.error_08') + this.$t('label.PFANS2003VIEW_SOURCE');
+      } else {
+        callback();
+        this.error = '';
+      }
+    };
+    var validateTel = (rule, value, callback) => {
+      if (this.form.contactinformation !== null && this.form.contactinformation !== '') {
+        if (telephoneNumber(value)) {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')));
         } else {
           callback();
         }
-      };
-      var validateaccept_date = (rule, value, callback) => {
-        if (this.form.accept_date !== null && this.form.accept_date !== '') {
-          if (moment(value).format('YYYY-MM-DD') > moment(this.form.interview_date).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.PFANS2003VIEW_ACCEPTDATE') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE')));
-            this.erroracceptdate = this.$t('label.PFANS2003VIEW_ACCEPTDATE') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE');
-          } else {
-            callback();
-            this.erroracceptdate = '';
-          }
+      } else {
+        callback();
+      }
+    };
+    var checkemail = (rule, value, callback) => {
+      if (this.form.email !== null && this.form.email !== '') {
+        if (!validateEmail(value)) {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
+        } else {
+          callback();
+        }
+      } else {
+        callback();
+      }
+    };
+    var validateaccept_date = (rule, value, callback) => {
+      if (this.form.accept_date !== null && this.form.accept_date !== '') {
+        if (moment(value).format('YYYY-MM-DD') > moment(this.form.interview_date).format('YYYY-MM-DD')) {
+          callback(new Error(this.$t('label.PFANS2003VIEW_ACCEPTDATE') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE')));
+          this.erroracceptdate = this.$t('label.PFANS2003VIEW_ACCEPTDATE') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE');
         } else {
           callback();
           this.erroracceptdate = '';
         }
-      };
-      var validateinterview_date = (rule, value, callback) => {
-        if (this.form.interview_date !== null && this.form.interview_date !== '') {
-          if (moment(value).format('YYYY-MM-DD') < moment(this.form.accept_date).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2003VIEW_ACCEPTDATE')));
-            this.errorinterviewdate = this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2003VIEW_ACCEPTDATE');
-          } else {
-            callback();
-            this.errorinterviewdate = '';
-          }
+      } else {
+        callback();
+        this.erroracceptdate = '';
+      }
+    };
+    var validateinterview_date = (rule, value, callback) => {
+      if (this.form.interview_date !== null && this.form.interview_date !== '') {
+        if (moment(value).format('YYYY-MM-DD') < moment(this.form.accept_date).format('YYYY-MM-DD')) {
+          callback(new Error(this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2003VIEW_ACCEPTDATE')));
+          this.errorinterviewdate = this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2003VIEW_ACCEPTDATE');
         } else {
           callback();
           this.errorinterviewdate = '';
         }
-      };
-      return {
-          // add-ws-8/4-禅道任务296
-          options: [],
-          // add-ws-8/4-禅道任务296
-        other3_show: false,
-        display: false,
-        modelwhetherentry: '1',
-        modelresult: '1',
-        loading: false,
-        errorinterviewdep: '',
-        errorrecommenddep: '',
-        erroracceptdate: '',
-        errorinterviewdate: '',
-        error: '',
-        errornetwork: '',
-        selectType: 'Single',
-        userlist: '',
-        title: 'title.PFANS2003VIEW',
-        buttonList: [],
-        multiple: false,
-        arrInt: [],
-        tableData: [
-          {
-            interviewerN: '',
-            interviewer: '',
-            score: 0,
-          },
-        ],
-        form: {
-          // add-ws-8/4-禅道任务296
-          recruit_id: '',
-          // add-ws-8/4-禅道任务296
-          interviewrecord_id: '',
-          name: '',
-          sex: '',
-          birthday: '',
-          accept_date: '',
-          interviewdep: '',
-          interview_date: '',
-          recommenddep: '',
-          recommend_date: '',
-          source: '',
-          member: '',
-          network: '',
-          school: '',
-          supplement: '',
-          other: '',
-          rn: '',
-          contactinformation: '',
-          email: '',
-          salary: '',
-          dutysalary: '',
-          technology: '',
-          speciality: '',
-          result: '1',
-          whetherentry: '1',
-          resultshows: '',
-          remarks: '',
-          nodeList: [],
-          interview: '',
+      } else {
+        callback();
+        this.errorinterviewdate = '';
+      }
+    };
+    return {
+      // add-ws-8/4-禅道任务296
+      options: [],
+      // add-ws-8/4-禅道任务296
+      other3_show: false,
+      display: false,
+      modelwhetherentry: '1',
+      modelresult: '1',
+      loading: false,
+      errorinterviewdep: '',
+      errorrecommenddep: '',
+      erroracceptdate: '',
+      errorinterviewdate: '',
+      error: '',
+      errornetwork: '',
+      selectType: 'Single',
+      userlist: '',
+      title: 'title.PFANS2003VIEW',
+      buttonList: [],
+      multiple: false,
+      arrInt: [],
+      tableData: [
+        {
+          interviewerN: '',
+          interviewer: '',
+          score: 0,
         },
-        List: '',
-        code1: 'PR019',
-        // code2: 'PR020',
-        code2: 'PR051',
-        code3: 'PR022',
-        code4: 'PR021',
-        code5: 'PR023',
-        menuList: [],
-        result1: false,
-        disablelevel: false,
-        show1: false,
-        show2: false,
-        show3: false,
-        rules: {
-          // add_fjl_05/25  -- 添加必填项
-          name: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.user_name'),
-            trigger: 'blur',
-          }],
-          sex: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.sex'),
-            trigger: 'change',
-          }],
-          birthday: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS2002VIEW_BIRTHDAY'),
-            trigger: 'change',
-          }],
-          accept_date: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_ACCEPTDATE'),
-            trigger: 'change',
-          },
-            {validator: validateaccept_date, trigger: 'change'}],
-          school: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS2003VIEW_SCHOOL'),
-            trigger: 'blur',
-          }],
-          supplement: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_SUPPLEMENT'),
-            trigger: 'change',
-          }],
-          // add_fjl_05/25  -- 添加必填项
+      ],
+      form: {
+        // add-ws-8/4-禅道任务296
+        recruit_id: '',
+        // add-ws-8/4-禅道任务296
+        interviewrecord_id: '',
+        name: '',
+        sex: '',
+        birthday: '',
+        accept_date: '',
+        interviewdep: '',
+        interview_date: '',
+        recommenddep: '',
+        recommend_date: '',
+        source: '',
+        member: '',
+        network: '',
+        school: '',
+        supplement: '',
+        other: '',
+        rn: '',
+        contactinformation: '',
+        email: '',
+        salary: '',
+        dutysalary: '',
+        technology: '',
+        speciality: '',
+        result: '1',
+        whetherentry: '1',
+        resultshows: '',
+        remarks: '',
+        nodeList: [],
+        interview: '',
+      },
+      List: '',
+      code1: 'PR019',
+      // code2: 'PR020',
+      code2: 'PR051',
+      code3: 'PR022',
+      code4: 'PR021',
+      code5: 'PR023',
+      menuList: [],
+      result1: false,
+      disablelevel: false,
+      show1: false,
+      show2: false,
+      show3: false,
+      rules: {
+        // add_fjl_05/25  -- 添加必填项
+        name: [{
+          required: true,
+          message: this.$t('normal.error_08') + this.$t('label.user_name'),
+          trigger: 'blur',
+        }],
+        sex: [{
+          required: true,
+          message: this.$t('normal.error_09') + this.$t('label.sex'),
+          trigger: 'change',
+        }],
+        birthday: [{
+          required: true,
+          message: this.$t('normal.error_08') + this.$t('label.PFANS2002VIEW_BIRTHDAY'),
+          trigger: 'change',
+        }],
+        accept_date: [{
+          required: true,
+          message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_ACCEPTDATE'),
+          trigger: 'change',
         },
-      };
-    },
-    created() {
-      this.disabled = this.$route.params.disabled;
-      this.result1 = this.$route.params.disabled;
-      // this.disablelevel = this.$.params.disabled;
-      if (this.disabled) {
+          {validator: validateaccept_date, trigger: 'change'}],
+        school: [{
+          required: true,
+          message: this.$t('normal.error_08') + this.$t('label.PFANS2003VIEW_SCHOOL'),
+          trigger: 'blur',
+        }],
+        supplement: [{
+          required: true,
+          message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_SUPPLEMENT'),
+          trigger: 'change',
+        }],
+        // add_fjl_05/25  -- 添加必填项
+      },
+    };
+  },
+  created() {
+    this.disabled = this.$route.params.disabled;
+    this.result1 = this.$route.params.disabled;
+    // this.disablelevel = this.$.params.disabled;
+    if (this.disabled) {
+      this.buttonList = [
+        {
+          key: 'save',
+          name: 'button.save',
+          disabled: false,
+          icon: 'el-icon-check',
+        },
+      ];
+      if (this.$route.params._id) {
         this.buttonList = [
           {
             key: 'save',
@@ -625,92 +635,155 @@
             disabled: false,
             icon: 'el-icon-check',
           },
+          {
+            key: 'createdecision',
+            name: 'button.createdecision',
+            disabled: true,
+            icon: 'el-icon-plus',
+          },
         ];
-          if (this.$route.params._id) {
-              this.buttonList = [
-                  {
-                      key: 'save',
-                      name: 'button.save',
-                      disabled: false,
-                      icon: 'el-icon-check',
-                  },
-                  {
-                      key: 'createdecision',
-                      name: 'button.createdecision',
-                      disabled: true,
-                      icon: 'el-icon-plus',
-                  },
-              ];
+      }
+    }
+  },
+  mounted() {
+    // add-ws-8/4-禅道任务296
+    this.getrecruit();
+    // add-ws-8/4-禅道任务296
+    if (this.$route.params._id) {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS2003Store/getinterviewrecordOne', {'interviewrecord_id': this.$route.params._id})
+        .then(response => {
+          this.form = response;
+          // upd_fjl_05/27  --添加面试官手动输入
+// wxl 4/8  start
+          this.changeOption(this.form, 'view');
+          if (this.form.interview) {
+            this.tableData = [];
+            for (let a = 0; a < this.form.interview.length; a++) {
+              var vote = {};
+              vote.interviewer = this.form.interview[a].interviewer;
+              vote.interviewerN = getUserInfo(this.form.interview[a].interviewer).userinfo.customername;
+              vote.score = this.form.interview[a].score;
+              this.tableData.push(vote);
+            }
+            // this.tableData = this.form.interview;
           }
+// wxl 4/8  end
+          // upd_fjl_05/27  --添加面试官手动输入
+          this.getsource(this.form.source);
+          this.userlist = this.form.member;
+          if (this.form.source === 'PR020001') {
+            this.show1 = true;
+            this.show2 = false;
+            this.show3 = false;
+            this.rules.member[0].required = true;
+            this.error = '';
+            this.rules.network[0].required = false;
+          }
+          if (this.form.source === 'PR020002') {
+            this.show1 = false;
+            this.show2 = true;
+            this.show3 = false;
+            this.rules.network[0].required = true;
+            this.rules.member[0].required = false;
+          }
+          if (this.form.source === 'PR020003') {
+            this.show1 = false;
+            this.show2 = false;
+            this.show3 = true;
+            this.rules.network[0].required = false;
+            this.rules.member[0].required = false;
+          }
+          this.modelwhetherentry = this.form.whetherentry;
+          if (this.form.whetherentry === '0') {
+            this.result1 = false;
+          }
+          this.modelresult = this.form.result;
+          if (this.buttonList[1] != undefined) {
+            if (this.modelresult === '0') {
+              this.buttonList[1].disabled = false;
+            } else {
+              this.buttonList[1].disabled = true;
+            }
+          }
+          //内部R5及以下职责给BUG -fr
+          if (this.form.rn != '' && this.form.rn != undefined && this.form.rn != null) {
+            this.changedutysalary(this.form.rn);
+          }
+          //内部R5及以下职责给BUG -to
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    }
+  },
+  //add_fjl_0803
+  watch: {
+    modelresult(newName, oldName) {
+      if (newName === '0') {
+        this.buttonList[1].disabled = false;
+      } else {
+        this.buttonList[1].disabled = true;
       }
     },
-    mounted() {
-      // add-ws-8/4-禅道任务296
-      this.getrecruit();
-      // add-ws-8/4-禅道任务296
-      if (this.$route.params._id) {
+  },
+  //add_fjl_0803
+  methods: {
+    changgeResult(val) {
+      if (this.buttonList[1] != undefined) {
+        if (val == '1') {
+          this.buttonList[1].disabled = true;
+        } else if (val == '0') {
+          this.buttonList[1].disabled = false;
+        }
+      }
+    },
+    // add-ws-8/4-禅道任务296
+    getrecruitid(val) {
+      this.form.recruit_id = val;
+    },
+    getrecruit() {
+      if (this.disabled) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2003Store/getinterviewrecordOne', {'interviewrecord_id': this.$route.params._id})
+          .dispatch('PFANS2001Store/getRecruit')
           .then(response => {
-            this.form = response;
-            // upd_fjl_05/27  --添加面试官手动输入
-// wxl 4/8  start
-            this.changeOption(this.form, 'view');
-            if (this.form.interview) {
-              this.tableData = [];
-              for (let a = 0; a < this.form.interview.length; a++) {
-                var vote = {};
-                vote.interviewer = this.form.interview[a].interviewer;
-                vote.interviewerN = getUserInfo(this.form.interview[a].interviewer).userinfo.customername;
-                vote.score = this.form.interview[a].score;
-                this.tableData.push(vote);
-              }
-              // this.tableData = this.form.interview;
-            }
-// wxl 4/8  end
-            // upd_fjl_05/27  --添加面试官手动输入
-            this.getsource(this.form.source);
-            this.userlist = this.form.member;
-            if (this.form.source === 'PR020001') {
-              this.show1 = true;
-              this.show2 = false;
-              this.show3 = false;
-              this.rules.member[0].required = true;
-              this.error = '';
-              this.rules.network[0].required = false;
-            }
-            if (this.form.source === 'PR020002') {
-              this.show1 = false;
-              this.show2 = true;
-              this.show3 = false;
-              this.rules.network[0].required = true;
-              this.rules.member[0].required = false;
-            }
-            if (this.form.source === 'PR020003') {
-              this.show1 = false;
-              this.show2 = false;
-              this.show3 = true;
-              this.rules.network[0].required = false;
-              this.rules.member[0].required = false;
-            }
-            this.modelwhetherentry = this.form.whetherentry;
-            if (this.form.whetherentry === '0') {
-              this.result1 = false;
-            }
-            this.modelresult = this.form.result;
-            if(this.buttonList[1] != undefined){
-              if (this.modelresult === '0') {
-                this.buttonList[1].disabled = false;
-              } else {
-                this.buttonList[1].disabled = true;
+            for (let i = 0; i < response.length; i++) {
+              if (response[i].status === '4') {
+                this.options.push({
+                  value: response[i].recruitid,
+                  lable: response[i].numbers,
+                });
               }
             }
-            //内部R5及以下职责给BUG -fr
-            if(this.form.rn != '' && this.form.rn != undefined && this.form.rn != null){
-              this.changedutysalary(this.form.rn);
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      } else {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2001Store/getRecruit2')
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              this.options.push({
+                value: response[i].recruitid,
+                lable: response[i].numbers,
+              });
             }
-            //内部R5及以下职责给BUG -to
             this.loading = false;
           })
           .catch(error => {
@@ -722,415 +795,343 @@
             this.loading = false;
           });
       }
-    },
-    //add_fjl_0803
-    watch: {
-      modelresult(newName, oldName) {
-        if (newName === '0') {
-          this.buttonList[1].disabled = false;
-        } else {
-          this.buttonList[1].disabled = true;
-        }
-      },
-    },
-    //add_fjl_0803
-    methods: {
-      changgeResult(val) {
-        if(this.buttonList[1] != undefined) {
-          if (val == '1') {
-            this.buttonList[1].disabled = true;
-          } else if (val == '0') {
-            this.buttonList[1].disabled = false;
-          }
-        }
-      },
-      // add-ws-8/4-禅道任务296
-      getrecruitid(val) {
-        this.form.recruit_id = val;
-      },
-      getrecruit() {
-        if (this.disabled) {
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS2001Store/getRecruit')
-            .then(response => {
-              for (let i = 0; i < response.length; i++) {
-                if (response[i].status === '4') {
-                  this.options.push({
-                    value: response[i].recruitid,
-                    lable: response[i].numbers,
-                  });
-                }
-              }
-              this.loading = false;
-            })
-            .catch(error => {
-              this.$message.error({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        } else {
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS2001Store/getRecruit2')
-            .then(response => {
-              for (let i = 0; i < response.length; i++) {
-                this.options.push({
-                  value: response[i].recruitid,
-                  lable: response[i].numbers,
-                });
-              }
-              this.loading = false;
-            })
-            .catch(error => {
-              this.$message.error({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        }
 
 
-      },
-      // add-ws-8/4-禅道任务296
+    },
+    // add-ws-8/4-禅道任务296
 // wxl 4/8 面试官放到面试记录 start
-      changeOption(form, method) {
-        let arr = [
-          'other1',
-          'other2',
-          'resume',
-          'identity',
-          'diploma',
-          'experience',
-          'entry',
-          'report',
-          'ticket',
-          'health',
-        ];
-        if (method === 'save') {
-          for (var i in form) {
-            if (arr.includes(i)) {
-              form[i] = form[i] === true ? '0' : '1';
-            }
-          }
-        } else if (method === 'view') {
-          for (var i in form) {
-            if (i === 'interview') {
-              form[i] = JSON.parse(form[i]);
-            }
-            if (arr.includes(i)) {
-              form[i] = form[i] === '0' ? true : false;
-            }
+    changeOption(form, method) {
+      let arr = [
+        'other1',
+        'other2',
+        'resume',
+        'identity',
+        'diploma',
+        'experience',
+        'entry',
+        'report',
+        'ticket',
+        'health',
+      ];
+      if (method === 'save') {
+        for (var i in form) {
+          if (arr.includes(i)) {
+            form[i] = form[i] === true ? '0' : '1';
           }
         }
-      },
-      getAverage(param) {
-        // this.form.interview = JSON.stringify(this.tableData);
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS2002FORMVIEW_AVESCORE');
-            return;
+      } else if (method === 'view') {
+        for (var i in form) {
+          if (i === 'interview') {
+            form[i] = JSON.parse(form[i]);
           }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
-              if (!isNaN(value)) {
-                return Math.round((prev + curr) * 100) / 100;
-              } else {
-                return Math.round(prev * 100) / 100;
-              }
-                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
-            }, 0);
-          } else {
-            sums[index] = '';
+          if (arr.includes(i)) {
+            form[i] = form[i] === '0' ? true : false;
           }
+        }
+      }
+    },
+    getAverage(param) {
+      // this.form.interview = JSON.stringify(this.tableData);
+      const {columns, data} = param;
+      const sums = [];
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          sums[index] = this.$t('label.PFANS2002FORMVIEW_AVESCORE');
+          return;
+        }
+        const values = data.map(item => Number(item[column.property]));
+        if (!values.every(value => isNaN(value))) {
+          sums[index] = values.reduce((prev, curr) => {
+            const value = Number(curr);
+            // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+            if (!isNaN(value)) {
+              return Math.round((prev + curr) * 100) / 100;
+            } else {
+              return Math.round(prev * 100) / 100;
+            }
+            // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
+          }, 0);
+        } else {
+          sums[index] = '';
+        }
+      });
+      sums[1] = Math.round(sums[1] / param.data.length * 100) / 100;
+      return sums;
+    },
+    // upd_fjl_05/27  --添加面试官手动输入
+    changeInt(row) {
+      row.interviewer = row.interviewerN;
+      if (getUserInfoName(row.interviewerN) !== '-1') {
+        row.interviewer = getUserInfoName(row.interviewerN).userid;
+      } else {
+        Message({
+          message: this.$t('label.PFANS2003FORMVIEW_INTERVIEWERERROR'),
+          type: 'error',
+          duration: 5 * 1000,
         });
-        sums[1] = Math.round(sums[1] / param.data.length * 100) / 100;
-        return sums;
-      },
+        return;
+      }
+    },
+    // upd_fjl_05/27  --添加面试官手动输入
+    getInterviewerids(userlist, row) {
+      row.interviewer = userlist;
       // upd_fjl_05/27  --添加面试官手动输入
-      changeInt(row) {
-        row.interviewer = row.interviewerN;
-        if (getUserInfoName(row.interviewerN) !== '-1') {
-          row.interviewer = getUserInfoName(row.interviewerN).userid;
+      if (userlist) {
+        row.interviewerN = getUserInfo(userlist).userinfo.customername;
+      } else {
+        row.interviewerN = '';
+      }
+      // upd_fjl_05/27  --添加面试官手动输入
+    },
+
+    deleteRow(index, rows) {
+      if (rows.length > 1) {
+        rows.splice(index, 1);
+      } else {
+        this.tableData[0].interviewer = '';
+        this.tableData[0].score = 0;
+      }
+    },
+
+    addRow() {
+      this.tableData.push({
+        interviewer: '',
+        score: 0,
+      });
+    },
+// wxl 4/8 面试官放到面试记录 end
+    setdisabled(val) {
+      if (this.$route.params.disabled) {
+        this.disabled = val;
+      }
+    },
+    getInterviewDep(val) {
+      this.form.interviewdep = val;
+      if (!this.form.interviewdep || this.form.interviewdep === '' || val === 'undefined') {
+        this.errorinterviewdep = this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP');
+      } else {
+        this.errorinterviewdep = '';
+      }
+    },
+    getRecommendDep(val) {
+      this.form.recommenddep = val;
+      if (!this.form.recommenddep || this.form.recommenddep === '' || val === 'undefined') {
+        this.errorrecommenddep = this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_RECOMMENDDEP');
+      } else {
+        this.errorrecommenddep = '';
+      }
+    },
+    getUserids(val) {
+      this.userlist = val;
+      this.form.member = val;
+      if (!this.form.member || this.form.member === '' || val === 'undefined') {
+        this.error = this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_MEMBER');
+      } else {
+        this.error = '';
+      }
+    },
+    gettechnology(val) {
+      this.form.technology = val;
+      if (val === 'PR023001') {
+      } else if (val === 'PR023002') {
+      }
+    },
+    // getsource(val) {
+    //   this.form.source = val;
+    //   if (val === 'PR020001') {
+    //     this.show1 = true;
+    //     this.show2 = false;
+    //     this.show3 = false;
+    //     this.rules.member[0].required = true;
+    //     this.error = '';
+    //     this.rules.network[0].required = false;
+    //   } else if (val === 'PR020002') {
+    //     this.show1 = false;
+    //     this.show2 = true;
+    //     this.show3 = false;
+    //     this.rules.network[0].required = true;
+    //     this.rules.member[0].required = false;
+    //   }else if(val === 'PR020003'){
+    //     this.show1 = false;
+    //     this.show2 = false;
+    //     this.show3 = true;
+    //     this.rules.network[0].required = false;
+    //     this.rules.member[0].required = false;
+    //   }
+    // },
+    getsource(val) {
+      this.form.source = val;
+      if (val === 'PR051004') {
+        this.display = true;
+      } else {
+        this.display = false;
+        this.userlist = '',
+          this.form.others = '';
+      }
+      this.form.adoption = val;
+      if (val === 'PR051005') {
+        this.other3_show = true;
+      } else {
+        this.other3_show = false;
+        // this.form.others = '';
+        this.form.other = '';
+
+      }
+    },
+    changesex(val) {
+      this.form.sex = val;
+    },
+    changesupplement(val) {
+      this.form.supplement = val;
+    },
+    changern(val) {
+      this.form.rn = val;
+    },
+    changedutysalary(val) {
+      this.form.rn = val;
+      if (val === 'PR021001' || val === 'PR021002' || val === 'PR021003') {
+        this.disablelevel = false;
+        //内部R5及以下职责给BUG -fr
+        this.form.dutysalary = '0';
+        //内部R5及以下职责给BUG -to
+      } else {
+        this.disablelevel = true;
+      }
+    },
+    changewhetherentry(val) {
+      if (val === '1') {
+        this.result1 = true;
+      } else {
+        this.modelresult = '0';
+        this.result1 = false;
+      }
+    },
+    buttonClick(val) {
+      if (val === 'back') {
+        this.$router.push({
+          name: 'PFANS2003View',
+          params: {},
+        });
+      }
+      ;
+      this.$refs['refform'].validate(valid => {
+        if (valid) {
+          // upd_fjl_05/27  --添加面试官手动输入
+          this.arrInt = [];
+          for (let i = 0; i < this.tableData.length; i++) {
+            if (this.tableData[i].interviewer === '' || this.tableData[i].interviewer === null || this.tableData[i].interviewer === undefined) {
+              Message({
+                message: this.$t('label.PFANS2003FORMVIEW_INTERVIEWERERROR'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              return;
+            } else {
+              this.arrInt.push({
+                interviewer: this.tableData[i].interviewer,
+                score: this.tableData[i].score,
+              });
+            }
+          }
+          this.form.interview = JSON.stringify(this.arrInt);
+          // upd_fjl_05/27  --添加面试官手动输入
+          if (val === 'save') {
+            this.loading = true;
+            this.form.member = this.userlist;
+            this.form.whetherentry = this.whetherentry;
+            this.form.result = this.result;
+            if (this.form.source === 'PR020001') {
+              this.form.network = '';
+            } else if (this.form.source === 'PR020002') {
+              this.form.member = '';
+            }
+            this.form.whetherentry = this.modelwhetherentry;
+            this.form.result = this.modelresult;
+            this.changeOption(this.form, 'save');
+            if (this.$route.params._id) {
+              this.form.interviewrecord_id = this.$route.params._id;
+              this.$store
+                .dispatch('PFANS2003Store/updateinterviewrecord', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_02'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
+                  }
+                })
+                .catch(error => {
+                  this.$message.error({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            } else {
+              this.$store
+                .dispatch('PFANS2003Store/createinterviewrecord', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_01'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
+                  }
+                })
+                .catch(error => {
+                  this.$message.error({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            }
+          }
+          //add_fjl_0731  添加应聘者信息管理画面跳转  start
+          else if (val === 'createdecision') {
+            let _user = [];
+            _user.push({
+              name: this.form.name,
+              sex: this.form.sex,
+              birthday: this.form.birthday,
+              rn: this.form.rn,
+              salary: this.form.salary,
+              dutysalary: this.form.dutysalary,
+              interview: this.form.interview,
+              source: this.form.source,
+              interviewrecord_id: this.form.interviewrecord_id,
+            });
+            this.$router.push({
+              name: 'PFANS2002FormView',
+              params: {
+                _id: '',
+                _user: _user,
+                disabled: false,
+              },
+            });
+          }
+          //add_fjl_0731  添加应聘者信息管理画面跳转  end
         } else {
           Message({
-            message: this.$t('label.PFANS2003FORMVIEW_INTERVIEWERERROR'),
+            message: this.$t('normal.error_12'),
             type: 'error',
             duration: 5 * 1000,
           });
-          return;
         }
-      },
-      // upd_fjl_05/27  --添加面试官手动输入
-      getInterviewerids(userlist, row) {
-        row.interviewer = userlist;
-        // upd_fjl_05/27  --添加面试官手动输入
-        if (userlist) {
-          row.interviewerN = getUserInfo(userlist).userinfo.customername;
-        } else {
-          row.interviewerN = '';
-        }
-        // upd_fjl_05/27  --添加面试官手动输入
-      },
-
-      deleteRow(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableData[0].interviewer = '';
-          this.tableData[0].score = 0;
-        }
-      },
-
-      addRow() {
-        this.tableData.push({
-          interviewer: '',
-          score: 0,
-        });
-      },
-// wxl 4/8 面试官放到面试记录 end
-      setdisabled(val) {
-        if (this.$route.params.disabled) {
-          this.disabled = val;
-        }
-      },
-      getInterviewDep(val) {
-        this.form.interviewdep = val;
-        if (!this.form.interviewdep || this.form.interviewdep === '' || val === 'undefined') {
-          this.errorinterviewdep = this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP');
-        } else {
-          this.errorinterviewdep = '';
-        }
-      },
-      getRecommendDep(val) {
-        this.form.recommenddep = val;
-        if (!this.form.recommenddep || this.form.recommenddep === '' || val === 'undefined') {
-          this.errorrecommenddep = this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_RECOMMENDDEP');
-        } else {
-          this.errorrecommenddep = '';
-        }
-      },
-      getUserids(val) {
-        this.userlist = val;
-        this.form.member = val;
-        if (!this.form.member || this.form.member === '' || val === 'undefined') {
-          this.error = this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_MEMBER');
-        } else {
-          this.error = '';
-        }
-      },
-      gettechnology(val) {
-        this.form.technology = val;
-        if (val === 'PR023001') {
-        } else if (val === 'PR023002') {
-        }
-      },
-      // getsource(val) {
-      //   this.form.source = val;
-      //   if (val === 'PR020001') {
-      //     this.show1 = true;
-      //     this.show2 = false;
-      //     this.show3 = false;
-      //     this.rules.member[0].required = true;
-      //     this.error = '';
-      //     this.rules.network[0].required = false;
-      //   } else if (val === 'PR020002') {
-      //     this.show1 = false;
-      //     this.show2 = true;
-      //     this.show3 = false;
-      //     this.rules.network[0].required = true;
-      //     this.rules.member[0].required = false;
-      //   }else if(val === 'PR020003'){
-      //     this.show1 = false;
-      //     this.show2 = false;
-      //     this.show3 = true;
-      //     this.rules.network[0].required = false;
-      //     this.rules.member[0].required = false;
-      //   }
-      // },
-      getsource(val) {
-        this.form.source = val;
-        if (val === 'PR051004') {
-          this.display = true;
-        } else {
-          this.display = false;
-          this.userlist = '',
-            this.form.others = '';
-        }
-        this.form.adoption = val;
-        if (val === 'PR051005') {
-          this.other3_show = true;
-        } else {
-          this.other3_show = false;
-          // this.form.others = '';
-          this.form.other = '';
-
-        }
-      },
-      changesex(val) {
-        this.form.sex = val;
-      },
-      changesupplement(val) {
-        this.form.supplement = val;
-      },
-      changern(val) {
-        this.form.rn = val;
-      },
-      changedutysalary(val){
-        this.form.rn = val;
-        if(val === 'PR021001' || val === 'PR021002' || val === 'PR021003'){
-          this.disablelevel = false;
-          //内部R5及以下职责给BUG -fr
-          this.form.dutysalary = '0';
-          //内部R5及以下职责给BUG -to
-        }else {
-          this.disablelevel = true;
-        }
-      },
-      changewhetherentry(val) {
-        if (val === '1') {
-          this.result1 = true;
-        } else {
-          this.modelresult = '0';
-          this.result1 = false;
-        }
-      },
-      buttonClick(val) {
-        if (val === 'back') {
-            this.$router.push({
-              name: 'PFANS2003View',
-              params: {},
-            });
-        };
-        this.$refs['refform'].validate(valid => {
-          if (valid) {
-              // upd_fjl_05/27  --添加面试官手动输入
-              this.arrInt = [];
-              for (let i = 0; i < this.tableData.length; i++) {
-                  if (this.tableData[i].interviewer === '' || this.tableData[i].interviewer === null || this.tableData[i].interviewer === undefined) {
-                      Message({
-                          message: this.$t('label.PFANS2003FORMVIEW_INTERVIEWERERROR'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                      });
-                      return;
-                  } else {
-                      this.arrInt.push({
-                          interviewer: this.tableData[i].interviewer,
-                          score: this.tableData[i].score,
-                      });
-                  }
-              }
-              this.form.interview = JSON.stringify(this.arrInt);
-              // upd_fjl_05/27  --添加面试官手动输入
-              if (val === 'save') {
-                  this.loading = true;
-                  this.form.member = this.userlist;
-                  this.form.whetherentry = this.whetherentry;
-                  this.form.result = this.result;
-                  if (this.form.source === 'PR020001') {
-                      this.form.network = '';
-                  } else if (this.form.source === 'PR020002') {
-                      this.form.member = '';
-                  }
-                  this.form.whetherentry = this.modelwhetherentry;
-                  this.form.result = this.modelresult;
-                  this.changeOption(this.form, 'save');
-                  if (this.$route.params._id) {
-                      this.form.interviewrecord_id = this.$route.params._id;
-                      this.$store
-                          .dispatch('PFANS2003Store/updateinterviewrecord', this.form)
-                          .then(response => {
-                              this.data = response;
-                              this.loading = false;
-                              Message({
-                                  message: this.$t('normal.success_02'),
-                                  type: 'success',
-                                  duration: 5 * 1000,
-                              });
-                              if (this.$store.getters.historyUrl) {
-                                  this.$router.push(this.$store.getters.historyUrl);
-                              }
-                          })
-                          .catch(error => {
-                              this.$message.error({
-                                  message: error,
-                                  type: 'error',
-                                  duration: 5 * 1000,
-                              });
-                              this.loading = false;
-                          });
-                  } else {
-                      this.$store
-                          .dispatch('PFANS2003Store/createinterviewrecord', this.form)
-                          .then(response => {
-                              this.data = response;
-                              this.loading = false;
-                              Message({
-                                  message: this.$t('normal.success_01'),
-                                  type: 'success',
-                                  duration: 5 * 1000,
-                              });
-                              if (this.$store.getters.historyUrl) {
-                                  this.$router.push(this.$store.getters.historyUrl);
-                              }
-                          })
-                          .catch(error => {
-                              this.$message.error({
-                                  message: error,
-                                  type: 'error',
-                                  duration: 5 * 1000,
-                              });
-                              this.loading = false;
-                          });
-                  }
-              }
-              //add_fjl_0731  添加应聘者信息管理画面跳转  start
-              else if (val === 'createdecision') {
-                  let _user = [];
-                  _user.push({
-                      name: this.form.name,
-                      sex: this.form.sex,
-                      birthday: this.form.birthday,
-                      rn: this.form.rn,
-                      salary:this.form.salary,
-                      dutysalary:this.form.dutysalary,
-                      interview: this.form.interview,
-                      source: this.form.source,
-                      interviewrecord_id: this.form.interviewrecord_id,
-                  });
-                  this.$router.push({
-                      name: 'PFANS2002FormView',
-                      params: {
-                          _id: '',
-                          _user: _user,
-                          disabled: false
-                      }
-                  })
-              }
-              //add_fjl_0731  添加应聘者信息管理画面跳转  end
-          }
-          else{
-              Message({
-                  message: this.$t("normal.error_12"),
-                  type: 'error',
-                  duration: 5 * 1000
-              });
-          }
-        });
-      },
+      });
     },
-  };
+  },
+};
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

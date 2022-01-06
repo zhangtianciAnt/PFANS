@@ -1,5 +1,7 @@
 import {getValueByPath} from 'element-ui/src/utils/util';
 import store from '../store';
+//add ccm 20210524 to
+import CryptoJS from 'crypto-js/crypto-js';
 
 var departmentName = [];
 
@@ -81,18 +83,18 @@ export function getDepartmentById(id) {
     // if (org.orgs !== null && org.orgs !== undefined) {
     //   departmentId(org.orgs, arr);
     // }
-      let orgall = store.getters.orgallList[0];
-      //region scc add 21/11/19 新年度22，获取所有树，导致事业计划，人员计划部门组件数据重复 from
-      orgall = orgall.filter(item => item.status === '0');
-      //endregion scc add 21/11/19 新年度22，获取所有树，导致事业计划，人员计划部门组件数据重复 to
-      for (let org of orgall) {
-        if (arr.includes(org._id)) {
-          departmentName.push(org.title);
-        }
-        if (org.orgs !== null && org.orgs !== undefined) {
-          departmentId(org.orgs, arr);
-        }
+    let orgall = store.getters.orgallList[0];
+    //region scc add 21/11/19 新年度22，获取所有树，导致事业计划，人员计划部门组件数据重复 from
+    orgall = orgall.filter(item => item.status === '0');
+    //endregion scc add 21/11/19 新年度22，获取所有树，导致事业计划，人员计划部门组件数据重复 to
+    for (let org of orgall) {
+      if (arr.includes(org._id)) {
+        departmentName.push(org.title);
       }
+      if (org.orgs !== null && org.orgs !== undefined) {
+        departmentId(org.orgs, arr);
+      }
+    }
     //add gbb 20210421 获取所有组织信息 end
   }
   return departmentName.join();
@@ -333,6 +335,7 @@ export function getDictionaryInfoGroup(code) {
   }
   return info;
 }
+
 //ztc 取字典组 to
 
 export function getDictionaryInfode(value1, value2, value3) {
@@ -506,6 +509,7 @@ export function getCurrentRoleNew() {
   }
   return '0';
 }
+
 //insert gbb 20210331 2021组织架构变更-添加副总经理 end
 export function getCurrentRole2() {
   let roles = '';
@@ -635,7 +639,7 @@ export function getCurrentRole19() {
       roles = roles + role.rolename;
       //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
     }
-    if (roles.toUpperCase().indexOf('总经理') != -1 || roles.toUpperCase().indexOf('人事总务部长') != -1 ) {
+    if (roles.toUpperCase().indexOf('总经理') != -1 || roles.toUpperCase().indexOf('人事总务部长') != -1) {
       return '0';
     }
   }
@@ -810,6 +814,7 @@ export function getCurrentRole16() {
   }
   return '1';
 }
+
 //insert gbb 20210228 NT_PFANS_20210228_BUG_038 添加角色判断方法 start
 export function getCurrentRole17() {
   let roles = '';
@@ -842,6 +847,7 @@ export function getCurrentRole18() {
   }
   return '1';
 }
+
 //insert gbb 20210228 NT_PFANS_20210228_BUG_038 添加角色判断方法 end
 
 //add ccm 20210524 fr
@@ -857,6 +863,7 @@ export function getCurrentRoleGiving() {
   }
   return '1';
 }
+
 export function getCurrentRoleeditnapin() {
   let roles = '';
   if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
@@ -869,8 +876,6 @@ export function getCurrentRoleeditnapin() {
   }
   return '1';
 }
-//add ccm 20210524 to
-import CryptoJS from 'crypto-js/crypto-js';
 
 
 // 默认的 KEY 与 iv ，可以和后端商议好，只要统一的给16位字符串即可
@@ -912,6 +917,7 @@ export function Decrypt(word, keyStr, ivStr) {
   var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
   return decryptedStr.toString();
 }
+
 //add-ws-12/10-汇率字典
 export function getMonthlyrateInfo(code) {
   let info = null;
@@ -925,6 +931,7 @@ export function getMonthlyrateInfo(code) {
   }
   return info;
 }
+
 export function getMonthlyrateInfo2(code, month) {
   let dic = store.getters.monthlyrate.filter(item => item.month === month);
   let info = null;
@@ -938,6 +945,7 @@ export function getMonthlyrateInfo2(code, month) {
   }
   return info;
 }
+
 //add-ws-12/10-汇率字典
 //add-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-from
 export function getCurrentRole20() {
@@ -952,6 +960,7 @@ export function getCurrentRole20() {
   }
   return '1';
 }
+
 //add-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-to
 export function getCurrentRole21() {
   let roles = '';
@@ -970,15 +979,13 @@ export function getCurrentRole21() {
 export function accAdd(arg1, arg2) {
   var r1, r2, m, c;
   try {
-    r1 = arg1.toString().split(".")[1].length;
-  }
-  catch (e) {
+    r1 = arg1.toString().split('.')[1].length;
+  } catch (e) {
     r1 = 0;
   }
   try {
-    r2 = arg2.toString().split(".")[1].length;
-  }
-  catch (e) {
+    r2 = arg2.toString().split('.')[1].length;
+  } catch (e) {
     r2 = 0;
   }
   c = Math.abs(r1 - r2);
@@ -986,17 +993,18 @@ export function accAdd(arg1, arg2) {
   if (c > 0) {
     var cm = Math.pow(10, c);
     if (r1 > r2) {
-      arg1 = Number(arg1.toString().replace(".", ""));
-      arg2 = Number(arg2.toString().replace(".", "")) * cm;
+      arg1 = Number(arg1.toString().replace('.', ''));
+      arg2 = Number(arg2.toString().replace('.', '')) * cm;
     } else {
-      arg1 = Number(arg1.toString().replace(".", "")) * cm;
-      arg2 = Number(arg2.toString().replace(".", ""));
+      arg1 = Number(arg1.toString().replace('.', '')) * cm;
+      arg2 = Number(arg2.toString().replace('.', ''));
     }
   } else {
-    arg1 = Number(arg1.toString().replace(".", ""));
-    arg2 = Number(arg2.toString().replace(".", ""));
+    arg1 = Number(arg1.toString().replace('.', ''));
+    arg2 = Number(arg2.toString().replace('.', ''));
   }
   return (arg1 + arg2) / m;
 }
+
 //解决浮点加法计算问题 -end ztc
 

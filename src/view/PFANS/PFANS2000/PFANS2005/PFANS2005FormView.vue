@@ -1,45 +1,46 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer
-      :buttonList="buttonList"
-      @buttonClick="buttonClick"
       ref="container"
       v-loading="loading"
-      @disabled="setdisabled"
+      :buttonList="buttonList"
       :canStart="canStart"
+      :workflowCode="workflowCode"
+      @buttonClick="buttonClick"
+      @disabled="setdisabled"
       @end="end"
       @start="start"
-      :workflowCode="workflowCode"
       @workflowState="workflowState"
     >
       <div slot="customize">
-        <el-form label-position="top" label-width="8vw" ref="form">
-          <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
+        <el-form ref="form" label-position="top" label-width="8vw">
+          <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_GZ')" name="first">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(1)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(1)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
               <div style="height: calc(100vh - 230px - 2rem);width: 100%">
                 <plx-table-grid
+                  ref="eltable"
+                  :cell-class-name="rowheight"
                   :datas="totaldata"
                   :element-loading-text="$t('normal.waiting')"
+                  :height-change="false"
+                  :pagination-show="false"
+                  :row-height="40"
+                  border
                   header-cell-class-name="sub_bg_color_blue"
                   header-row-class-name="height"
-                  :pagination-show="false"
-                  :height-change="false"
                   highlight-current-row
-                  ref="eltable"
                   stripe
-                  border
-                  use-virtual
                   style="width: 100%"
-                  :cell-class-name="rowheight"
-                  :row-height="40"
+                  use-virtual
                 >
                   <!-- <plx-table-column
                     prop="basicinfor1"
@@ -47,74 +48,74 @@
                     align="center"
                   >-->
                   <plx-table-column
-                    sortable
-                    prop="no"
                     :label="$t('label.PFANS2006VIEW_NO')"
-                    width="70"
                     align="center"
                     fixed="left"
+                    prop="no"
+                    sortable
+                    width="70"
                   >
                     <template slot-scope="scope">
                       <span style="color:blue">{{ scope.row.no }}</span>
                     </template>
                   </plx-table-column>
                   <plx-table-column
-                    prop="department_id"
                     :label="$t('label.PFANS2006VIEW_CLUB')"
+                    align="center"
+                    fixed="left"
+                    prop="department_id"
                     width="70"
-                    align="center"
-                    fixed="left"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="user_name"
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                    width="90"
                     align="center"
                     fixed="left"
+                    prop="user_name"
+                    width="90"
                   ></plx-table-column>
                   <plx-table-column
-                    sortable
-                    prop="workdate"
                     :label="$t('label.PFANS2006VIEW_JOINED')"
-                    width="110"
                     align="center"
+                    prop="workdate"
+                    sortable
+                    width="110"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="sexshow"
                     :label="$t('label.PFANS2006VIEW_SEX')"
+                    align="center"
+                    prop="sexshow"
                     width="50"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="onlychildshow"
                     :label="$t('label.PFANS2006VIEW_SINGLECHILD')"
+                    align="center"
+                    prop="onlychildshow"
                     width="80"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="typeshow"
                     :label="$t('label.PFANS2006VIEW_ENTRYTYPE')"
-                    width="110"
                     align="center"
+                    prop="typeshow"
+                    width="110"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="bonusshow"
                     :label="$t('label.PFANS2006VIEW_SCHOLARSHIP')"
+                    align="center"
+                    prop="bonusshow"
                     sortable
                     width="100"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="sociologyshow"
                     :label="$t('label.PFANS2006VIEW_SOCIETY')"
-                    width="120"
                     align="center"
+                    prop="sociologyshow"
+                    width="120"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="registeredshow"
                     :label="$t('label.PFANS2006VIEW_REGISTER')"
-                    width="80"
                     align="center"
+                    prop="registeredshow"
+                    width="80"
                   ></plx-table-column>
                   <!-- </plx-table-column> -->
 
@@ -135,65 +136,65 @@
                   <!--                    align="center"-->
                   <!--                  ></plx-table-column>-->
                   <plx-table-column
-                    prop="yanglaojs"
                     :label="$t('label.PFANS2005FORMVIEW_YANGLAOJS')"
+                    align="center"
+                    prop="yanglaojs"
                     sortable
                     width="130"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="shiyejs"
                     :label="$t('label.PFANS2005FORMVIEW_SHIYEJS')"
-                    width="100"
                     align="center"
+                    prop="shiyejs"
+                    width="100"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="gongshangjs"
                     :label="$t('label.PFANS2005FORMVIEW_GONGSHANGJS')"
-                    width="100"
                     align="center"
+                    prop="gongshangjs"
+                    width="100"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="yiliaojs"
                     :label="$t('label.PFANS2005FORMVIEW_YILIAOJS')"
-                    width="100"
                     align="center"
+                    prop="yiliaojs"
+                    width="100"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="shengyujs"
                     :label="$t('label.PFANS2005FORMVIEW_SHENGYUJS')"
-                    width="100"
                     align="center"
+                    prop="shengyujs"
+                    width="100"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="accumulation"
                     :label="$t('label.PFANS2005FORMVIEW_HOUSINGFUNDBASE')"
-                    width="112"
                     align="center"
+                    prop="accumulation"
+                    width="112"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="lastmonthbasic"
                     :label="$t('label.PFANS2005FORMVIEW_LASTMONTHBASIC')"
+                    align="center"
+                    prop="lastmonthbasic"
                     width="112"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="lastmonthduty"
                     :label="$t('label.PFANS2005FORMVIEW_LASTMONTHDUTY')"
-                    width="100"
                     align="center"
+                    prop="lastmonthduty"
+                    width="100"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="basethismonthbasic"
                     :label="$t('label.PFANS2005FORMVIEW_BASETHISMONTHBASIC')"
-                    width="100"
                     align="center"
+                    prop="basethismonthbasic"
+                    width="100"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="thismonthduty"
                     :label="$t('label.PFANS2005FORMVIEW_THISMONTHDUTY')"
-                    width="100"
                     align="center"
+                    prop="thismonthduty"
+                    width="100"
                   ></plx-table-column>
                   <!-- <plx-table-column
                       prop="lastmonth"
@@ -208,52 +209,52 @@
                       align="center"
                   ></plx-table-column>-->
                   <plx-table-column
-                    prop="rnbasesalary"
                     :label="$t('label.PFANS2005FORMVIEW_RANK')"
-                    width="110"
-                    align="center">
+                    align="center"
+                    prop="rnbasesalary"
+                    width="110">
                   </plx-table-column>
                   <plx-table-column
-                    prop="birthrest"
                     :label="$t('label.PFANS2005FORMVIEW_BIRTHDAYREST')"
+                    align="center"
+                    prop="birthrest"
                     width="190"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="thismonthbasicbasic"
                     :label="$t('label.PFANS2006VIEW_THISMONTHBASICBASIC')"
+                    align="center"
+                    prop="thismonthbasicbasic"
                     width="176"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="thismonthbasic"
                     :label="$t('label.PFANS2005FORMVIEW_MONTHLYPOSTALTEMPORARY')"
+                    align="center"
+                    prop="thismonthbasic"
                     width="170"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="shortillness"
                     :label="$t('label.PFANS2005FORMVIEW_SHORTDURATIONTIME')"
-                    width="90"
                     align="center"
+                    prop="shortillness"
+                    width="90"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="longillness"
                     :label="$t('label.PFANS2005FORMVIEW_LONGDURATIONTIME')"
+                    align="center"
+                    prop="longillness"
                     width="90"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="owediligence"
                     :label="$t('label.PFANS2005FORMVIEW_ABSENCETIME')"
-                    width="80"
                     align="center"
+                    prop="owediligence"
+                    width="80"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="owingcontrol"
                     :label="$t('label.PFANS2005FORMVIEW_ABSENCEOFWORK')"
-                    width="106"
                     align="center"
+                    prop="owingcontrol"
+                    width="106"
                   ></plx-table-column>
                   <!-- </plx-table-column> -->
 
@@ -265,16 +266,16 @@
                       align="center"
                   ></plx-table-column>-->
                   <plx-table-column
-                    prop="thismonthbasicgei"
                     :label="$t('label.PFANS2006VIEW_THISMONTHBASICGEI')"
-                    width="90"
                     align="center"
+                    prop="thismonthbasicgei"
+                    width="90"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="thismonthdutygei"
                     :label="$t('label.PFANS2006VIEW_THISMONTHDUTYGEI')"
-                    width="90"
                     align="center"
+                    prop="thismonthdutygei"
+                    width="90"
                   ></plx-table-column>
                   <!-- <plx-table-column
                       prop="supplement"
@@ -302,30 +303,30 @@
                   ></plx-table-column>-->
                   <!-- 一括补助基本 -->
                   <plx-table-column
-                    prop="ykbzjs"
                     :label="$t('label.PFANS2006VIEW_YKBZJB')"
-                    width="112"
                     align="center"
+                    prop="ykbzjs"
+                    width="112"
                   ></plx-table-column>
                   <!-- 一括补助 -->
                   <plx-table-column
-                    prop="ykbz"
                     :label="$t('label.PFANS2006VIEW_YKBZ')"
-                    width="80"
                     align="center"
+                    prop="ykbz"
+                    width="80"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="overtimesubsidy"
                     :label="$t('label.PFANS2006VIEW_KASUKE')"
-                    width="80"
                     align="center"
+                    prop="overtimesubsidy"
+                    width="80"
                   ></plx-table-column>
                   <!-- 小计1(基本給+补助) -->
                   <plx-table-column
-                    prop="total1"
                     :label="$t('label.PFANS2006VIEW_SUBTOTAL1')"
-                    width="140"
                     align="center"
+                    prop="total1"
+                    width="140"
                   ></plx-table-column>
                   <!-- <plx-table-column
                       prop="other1"
@@ -348,86 +349,86 @@
                       align="center"
                   ></plx-table-column>-->
                   <plx-table-column
-                    prop="other2"
                     :label="$t('label.PFANS2006VIEW_OTHER2')"
-                    width="130"
                     align="center"
+                    prop="other2"
+                    width="130"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.other2"
-                        @change="wagesChange(scope.row,scope.row.no,scope.row.other2,'other2')"
-                        controls-position="right"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="wagesChange(scope.row,scope.row.no,scope.row.other2,'other2')"
                       ></el-input-number>
                     </template>
                     <!-- gbb 0720 工资计算画面调整项目添加 end -->
                   </plx-table-column>
                   <plx-table-column
-                    prop="appreciation"
                     :label="$t('label.PFANS2006VIEW_MONTHLYBONUS')"
-                    width="130"
                     align="center"
+                    prop="appreciation"
+                    width="130"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.appreciation"
-                        @change="wagesChange(scope.row,scope.row.no,scope.row.appreciation,'appreciation')"
-                        controls-position="right"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="wagesChange(scope.row,scope.row.no,scope.row.appreciation,'appreciation')"
                       ></el-input-number>
                     </template>
                     <!-- gbb 0720 工资计算画面调整项目添加 end -->
                   </plx-table-column>
                   <plx-table-column
-                    prop="other3"
                     :label="$t('label.PFANS2006VIEW_OTHER3')"
-                    width="130"
                     align="center"
+                    prop="other3"
+                    width="130"
                   >
                     <!-- zqu start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.other3"
-                        @change="wagesChange(scope.row,scope.row.no,scope.row.other3,'other3')"
-                        controls-position="right"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="wagesChange(scope.row,scope.row.no,scope.row.other3,'other3')"
                       ></el-input-number>
                     </template>
                     <!-- zqu end -->
                   </plx-table-column>
                   <plx-table-column
-                    prop="total2"
                     :label="$t('label.PFANS2006VIEW_SUBTOTAL2')"
-                    width="130"
                     align="center"
+                    prop="total2"
+                    width="130"
                   >
                   </plx-table-column>
                   <!-- </plx-table-column> -->
 
                   <plx-table-column
-                    prop="taxestotal"
                     :label="$t('label.PFANS2006VIEW_INDUSTRY')"
-                    width="200"
                     align="center"
+                    prop="taxestotal"
+                    width="200"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.taxestotal"
-                        @change="wagesChange(scope.row,scope.row.no,scope.row.taxestotal,'taxestotal')"
-                        controls-position="right"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="wagesChange(scope.row,scope.row.no,scope.row.taxestotal,'taxestotal')"
                       ></el-input-number>
                     </template>
                     <!-- gbb 0720 工资计算画面调整项目添加 end -->
@@ -435,297 +436,297 @@
 
                   <!-- <plx-table-column :label="$t('label.PFANS2005FORMVIEW_MS')" align="center"> -->
                   <plx-table-column
-                    prop="heating"
                     :label="$t('label.PFANS2006VIEW_HEATING')"
-                    width="70"
                     align="center"
+                    prop="heating"
+                    width="70"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="onlychildmoney"
                     :label="$t('label.PFANS2006VIEW_OLONECHILD')"
+                    align="center"
+                    prop="onlychildmoney"
                     width="90"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="total3"
                     :label="$t('label.PFANS2006VIEW_SUBTOTAL3')"
+                    align="center"
+                    prop="total3"
                     width="70"
-                    align="center"
                   ></plx-table-column>
                   <!-- </plx-table-column> -->
 
                   <plx-table-column
-                    prop="totalwages"
                     :label="$t('label.PFANS2006VIEW_ARSENAL')"
-                    width="140"
                     align="center"
+                    prop="totalwages"
+                    width="140"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="endowmentinsurance"
                     :label="$t('label.PFANS2006VIEW_OLD')"
-                    width="130"
                     align="center"
+                    prop="endowmentinsurance"
+                    width="130"
                   >
                   </plx-table-column>
                   <plx-table-column
-                    prop="medicalinsurance"
                     :label="$t('label.PFANS2006VIEW_MEDICAL')"
-                    width="130"
                     align="center"
+                    prop="medicalinsurance"
+                    width="130"
                   >
                   </plx-table-column>
                   <plx-table-column
-                    prop="unemploymentinsurance"
                     :label="$t('label.PFANS2006VIEW_UNEMPLOYMENT')"
-                    width="130"
                     align="center"
+                    prop="unemploymentinsurance"
+                    width="130"
                   >
                   </plx-table-column>
                   <!-- </plx-table-column> -->
 
                   <plx-table-column
-                    prop="socialinsurance"
                     :label="$t('label.PFANS2006VIEW_SOCIALSECURITY')"
-                    width="130"
                     align="center"
+                    prop="socialinsurance"
+                    width="130"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.socialinsurance"
-                        @change="wagesChange(scope.row,scope.row.no,scope.row.socialinsurance,'socialinsurance')"
-                        controls-position="right"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="wagesChange(scope.row,scope.row.no,scope.row.socialinsurance,'socialinsurance')"
                       ></el-input-number>
                     </template>
                     <!-- gbb 0720 工资计算画面调整项目添加 end -->
                   </plx-table-column>
                   <plx-table-column
-                    prop="accumulationfund"
                     :label="$t('label.PFANS2006VIEW_PUBLICMONEY')"
-                    width="130"
                     align="center"
+                    prop="accumulationfund"
+                    width="130"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.accumulationfund"
-                        @change="wagesChange(scope.row,scope.row.no,scope.row.accumulationfund,'accumulationfund')"
-                        controls-position="right"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="wagesChange(scope.row,scope.row.no,scope.row.accumulationfund,'accumulationfund')"
                       ></el-input-number>
                     </template>
                     <!-- gbb 0720 工资计算画面调整项目添加 end -->
                   </plx-table-column>
                   <plx-table-column
-                    prop="disciplinarycontrol"
                     :label="$t('label.PFANS2006VIEW_SECURITYMON')"
-                    width="150"
                     align="center"
+                    prop="disciplinarycontrol"
+                    width="150"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="disciplinary_total"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="comprehensive_yearstotal12"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_ljynssdecs"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_0je"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_1je"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_0sl"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_1sl"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_2sl"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_3sl"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_4sl"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_5sl"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_6sl"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_0sskc"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_1sskc"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_2sskc"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_3sskc"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_4sskc"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_5sskc"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
+                    v-if="false"
+                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
+                    align="center"
                     prop="dic_6sskc"
-                    :label="$t('label.PFANS2005FORMVIEW_ADJUSTMENTNUMBER')"
                     width="150"
-                    align="center"
-                    v-if="false"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="thismonthterm"
                     :label="$t('label.PFANS2006VIEW_EXCLUSIVE')"
-                    width="150"
                     align="center"
+                    prop="thismonthterm"
+                    width="150"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="thismonthadditional"
                     :label="$t('label.PFANS2006VIEW_ACCUMULATED')"
-                    width="150"
                     align="center"
+                    prop="thismonthadditional"
+                    width="150"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="thismonthdutyfree"
                     :label="$t('label.PFANS2006VIEW_UNACCUMULATED')"
-                    width="150"
                     align="center"
+                    prop="thismonthdutyfree"
+                    width="150"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="lastdutyfree"
                     :label="$t('label.PFANS2006VIEW_ANNUAL')"
-                    width="150"
                     align="center"
+                    prop="lastdutyfree"
+                    width="150"
                   ></plx-table-column>
 
                   <!-- <plx-table-column :label="$t('label.PFANS2006VIEW_ONLYTAX')" align="center"> -->
                   <plx-table-column
-                    prop="housingmoneys"
                     :label="$t('label.PFANS2006VIEW_RESIDENTIALTAX')"
-                    width="126"
                     align="center"
+                    prop="housingmoneys"
+                    width="126"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="other4"
                     :label="$t('label.PFANS2006VIEW_COMPANYBOSS')"
-                    width="130"
                     align="center"
+                    prop="other4"
+                    width="130"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.other4"
-                        @change="wagesChange(scope.row,scope.row.no,scope.row.other4,'other4')"
-                        controls-position="right"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="wagesChange(scope.row,scope.row.no,scope.row.other4,'other4')"
                       ></el-input-number>
                     </template>
                     <!-- gbb 0720 工资计算画面调整项目添加 end -->
                   </plx-table-column>
                   <plx-table-column
-                    prop="other5"
                     :label="$t('label.PFANS2006VIEW_OTHER5')"
-                    width="130"
                     align="center"
+                    prop="other5"
+                    width="130"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.other5"
-                        @change="wagesChange(scope.row,scope.row.no,scope.row.other5,'other5')"
-                        controls-position="right"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="wagesChange(scope.row,scope.row.no,scope.row.other5,'other5')"
                       ></el-input-number>
                     </template>
                     <!-- gbb 0720 工资计算画面调整项目添加 end -->
@@ -733,142 +734,142 @@
                   <!-- </plx-table-column> -->
 
                   <plx-table-column
-                    prop="shouldwages"
                     :label="$t('label.PFANS2006VIEW_RESPONSIBLE')"
+                    align="center"
+                    prop="shouldwages"
                     width="200"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="shouldcumulative"
                     :label="$t('label.PFANS2006VIEW_CUMULATIVE')"
+                    align="center"
+                    prop="shouldcumulative"
                     width="160"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="shouldpaytaxes"
                     :label="$t('label.PFANS2006VIEW_INCOME')"
-                    width="140"
                     align="center"
+                    prop="shouldpaytaxes"
+                    width="140"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="thismonthadjustment"
                     :label="$t('label.PFANS2006VIEW_THISMONTH')"
-                    width="120"
                     align="center"
+                    prop="thismonthadjustment"
+                    width="120"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.thismonthadjustment"
-                        @change="wagesChange(scope.row,scope.row.no,scope.row.thismonthadjustment,'thismonthadjustment')"
-                        controls-position="right"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="wagesChange(scope.row,scope.row.no,scope.row.thismonthadjustment,'thismonthadjustment')"
                       ></el-input-number>
                     </template>
                     <!-- gbb 0720 工资计算画面调整项目添加 end -->
                   </plx-table-column>
                   <plx-table-column
-                    prop="realwages"
                     :label="$t('label.PFANS2005VIEW_ACTUAL')"
+                    align="center"
+                    prop="realwages"
                     width="100"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="comendowmentinsurance"
                     :label="$t('label.PFANS2006VIEW_OLD')"
-                    width="120"
                     align="center"
+                    prop="comendowmentinsurance"
+                    width="120"
                   >
                   </plx-table-column>
                   <plx-table-column
-                    prop="commedicalinsurance"
                     :label="$t('label.PFANS2006VIEW_MEDICAL')"
-                    width="120"
                     align="center"
+                    prop="commedicalinsurance"
+                    width="120"
                   >
                   </plx-table-column>
                   <plx-table-column
-                    prop="comunemploymentinsurance"
                     :label="$t('label.PFANS2006VIEW_UNEMPLOYMENT')"
-                    width="120"
                     align="center"
+                    prop="comunemploymentinsurance"
+                    width="120"
                   >
                   </plx-table-column>
                   <plx-table-column
-                    prop="cominjuryinsurance"
                     :label="$t('label.PFANS2005FORMVIEW_EMPLOYMENTINJURYINSURANCE')"
-                    width="120"
                     align="center"
+                    prop="cominjuryinsurance"
+                    width="120"
                   >
                   </plx-table-column>
                   <plx-table-column
-                    prop="combirthinsurance"
                     :label="$t('label.PFANS2005FORMVIEW_COMBIRTHINSURANCE')"
-                    width="120"
                     align="center"
+                    prop="combirthinsurance"
+                    width="120"
                   >
                   </plx-table-column>
                   <plx-table-column
-                    prop="comheating"
                     :label="$t('label.PFANS2005FORMVIEW_HEATINGCOST')"
-                    width="70"
                     align="center"
+                    prop="comheating"
+                    width="70"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="socialsecurity"
                     :label="$t('label.PFANS2005FORMVIEW_SOCIALSECURITY')"
-                    width="120"
                     align="center"
+                    prop="socialsecurity"
+                    width="120"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.socialsecurity"
-                        @change="wagesChange(scope.row,scope.row.no,scope.row.socialsecurity,'socialsecurity')"
-                        controls-position="right"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="wagesChange(scope.row,scope.row.no,scope.row.socialsecurity,'socialsecurity')"
                       ></el-input-number>
                     </template>
                     <!-- gbb 0720 工资计算画面调整项目添加 end -->
                   </plx-table-column>
                   <plx-table-column
-                    prop="comaccumulationfund"
                     :label="$t('label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND')"
-                    width="120"
                     align="center"
+                    prop="comaccumulationfund"
+                    width="120"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.comaccumulationfund"
-                        @change="wagesChange(scope.row,scope.row.no,scope.row.comaccumulationfund,'comaccumulationfund')"
-                        controls-position="right"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="wagesChange(scope.row,scope.row.no,scope.row.comaccumulationfund,'comaccumulationfund')"
                       ></el-input-number>
                     </template>
                     <!-- gbb 0720 工资计算画面调整项目添加 end -->
                   </plx-table-column>
                   <plx-table-column
-                    prop="total"
                     :label="$t('label.PFANS2005FORMVIEW_TOTAL')"
-                    width="120"
                     align="center"
+                    prop="total"
+                    width="120"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.total"
-                        @change="wagesChange(scope.row,scope.row.no,scope.row.total,'total')"
-                        controls-position="right"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="wagesChange(scope.row,scope.row.no,scope.row.total,'total')"
                       ></el-input-number>
                     </template>
                     <!-- gbb 0720 工资计算画面调整项目添加 end -->
@@ -893,56 +894,56 @@
                   <!--                    </template>-->
                   <!--                  </plx-table-column>-->
                   <plx-table-column
-                    prop="labourunionbase"
                     :label="$t('label.PFANS2005FORMVIEW_LABORUNIONFUNDBASE')"
+                    align="center"
+                    prop="labourunionbase"
                     width="100"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="labourunionfunds"
                     :label="$t('label.PFANS2009VIEW_INDUSTRIALPARTY')"
-                    width="80"
                     align="center"
+                    prop="labourunionfunds"
+                    width="80"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="comtotalwages"
                     :label="$t('label.PFANS2005FORMVIEW_TOTALWAGES')"
+                    align="center"
+                    prop="comtotalwages"
                     width="180"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="njjy"
                     :label="$t('label.PFANS2005FORMVIEW_NJJY')"
-                    width="80"
                     align="center"
+                    prop="njjy"
+                    width="80"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="bonusmoney"
                     :label="$t('label.PFANS2005FORMVIEW_GAUGE')"
+                    align="center"
+                    prop="bonusmoney"
                     width="80"
-                    align="center"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="totalbonus"
                     :label="$t('label.PFANS2005FORMVIEW_TOTALGAUGE')"
-                    width="114"
                     align="center"
+                    prop="totalbonus"
+                    width="114"
                   ></plx-table-column>
                   <plx-table-column
-                    prop="other6"
                     :label="$t('label.PFANS2005FORMVIEW_OTHER6')"
-                    width="150"
                     align="center"
+                    prop="other6"
+                    width="150"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.other6"
-                        @change="wagesChange(scope.row,scope.row.no,scope.row.other6,'other6')"
-                        controls-position="right"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="wagesChange(scope.row,scope.row.no,scope.row.other6,'other6')"
                       ></el-input-number>
                     </template>
                     <!-- gbb 0720 工资计算画面调整项目添加 end -->
@@ -951,44 +952,45 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_JS')" name="second">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(2)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(2)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
               <el-table
                 :data="tableJS"
-                stripe
-                border
                 :summary-method="getSummaries"
-                show-summary
+                border
                 header-cell-class-name="sub_bg_color_blue"
                 height='calc(100vh - 230px - 2rem)'
+                show-summary
+                stripe
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
-                  sortable
                   align="center"
-                  prop="rowindex"
-                  width="70"
                   fixed="left"
+                  prop="rowindex"
+                  sortable
+                  width="70"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_CLUB')"
                   align="center"
+                  fixed="left"
                   prop="department_id"
                   width="70"
-                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                  width="90"
                   align="center"
-                  prop="user_name"
                   fixed="left"
+                  prop="user_name"
+                  width="90"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2003FORMVIEW_RN')"
@@ -1107,9 +1109,9 @@
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2022VIEW_JOININGDAY')"
-                  sortable
                   align="center"
                   prop="workdate"
+                  sortable
                   width="126"
                 ></el-table-column>
               </el-table>
@@ -1119,59 +1121,60 @@
                   :page-size="listQueryListJS.limit"
                   :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalBase"
+                  layout="slot,sizes, ->,prev, pager, next, jumper"
                   @current-change="handleCurrentChangeJS"
                   @size-change="handleSizeChangeJS"
-                  layout="slot,sizes, ->,prev, pager, next, jumper"
                 >
                   <slot>
                     <span
                       class="front Content_front"
                       style="padding-right: 0.5rem;font-weight: 400"
-                    >{{$t('table.pagesize')}}</span>
+                    >{{ $t('table.pagesize') }}</span>
                   </slot>
                 </el-pagination>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT1')" name="third">
               <div>
-                <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-row justify="end" style="margin-bottom:1vh" type="flex">
                   <el-col :span="6">
-                    <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                              v-model="filterName">
-                      <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(3)"></el-button>
+                    <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                              style="width: 20vw">
+                      <el-button slot="append" icon="el-icon-search" plain type="primary"
+                                 @click="inputChange(3)"></el-button>
                     </el-input>
                   </el-col>
                 </el-row>
                 <el-collapse value="women">
                   <el-collapse-item name="women">
                     <template slot="title">
-                      <span class="collapse_Title">{{$t('label.PFANS2005FORMVIEW_FEMALELEAVE')}}</span>
+                      <span class="collapse_Title">{{ $t('label.PFANS2005FORMVIEW_FEMALELEAVE') }}</span>
                     </template>
                     <el-table
                       :data="tableQT1Woman"
-                      stripe
                       border
                       header-cell-class-name="sub_bg_color_blue"
                       height='calc(100vh - 230px - 2rem)'
+                      stripe
                     >
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_NO')"
-                        sortable
-                        width="70"
                         align="center"
                         prop="rowindex"
+                        sortable
+                        width="70"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_CLUB')"
-                        width="120"
                         align="center"
                         prop="department_id"
+                        width="120"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                        width="120"
                         align="center"
                         prop="user_name"
+                        width="120"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_SEX')"
@@ -1180,9 +1183,9 @@
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2022VIEW_JOININGDAY')"
-                        sortable
                         align="center"
                         prop="workdate"
+                        sortable
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2005FORMVIEW_RESTSTART')"
@@ -1230,15 +1233,15 @@
                         :page-size="listQueryListQT1Woman.limit"
                         :page-sizes="[20,30,50,100,300,500,99999]"
                         :total="totalOtherOne"
+                        layout="slot,sizes, ->,prev, pager, next, jumper"
                         @current-change="handleCurrentChangeQT1Woman"
                         @size-change="handleSizeChangeQT1Woman"
-                        layout="slot,sizes, ->,prev, pager, next, jumper"
                       >
                         <slot>
                           <span
                             class="front Content_front"
                             style="padding-right: 0.5rem;font-weight: 400"
-                          >{{$t('table.pagesize')}}</span>
+                          >{{ $t('table.pagesize') }}</span>
                         </slot>
                       </el-pagination>
                     </div>
@@ -1247,32 +1250,32 @@
                 <el-collapse value="women">
                   <el-collapse-item name="man">
                     <template slot="title">
-                      <span class="collapse_Title">{{$t('label.PFANS2005FORMVIEW_MALELEAVE')}}</span>
+                      <span class="collapse_Title">{{ $t('label.PFANS2005FORMVIEW_MALELEAVE') }}</span>
                     </template>
                     <el-table
                       :data="tableQT1Man"
-                      stripe
                       border
                       header-cell-class-name="sub_bg_color_blue"
                       height='calc(100vh - 230px - 2rem)'
+                      stripe
                     >
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_NO')"
-                        width="50"
                         align="center"
                         prop="rowindex"
+                        width="50"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_CLUB')"
-                        width="120"
                         align="center"
                         prop="department_id"
+                        width="120"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                        width="120"
                         align="center"
                         prop="user_name"
+                        width="120"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_SEX')"
@@ -1281,9 +1284,9 @@
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2022VIEW_JOININGDAY')"
-                        sorttable
                         align="center"
                         prop="workdate"
+                        sorttable
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2005FORMVIEW_RESTSTART')"
@@ -1331,15 +1334,15 @@
                         :page-size="listQueryListQT1Woman.limit"
                         :page-sizes="[20,30,50,100,300,500,99999]"
                         :total="totalOtherOne"
+                        layout="slot,sizes, ->,prev, pager, next, jumper"
                         @current-change="handleCurrentChangeQT1Woman"
                         @size-change="handleSizeChangeQT1Woman"
-                        layout="slot,sizes, ->,prev, pager, next, jumper"
                       >
                         <slot>
                           <span
                             class="front Content_front"
                             style="padding-right: 0.5rem;font-weight: 400"
-                          >{{$t('table.pagesize')}}</span>
+                          >{{ $t('table.pagesize') }}</span>
                         </slot>
                       </el-pagination>
                     </div>
@@ -1348,11 +1351,12 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT2')" name="fourth">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(4)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(4)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
@@ -1361,25 +1365,25 @@
                   <el-table
                     :data="tableQT2"
                     :summary-method="getSummaries"
-                    header-cell-class-name="sub_bg_color_blue"
                     border
-                    show-summary
+                    header-cell-class-name="sub_bg_color_blue"
                     height='calc(100vh - 230px - 2rem)'
+                    show-summary
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
+                      align="center"
+                      fixed="left"
+                      prop="rowindex"
                       sortable
                       width="70"
-                      align="center"
-                      prop="rowindex"
-                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                      width="120"
                       align="center"
-                      prop="user_name"
                       fixed="left"
+                      prop="user_name"
+                      width="120"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS1004VIEW_AMOUNT')"
@@ -1387,12 +1391,12 @@
                       prop="moneys"
                     >
                       <template slot-scope="scope">
-                        <div v-if="scope.row.type === '0'">{{scope.row.moneys}}</div>
+                        <div v-if="scope.row.type === '0'">{{ scope.row.moneys }}</div>
                         <el-input-number
                           v-if="scope.row.type === '1'"
                           v-model="scope.row.moneys"
-                          controls-position="right"
                           :min="-10000000"
+                          controls-position="right"
                           size="mini"
                           style="width:7rem"
                         ></el-input-number>
@@ -1404,7 +1408,7 @@
                       prop="rootknot"
                     >
                       <template slot-scope="scope">
-                        <div v-if="scope.row.type === '0'">{{scope.row.rootknot}}</div>
+                        <div v-if="scope.row.type === '0'">{{ scope.row.rootknot }}</div>
                         <el-input v-if="scope.row.type === '1'" v-model="scope.row.rootknot"></el-input>
                       </template>
                     </el-table-column>
@@ -1415,15 +1419,15 @@
                       :page-size="listQueryListQT2.limit"
                       :page-sizes="[20,30,50,100,300,500,99999]"
                       :total="totalQT2"
+                      layout="slot,sizes, ->,prev, pager, next, jumper"
                       @current-change="handleCurrentChangeQT2"
                       @size-change="handleSizeChangeQT2"
-                      layout="slot,sizes, ->,prev, pager, next, jumper"
                     >
                       <slot>
                         <span
                           class="front Content_front"
                           style="padding-right: 0.5rem;font-weight: 400"
-                        >{{$t('table.pagesize')}}</span>
+                        >{{ $t('table.pagesize') }}</span>
                       </slot>
                     </el-pagination>
                   </div>
@@ -1434,6 +1438,7 @@
                   <div>
                     <div style="margin-top: 1rem;margin-left: 28%">
                       <el-upload
+                        ref="uploader"
                         :action="UploadUrlothertwo()"
                         :before-upload="handleChange"
                         :headers="authHeader"
@@ -1442,21 +1447,20 @@
                         :on-success="handleSuccess"
                         drag
                         multiple
-                        ref="uploader"
                       >
                         <i class="el-icon-upload"></i>
-                        <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
+                        <div>{{ $t('label.PFANS2005FORMVIEW_MBYQ') }}</div>
                       </el-upload>
                     </div>
                     <el-row>
                       <span
                         v-if="this.resultShowothertwo"
-                      >{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                      >{{ $t('label.PFANS2005FORMVIEW_CG') }}{{ this.successCount }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                       <span
                         v-if="this.resultShowothertwo"
-                      >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
+                      >{{ $t('label.PFANS2005FORMVIEW_SB') }}{{ this.errorCount }}</span>
                     </el-row>
-                    <span v-if="this.Messageothertwo">{{this.cuowu}}</span>
+                    <span v-if="this.Messageothertwo">{{ this.cuowu }}</span>
                     <div v-if="this.resultothertwo">
                       <el-table :data="message">
                         <el-table-column
@@ -1477,15 +1481,15 @@
                           :page-size="listQuery.limit"
                           :page-sizes="[20,30,50,100,300,500,99999]"
                           :total="total"
+                          layout="slot,sizes, ->,prev, pager, next, jumper"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
-                          layout="slot,sizes, ->,prev, pager, next, jumper"
                         >
                           <slot>
                             <span
                               class="front Content_front"
                               style="padding-right: 0.5rem;font-weight: 400"
-                            >{{$t('table.pagesize')}}</span>
+                            >{{ $t('table.pagesize') }}</span>
                           </slot>
                         </el-pagination>
                       </div>
@@ -1495,11 +1499,12 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT4')" name="fifth">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(5)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(5)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
@@ -1507,36 +1512,36 @@
                 <el-row>
                   <el-table
                     :data="tableQT4"
-                    header-cell-class-name="sub_bg_color_blue"
-                    show-summary
-                    border
                     :summary-method="getSummaries"
+                    border
+                    header-cell-class-name="sub_bg_color_blue"
                     height='calc(100vh - 230px - 2rem)'
+                    show-summary
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
-                      sortable
-                      width="70"
                       align="center"
                       prop="rowindex"
+                      sortable
+                      width="70"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_CLUB')"
-                      width="120"
                       align="center"
                       prop="department_id"
+                      width="120"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2020VIEW_JOBNUMBER')"
-                      width="120"
                       align="center"
                       prop="jobnumber"
+                      width="120"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                      width="120"
                       align="center"
                       prop="user_name"
+                      width="120"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2009VIEW_DEPARTMENT')"
@@ -1556,15 +1561,15 @@
                       :page-size="listQueryListQT4.limit"
                       :page-sizes="[20,30,50,100,300,500,99999]"
                       :total="totalQT4"
+                      layout="slot,sizes, ->,prev, pager, next, jumper"
                       @current-change="handleCurrentChangeQT4"
                       @size-change="handleSizeChangeQT4"
-                      layout="slot,sizes, ->,prev, pager, next, jumper"
                     >
                       <slot>
                         <span
                           class="front Content_front"
                           style="padding-right: 0.5rem;font-weight: 400"
-                        >{{$t('table.pagesize')}}</span>
+                        >{{ $t('table.pagesize') }}</span>
                       </slot>
                     </el-pagination>
                   </div>
@@ -1575,6 +1580,7 @@
                   <div>
                     <div style="margin-top: 1rem;margin-left: 28%">
                       <el-upload
+                        ref="uploader"
                         :action="UploadUrlotherfour()"
                         :before-upload="handleChange"
                         :headers="authHeader"
@@ -1583,21 +1589,20 @@
                         :on-success="handleSuccess"
                         drag
                         multiple
-                        ref="uploader"
                       >
                         <i class="el-icon-upload"></i>
-                        <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
+                        <div>{{ $t('label.PFANS2005FORMVIEW_MBYQ') }}</div>
                       </el-upload>
                     </div>
                     <el-row>
                       <span
                         v-if="this.resultShowotherfour"
-                      >{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                      >{{ $t('label.PFANS2005FORMVIEW_CG') }}{{ this.successCount }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                       <span
                         v-if="this.resultShowotherfour"
-                      >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
+                      >{{ $t('label.PFANS2005FORMVIEW_SB') }}{{ this.errorCount }}</span>
                     </el-row>
-                    <span v-if="this.Messageotherfour">{{this.cuowu}}</span>
+                    <span v-if="this.Messageotherfour">{{ this.cuowu }}</span>
                     <div v-if="this.resultotherfour">
                       <el-table :data="message">
                         <el-table-column
@@ -1618,15 +1623,15 @@
                           :page-size="listQuery.limit"
                           :page-sizes="[20,30,50,100,300,500,99999]"
                           :total="total"
+                          layout="slot,sizes, ->,prev, pager, next, jumper"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
-                          layout="slot,sizes, ->,prev, pager, next, jumper"
                         >
                           <slot>
                             <span
                               class="front Content_front"
                               style="padding-right: 0.5rem;font-weight: 400"
-                            >{{$t('table.pagesize')}}</span>
+                            >{{ $t('table.pagesize') }}</span>
                           </slot>
                         </el-pagination>
                       </div>
@@ -1636,11 +1641,12 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT5')" name="sixth">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(6)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(6)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
@@ -1649,29 +1655,29 @@
                   <el-table
                     :data="tableQT5"
                     :summary-method="getSummaries"
-                    header-cell-class-name="sub_bg_color_blue"
                     border
-                    show-summary
+                    header-cell-class-name="sub_bg_color_blue"
                     height='calc(100vh - 230px - 2rem)'
+                    show-summary
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
-                      sortable
-                      width="70"
                       align="center"
                       prop="rowindex"
+                      sortable
+                      width="70"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_CLUB')"
-                      width="120"
                       align="center"
                       prop="department_id"
+                      width="120"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.user_name')"
-                      width="120"
                       align="center"
-                      prop="user_name"></el-table-column>
+                      prop="user_name"
+                      width="120"></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2005FORMVIEW_BCYL')"
                       align="center"
@@ -1720,15 +1726,15 @@
                       :page-size="listQueryListQT5.limit"
                       :page-sizes="[20,30,50,100,300,500,99999]"
                       :total="totalQT5"
+                      layout="slot,sizes, ->,prev, pager, next, jumper"
                       @current-change="handleCurrentChangeQT5"
                       @size-change="handleSizeChangeQT5"
-                      layout="slot,sizes, ->,prev, pager, next, jumper"
                     >
                       <slot>
                         <span
                           class="front Content_front"
                           style="padding-right: 0.5rem;font-weight: 400"
-                        >{{$t('table.pagesize')}}</span>
+                        >{{ $t('table.pagesize') }}</span>
                       </slot>
                     </el-pagination>
                   </div>
@@ -1739,6 +1745,7 @@
                   <div>
                     <div style="margin-top: 1rem;margin-left: 28%">
                       <el-upload
+                        ref="uploader"
                         :action="UploadUrlotherfive()"
                         :before-upload="handleChange"
                         :headers="authHeader"
@@ -1747,21 +1754,20 @@
                         :on-success="handleSuccess"
                         drag
                         multiple
-                        ref="uploader"
                       >
                         <i class="el-icon-upload"></i>
-                        <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
+                        <div>{{ $t('label.PFANS2005FORMVIEW_MBYQ') }}</div>
                       </el-upload>
                     </div>
                     <el-row>
                       <span
                         v-if="this.resultShowotherfive"
-                      >{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                      >{{ $t('label.PFANS2005FORMVIEW_CG') }}{{ this.successCount }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                       <span
                         v-if="this.resultShowotherfive"
-                      >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
+                      >{{ $t('label.PFANS2005FORMVIEW_SB') }}{{ this.errorCount }}</span>
                     </el-row>
-                    <span v-if="this.Messageotherfive">{{this.cuowu}}</span>
+                    <span v-if="this.Messageotherfive">{{ this.cuowu }}</span>
                     <div v-if="this.resultotherfive">
                       <el-table :data="message">
                         <el-table-column
@@ -1782,15 +1788,15 @@
                           :page-size="listQuery.limit"
                           :page-sizes="[20,30,50,100,300,500,99999]"
                           :total="total"
+                          layout="slot,sizes, ->,prev, pager, next, jumper"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
-                          layout="slot,sizes, ->,prev, pager, next, jumper"
                         >
                           <slot>
                             <span
                               class="front Content_front"
                               style="padding-right: 0.5rem;font-weight: 400"
-                            >{{$t('table.pagesize')}}</span>
+                            >{{ $t('table.pagesize') }}</span>
                           </slot>
                         </el-pagination>
                       </div>
@@ -1800,36 +1806,37 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_RZ')" name="seventh">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(7)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(7)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
               <el-table
                 :data="tableRZ"
                 :summary-method="getSummaries"
-                show-summary
-                header-cell-class-name="sub_bg_color_blue"
                 border
+                header-cell-class-name="sub_bg_color_blue"
                 height='calc(100vh - 230px - 2rem)'
+                show-summary
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
-                  sortable
                   align="center"
-                  prop="rowindex"
-                  width="70"
                   fixed="left"
+                  prop="rowindex"
+                  sortable
+                  width="70"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                  width="90"
                   align="center"
-                  prop="user_name"
                   fixed="left"
+                  prop="user_name"
+                  width="90"
                 ></el-table-column>
                 <el-table-column
                   :label="this.yearOfThisMonth + $t('label.PFANS2005FORMVIEW_YEAR') + this.monthOfThisMonth + $t('label.PFANS2005FORMVIEW_MONTH')"
@@ -1845,9 +1852,9 @@
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2022VIEW_JOININGDAY')"
-                  sortable
                   align="center"
                   prop="worddate"
+                  sortable
                   width="110"
                 ></el-table-column>
                 <el-table-column
@@ -1897,50 +1904,51 @@
                   :page-size="listQueryListRZ.limit"
                   :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalRZ"
+                  layout="slot,sizes, ->,prev, pager, next, jumper"
                   @current-change="handleCurrentChangeRZ"
                   @size-change="handleSizeChangeRZ"
-                  layout="slot,sizes, ->,prev, pager, next, jumper"
                 >
                   <slot>
                     <span
                       class="front Content_front"
                       style="padding-right: 0.5rem;font-weight: 400"
-                    >{{$t('table.pagesize')}}</span>
+                    >{{ $t('table.pagesize') }}</span>
                   </slot>
                 </el-pagination>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_TZ')" name="eighth">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(8)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(8)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
               <el-table
                 :data="tableTZ"
                 :summary-method="getSummaries"
-                show-summary
-                header-cell-class-name="sub_bg_color_blue"
                 border
+                header-cell-class-name="sub_bg_color_blue"
                 height='calc(100vh - 230px - 2rem)'
+                show-summary
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
-                  sortable
                   align="center"
-                  prop="rowindex"
-                  width="70"
                   fixed="left"
+                  prop="rowindex"
+                  sortable
+                  width="70"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                  width="90"
                   align="center"
-                  prop="user_name"
                   fixed="left"
+                  prop="user_name"
+                  width="90"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_RETIREMENTDATE')"
@@ -1994,50 +2002,51 @@
                   :page-size="listQueryListTZ.limit"
                   :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalTZ"
+                  layout="slot,sizes, ->,prev, pager, next, jumper"
                   @current-change="handleCurrentChangeTZ"
                   @size-change="handleSizeChangeTZ"
-                  layout="slot,sizes, ->,prev, pager, next, jumper"
                 >
                   <slot>
                     <span
                       class="front Content_front"
                       style="padding-right: 0.5rem;font-weight: 400"
-                    >{{$t('table.pagesize')}}</span>
+                    >{{ $t('table.pagesize') }}</span>
                   </slot>
                 </el-pagination>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QQ')" name="ninth">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(9)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(9)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
               <el-table
                 :data="tableQQ"
                 :summary-method="getSummaries"
-                show-summary
-                header-cell-class-name="sub_bg_color_blue"
                 border
+                header-cell-class-name="sub_bg_color_blue"
                 height='calc(100vh - 230px - 2rem)'
+                show-summary
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
+                  align="center"
+                  fixed="left"
+                  prop="rowindex"
                   sortable
                   width="70"
-                  align="center"
-                  prop="rowindex"
-                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                  width="90"
                   align="center"
-                  prop="user_name"
                   fixed="left"
+                  prop="user_name"
+                  width="90"
                 ></el-table-column>
                 <!--                region 先月欠勤-->
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_XYQQ')" align="center">
@@ -2135,11 +2144,11 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.thisdiligencetry"
-                        controls-position="right"
-                        @change="thisMonthLacktimeChange(scope.row)"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -2154,11 +2163,11 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.thisshortdeficiencytry"
-                        controls-position="right"
-                        @change="thisMonthLacktimeChange(scope.row)"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -2173,11 +2182,11 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.thischronicdeficiencytry"
-                        controls-position="right"
-                        @change="thisMonthLacktimeChange(scope.row)"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -2192,11 +2201,11 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.thisdiligenceformal"
-                        controls-position="right"
-                        @change="thisMonthLacktimeChange(scope.row)"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -2211,11 +2220,11 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.thisshortdeficiencyformal"
-                        controls-position="right"
-                        @change="thisMonthLacktimeChange(scope.row)"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -2230,11 +2239,11 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.thischronicdeficiencyformal"
-                        controls-position="right"
-                        @change="thisMonthLacktimeChange(scope.row)"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="thisMonthLacktimeChange(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -2255,8 +2264,10 @@
                     width="80"
                   >
                     <template slot-scope="scope">
-                      {{setScale2(parseFloat(scope.row.thisshortdeficiencytry) +
-                      parseFloat(scope.row.thisshortdeficiencyformal))}}
+                      {{
+                        setScale2(parseFloat(scope.row.thisshortdeficiencytry) +
+                          parseFloat(scope.row.thisshortdeficiencyformal))
+                      }}
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -2268,8 +2279,10 @@
                     width="80"
                   >
                     <template slot-scope="scope">
-                      {{setScale2(parseFloat(scope.row.thischronicdeficiencytry) +
-                      parseFloat(scope.row.thischronicdeficiencyformal))}}
+                      {{
+                        setScale2(parseFloat(scope.row.thischronicdeficiencytry) +
+                          parseFloat(scope.row.thischronicdeficiencyformal))
+                      }}
                     </template>
                   </el-table-column>
                   <!--                  endregion-->
@@ -2302,50 +2315,51 @@
                   :page-size="listQueryListQQ.limit"
                   :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalQQ"
+                  layout="slot,sizes, ->,prev, pager, next, jumper"
                   @current-change="handleCurrentChangeQQ"
                   @size-change="handleSizeChangeQQ"
-                  layout="slot,sizes, ->,prev, pager, next, jumper"
                 >
                   <slot>
                     <span
                       class="front Content_front"
                       style="padding-right: 0.5rem;font-weight: 400"
-                    >{{$t('table.pagesize')}}</span>
+                    >{{ $t('table.pagesize') }}</span>
                   </slot>
                 </el-pagination>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_CY')" name="tenth">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(10)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(10)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
               <el-table
                 :data="tableCY"
                 :summary-method="getSummaries"
-                show-summary
-                header-cell-class-name="sub_bg_color_blue"
                 border
+                header-cell-class-name="sub_bg_color_blue"
                 height='calc(100vh - 230px - 2rem)'
+                show-summary
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
+                  align="center"
+                  fixed="left"
+                  prop="rowindex"
                   sortable
                   width="70"
-                  align="center"
-                  prop="rowindex"
-                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                  width="90"
                   align="center"
-                  prop="user_name"
                   fixed="left"
+                  prop="user_name"
+                  width="90"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2003FORMVIEW_RN')"
@@ -2401,11 +2415,11 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.thisweekdays"
-                        controls-position="right"
-                        @change="thisMonthOvertimeChange(scope.row)"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -2418,11 +2432,11 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.thisrestDay"
-                        controls-position="right"
-                        @change="thisMonthOvertimeChange(scope.row)"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -2435,11 +2449,11 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.thislegal"
-                        controls-position="right"
-                        @change="thisMonthOvertimeChange(scope.row)"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -2452,11 +2466,11 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.thisreplace"
-                        controls-position="right"
-                        @change="thisMonthOvertimeChange(scope.row)"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -2469,11 +2483,11 @@
                     <template slot-scope="scope">
                       <el-input-number
                         v-model="scope.row.thisreplace3"
-                        controls-position="right"
-                        @change="thisMonthOvertimeChange(scope.row)"
                         :min="-10000000"
+                        controls-position="right"
                         size="mini"
                         style="width:7rem"
+                        @change="thisMonthOvertimeChange(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -2484,9 +2498,11 @@
                     width="90"
                   >
                     <template slot-scope="scope">
-                      {{setScale2(parseFloat(scope.row.thisweekdays) + parseFloat(scope.row.thisrestDay) +
-                      parseFloat(scope.row.thislegal) + parseFloat(scope.row.thisreplace) +
-                      parseFloat(scope.row.thisreplace3))}}
+                      {{
+                        setScale2(parseFloat(scope.row.thisweekdays) + parseFloat(scope.row.thisrestDay) +
+                          parseFloat(scope.row.thislegal) + parseFloat(scope.row.thisreplace) +
+                          parseFloat(scope.row.thisreplace3))
+                      }}
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -2515,25 +2531,26 @@
                   :page-size="listQueryListCY.limit"
                   :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalCY"
+                  layout="slot,sizes, ->,prev, pager, next, jumper"
                   @current-change="handleCurrentChangeCY"
                   @size-change="handleSizeChangeCY"
-                  layout="slot,sizes, ->,prev, pager, next, jumper"
                 >
                   <slot>
                     <span
                       class="front Content_front"
                       style="padding-right: 0.5rem;font-weight: 400"
-                    >{{$t('table.pagesize')}}</span>
+                    >{{ $t('table.pagesize') }}</span>
                   </slot>
                 </el-pagination>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_YDSY')" name="eleventh">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(11)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(11)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
@@ -2542,24 +2559,24 @@
                   <el-table
                     :data="tableYDSY"
                     :summary-method="getSummaries"
-                    header-cell-class-name="sub_bg_color_blue"
                     border
-                    show-summary
+                    header-cell-class-name="sub_bg_color_blue"
                     height='calc(100vh - 230px - 2rem)'
+                    show-summary
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
+                      align="center"
+                      fixed="left"
+                      prop="rowindex"
                       sortable
                       width="70"
-                      align="center"
-                      prop="rowindex"
-                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                      width="120"
                       align="center"
                       prop="user_name"
+                      width="120"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2005FORMVIEW_PJ')"
@@ -2603,15 +2620,15 @@
                       :page-size="listQueryListYDSY.limit"
                       :page-sizes="[20,30,50,100,300,500,99999]"
                       :total="totalYDSY"
+                      layout="slot,sizes, ->,prev, pager, next, jumper"
                       @current-change="handleCurrentChangeYDSY"
                       @size-change="handleSizeChangeYDSY"
-                      layout="slot,sizes, ->,prev, pager, next, jumper"
                     >
                       <slot>
                         <span
                           class="front Content_front"
                           style="padding-right: 0.5rem;font-weight: 400"
-                        >{{$t('table.pagesize')}}</span>
+                        >{{ $t('table.pagesize') }}</span>
                       </slot>
                     </el-pagination>
                   </div>
@@ -2622,6 +2639,7 @@
                   <div>
                     <div style="margin-top: 1rem;margin-left: 28%">
                       <el-upload
+                        ref="uploader"
                         :action="UploadUrlappreciation()"
                         :before-upload="handleChange"
                         :headers="authHeader"
@@ -2630,21 +2648,20 @@
                         :on-success="handleSuccess"
                         drag
                         multiple
-                        ref="uploader"
                       >
                         <i class="el-icon-upload"></i>
-                        <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
+                        <div>{{ $t('label.PFANS2005FORMVIEW_MBYQ') }}</div>
                       </el-upload>
                     </div>
                     <el-row>
                       <span
                         v-if="this.resultShowappreciation"
-                      >{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                      >{{ $t('label.PFANS2005FORMVIEW_CG') }}{{ this.successCount }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                       <span
                         v-if="this.resultShowappreciation"
-                      >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
+                      >{{ $t('label.PFANS2005FORMVIEW_SB') }}{{ this.errorCount }}</span>
                     </el-row>
-                    <span v-if="this.Messageappreciation">{{this.cuowu}}</span>
+                    <span v-if="this.Messageappreciation">{{ this.cuowu }}</span>
                     <div v-if="this.resultappreciation">
                       <el-table :data="message">
                         <el-table-column
@@ -2665,15 +2682,15 @@
                           :page-size="listQuery.limit"
                           :page-sizes="[20,30,50,100,300,500,99999]"
                           :total="total"
+                          layout="slot,sizes, ->,prev, pager, next, jumper"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
-                          layout="slot,sizes, ->,prev, pager, next, jumper"
                         >
                           <slot>
                             <span
                               class="front Content_front"
                               style="padding-right: 0.5rem;font-weight: 400"
-                            >{{$t('table.pagesize')}}</span>
+                            >{{ $t('table.pagesize') }}</span>
                           </slot>
                         </el-pagination>
                       </div>
@@ -2683,228 +2700,229 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_ZHSR')" name="twelfth">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(12)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(12)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
               <el-table
                 :data="tableZHSR"
                 :summary-method="getSummaries"
-                show-summary
-                header-cell-class-name="sub_bg_color_blue"
                 border
+                header-cell-class-name="sub_bg_color_blue"
                 height='calc(100vh - 230px - 2rem)'
+                show-summary
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
+                  align="center"
+                  fixed="left"
+                  prop="rowindex"
                   sortable
                   width="70"
-                  align="center"
-                  prop="rowindex"
-                  fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                  width="80"
                   align="center"
-                  prop="user_name"
                   fixed="left"
+                  prop="user_name"
+                  width="80"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_NDSY')"
                   align="center"
-                  width="144"
                   prop="totalbonus1"
+                  width="144"
                 ></el-table-column>
-                <el-table-column :label="this.YEAR1" align="center" width="110%" prop="january">
+                <el-table-column :label="this.YEAR1" align="center" prop="january" width="110%">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="90"
                     prop="month1wages"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="90"
                     prop="month1appreciation"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
-                <el-table-column :label="this.YEAR2" align="center" width="110%" prop="february">
+                <el-table-column :label="this.YEAR2" align="center" prop="february" width="110%">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="90"
                     prop="month2wages"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="90"
                     prop="month2appreciation"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
-                <el-table-column :label="this.YEAR3" align="center" width="110%" prop="march">
+                <el-table-column :label="this.YEAR3" align="center" prop="march" width="110%">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="90"
                     prop="month3wages"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="90"
                     prop="month3appreciation"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
-                <el-table-column :label="this.YEAR4" align="center" width="110%" prop="april">
+                <el-table-column :label="this.YEAR4" align="center" prop="april" width="110%">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="90"
                     prop="month4wages"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="90"
                     prop="month4appreciation"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
-                <el-table-column :label="this.YEAR5" align="center" width="110%" prop="may">
+                <el-table-column :label="this.YEAR5" align="center" prop="may" width="110%">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="90"
                     prop="month5wages"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="90"
                     prop="month5appreciation"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
-                <el-table-column :label="this.YEAR6" align="center" width="110%" prop="june">
+                <el-table-column :label="this.YEAR6" align="center" prop="june" width="110%">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="90"
                     prop="month6wages"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="90"
                     prop="month6appreciation"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
-                <el-table-column :label="this.YEAR7" align="center" width="110%" prop="july">
+                <el-table-column :label="this.YEAR7" align="center" prop="july" width="110%">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="90"
                     prop="month7wages"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="90"
                     prop="month7appreciation"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
-                <el-table-column :label="this.YEAR8" align="center" width="110%" prop="august">
+                <el-table-column :label="this.YEAR8" align="center" prop="august" width="110%">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="90"
                     prop="month8wages"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="90"
                     prop="month8appreciation"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
-                <el-table-column :label="this.YEAR9" align="center" width="110%" prop="september">
+                <el-table-column :label="this.YEAR9" align="center" prop="september" width="110%">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="90"
                     prop="month9wages"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="90"
                     prop="month9appreciation"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
-                <el-table-column :label="this.YEAR10" align="center" width="110%" prop="october">
+                <el-table-column :label="this.YEAR10" align="center" prop="october" width="110%">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="90"
                     prop="month10wages"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="90"
                     prop="month10appreciation"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
-                <el-table-column :label="this.YEAR11" align="center" width="110%" prop="november">
+                <el-table-column :label="this.YEAR11" align="center" prop="november" width="110%">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="90"
                     prop="month11wages"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="90"
                     prop="month11appreciation"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
-                <el-table-column :label="this.YEAR12" align="center" width="110%" prop="december">
+                <el-table-column :label="this.YEAR12" align="center" prop="december" width="110%">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="90"
                     prop="month12wages"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="90"
                     prop="month12appreciation"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_LJNDSY')"
                   align="center"
-                  width="110"
                   prop="appreciationtotal"
+                  width="110"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_LJNJSR')"
                   align="center"
-                  width="180"
                   prop="totalwithout12"
+                  width="180"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_LJN')"
                   align="center"
-                  width="110"
                   prop="totalwithin12"
+                  width="110"
                 ></el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
@@ -2913,49 +2931,50 @@
                   :page-size="listQueryListZHSR.limit"
                   :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalZHSR"
+                  layout="slot,sizes, ->,prev, pager, next, jumper"
                   @current-change="handleCurrentChangeZHSR"
                   @size-change="handleSizeChangeZHSR"
-                  layout="slot,sizes, ->,prev, pager, next, jumper"
                 >
                   <slot>
                     <span
                       class="front Content_front"
                       style="padding-right: 0.5rem;font-weight: 400"
-                    >{{$t('table.pagesize')}}</span>
+                    >{{ $t('table.pagesize') }}</span>
                   </slot>
                 </el-pagination>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_ZXKC')" name="thirteenth">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(13)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(13)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
               <el-table
                 :data="tableZXKC"
                 :summary-method="getSummaries"
-                show-summary
-                header-cell-class-name="sub_bg_color_blue"
                 border
+                header-cell-class-name="sub_bg_color_blue"
                 height='calc(100vh - 230px - 2rem)'
+                show-summary
               >
-                <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center" width="170" fixed="left">
+                <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center" fixed="left" width="170">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
-                    sortable
-                    width="70"
                     align="center"
                     prop="number"
+                    sortable
+                    width="70"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                    width="90"
                     align="center"
                     prop="user_name"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_LYZXKC')" align="center">
@@ -2985,25 +3004,26 @@
                   :page-size="listQueryListZXKC.limit"
                   :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalZXKC"
+                  layout="slot,sizes, ->,prev, pager, next, jumper"
                   @current-change="handleCurrentChangeZXKC"
                   @size-change="handleSizeChangeZXKC"
-                  layout="slot,sizes, ->,prev, pager, next, jumper"
                 >
                   <slot>
                     <span
                       class="front Content_front"
                       style="padding-right: 0.5rem;font-weight: 400"
-                    >{{$t('table.pagesize')}}</span>
+                    >{{ $t('table.pagesize') }}</span>
                   </slot>
                 </el-pagination>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_FJKC')" name="fourteenth">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(14)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(14)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
@@ -3012,23 +3032,23 @@
                   <el-table
                     :data="tableFJKC"
                     :summary-method="getSummaries"
-                    show-summary
-                    header-cell-class-name="sub_bg_color_blue"
                     border
+                    header-cell-class-name="sub_bg_color_blue"
                     height='calc(100vh - 230px - 2rem)'
+                    show-summary
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
-                      sortable
-                      width="70"
                       align="center"
                       prop="rowindex"
+                      sortable
+                      width="70"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                      width="120"
                       align="center"
                       prop="user_name"
+                      width="120"
                     ></el-table-column>
                     <!--                    <plx-table-column-->
                     <!--                      prop="user_name"-->
@@ -3074,15 +3094,15 @@
                       :page-size="listQueryListFJKC.limit"
                       :page-sizes="[20,30,50,100,300,500,99999]"
                       :total="totalFJKC"
+                      layout="slot,sizes, ->,prev, pager, next, jumper"
                       @current-change="handleCurrentChangeFJKC"
                       @size-change="handleSizeChangeFJKC"
-                      layout="slot,sizes, ->,prev, pager, next, jumper"
                     >
                       <slot>
                         <span
                           class="front Content_front"
                           style="padding-right: 0.5rem;font-weight: 400"
-                        >{{$t('table.pagesize')}}</span>
+                        >{{ $t('table.pagesize') }}</span>
                       </slot>
                     </el-pagination>
                   </div>
@@ -3093,6 +3113,7 @@
                   <div>
                     <div style="margin-top: 1rem;margin-left: 28%">
                       <el-upload
+                        ref="uploader"
                         :action="UploadUrlfjkc()"
                         :before-upload="handleChange"
                         :headers="authHeader"
@@ -3101,21 +3122,20 @@
                         :on-success="handleSuccess"
                         drag
                         multiple
-                        ref="uploader"
                       >
                         <i class="el-icon-upload"></i>
-                        <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
+                        <div>{{ $t('label.PFANS2005FORMVIEW_MBYQ') }}</div>
                       </el-upload>
                     </div>
                     <el-row>
                       <span
                         v-if="this.resultShowfjkc"
-                      >{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                      >{{ $t('label.PFANS2005FORMVIEW_CG') }}{{ this.successCount }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                       <span
                         v-if="this.resultShowfjkc"
-                      >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
+                      >{{ $t('label.PFANS2005FORMVIEW_SB') }}{{ this.errorCount }}</span>
                     </el-row>
-                    <span v-if="this.Messagefjkc">{{this.cuowu}}</span>
+                    <span v-if="this.Messagefjkc">{{ this.cuowu }}</span>
                     <div v-if="this.resultfjkc">
                       <el-table :data="message">
                         <el-table-column
@@ -3136,15 +3156,15 @@
                           :page-size="listQuery.limit"
                           :page-sizes="[20,30,50,100,300,500,99999]"
                           :total="total"
+                          layout="slot,sizes, ->,prev, pager, next, jumper"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
-                          layout="slot,sizes, ->,prev, pager, next, jumper"
                         >
                           <slot>
                             <span
                               class="front Content_front"
                               style="padding-right: 0.5rem;font-weight: 400"
-                            >{{$t('table.pagesize')}}</span>
+                            >{{ $t('table.pagesize') }}</span>
                           </slot>
                         </el-pagination>
                       </div>
@@ -3154,56 +3174,57 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_MS')" name="fifteenth">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(15)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(15)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
               <el-table
                 :data="tableMS"
                 :summary-method="getSummaries"
-                show-summary
-                header-cell-class-name="sub_bg_color_blue"
                 border
+                header-cell-class-name="sub_bg_color_blue"
                 height='calc(100vh - 230px - 2rem)'
+                show-summary
               >
-                <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center" width="170" fixed="left">
+                <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center" fixed="left" width="170">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
-                    sortable
-                    width="70"
                     align="center"
                     prop="rowindex"
+                    sortable
+                    width="70"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                    width="90"
                     align="center"
                     prop="user_name"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_LYMSRE')" align="center">
-                  <el-table-column :label="this.YEAR1" align="center" width="90" prop="january"></el-table-column>
-                  <el-table-column :label="this.YEAR2" align="center" width="90" prop="february"></el-table-column>
-                  <el-table-column :label="this.YEAR3" align="center" width="90" prop="march"></el-table-column>
-                  <el-table-column :label="this.YEAR4" align="center" width="90" prop="april"></el-table-column>
-                  <el-table-column :label="this.YEAR5" align="center" width="90" prop="may"></el-table-column>
-                  <el-table-column :label="this.YEAR6" align="center" width="90" prop="june"></el-table-column>
-                  <el-table-column :label="this.YEAR7" align="center" width="90" prop="july"></el-table-column>
-                  <el-table-column :label="this.YEAR8" align="center" width="90" prop="august"></el-table-column>
-                  <el-table-column :label="this.YEAR9" align="center" width="90" prop="september"></el-table-column>
-                  <el-table-column :label="this.YEAR10" align="center" width="90" prop="october"></el-table-column>
-                  <el-table-column :label="this.YEAR11" align="center" width="90" prop="november"></el-table-column>
-                  <el-table-column :label="this.YEAR12" align="center" width="90" prop="december"></el-table-column>
+                  <el-table-column :label="this.YEAR1" align="center" prop="january" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR2" align="center" prop="february" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR3" align="center" prop="march" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR4" align="center" prop="april" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR5" align="center" prop="may" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR6" align="center" prop="june" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR7" align="center" prop="july" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR8" align="center" prop="august" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR9" align="center" prop="september" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR10" align="center" prop="october" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR11" align="center" prop="november" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR12" align="center" prop="december" width="90"></el-table-column>
                 </el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_LJNDKC')"
                   align="center"
-                  width="120"
                   prop="total"
+                  width="120"
                 ></el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
@@ -3212,49 +3233,50 @@
                   :page-size="listQueryListMS.limit"
                   :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalDutyfreeVo"
+                  layout="slot,sizes, ->,prev, pager, next, jumper"
                   @current-change="handleCurrentChangeMS"
                   @size-change="handleSizeChangeMS"
-                  layout="slot,sizes, ->,prev, pager, next, jumper"
                 >
                   <slot>
                     <span
                       class="front Content_front"
                       style="padding-right: 0.5rem;font-weight: 400"
-                    >{{$t('table.pagesize')}}</span>
+                    >{{ $t('table.pagesize') }}</span>
                   </slot>
                 </el-pagination>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_LJSJ')" name="sixteenth">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(16)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(16)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
               <el-table
                 :data="tableLJSJ"
                 :summary-method="getSummaries"
-                show-summary
-                header-cell-class-name="sub_bg_color_blue"
                 border
+                header-cell-class-name="sub_bg_color_blue"
                 height='calc(100vh - 230px - 2rem)'
+                show-summary
               >
-                <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center" width="170" fixed="left">
+                <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center" fixed="left" width="170">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
-                    sortable
                     align="center"
                     prop="rowindex"
+                    sortable
                     width="70"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                    width="90"
                     align="center"
                     prop="user_name"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_LJNF')" align="center">
@@ -3302,25 +3324,26 @@
                   :page-size="listQueryListLJSJ.limit"
                   :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalAccumulatedTax"
+                  layout="slot,sizes, ->,prev, pager, next, jumper"
                   @current-change="handleCurrentChangeLJSJ"
                   @size-change="handleSizeChangeLJSJ"
-                  layout="slot,sizes, ->,prev, pager, next, jumper"
                 >
                   <slot>
                     <span
                       class="front Content_front"
                       style="padding-right: 0.5rem;font-weight: 400"
-                    >{{$t('table.pagesize')}}</span>
+                    >{{ $t('table.pagesize') }}</span>
                   </slot>
                 </el-pagination>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_GRDB')" name="seventeenth">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+              <el-row justify="end" style="margin-bottom:1vh" type="flex">
                 <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(17)"></el-button>
+                  <el-input v-model="filterName" :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"
+                            style="width: 20vw">
+                    <el-button slot="append" icon="el-icon-search" plain type="primary"
+                               @click="inputChange(17)"></el-button>
                   </el-input>
                 </el-col>
               </el-row>
@@ -3330,27 +3353,27 @@
                   :summary-method="getSummaries"
                   border
                   header-cell-class-name="sub_bg_color_blue"
-                  show-summary
                   height='calc(100vh - 230px - 2rem)'
+                  show-summary
                 >
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
-                    sortable
-                    width="70"
                     align="center"
                     prop="rowindex"
+                    sortable
+                    width="70"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_CLUB')"
-                    width="120"
                     align="center"
                     prop="department_id"
+                    width="120"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                    width="120"
                     align="center"
                     prop="user_name"
+                    width="120"
                   ></el-table-column>
                   <el-table-column
                     :label="this.thismonth"
@@ -3383,15 +3406,15 @@
                     :page-size="listQueryListGRDB.limit"
                     :page-sizes="[20,30,50,100,300,500,99999]"
                     :total="totalContrast"
+                    layout="slot,sizes, ->,prev, pager, next, jumper"
                     @current-change="handleCurrentChangeGRDB"
                     @size-change="handleSizeChangeGRDB"
-                    layout="slot,sizes, ->,prev, pager, next, jumper"
                   >
                     <slot>
                       <span
                         class="front Content_front"
                         style="padding-right: 0.5rem;font-weight: 400"
-                      >{{$t('table.pagesize')}}</span>
+                      >{{ $t('table.pagesize') }}</span>
                     </slot>
                   </el-pagination>
                 </div>
@@ -3404,2587 +3427,2576 @@
   </div>
 </template>
 <script>
-    import EasyNormalContainer from "@/components/EasyNormalContainer";
-    import PFANS2005View from "../PFANS2005/PFANS2005View.vue";
-    import {getToken} from "@/utils/auth";
-    import {Message} from "element-ui";
-    import {getDictionaryInfo, getUserInfo,Decrypt} from "@/utils/customize";
-    import moment from "moment";
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import PFANS2005View from '../PFANS2005/PFANS2005View.vue';
+import {getToken} from '@/utils/auth';
+import {Message} from 'element-ui';
+import {Decrypt, getDictionaryInfo, getUserInfo} from '@/utils/customize';
+import moment from 'moment';
 
-    export default {
-        name: "PFANS2005FormView",
-        components: {
-            EasyNormalContainer,
-            PFANS2005View
+export default {
+  name: 'PFANS2005FormView',
+  components: {
+    EasyNormalContainer,
+    PFANS2005View,
+  },
+  data() {
+    return {
+      thisWages: false,// 是否工资表数据判断
+      canStart: false,
+      status: '0',
+      workflowCode: 'W0089',
+      responseDataInit: [], // responseDataInit 初始化值
+      filterName: '', //  过滤用户姓名和部门简称
+      tableData: [], // 工资画面显示总数据
+      filterSex: [
+        {label: '男', value: '男'},
+        {label: '女', value: '女'},
+      ],
+      thismonth: '',
+      lastmonth: '',
+      totaldataFJKC: [],
+      totaldataQQ: [],
+      totaldataCY: [],
+      totaldataZHSR: [],
+      totaldataZXKC: [],
+      totaldataQT4: [],
+      totaldataQT5: [],
+      totaldataRZ: [],
+      totaldataTZ: [],
+      totaldataQT2: [],
+      totaldataBase: [],
+      totaldataContrast: [],
+      totaldataOtherOneWoman: [],
+      totaldataOtherOneMan: [],
+      totaldataDutyfreeVo: [],
+      totaldataAccumulatedTax: [],
+      totaldataYDSY: [],
+      totaldata: [],
+      totaldataimprot: [],
+      listQuery: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListQT1Woman: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListQT1Man: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListYDSY: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListZHSR: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListZXKC: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListFJKC: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListMS: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListLJSJ: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListGRDB: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListQT2: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListQT4: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListQT5: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListRZ: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListTZ: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListQQ: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListCY: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListJS: {
+        page: 1,
+        limit: 20,
+      },
+      listQueryListWages: {
+        page: 1,
+        limit: 20,
+      },
+      menuList: [
+        {value: '1', label: 1},
+        {value: '2', label: 2},
+      ],
+      totalQQ: 0,
+      totalCY: 0,
+      total: 0,
+      totalFJKC: 0,
+      totalZHSR: 0,
+      totalQT4: 0,
+      totalQT2: 0,
+      totalZXKC: 0,
+      totalQT5: 0,
+      totalRZ: 0,
+      totalTZ: 0,
+      totalBase: 0,
+      total_wages: 0, // changdu
+      totalDutyfreeVo: 0,
+      totalAccumulatedTax: 0,
+      totalContrast: 0,
+      totalOtherOneMan: 0,
+      totalOtherOne: 0,
+      totalYDSY: 0,
+      ListZXKC: '',
+      ListFJKC: '',
+      ListZHSR: '',
+      ListQt2: '',
+      ListQQ: '',
+      ListCY: '',
+      ListQt5: '',
+      ListRZ: '',
+      ListTZ: '',
+      listBase: '',
+      listWages: '',
+      listAccumulatedTax: '',
+      listDutyfreeVo: '',
+      listContrast: '',
+      listOtherOne: '',
+      ListOtherOneSex: '',
+      ListYDSY: '',
+      YEAR1:
+        moment().years() +
+        this.$t('label.PFANS2005FORMVIEW_YEAR') +
+        '01' +
+        this.$t('label.PFANS2005FORMVIEW_MONTH'),
+      YEAR2:
+        moment().years() +
+        this.$t('label.PFANS2005FORMVIEW_YEAR') +
+        '02' +
+        this.$t('label.PFANS2005FORMVIEW_MONTH'),
+      YEAR3:
+        moment().years() +
+        this.$t('label.PFANS2005FORMVIEW_YEAR') +
+        '03' +
+        this.$t('label.PFANS2005FORMVIEW_MONTH'),
+      YEAR4:
+        moment().years() +
+        this.$t('label.PFANS2005FORMVIEW_YEAR') +
+        '04' +
+        this.$t('label.PFANS2005FORMVIEW_MONTH'),
+      YEAR5:
+        moment().years() +
+        this.$t('label.PFANS2005FORMVIEW_YEAR') +
+        '05' +
+        this.$t('label.PFANS2005FORMVIEW_MONTH'),
+      YEAR6:
+        moment().years() +
+        this.$t('label.PFANS2005FORMVIEW_YEAR') +
+        '06' +
+        this.$t('label.PFANS2005FORMVIEW_MONTH'),
+      YEAR7:
+        moment().years() +
+        this.$t('label.PFANS2005FORMVIEW_YEAR') +
+        '07' +
+        this.$t('label.PFANS2005FORMVIEW_MONTH'),
+      YEAR8:
+        moment().years() +
+        this.$t('label.PFANS2005FORMVIEW_YEAR') +
+        '08' +
+        this.$t('label.PFANS2005FORMVIEW_MONTH'),
+      YEAR9:
+        moment().years() +
+        this.$t('label.PFANS2005FORMVIEW_YEAR') +
+        '09' +
+        this.$t('label.PFANS2005FORMVIEW_MONTH'),
+      YEAR10:
+        moment().years() +
+        this.$t('label.PFANS2005FORMVIEW_YEAR') +
+        '10' +
+        this.$t('label.PFANS2005FORMVIEW_MONTH'),
+      YEAR11:
+        moment().years() +
+        this.$t('label.PFANS2005FORMVIEW_YEAR') +
+        '11' +
+        this.$t('label.PFANS2005FORMVIEW_MONTH'),
+      YEAR12:
+        moment().years() +
+        this.$t('label.PFANS2005FORMVIEW_YEAR') +
+        '12' +
+        this.$t('label.PFANS2005FORMVIEW_MONTH'),
+      YEARNOW: '',
+      YEARLAST: '',
+      othertwo: [],
+      message: [{hang: '', error: ''}],
+      Messageothertwo: false,
+      Messageotherfive: false,
+      Messageappreciation: false,
+      Messageotherfour: false,
+      Messagefjkc: false,
+      cuowu: '',
+      tab: '',
+      resultShowfjkc: false,
+      resultothertwo: false,
+      resultotherfour: false,
+      resultotherfive: false,
+      resultappreciation: false,
+      addActionUrl: '',
+      daorufjkc: false,
+      daoruappreciation: false,
+      daoruotherfive: false,
+      daoruotherfour: false,
+      daoruothertwo: false,
+      loading: false,
+      Giving: '',
+      resultfjkc: false,
+      resultShowothertwo: false,
+      resultShowotherfive: false,
+      resultShowappreciation: false,
+      resultShowotherfour: false,
+      downloadLoading: false,
+      yearOfLastMonth: '',
+      monthOfLastMonth: '',
+      yearOfThisMonth: '',
+      monthOfThisMonth: '',
+      authHeader: {'x-auth-token': getToken()},
+      activeName: 'first',
+      buttonList: [
+        {
+          key: 'save',
+          name: 'button.save',
+          disabled: false,
+          icon: 'el-icon-check',
         },
-        data() {
-            return {
-                thisWages: false,// 是否工资表数据判断
-                canStart: false,
-                status:'0',
-                workflowCode:'W0089',
-                responseDataInit: [], // responseDataInit 初始化值
-                filterName: "", //  过滤用户姓名和部门简称
-                tableData: [], // 工资画面显示总数据
-                filterSex: [
-                    {label: "男", value: "男"},
-                    {label: "女", value: "女"}
-                ],
-                thismonth: '',
-                lastmonth: '',
-                totaldataFJKC: [],
-                totaldataQQ: [],
-                totaldataCY: [],
-                totaldataZHSR: [],
-                totaldataZXKC: [],
-                totaldataQT4: [],
-                totaldataQT5: [],
-                totaldataRZ: [],
-                totaldataTZ: [],
-                totaldataQT2: [],
-                totaldataBase: [],
-                totaldataContrast: [],
-                totaldataOtherOneWoman: [],
-                totaldataOtherOneMan: [],
-                totaldataDutyfreeVo: [],
-                totaldataAccumulatedTax: [],
-                totaldataYDSY: [],
-                totaldata: [],
-                totaldataimprot: [],
-                listQuery: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListQT1Woman: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListQT1Man: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListYDSY: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListZHSR: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListZXKC: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListFJKC: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListMS: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListLJSJ: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListGRDB: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListQT2: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListQT4: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListQT5: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListRZ: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListTZ: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListQQ: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListCY: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListJS: {
-                    page: 1,
-                    limit: 20
-                },
-                listQueryListWages: {
-                    page: 1,
-                    limit: 20
-                },
-                menuList: [
-                    {value: "1", label: 1},
-                    {value: "2", label: 2}
-                ],
-                totalQQ: 0,
-                totalCY: 0,
-                total: 0,
-                totalFJKC: 0,
-                totalZHSR: 0,
-                totalQT4: 0,
-                totalQT2: 0,
-                totalZXKC: 0,
-                totalQT5: 0,
-                totalRZ: 0,
-                totalTZ: 0,
-                totalBase: 0,
-                total_wages: 0, // changdu
-                totalDutyfreeVo: 0,
-                totalAccumulatedTax: 0,
-                totalContrast: 0,
-                totalOtherOneMan: 0,
-                totalOtherOne: 0,
-                totalYDSY: 0,
-                ListZXKC: "",
-                ListFJKC: "",
-                ListZHSR: "",
-                ListQt2: "",
-                ListQQ: "",
-                ListCY: "",
-                ListQt5: "",
-                ListRZ: "",
-                ListTZ: "",
-                listBase: "",
-                listWages: "",
-                listAccumulatedTax: "",
-                listDutyfreeVo: "",
-                listContrast: "",
-                listOtherOne: "",
-                ListOtherOneSex: "",
-                ListYDSY: "",
-                YEAR1:
-                    moment().years() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    "01" +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEAR2:
-                    moment().years() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    "02" +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEAR3:
-                    moment().years() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    "03" +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEAR4:
-                    moment().years() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    "04" +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEAR5:
-                    moment().years() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    "05" +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEAR6:
-                    moment().years() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    "06" +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEAR7:
-                    moment().years() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    "07" +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEAR8:
-                    moment().years() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    "08" +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEAR9:
-                    moment().years() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    "09" +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEAR10:
-                    moment().years() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    "10" +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEAR11:
-                    moment().years() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    "11" +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEAR12:
-                    moment().years() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    "12" +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEARNOW: "",
-                YEARLAST: "",
-                othertwo: [],
-                message: [{hang: "", error: ""}],
-                Messageothertwo: false,
-                Messageotherfive: false,
-                Messageappreciation: false,
-                Messageotherfour: false,
-                Messagefjkc: false,
-                cuowu: "",
-                tab: "",
-                resultShowfjkc: false,
-                resultothertwo: false,
-                resultotherfour: false,
-                resultotherfive: false,
-                resultappreciation: false,
-                addActionUrl: "",
-                daorufjkc: false,
-                daoruappreciation: false,
-                daoruotherfive: false,
-                daoruotherfour: false,
-                daoruothertwo: false,
-                loading: false,
-                Giving: "",
-                resultfjkc: false,
-                resultShowothertwo: false,
-                resultShowotherfive: false,
-                resultShowappreciation: false,
-                resultShowotherfour: false,
-                downloadLoading: false,
-                yearOfLastMonth: "",
-                monthOfLastMonth: "",
-                yearOfThisMonth: "",
-                monthOfThisMonth: "",
-                authHeader: {"x-auth-token": getToken()},
-                activeName: "first",
-                buttonList: [
-                    {
-                        key: "save",
-                        name: "button.save",
-                        disabled: false,
-                        icon: "el-icon-check"
-                    },
-                    {
-                      key: "calculation",
-                      name: "button.calculation",
-                      disabled: true,
-                      icon: "el-icon-c-scale-to-original"
-                    },
-                    {
-                        key: "import",
-                        name: "button.import",
-                        disabled: true,
-                        icon: "el-icon-download"
-                    }
-                ],
-                OTherTwo: {},
-                tableJS: [],
-                tableWages: [], // 工资分页截取
-                tableQT5: [],
-                tableRZ: [],
-                tableTZ: [],
-                tableQT1Woman: [],
-                tableQT1Man: [],
-                tableQT2: [],
-                tableYDSY: [],
-                tableQT4: [],
-                tableFJKC: [],
-                tableZHSR: [],
-                tableMS: [],
-                tableZXKC: [],
-                tableQQ: [],
-                tableCY: [],
-                tableLJSJ: [],
-                tableGRDB: [],
-                baseInfo: {},
-                givingVo: {}
-            };
+        {
+          key: 'calculation',
+          name: 'button.calculation',
+          disabled: true,
+          icon: 'el-icon-c-scale-to-original',
         },
-        created() {
+        {
+          key: 'import',
+          name: 'button.import',
+          disabled: true,
+          icon: 'el-icon-download',
         },
-        mounted() {
-            if (this.$i18n) {
-              this.thismonth = moment(new Date(this.$route.params.generationdate)).format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JULY');
-              this.lastmonth = moment(new Date(this.$route.params.generationdate)).add(-1,'months').format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JUNE');
-            }
-            this.Giving = this.$route.params._id;
-            this.getListdata("0");
-            // todo By Skaixx : 添加滚动条滑动监听事件
-            // let element = this.$refs['BasfTable'];
-            // element.$el.addEventListener("scroll", this.handleScroll, true);
-            // const dom = this.$refs["eltable"].$el;
-            // dom.addEventListener("scroll", this.handleScroll, true);
-            if(this.$route.params.status === '2' || this.$route.params.status === '4'){
-                this.buttonList[0].disabled = true;
-                this.buttonList[1].disabled = true;
-                this.buttonList[2].disabled = true;
-            }
-        },
-        methods: {
-          // update   ml    20210702  监听过滤名称和部门  from
-          inputChange(val) {
-            if (val === 1) {
-              if (this.filterName === "") {
-                this.totaldata = this.responseDataInit;
-              } else {
-                if (this.responseDataInit !== null && this.responseDataInit !== "undefined") {
-                  this.totaldata = this.responseDataInit.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 2) {
-              if (this.filterName === "") {
-                this.tableJS = this.responseJS;
-              } else {
-                if (this.responseJS !== null && this.responseJS !== "undefined") {
-                  this.tableJS = this.responseJS.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 3) {
-              if (this.filterName === "") {
-                this.tableQT1Woman = this.responseQT1Woman;
-                this.tableQT1Man = this.responseQT1Man;
-              } else {
-                if ((this.responseQT1Woman !== null && this.responseQT1Woman !== "undefined") || (this.responseQT1Man !== null && this.responseQT1Man !== "undefined")) {
-                  this.tableQT1Woman = this.responseQT1Woman.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                  this.tableQT1Man = this.responseQT1Man.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 4) {
-              if (this.filterName === "") {
-                this.tableQT2 = this.responseQT2;
-              } else {
-                if (this.responseQT2 !== null && this.responseQT2 !== "undefined") {
-                  this.tableQT2 = this.responseQT2.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 5) {
-              if (this.filterName === "") {
-                this.tableQT4 = this.responseQT4;
-              } else {
-                if (this.responseQT4 !== null && this.responseQT4 !== "undefined") {
-                  this.tableQT4 = this.responseQT4.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 6) {
-              if (this.filterName === "") {
-                this.tableQT5 = this.responseQT5;
-              } else {
-                if (this.responseQT5 !== null && this.responseQT5 !== "undefined") {
-                  this.tableQT5 = this.responseQT5.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 7) {
-              if (this.filterName === "") {
-                this.tableRZ = this.responseRZ;
-              } else {
-                if (this.responseRZ !== null && this.responseRZ !== "undefined") {
-                  this.tableRZ = this.responseRZ.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 8) {
-              if (this.filterName === "") {
-                this.tableTZ = this.responseTZ;
-              } else {
-                if (this.responseTZ !== null && this.responseTZ !== "undefined") {
-                  this.tableTZ = this.responseTZ.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 9) {
-              if (this.filterName === "") {
-                this.tableQQ = this.responseQQ;
-              } else {
-                if (this.responseQQ !== null && this.responseQQ !== "undefined") {
-                  this.tableQQ = this.responseQQ.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 10) {
-              if (this.filterName === "") {
-                this.tableCY = this.responseCY;
-              } else {
-                if (this.responseCY !== null && this.responseCY !== "undefined") {
-                  this.tableCY = this.responseCY.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 11) {
-              if (this.filterName === "") {
-                this.tableYDSY = this.responseYDSY;
-              } else {
-                if (this.responseYDSY !== null && this.responseYDSY !== "undefined") {
-                  this.tableYDSY = this.responseYDSY.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 12) {
-              if (this.filterName === "") {
-                this.tableZHSR = this.responseZHSR;
-              } else {
-                if (this.responseZHSR !== null && this.responseZHSR !== "undefined") {
-                  this.tableZHSR = this.responseZHSR.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 13) {
-              if (this.filterName === "") {
-                this.tableZXKC = this.responseZXKC;
-              } else {
-                if (this.responseZXKC !== null && this.responseZXKC !== "undefined") {
-                  this.tableZXKC = this.responseZXKC.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 14) {
-              if (this.filterName === "") {
-                this.tableFJKC = this.responseFJKC;
-              } else {
-                if (this.responseFJKC !== null && this.responseFJKC !== "undefined") {
-                  this.tableFJKC = this.responseFJKC.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 15) {
-              if (this.filterName === "") {
-                this.tableMS = this.responseMS;
-              } else {
-                if (this.responseMS !== null && this.responseMS !== "undefined") {
-                  this.tableMS = this.responseMS.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else if (val === 16) {
-              if (this.filterName === "") {
-                this.tableLJSJ = this.responseLJSJ;
-              } else {
-                if (this.responseLJSJ !== null && this.responseLJSJ !== "undefined") {
-                  this.tableLJSJ = this.responseLJSJ.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            } else {
-              if (this.filterName === "") {
-                this.tableGRDB = this.responseGRDB;
-              } else {
-                if (this.responseGRDB !== null && this.responseGRDB !== "undefined") {
-                  this.tableGRDB = this.responseGRDB.filter(item => {
-                    return item.user_name === this.filterName
-                      || item.department_id === this.filterName;
-                  });
-                }
-              }
-            }
-          },
-          // update   ml    20210702  监听过滤名称和部门  to
-            workflowState(val) {
-                if (val.state === '1') {
-                    this.status = '3';
-                } else if (val.state === '2') {
-                    this.status = '4';
-                }
-                this.buttonClick("save");
-            },
-            start(val) {
-                if (val.state === '0') {
-                    this.status = '2';
-                }else if (val.state === '2') {
-                    this.status = '4';
-                }
-                this.buttonClick("save");
-            },
-            end() {
-                this.status = 'X';//不好区分所以先用X代替
-                this.buttonClick("save");
-            },
-            // zqu start 工资tab 录入项change事件
-            wagesChange(row, noId, val, prop) {
-                // 其他2
-                if (prop === 'other2') {
-                    //小计2
-                    row.total2 = Math.round((Number(val) + Number(row.appreciation) + Number(row.other3)) * 100) / 100;
-                    //纳税工资总额(小计1+2)
-                    row.taxestotal = Math.round((Number(row.total1) + Number(row.total2)) * 100) / 100;
-                    //工资总额(纳税+免税)
-                    row.totalwages = Math.round((Number(row.taxestotal) + Number(row.total3)) * 100) / 100;
-                    //当月応発工資（工资总额(纳税+免税)+只納税）
-                    //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,#当月応発工資（工资总额(纳税+免税)+只納税）
-                    row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(row.other5)) * 100) / 100;
-                    //累計応発工資（当月含）
-                    //@YEARSTOTAL12 := round(base.COMPREHENSIVE_YEARSTOTAL12 + @DYYKGZ,2) AS SHOULDCUMULATIVE,#累計応発工資（当月含）
-                    row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12)+ Number(row.shouldwages)) * 100) / 100;
-                    //累計应纳税所得额
-                    //本月应扣缴所得税
-                    //当月实发工资
-                    this.wagesChange1(row);
-                }
-                // 月度賞与
-                if (prop === 'appreciation') {
-                  //小计2
-                  row.total2 = Math.round((Number(row.other2) + Number(val) + Number(row.other3)) * 100) / 100;
-                  //纳税工资总额(小计1+2)
-                  row.taxestotal = Math.round((Number(row.total1) + Number(row.total2)) * 100) / 100;
-                  //工资总额(纳税+免税)
-                  row.totalwages = Math.round((Number(row.taxestotal) + Number(row.total3)) * 100) / 100;
-                  //当月応発工資（工资总额(纳税+免税)+只納税）
-                  //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,#当月応発工資（工资总额(纳税+免税)+只納税）
-                  row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(row.other5)) * 100) / 100;
-                  //累計応発工資（当月含）
-                  //@YEARSTOTAL12 := round(base.COMPREHENSIVE_YEARSTOTAL12 + @DYYKGZ,2) AS SHOULDCUMULATIVE,#累計応発工資（当月含）
-                  row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12)+ Number(row.shouldwages)) * 100) / 100;
-                  //累計应纳税所得额
-                  //本月应扣缴所得税
-                  //当月实发工资
-                  this.wagesChange1(row);
-                  //工会经费基数
-                  row.labourunionbase = Math.round((Number(row.total1) + Number(val)) * 100) / 100;
-                  //工会经费
-                  row.labourunionfunds = Math.round((Number(row.labourunionbase) * 0.02) * 100) / 100;
-
-                  //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
-                  row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(row.total) + Number(row.labourunionfunds)) * 100) / 100;
-                  //总计+計上奨金
-                  if (new Date().getMonth() + 1 === 4) {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
-                  } else {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
-                  }
-
-                }
-                //其他3ok
-                if (prop === 'other3') {
-                    //纳税工资总额(小计1+2)
-                    row.total2 = Math.round((Number(row.other2) + Number(row.appreciation) + Number(val)) * 100) / 100;
-                    //纳税工资总额(小计1+2)
-                    row.taxestotal = Math.round((Number(row.total1) + Number(row.total2)) * 100) / 100;
-                    //工资总额(纳税+免税)
-                    row.totalwages = Math.round((Number(row.taxestotal) + Number(row.total3)) * 100) / 100;
-                    //当月応発工資（工资总额(纳税+免税)+只納税）
-                    //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,#当月応発工資（工资总额(纳税+免税)+只納税）
-                    row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(row.other5)) * 100) / 100;
-                    //累計応発工資（当月含）
-                    //@YEARSTOTAL12 := round(base.COMPREHENSIVE_YEARSTOTAL12 + @DYYKGZ,2) AS SHOULDCUMULATIVE,#累計応発工資（当月含）
-                    row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12)+ Number(row.shouldwages)) * 100) / 100;
-                    //累計应纳税所得额
-                    //本月应扣缴所得税
-                    //当月实发工资
-                    this.wagesChange1(row);
-                }
-                //纳税工资总额（小计1+2）
-                if (prop === 'taxestotal') {//工资总额(纳税+免税)taxes
-                  row.totalwages = Math.round((Number(val) + Number(row.total3)) * 100) / 100;
-                  //当月応発工資（工资总额(纳税+免税)+只納税）
-                  //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,#当月応発工資（工资总额(纳税+免税)+只納税）
-                  row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(row.other5)) * 100) / 100;
-                  //累計応発工資（当月含）
-                  //@YEARSTOTAL12 := round(base.COMPREHENSIVE_YEARSTOTAL12 + @DYYKGZ,2) AS SHOULDCUMULATIVE,#累計応発工資（当月含）
-                  row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12)+ Number(row.shouldwages)) * 100) / 100;
-                  //累計应纳税所得额
-                  //本月应扣缴所得税
-                  //当月实发工资
-                  this.wagesChange1(row);
-                }
-                //社保各个分项（个人）
-                //个人社会保险（专项控除）ok
-                if (prop === 'socialinsurance') {
-                    //个人社会保险费+公积金(専項控除)合计
-                    row.disciplinarycontrol = Math.round((Number(val) + Number(row.accumulationfund)) * 100) / 100;
-                    //専項控除累計（当月まで）
-                    row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
-                    //累計应纳税所得额
-                    //本月应扣缴所得税
-                    //当月实发工资
-                    this.wagesChange1(row);
-                }
-                //个人社会保险（专项控除）ok
-                if (prop === 'accumulationfund') {
-                    //个人社会保险费+公积金(専項控除)合计
-                    row.disciplinarycontrol = Math.round((Number(row.socialinsurance) + Number(val)) * 100) / 100;
-                    //専項控除累計（当月まで）
-                    row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
-                    //累計应纳税所得额
-                    //本月应扣缴所得税
-                    //当月实发工资
-                    this.wagesChange1(row);
-                }
-                //本月应扣缴所得税ok
-                if (prop === 'thismonthadjustment') {
-                    //当月实发工资
-                    row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(val) + Number(row.other6)) * 100) / 100;
-                }
-                //社保各个分项（企业）添加社保总计
-                if (prop === 'socialsecurity') {
-                  //公司担负保险总计
-                  row.total = Math.round((Number(val) + Number(row.comaccumulationfund)) * 100) / 100;
-                  //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
-                  row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(row.total) + Number(row.labourunionfunds)) * 100) / 100;
-                  //总计+計上奨金
-                  if (new Date().getMonth() + 1 === 4) {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
-                  } else {
-                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
-                  }
-                }
-                //公积金ok
-                if (prop === 'comaccumulationfund') {
-                    //公司担负保险总计
-                    row.total = Math.round((Number(row.socialsecurity) + Number(val)) * 100) / 100;
-                    //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
-                    row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(row.total) + Number(row.labourunionfunds)) * 100) / 100;
-                    //总计+計上奨金
-                    if (new Date().getMonth() + 1 === 4) {
-                        row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
-                    } else {
-                        row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
-                    }
-                }
-                //公司担负保险总计ok
-                if (prop === 'total') {
-                    prop = 'toxtal';
-                    //@GZFZFDZJ := ROUND( ( 工资总额(纳税+免税) + @其他4 + @其他5 + @公司担负保险总计 + @工会经费 ), 2 ) AS COMTOTALWAGES,#工资总额(纳税+免税)+福祉+公司負担+工会経費总计
-                    //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
-                    row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(val) + Number(row.labourunionfunds)) * 100) / 100;
-                    //总计+計上奨金
-                    if (new Date().getMonth() + 1 === 4) {
-                        row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
-                    } else {
-                        row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
-                    }
-                }
-                ///OTHER4ok
-                if (prop === 'other4') {
-                    //当月応発工資（工资总额(纳税+免税)+只納税）
-                    //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,
-                    row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(val) + Number(row.other5)) * 100) / 100;
-                    //累計応発工資（当月含）
-                    row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12)+ Number(row.shouldwages)) * 100) / 100;
-                    //累計应纳税所得额
-                    //本月应扣缴所得税
-                    //当月实发工资
-                    this.wagesChange1(row);
-
-                }
-                //OTHER5ok
-                if (prop === 'other5') {
-                    //当月応発工資（工资总额(纳税+免税)+只納税）
-                    row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(val)) * 100) / 100;
-                    //累計応発工資（当月含）
-                    row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12)+ Number(row.shouldwages)) * 100) / 100;
-                    //累計应纳税所得额
-                    //本月应扣缴所得税
-                    //当月实发工资
-                    this.wagesChange1(row);
-
-                }
-                //总计+记上奖金ok
-                if (prop === 'other6') {
-                    row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment) + Number(val)) * 100) / 100;
-                }
-                //字段修改记录保存
-                if(row.updatelist != undefined){
-                  if(row.updatelist != null){
-                    if(row.updatelist.indexOf(prop) === -1){
-                      row.updatelist = row.updatelist + ',' + prop;
-                    }
-                  }
-                  else{
-                    row.updatelist = prop;
-                  }
-                }
-                else{
-                  row.updatelist = prop;
-                }
-                // this.totaldata.forEach((item, index) => {
-                //   if (item.no === noId) {
-                //     this.wagesChangeSwitch(item, prop, val);
-                //   }
-                // });
-            },
-            //累計应纳税所得额/本月应扣缴所得税/当月实发工资
-            wagesChange1(row){
-                let newdate = new Date();
-                //入社日
-                let workdate = new Date(row.workdate);
-                let thismonthterm = Number(row.thismonthterm) + Number(row.thismonthadditional) + Number(row.thismonthdutyfree)
-                if(newdate.getFullYear() === workdate.getFullYear()){
-                    //累計应纳税所得额
-                    row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 0 - workdate.getMonth() + 1 ) - thismonthterm) * 100) / 100;
-                }
-                else{
-                    //累計应纳税所得额
-                    row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 0 ) - thismonthterm) * 100) / 100;
-                }
-                //本月应扣缴所得税
-                if(Number(row.shouldpaytaxes) >= Number(row.dic_0je) && Number(row.shouldpaytaxes) <= Number(row.dic_1je)){
-                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_0sl) - Number(row.dic_0sskc) - Number(row.lastdutyfree)) * 100) / 100;
-                }
-                else if(Number(row.shouldpaytaxes) > 36000 && Number(row.shouldpaytaxes) <= Number(row.dic_2je)){
-                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_1sl) - Number(row.dic_1sskc) - Number(row.lastdutyfree)) * 100) / 100;
-                }
-                else if(Number(row.shouldpaytaxes) > 144000 && Number(row.shouldpaytaxes) <= Number(row.dic_3je)){
-                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_2sl) - Number(row.dic_2sskc) - Number(row.lastdutyfree)) * 100) / 100;
-                }
-                else if(Number(row.shouldpaytaxes) > 300000 && Number(row.shouldpaytaxes) <= Number(row.dic_4je)){
-                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_3sl) - Number(row.dic_3sskc) - Number(row.lastdutyfree)) * 100) / 100;
-                }
-                else if(Number(row.shouldpaytaxes) > 420000 && Number(row.shouldpaytaxes) <= Number(row.dic_5je)){
-                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_4sl) - Number(row.dic_4sskc) - Number(row.lastdutyfree)) * 100) / 100;
-                }
-                else if(Number(row.shouldpaytaxes) > 660000 && Number(row.shouldpaytaxes) <= Number(row.dic_6je)){
-                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_5sl) - Number(row.dic_6sskc) - Number(row.lastdutyfree)) * 100) / 100;
-                }
-                else{
-                    row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_6sl) - Number(row.dic_6sskc) - Number(row.lastdutyfree)) * 100) / 100;
-                }
-                row.thismonthadjustment = row.thismonthadjustment < 0 ? 0 : row.thismonthadjustment;
-                //当月实发工资
-                row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment) + Number(row.other6)) * 100) / 100;
-            },
-            // 工资tab 录入项change事件 逻辑
-            wagesChangeSwitch(item, prop, val) {
-                // 用于存储prop初始值
-                let propInit = prop + "Init";
-                if (!item[propInit]) {
-                    item[propInit] = item[prop];
-                }
-                // val存在正常计算，不存在使用init初始值
-                item[prop] = val
-                    ? (parseFloat(item[propInit]) + parseFloat(val)).toFixed(2)
-                    : item[propInit];
-            },
-            // zqu end
-
-            // todo by skaixx : 滚动条滑动handeler
-            // handleScroll(e) {
-            //   let parentNode = e.srcElement;
-            //   // parentNode.scrollTop += 53;
-            //   console.log("scroll top:  " + parentNode.scrollTop + "px"); //当前DIV滚动条距离顶部的高度
-            //   // 当前页面第一行显示的No
-            //   console.log("当前页面显示的第一行为：");
-            // },
-            setdisabled(val) {
-                if (this.$route.params.disabled) {
-                    this.disabled = val;
-                }
-            },
-            // 根据giving获取数据
-            getListdata(wagesFlg) {
-                this.loading = true;
-                this.$store
-                    .dispatch("PFANS2005Store/givinglist", {giving_id: this.Giving,wagesFlg: wagesFlg})
-                    .then(response => {
-                      //region add_qhr_20210702 修改工资计算基数中月份显示
-                        if (this.$i18n) {
-                          this.YEARLAST = response.yearOfLastMonth +
-                            this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                            response.monthOfLastMonth +
-                            this.$t("label.PFANS2005FORMVIEW_MONTH");
-                          this.YEARNOW = response.yearOfThisMonth +
-                            this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                            response.monthOfThisMonth +
-                            this.$t("label.PFANS2005FORMVIEW_MONTH");
-                        }
-                      //endregion add_qhr_20210702 修改工资计算基数中月份显示
-                        let lettableQT1Woman = [];
-                        let lettableQT1Man = [];
-                        let datalist = [];
-                        let datalistgrdb = [];
-                        let datalistzxkc = [];
-                        let datalistqq = [];
-                        let datalistcy = [];
-                        let datalistljsj = [];
-                        let datalistms = [];
-                        let datalistzhsr = [];
-                        //判断是否取自工资表数据
-                        if(response.wagesList.length > 0){
-                          if(response.wagesList[0].wages_id !== null){
-                            this.thisWages = true;
-                            if(this.$route.params.status === '2' || this.$route.params.status === '4'){
-                              this.buttonList[1].disabled = true;
-                            }
-                            else{
-                              this.buttonList[1].disabled = false;
-                            }
-                          }
-                        }
-                        // 工资tab页数据处理
-                        response.wagesList.forEach(function (item, index) {
-                            let user = getUserInfo(item.user_id);
-                            if (user) {
-                                item.user_name = user.userinfo.customername;
-                                //item.department_name = user.userinfo.centername;
-                                item.department_id = user.userinfo.budgetunit;
-                            }
-                            item.no = index + 1;
-                            item.workdate = moment(item.workdate).format("YYYY-MM-DD");
-                            item.sexshow = item.sex === "PR019001" ? "男" : "女";
-                            item.onlychildshow = item.onlychild === "1" ? "是" : "-";
-                            item.typeshow =
-                              item.type === "1"
-                                ? "入職"
-                                : item.type === "2"
-                                ? "女産休"
-                                  : item.type === "3"
-                                      ? "男看护"
-                                : item.type === "4"
-                                  ? "退職"
-                                  : "-";
-                            //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG 奖金记上用字典【PR021】_020 FROM
-                            item.bonusshow = item.bonus; //=== "2" ? "老员工" : "新员工";
-                            //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG_020 奖金记上用字典【PR021】 TO
-                            item.sociologyshow = item.sociology === "1" ? "是" : "-";
-                            item.registeredshow = item.registered === "1" ? "是" : "-";
-                        });
-                        this.responseDataInit = response.wagesList;
-                        this.totaldata = response.wagesList;
-                        this.listWages = 0;
-                        this.getList();
-                        // todo By Skaixx: 定位测试
-                        // const name = "祖成玉";
-                        // const location =
-                        //   this.totaldata.find(item => item.user_name === name).no * 40;
-
-                        // region 欠勤 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.lackattendance) {
-                            for (let j = 0; j < response.lackattendance.length; j++) {
-                                let user = getUserInfo(response.lackattendance[j].user_id);
-                                if (user) {
-                                    response.lackattendance[j].user_name = getUserInfo(
-                                        response.lackattendance[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                let obj = {};
-                                obj.user_id = response.lackattendance[j].user_id;
-                                obj.user_name = response.lackattendance[j].user_name;
-                                obj.lastdiligencetry = this.setScale2(
-                                    response.lackattendance[j].lastdiligencetry
-                                );
-                                obj.lastshortdeficiencytry = this.setScale2(
-                                    response.lackattendance[j].lastshortdeficiencytry
-                                );
-                                obj.lastchronicdeficiencytry = this.setScale2(
-                                    response.lackattendance[j].lastchronicdeficiencytry
-                                );
-                                obj.lastdiligenceformal = this.setScale2(
-                                    response.lackattendance[j].lastdiligenceformal
-                                );
-                                obj.lastshortdeficiencyformal = this.setScale2(
-                                    response.lackattendance[j].lastshortdeficiencyformal
-                                );
-                                obj.lastchronicdeficiencyformal = this.setScale2(
-                                    response.lackattendance[j].lastchronicdeficiencyformal
-                                );
-                                obj.lastdiligence = this.setScale2(
-                                    response.lackattendance[j].lastdiligence
-                                );
-                                obj.lastshortdeficiency = this.setScale2(
-                                    response.lackattendance[j].lastshortdeficiency
-                                );
-                                obj.lastchronicdeficiency = this.setScale2(
-                                    response.lackattendance[j].lastchronicdeficiency
-                                );
-                                obj.lasttotal = this.setScale2(
-                                    response.lackattendance[j].lasttotal
-                                );
-                                obj.thisdiligence = this.setScale2(
-                                    response.lackattendance[j].thisdiligence
-                                );
-                                obj.thisdiligencetry = this.setScale2(
-                                    response.lackattendance[j].thisdiligencetry
-                                );
-                                obj.thisshortdeficiencytry = this.setScale2(
-                                    response.lackattendance[j].thisshortdeficiencytry
-                                );
-                                obj.thischronicdeficiencytry = this.setScale2(
-                                    response.lackattendance[j].thischronicdeficiencytry
-                                );
-                                obj.thisdiligenceformal = this.setScale2(
-                                    response.lackattendance[j].thisdiligenceformal
-                                );
-                                obj.thisshortdeficiencyformal = this.setScale2(
-                                    response.lackattendance[j].thisshortdeficiencyformal
-                                );
-                                obj.thischronicdeficiencyformal = this.setScale2(
-                                    response.lackattendance[j].thischronicdeficiencyformal
-                                );
-                                obj.thisshortdeficiency = this.setScale2(
-                                    response.lackattendance[j].thisshortdeficiency
-                                );
-                                obj.thischronicdeficiency = this.setScale2(
-                                    response.lackattendance[j].thischronicdeficiency
-                                );
-                                obj.thistotal = this.setScale2(
-                                    response.lackattendance[j].thistotal
-                                );
-                                obj.remarks = response.lackattendance[j].remarks;
-                                obj.give = response.lackattendance[j].give;
-                                obj.rowindex = j + 1;
-                                obj.lackattendance_id =
-                                    response.lackattendance[j].lackattendance_id;
-                                obj.isDirty = false;
-                                datalistqq[j] = obj;
-                                this.responseQQ = datalistqq;
-                                this.tableQQ = datalistqq;
-                                this.totaldataQQ = datalistqq;
-                                this.ListQQ = 8;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-                        // region 残业 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.residual) {
-                            for (let j = 0; j < response.residual.length; j++) {
-
-                                if (
-                                    response.residual[j].rn !== null &&
-                                    response.residual[j].rn !== ""
-                                ) {
-                                    let letErrortype = getDictionaryInfo(response.residual[j].rn);
-                                    if (letErrortype != null) {
-                                        response.residual[j].rn = letErrortype.value1;
-                                    }
-                                }
-                                let obj = {};
-                                obj.rowindex = j + 1;
-                                obj.user_id = response.residual[j].user_id;
-                                let user = getUserInfo(response.residual[j].user_id);
-                                if (user) {
-                                    obj.user_name = getUserInfo(
-                                        response.residual[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                obj.rn = response.residual[j].rn;
-                                obj.lastweekdays = this.setScale2(
-                                    response.residual[j].lastweekdays
-                                );
-                                obj.lastlatenight = this.setScale2(
-                                    response.residual[j].lastlatenight
-                                );
-                                obj.lastrestDay = this.setScale2(
-                                    response.residual[j].lastrestDay
-                                );
-                                obj.lastrestlatenight = this.setScale2(
-                                    response.residual[j].lastrestlatenight
-                                );
-                                obj.lastlegal = this.setScale2(response.residual[j].lastlegal);
-                                obj.lastlegallatenight = this.setScale2(
-                                    response.residual[j].lastlegallatenight
-                                );
-                                obj.lastreplace = this.setScale2(
-                                    response.residual[j].lastreplace
-                                );
-                                obj.lasttotalh = this.setScale2(response.residual[j].lasttotalh);
-                                obj.lasttotaly = this.setScale2(response.residual[j].lasttotaly);
-                                obj.thisweekdays = this.setScale2(
-                                    response.residual[j].thisweekdays
-                                );
-                                obj.thislatenight = this.setScale2(
-                                    response.residual[j].thislatenight
-                                );
-                                obj.thisrestDay = this.setScale2(
-                                    response.residual[j].thisrestDay
-                                );
-                                obj.thisrestlatenight = this.setScale2(
-                                    response.residual[j].thisrestlatenight
-                                );
-                                obj.thislegal = this.setScale2(response.residual[j].thislegal);
-                                obj.thislegallatenight = this.setScale2(
-                                    response.residual[j].thislegallatenight
-                                );
-                                obj.thisreplace = this.setScale2(
-                                    response.residual[j].thisreplace
-                                );
-                                obj.thisreplace3 = this.setScale2(
-                                    response.residual[j].thisreplace3
-                                );
-                                obj.thistotalh = this.setScale2(response.residual[j].thistotalh);
-                                obj.thistotaly = this.setScale2(response.residual[j].thistotaly);
-                                obj.remarks = response.residual[j].remarks;
-                                obj.subsidy = this.setScale2(response.residual[j].subsidy);
-                                obj.residual_id = response.residual[j].residual_id;
-                                obj.isDirty = false;
-                                datalistcy[j] = obj;
-                                this.responseCY = datalistcy;
-                                this.tableCY = datalistcy;
-                                this.totaldataCY = datalistcy;
-                                this.ListCY = 9;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-                        // region 专项控除 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.disciplinaryVo) {
-                            for (let i = 0; i < response.disciplinaryVo.length; i++) {
-                                let user = getUserInfo(response.disciplinaryVo[i].user_id);
-                                if (user) {
-                                    response.disciplinaryVo[i].user_name = getUserInfo(
-                                        response.disciplinaryVo[i].user_id
-                                    ).userinfo.customername;
-                                }
-                                let obj = {};
-                                obj.number = i + 1;
-                                obj.user_id = response.disciplinaryVo[i].user_id;
-                                obj.user_name = response.disciplinaryVo[i].user_name;
-                                obj.january = response.disciplinaryVo[i].month1;
-                                obj.february = response.disciplinaryVo[i].month2;
-                                obj.march = response.disciplinaryVo[i].month3;
-                                obj.april = response.disciplinaryVo[i].month4;
-                                obj.may = response.disciplinaryVo[i].month5;
-                                obj.june = response.disciplinaryVo[i].month6;
-                                obj.july = response.disciplinaryVo[i].month7;
-                                obj.august = response.disciplinaryVo[i].month8;
-                                obj.september = response.disciplinaryVo[i].month9;
-                                obj.october = response.disciplinaryVo[i].month10;
-                                obj.november = response.disciplinaryVo[i].month11;
-                                obj.december = response.disciplinaryVo[i].month12;
-                                obj.total = response.disciplinaryVo[i].total;
-                                datalistzxkc[i] = obj;
-                                this.responseZXKC = datalistzxkc;
-                                this.tableZXKC = datalistzxkc;
-                                this.totaldataZXKC = datalistzxkc;
-                                this.ListZXKC = 12;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-                        for (let j = 0; j < response.otherOne.length; j++) {
-                            if (response.otherOne[j].basedata === "1") {
-                                this.menuList.value = "1";
-                                this.menuList.label = 1;
-                            }
-                            if (response.otherOne[j].basedata === "2") {
-                                this.menuList.value = "2";
-                                this.menuList.label = 2;
-                            }
-                            if (response.otherOne[j].type === "1") {
-                                let user = getUserInfo(response.otherOne[j].user_id);
-                                if (user) {
-                                    response.otherOne[j].user_name = user.userinfo.customername;
-                                    //response.otherOne[j].department_id = user.userinfo.centername;
-                                    response.otherOne[j].department_id = user.userinfo.budgetunit;
-
-                                }
-                                if (
-                                    response.otherOne[j].sex !== null &&
-                                    response.otherOne[j].sex !== ""
-                                ) {
-                                    if (this.$i18n) {
-                                        response.otherOne[j].sex = this.$t("label.PFANS2002FORMVIEW_GRIL");
-                                    }
-                                }
-                                if (
-                                    response.otherOne[j].workdate !== null &&
-                                    response.otherOne[j].workdate !== ""
-                                ) {
-                                    response.otherOne[j].workdate = moment(
-                                        response.otherOne[j].workdate
-                                    ).format("YYYY-MM-DD");
-                                }
-                                if (
-                                    response.otherOne[j].reststart !== null &&
-                                    response.otherOne[j].reststart !== ""
-                                ) {
-                                    response.otherOne[j].reststart = moment(
-                                        response.otherOne[j].reststart
-                                    ).format("YYYY-MM-DD");
-                                }
-                                if (
-                                    response.otherOne[j].restend !== null &&
-                                    response.otherOne[j].restend !== ""
-                                ) {
-                                    response.otherOne[j].restend = moment(
-                                        response.otherOne[j].restend
-                                    ).format("YYYY-MM-DD");
-                                }
-
-                                //添加对其他1的处理-lxx
-                                // let other1 = "0";
-                                // if (response.otherOne[j].other1.indexOf(",") !== -1) {
-                                //   if (response.otherOne[j].basedata === "1") {
-                                //     other1 = response.otherOne[j].other1.split(",")[0];
-                                //   }
-                                //   if (response.otherOne[j].basedata === "2") {
-                                //     other1 = response.otherOne[j].other1.split(",")[1];
-                                //   }
-                                // }
-                                //添加对其他1的处理-lxx
-                                lettableQT1Woman.push({
-                                    otherone_id: response.otherOne[j].otherone_id,
-                                    giving_id: response.otherOne[j].giving_id,
-                                    rowindex: response.otherOne[j].rowindex,
-                                    department_id: response.otherOne[j].department_id,
-                                    user_id: response.otherOne[j].user_id,
-                                    user_name: response.otherOne[j].user_name,
-                                    sex: response.otherOne[j].sex,
-                                    workdate: response.otherOne[j].workdate,
-                                    reststart: response.otherOne[j].reststart,
-                                    restend: response.otherOne[j].restend,
-                                    attendance: response.otherOne[j].attendance,
-                                    // other1: other1,
-                                    basedata: response.otherOne[j].basedata
-                                    //对其他1结果存储-lxx
-                                    // temp: response.otherOne[j].other1
-                                    //对其他1结果存储-lxx
-                                });
-                                this.ListOtherOneSex = 1;
-                            } else if (response.otherOne[j].type === "2") {
-                                let user = getUserInfo(response.otherOne[j].user_id);
-                                if (user) {
-                                    response.otherOne[j].user_name = user.userinfo.customername;
-                                    //response.otherOne[j].department_id = user.userinfo.centername;
-                                    response.otherOne[j].department_id = user.userinfo.budgetunit;
-                                }
-                                if (
-                                    response.base[j].sex !== null &&
-                                    response.base[j].sex !== ""
-                                ) {
-                                    if (this.$i18n) {
-                                        response.otherOne[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-                                    }
-
-                                    if (
-                                        response.otherOne[j].workdate !== null &&
-                                        response.otherOne[j].workdate !== ""
-                                    ) {
-                                        response.otherOne[j].workdate = moment(
-                                            response.otherOne[j].workdate
-                                        ).format("YYYY-MM-DD");
-                                    }
-                                    if (
-                                        response.otherOne[j].startdate !== null &&
-                                        response.otherOne[j].startdate !== ""
-                                    ) {
-                                        response.otherOne[j].startdate = moment(
-                                            response.otherOne[j].startdate
-                                        ).format("YYYY-MM-DD");
-                                    }
-                                    if (
-                                        response.otherOne[j].enddate !== null &&
-                                        response.otherOne[j].enddate !== ""
-                                    ) {
-                                        response.otherOne[j].enddate = moment(
-                                            response.otherOne[j].enddate
-                                        ).format("YYYY-MM-DD");
-                                    }
-                                    lettableQT1Man.push({
-                                        rowindex: response.otherOne[j].rowindex,
-                                        department_id: response.otherOne[j].department_id,
-                                        user_id: response.otherOne[j].user_id,
-                                        user_name: response.otherOne[j].user_name,
-                                        sex: response.otherOne[j].sex,
-                                        workdate: response.otherOne[j].workdate,
-                                        startdate: response.otherOne[j].startdate,
-                                        enddate: response.otherOne[j].enddate,
-                                        vacation: response.otherOne[j].vacation,
-                                        handsupport: response.otherOne[j].handsupport
-                                    });
-                                    this.ListOtherOneSex = 2;
-                                }
-                            }
-                            if (this.ListOtherOneSex === 1) {
-                                this.totaldataOtherOneWoman = lettableQT1Woman;
-                            } else if (this.ListOtherOneSex === 2) {
-                                this.totaldataOtherOneMan = lettableQT1Man;
-                            }
-                            this.responseQT1Woman = lettableQT1Woman;
-                            this.tableQT1Woman = lettableQT1Woman;
-                            this.responseQT1Man = lettableQT1Man;
-                            this.tableQT1Man = lettableQT1Man;
-                            this.ListOtherOne = 2;
-                            this.getList();
-                        }
-                        for (let a = 0; a < response.otherTwo.length; a++) {
-                            if (
-                                response.otherTwo[a].rootknot !== null &&
-                                response.otherTwo[a].rootknot !== ""
-                            ) {
-                                let letErrortype = getDictionaryInfo(
-                                    response.otherTwo[a].rootknot
-                                );
-                                if (letErrortype != null) {
-                                    response.otherTwo[a].rootknot = letErrortype.value1;
-                                }
-                            }
-                            let Obj = {};
-                            Obj.othertwo_id = response.otherTwo[a].othertwo_id;
-                            Obj.user_id = response.otherTwo[a].user_id;
-                            let user = getUserInfo(response.otherTwo[a].user_id);
-                            if (user) {
-                                Obj.user_name = user.userinfo.customername;
-                            }
-                            Obj.moneys = response.otherTwo[a].moneys;
-                            Obj.rootknot = response.otherTwo[a].rootknot;
-                            Obj.type = response.otherTwo[a].type;
-                            Obj.giving_id = response.otherTwo[a].giving_id;
-                            Obj.rowindex = a + 1;
-                            datalist[a] = Obj;
-                            this.responseQT2 = datalist;
-                            this.tableQT2 = datalist;
-                            this.totaldataQT2 = datalist;
-                            this.ListQt2 = 3;
-                            this.getList();
-                        }
-                        // region 月度赏与 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.appreciation) {
-                            for (let j = 0; j < response.appreciation.length; j++) {
-                                let user = getUserInfo(response.appreciation[j].user_id);
-                                if (user) {
-                                    response.appreciation[j].user_name = getUserInfo(
-                                        response.appreciation[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                this.responseYDSY = response.appreciation;
-                                this.tableYDSY = response.appreciation;
-                                this.totaldataYDSY = response.appreciation;
-                                this.ListYDSY = 10;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-
-                        for (let j = 0; j < response.otherFour.length; j++) {
-                            let user = getUserInfo(response.otherFour[j].user_id);
-                            if (user) {
-                                response.otherFour[j].user_name = getUserInfo(
-                                    response.otherFour[j].user_id
-                                ).userinfo.customername;
-                            }
-                            this.responseQT4 = response.otherFour;
-                            this.tableQT4 = response.otherFour;
-                            this.totaldataQT4 = response.otherFour;
-                            this.ListQT4 = 4;
-                            this.getList();
-                        }
-
-                        // region 附加控除 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.addiTional) {
-                            for (let j = 0; j < response.addiTional.length; j++) {
-                                let user = getUserInfo(response.addiTional[j].user_id);
-                                if (user) {
-                                    response.addiTional[j].user_name = getUserInfo(
-                                        response.addiTional[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                this.responseFJKC = response.addiTional;
-                                this.tableFJKC = response.addiTional;
-                                this.totaldataFJKC = response.addiTional;
-                                this.ListFJKC = 13;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-
-                        for (let j = 0; j < response.otherFive.length; j++) {
-                            let user = getUserInfo(response.otherFive[j].user_id);
-                            if (user) {
-                                response.otherFive[j].user_name = getUserInfo(
-                                    response.otherFive[j].user_id
-                                ).userinfo.customername;
-                            }
-                            this.responseQT5 = response.otherFive;
-                            this.tableQT5 = response.otherFive;
-                            this.totaldataQT5 = response.otherFive;
-                            this.ListQt5 = 5;
-                            this.getList();
-                        }
-
-                        // region 入职和离职处理 By Myt
-                        // 入职
-                        for (let j = 0; j < response.entryVo.length; j++) {
-                            let user = getUserInfo(response.entryVo[j].user_id);
-                            if (user) {
-                                response.entryVo[j].user_name = getUserInfo(
-                                    response.entryVo[j].user_id
-                                ).userinfo.customername;
-                            }
-                            if (
-                                response.entryVo[j].worddate !== null &&
-                                response.entryVo[j].worddate !== ""
-                            ) {
-                                response.entryVo[j].worddate = moment(
-                                    response.entryVo[j].worddate
-                                ).format("YYYY-MM-DD");
-                            }
-                            if (
-                                response.entryVo[j].startdate !== null &&
-                                response.entryVo[j].startdate !== ""
-                            ) {
-                                response.entryVo[j].startdate = moment(
-                                    response.entryVo[j].startdate
-                                ).format("YYYY-MM-DD");
-                            }
-                            this.responseRZ = response.entryVo;
-                            this.tableRZ = response.entryVo;
-                            this.totaldataRZ = response.entryVo;
-                            this.ListRZ = 6;
-                            this.getList();
-                        }
-                        // 上月年月和今月年月赋值
-                        this.yearOfLastMonth = response.yearOfLastMonth;
-                        this.monthOfLastMonth = response.monthOfLastMonth;
-                        this.yearOfThisMonth = response.yearOfThisMonth;
-                        this.monthOfThisMonth = response.monthOfThisMonth;
-
-                        // 退职
-                        for (let j = 0; j < response.retireVo.length; j++) {
-                            let user = getUserInfo(response.retireVo[j].user_id);
-                            if (user) {
-                                response.retireVo[j].user_name = getUserInfo(
-                                    response.retireVo[j].user_id
-                                ).userinfo.customername;
-                            }
-                            if (
-                                response.retireVo[j].retiredate !== null &&
-                                response.retireVo[j].retiredate !== ""
-                            ) {
-                                response.retireVo[j].retiredate = moment(
-                                    response.retireVo[j].retiredate
-                                ).format("YYYY-MM-DD");
-                            }
-                            this.responseTZ = response.retireVo;
-                            this.tableTZ = response.retireVo;
-                            this.totaldataTZ = response.retireVo;
-                            this.ListTZ = 6;
-                            this.getList();
-                        }
-                        // endregion
-                        for (let j = 0; j < response.base.length; j++) {
-                            if (this.$i18n) {
-                              if (response.base[j].type === "1") {
-                                response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFRZ");
-                              } else if (response.base[j].type === "4") {
-                                response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFTZ");
-                              } else if (response.base[j].type === "2") {
-                                response.base[j].type = this.$t("label.PFANS2005FORMVIEW_NSFCX");
-                              } else if (response.base[j].type === "3") {
-                                response.base[j].type = this.$t("label.PFANS2005FORMVIEW_NVSFCX");
-                              } else {
-                                response.base[j].type = "-";
-                              }
-                            }
-                            let user = getUserInfo(response.base[j].user_id);
-                            if (user) {
-                                response.base[j].user_name = user.userinfo.customername;
-                                //response.base[j].department_id = user.userinfo.centername;
-                                response.base[j].department_id = user.userinfo.budgetunit;
-                            }
-                            if (response.base[j].rn !== null && response.base[j].rn !== "") {
-                                let letErrortype = getDictionaryInfo(response.base[j].rn);
-                                if (letErrortype != null) {
-                                    response.base[j].rnname = letErrortype.value1;
-                                }
-                            }
-                            if (
-                                response.base[j].workdate !== null &&
-                                response.base[j].workdate !== ""
-                            ) {
-                                response.base[j].workdate = moment(
-                                    response.base[j].workdate
-                                ).format("YYYY-MM-DD");
-                            }
-                            if (response.base[j].sex !== null && response.base[j].sex !== "") {
-                                if (this.$i18n) {
-                                    if (response.base[j].sex === "PR019001") {
-                                        response.base[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-                                    } else if (response.base[j].sex === "PR019002"){
-                                        response.base[j].sex = this.$t("label.PFANS2002FORMVIEW_GRIL");
-                                    }
-                                }
-                            }
-                            if (
-                                response.base[j].registered !== null &&
-                                response.base[j].registered !== ""
-                            ) {
-                                if (this.$i18n) {
-                                    if (response.base[j].registered === "1") {
-                                      if (this.$i18n) {
-                                        response.base[j].registered = this.$t("label.yes");
-                                      }
-                                    } else {
-                                        response.base[j].registered = "-";
-                                    }
-                                }
-                            }
-                            // if (
-                            //   response.base[j].bonus !== null &&
-                            //   response.base[j].bonus !== ""
-                            // ) {
-                            //   if (this.$i18n) {
-                            //     if (response.base[j].bonus === "1") {
-                            //       response.base[j].bonus = this.$t(
-                            //         "label.PFANSUSERFORMVIEW_NEWSTAFF"
-                            //       );
-                            //     } else {
-                            //       response.base[j].bonus = this.$t(
-                            //         "label.PFANSUSERFORMVIEW_OLDSTAFF"
-                            //       );
-                            //     }
-                            //   }
-                            // }
-                            if (
-                                response.base[j].onlychild !== null &&
-                                response.base[j].onlychild !== ""
-                            ) {
-                                if (this.$i18n) {
-                                    if (response.base[j].onlychild === "1") {
-                                        if (this.$i18n) {
-                                          response.base[j].onlychild = this.$t("label.yes");
-                                        }
-                                    } else {
-                                        response.base[j].onlychild = "-";
-                                    }
-                                }
-                            }
-                            if (
-                                response.base[j].sociology !== null &&
-                                response.base[j].sociology !== ""
-                            ) {
-                                if (this.$i18n) {
-                                    if (response.base[j].sociology === "1") {
-                                        response.base[j].sociology = this.$t("label.yes");
-                                    } else {
-                                        response.base[j].sociology = "-";
-                                    }
-                                }
-                            }
-                            this.responseJS = response.base;
-                            // this.tableJS = response.base;
-                            this.totaldataBase = response.base;
-                            this.listBase = 1;
-                            this.getList();
-                        }
-                        for (let j = 0; j < response.contrast.length; j++) {
-                            let user = getUserInfo(response.contrast[j].user_id);
-                            if (user) {
-                                response.contrast[j].user_name = user.userinfo.customername;
-                                //response.contrast[j].department_id = user.userinfo.centername;
-                                response.contrast[j].department_id = user.userinfo.budgetunit;
-                            }
-                            let obj = {};
-                            obj.contrast_id = response.contrast[j].contrast_id;
-                            obj.department_id = response.contrast[j].department_id;
-                            obj.user_id = response.contrast[j].user_id;
-                            obj.user_name = response.contrast[j].user_name;
-                            obj.thismonth = response.contrast[j].thismonth;
-                            obj.lastmonth = response.contrast[j].lastmonth;
-                            obj.reason = response.contrast[j].reason;
-                            obj.rowindex = response.contrast[j].rowindex;
-                            if (
-                                response.contrast[j].thismonth != null &&
-                                response.contrast[j].lastmonth != null
-                            ) {
-                                //update 20210319 个人到手差额对比数据格式化 start
-                                obj.difference =
-                                    Math.round((response.contrast[j].thismonth - response.contrast[j].lastmonth) * 100 ) / 100;
-                                //update 20210319 个人到手差额对比数据格式化 end
-                            }
-                            datalistgrdb[j] = obj;
-                            this.responseGRDB = datalistgrdb;
-                            this.tableGRDB = datalistgrdb;
-                            this.totaldataContrast = datalistgrdb;
-                            this.listContrast = 16;
-                            this.getList();
-                        }
-                        // region 累计税金 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.accumulatedTaxVo) {
-                            for (let j = 0; j < response.accumulatedTaxVo.length; j++) {
-                                let user = getUserInfo(response.accumulatedTaxVo[j].user_id);
-                                if (user) {
-                                    response.accumulatedTaxVo[j].user_name = getUserInfo(
-                                        response.accumulatedTaxVo[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                let obj = {};
-                                obj.rowindex = j + 1;
-                                obj.user_id = response.accumulatedTaxVo[j].user_id;
-                                obj.user_name = response.accumulatedTaxVo[j].user_name;
-                                obj.january = response.accumulatedTaxVo[j].january;
-                                obj.february = response.accumulatedTaxVo[j].february;
-                                obj.march = response.accumulatedTaxVo[j].march;
-                                obj.april = response.accumulatedTaxVo[j].april;
-                                obj.may = response.accumulatedTaxVo[j].may;
-                                obj.june = response.accumulatedTaxVo[j].june;
-                                obj.july = response.accumulatedTaxVo[j].july;
-                                obj.august = response.accumulatedTaxVo[j].august;
-                                obj.september = response.accumulatedTaxVo[j].september;
-                                obj.october = response.accumulatedTaxVo[j].october;
-                                obj.november = response.accumulatedTaxVo[j].november;
-                                obj.december = response.accumulatedTaxVo[j].december;
-                                obj.sumThis = response.accumulatedTaxVo[j].sumThis;
-                                obj.shouldwages = response.accumulatedTaxVo[j].shouldwages;
-                                obj.shouldtax = response.accumulatedTaxVo[j].shouldtax;
-                                obj.balance = response.accumulatedTaxVo[j].balance;
-                                datalistljsj[j] = obj;
-                                this.responseLJSJ = datalistljsj;
-                                this.tableLJSJ = datalistljsj;
-                                this.totaldataAccumulatedTax = datalistljsj;
-                                this.listAccumulatedTax = 15;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-                        // region 免税 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.dutyfreeVo) {
-                            for (let j = 0; j < response.dutyfreeVo.length; j++) {
-                                let user = getUserInfo(response.dutyfreeVo[j].user_id);
-                                if (user) {
-                                    response.dutyfreeVo[j].user_name = getUserInfo(
-                                        response.dutyfreeVo[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                let obj = {};
-                                obj.rowindex = j + 1;
-                                obj.user_id = response.dutyfreeVo[j].user_id;
-                                obj.user_name = response.dutyfreeVo[j].user_name;
-                                obj.january = response.dutyfreeVo[j].january;
-                                obj.february = response.dutyfreeVo[j].february;
-                                obj.march = response.dutyfreeVo[j].march;
-                                obj.april = response.dutyfreeVo[j].april;
-                                obj.may = response.dutyfreeVo[j].may;
-                                obj.june = response.dutyfreeVo[j].june;
-                                obj.july = response.dutyfreeVo[j].july;
-                                obj.august = response.dutyfreeVo[j].august;
-                                obj.september = response.dutyfreeVo[j].september;
-                                obj.october = response.dutyfreeVo[j].october;
-                                obj.november = response.dutyfreeVo[j].november;
-                                obj.december = response.dutyfreeVo[j].december;
-                                obj.total = response.dutyfreeVo[j].total;
-                                datalistms[j] = obj;
-                                this.responseMS = datalistms;
-                                this.tableMS = datalistms;
-                                this.totaldataDutyfreeVo = datalistms;
-                                this.listDutyfreeVo = 14;
-                                this.getList();
-                            }
-                        }
-                        // endregion
-                        //region  综合收入 By SKAIXX
-                        // 添加非空判断 By SKAIXX
-                        if (response.comprehensiveVo) {
-                            for (let j = 0; j < response.comprehensiveVo.length; j++) {
-                                let user = getUserInfo(response.comprehensiveVo[j].user_id);
-                                if (user) {
-                                    response.comprehensiveVo[j].user_name = getUserInfo(
-                                        response.comprehensiveVo[j].user_id
-                                    ).userinfo.customername;
-                                }
-                                let obj = {};
-                                obj.rowindex = j + 1;
-                                obj.user_id = response.comprehensiveVo[j].user_id;
-                                obj.user_name = response.comprehensiveVo[j].user_name;
-                                obj.totalbonus1 = response.comprehensiveVo[j].totalbonus1;
-                                obj.month1wages = response.comprehensiveVo[j].month1wages;
-                                obj.month1appreciation =
-                                    response.comprehensiveVo[j].month1appreciation;
-                                obj.month2wages = response.comprehensiveVo[j].month2wages;
-                                obj.month2appreciation =
-                                    response.comprehensiveVo[j].month2appreciation;
-                                obj.month3wages = response.comprehensiveVo[j].month3wages;
-                                obj.month3appreciation =
-                                    response.comprehensiveVo[j].month3appreciation;
-                                obj.month4wages = response.comprehensiveVo[j].month4wages;
-                                obj.month4appreciation =
-                                    response.comprehensiveVo[j].month4appreciation;
-                                obj.month5wages = response.comprehensiveVo[j].month5wages;
-                                obj.month5appreciation =
-                                    response.comprehensiveVo[j].month5appreciation;
-                                obj.month6wages = response.comprehensiveVo[j].month6wages;
-                                obj.month6appreciation =
-                                    response.comprehensiveVo[j].month6appreciation;
-                                obj.month7wages = response.comprehensiveVo[j].month7wages;
-                                obj.month7appreciation =
-                                    response.comprehensiveVo[j].month7appreciation;
-                                obj.month8wages = response.comprehensiveVo[j].month8wages;
-                                obj.month8appreciation =
-                                    response.comprehensiveVo[j].month8appreciation;
-                                obj.month9wages = response.comprehensiveVo[j].month9wages;
-                                obj.month9appreciation =
-                                    response.comprehensiveVo[j].month9appreciation;
-                                obj.month10wages = response.comprehensiveVo[j].month10wages;
-                                obj.month10appreciation =
-                                    response.comprehensiveVo[j].month10appreciation;
-                                obj.month11wages = response.comprehensiveVo[j].month11wages;
-                                obj.month11appreciation =
-                                    response.comprehensiveVo[j].month11appreciation;
-                                obj.month12wages = response.comprehensiveVo[j].month12wages;
-                                obj.month12appreciation =
-                                    response.comprehensiveVo[j].month12appreciation;
-                                obj.appreciationtotal =
-                                    response.comprehensiveVo[j].appreciationtotal;
-                                obj.totalwithout12 = response.comprehensiveVo[j].totalwithout12;
-                                obj.totalwithin12 = response.comprehensiveVo[j].totalwithin12;
-                                datalistzhsr[j] = obj;
-                                this.responseZHSR = datalistzhsr;
-                                this.tableZHSR = datalistzhsr;
-                                this.totaldataZHSR = datalistzhsr;
-                                this.ListZHSR = 11;
-                                this.getList();
-                            }
-                        }
-                        this.loading = false;
-                        //endregion
-
-                        // TODO By Skaixx : 设置滚动条
-                        // console.log("Start setting", location);
-                        // this.$nextTick(() => {
-                        //   this.$refs[
-                        //     "eltable"
-                        //   ].$el.children[0].children[0].children[2].scrollTop = location;
-                        // });
-                        // console.log("End setting");
-                      //region add_qhr_20210702  保存后保留查询项及查询结果
-                        this.inputChange(1);
-                      //endregion add_qhr_20210702 保存后保留查询项及查询结果
-                    })
-                    .catch(error => {
-                        this.$message.error({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                        this.loading = false;
-                    });
-            },
-            UploadUrlfjkc: function () {
-                return (
-                    process.env.BASE_API +
-                    "/giving/importUseradditional?givingid=" +
-                    this.Giving
-                );
-            },
-            UploadUrlothertwo: function () {
-                return (
-                    process.env.BASE_API +
-                    "/giving/importUserothertwo?givingid=" +
-                    this.Giving
-                );
-            },
-            UploadUrlotherfour: function () {
-                return (
-                    process.env.BASE_API +
-                    "/giving/importUserotherfour?givingid=" +
-                    this.Giving
-                );
-            },
-            UploadUrlotherfive: function () {
-                return (
-                    process.env.BASE_API +
-                    "/giving/importUserotherfive?givingid=" +
-                    this.Giving
-                );
-            },
-            UploadUrlappreciation: function () {
-                return (
-                    process.env.BASE_API +
-                    "/giving/importUserappreciation?givingid=" +
-                    this.Giving
-                );
-            },
-            handleSizeChangeYDSY(val) {
-                this.listQueryListYDSY.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeYDSY(val) {
-                this.listQueryListYDSY.page = val;
-                this.getList();
-            },
-            handleSizeChangeZHSR(val) {
-                this.listQueryListZHSR.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeZHSR(val) {
-                this.listQueryListZHSR.page = val;
-                this.getList();
-            },
-            handleSizeChangeZXKC(val) {
-                this.listQueryListZXKC.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeZXKC(val) {
-                this.listQueryListZXKC.page = val;
-                this.getList();
-            },
-            handleSizeChangeFJKC(val) {
-                this.listQueryListFJKC.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeFJKC(val) {
-                this.listQueryListFJKC.page = val;
-                this.getList();
-            },
-            handleSizeChangeMS(val) {
-                this.listQueryListMS.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeMS(val) {
-                this.listQueryListMS.page = val;
-                this.getList();
-            },
-            handleSizeChangeLJSJ(val) {
-                this.listQueryListLJSJ.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeLJSJ(val) {
-                this.listQueryListLJSJ.page = val;
-                this.getList();
-            },
-            handleSizeChangeGRDB(val) {
-                this.listQueryListGRDB.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeGRDB(val) {
-                this.listQueryListGRDB.page = val;
-                this.getList();
-            },
-            handleSizeChangeQT1Woman(val) {
-                this.listQueryListQT1Woman.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeQT1Woman(val) {
-                this.listQueryListQT1Woman.page = val;
-                this.getList();
-            },
-            handleSizeChangeQT2(val) {
-                this.listQueryListQT2.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeQT2(val) {
-                this.listQueryListQT2.page = val;
-                this.getList();
-            },
-            handleSizeChangeQT4(val) {
-                this.listQueryListQT4.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeQT4(val) {
-                this.listQueryListQT4.page = val;
-                this.getList();
-            },
-            handleSizeChangeQT5(val) {
-                this.listQueryListQT5.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeQT5(val) {
-                this.listQueryListQT5.page = val;
-                this.getList();
-            },
-            handleSizeChangeRZ(val) {
-                this.listQueryListRZ.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeRZ(val) {
-                this.listQueryListRZ.page = val;
-                this.getList();
-            },
-            handleSizeChangeTZ(val) {
-                this.listQueryListTZ.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeTZ(val) {
-                this.listQueryListTZ.page = val;
-                this.getList();
-            },
-            handleSizeChangeQQ(val) {
-                this.listQueryListQQ.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeQQ(val) {
-                this.listQueryListQQ.page = val;
-                this.getList();
-            },
-            handleSizeChangeCY(val) {
-                this.listQueryListCY.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeCY(val) {
-                this.listQueryListCY.page = val;
-                this.getList();
-            },
-            handleSizeChangeQT1Man(val) {
-                this.listQueryListQT1Man.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeQT1Man(val) {
-                this.listQueryListQT1Man.page = val;
-                this.getList();
-            },
-            handleCurrentChangeWages(val) {
-                this.listQueryListWages.page = val;
-                this.getList();
-            },
-            handleSizeChangeWages(val) {
-                this.listQueryListWages.limit = val;
-                this.getList();
-            },
-            handleSizeChangeJS(val) {
-                this.listQueryListJS.limit = val;
-                this.getList();
-            },
-            handleCurrentChangeJS(val) {
-                this.listQueryListJS.page = val;
-                this.getList();
-            },
-            handleSizeChangeimprot(val) {
-                this.listQuery.limit = val;
-                this.getListimprot();
-            },
-            handleCurrentChangeimprot(val) {
-                this.listQuery.page = val;
-                this.getListimprot();
-            },
-            // 获取tab页数据
-            getList() {
-                this.loading = true;
-                if (this.listWages === 0 || this.tab === "0") {
-                    let start =
-                        (this.listQueryListWages.page - 1) * this.listQueryListWages.limit;
-                    let end = this.listQueryListWages.page * this.listQueryListWages.limit;
-                    if (this.totaldata) {
-                        let pListBase = this.totaldata.slice(start, end);
-                        this.tableWages = pListBase;
-                        this.total_wages = this.totaldata.length;
-                    }
-                }
-                if (this.listBase === 1 || this.tab === "1") {
-                    let start =
-                        (this.listQueryListJS.page - 1) * this.listQueryListJS.limit;
-                    let end = this.listQueryListJS.page * this.listQueryListJS.limit;
-                    if (this.totaldataBase) {
-                        let pListBase = this.totaldataBase.slice(start, end);
-                        this.tableJS = pListBase;
-                        this.totalBase = this.totaldataBase.length;
-                    }
-                }
-                if (this.ListOtherOne === 2 || this.tab === "2") {
-                    if (this.totaldataOtherOneWoman || this.totaldataOtherOneMan) {
-                        if (this.ListOtherOneSex === 1) {
-                            let start =
-                                (this.listQueryListQT1Woman.page - 1) *
-                                this.listQueryListQT1Woman.limit;
-                            let end =
-                                this.listQueryListQT1Woman.page *
-                                this.listQueryListQT1Woman.limit;
-                            let pListWoman = this.totaldataOtherOneWoman.slice(start, end);
-                            this.tableQT1Woman = pListWoman;
-                            this.totalOtherOne = this.totaldataOtherOneWoman.length;
-                        } else if (this.ListOtherOneSex === 2) {
-                            let start =
-                                (this.listQueryListQT1Man.page - 1) *
-                                this.listQueryListQT1Man.limit;
-                            let end =
-                                this.listQueryListQT1Man.page * this.listQueryListQT1Man.limit;
-                            let pListMan = this.totaldataOtherOneMan.slice(start, end);
-                            this.tableQT1Man = pListMan;
-                            this.totalOtherOneMan = this.totaldataOtherOneMan.length;
-                        }
-                    }
-                }
-                if (this.ListQt2 === 3 || this.tab === "3") {
-                    let start =
-                        (this.listQueryListQT2.page - 1) * this.listQueryListQT2.limit;
-                    let end = this.listQueryListQT2.page * this.listQueryListQT2.limit;
-                    if (this.totaldataQT2) {
-                        let pListQT2 = this.totaldataQT2.slice(start, end);
-                        this.tableQT2 = pListQT2;
-                        this.totalQT2 = this.totaldataQT2.length;
-                    }
-                }
-                if (this.ListQT4 === 4 || this.tab === "4") {
-                    let start =
-                        (this.listQueryListQT4.page - 1) * this.listQueryListQT4.limit;
-                    let end = this.listQueryListQT4.page * this.listQueryListQT4.limit;
-                    if (this.totaldataQT4) {
-                        let pListQT4 = this.totaldataQT4.slice(start, end);
-                        this.tableQT4 = pListQT4;
-                        this.totalQT4 = this.totaldataQT4.length;
-                    }
-                }
-                if (this.ListQt5 === 5 || this.tab === "5") {
-                    let start =
-                        (this.listQueryListQT5.page - 1) * this.listQueryListQT5.limit;
-                    let end = this.listQueryListQT5.page * this.listQueryListQT5.limit;
-                    if (this.totaldataQT5) {
-                        let pListQT5 = this.totaldataQT5.slice(start, end);
-                        this.tableQT5 = pListQT5;
-                        this.totalQT5 = this.totaldataQT5.length;
-                    }
-                }
-                if (this.ListRZ === 6 || this.tab === "6") {
-                    let start =
-                        (this.listQueryListRZ.page - 1) * this.listQueryListRZ.limit;
-                    let end = this.listQueryListRZ.page * this.listQueryListRZ.limit;
-                    if (this.totaldataRZ) {
-                        let pListRZ = this.totaldataRZ.slice(start, end);
-                        this.tableRZ = pListRZ;
-                        this.totalRZ = this.totaldataRZ.length;
-                    }
-                }
-                if (this.ListTZ === 7 || this.tab === "7") {
-                    let start =
-                        (this.listQueryListTZ.page - 1) * this.listQueryListTZ.limit;
-                    let end = this.listQueryListTZ.page * this.listQueryListTZ.limit;
-                    if (this.totaldataTZ) {
-                        let pListTZ = this.totaldataTZ.slice(start, end);
-                        this.tableTZ = pListTZ;
-                        this.totalTZ = this.totaldataTZ.length;
-                    }
-                }
-                if (this.ListQQ === 8 || this.tab === "8") {
-                    let start =
-                        (this.listQueryListQQ.page - 1) * this.listQueryListQQ.limit;
-                    let end = this.listQueryListQQ.page * this.listQueryListQQ.limit;
-                    if (this.totaldataQQ) {
-                        let pListQQ = this.totaldataQQ.slice(start, end);
-                        this.tableQQ = pListQQ;
-                        this.totalQQ = this.totaldataQQ.length;
-                    }
-                }
-                if (this.ListCY === 9 || this.tab === "9") {
-                    let start =
-                        (this.listQueryListCY.page - 1) * this.listQueryListCY.limit;
-                    let end = this.listQueryListCY.page * this.listQueryListCY.limit;
-                    if (this.totaldataCY) {
-                        let pListCY = this.totaldataCY.slice(start, end);
-                        this.tableCY = pListCY;
-                        this.totalCY = this.totaldataCY.length;
-                    }
-                }
-                if (this.ListYDSY === 10 || this.tab === "10") {
-                    let start =
-                        (this.listQueryListYDSY.page - 1) * this.listQueryListYDSY.limit;
-                    let end = this.listQueryListYDSY.page * this.listQueryListYDSY.limit;
-                    if (this.totaldataYDSY) {
-                        let pListYDSY = this.totaldataYDSY.slice(start, end);
-                        this.tableYDSY = pListYDSY;
-                        this.totalYDSY = this.totaldataYDSY.length;
-                    }
-                }
-                if (this.ListZHSR === 11 || this.tab === "11") {
-                    let start =
-                        (this.listQueryListZHSR.page - 1) * this.listQueryListZHSR.limit;
-                    let end = this.listQueryListZHSR.page * this.listQueryListZHSR.limit;
-                    if (this.totaldataZHSR) {
-                        let pListZHSR = this.totaldataZHSR.slice(start, end);
-                        this.tableZHSR = pListZHSR;
-                        this.totalZHSR = this.totaldataZHSR.length;
-                    }
-                }
-                if ((this.ListZXKC = 12 || this.tab === "12")) {
-                    let start =
-                        (this.listQueryListZXKC.page - 1) * this.listQueryListZXKC.limit;
-                    let end = this.listQueryListZXKC.page * this.listQueryListZXKC.limit;
-                    if (this.totaldataZXKC) {
-                        let pListZXKC = this.totaldataZXKC.slice(start, end);
-                        this.tableZXKC = pListZXKC;
-                        this.totalZXKC = this.totaldataZXKC.length;
-                    }
-                }
-                if ((this.ListFJKC = 13 || this.tab === "13")) {
-                    let start =
-                        (this.listQueryListFJKC.page - 1) * this.listQueryListFJKC.limit;
-                    let end = this.listQueryListFJKC.page * this.listQueryListFJKC.limit;
-                    if (this.totaldataFJKC) {
-                        let pListFJKC = this.totaldataFJKC.slice(start, end);
-                        this.tableFJKC = pListFJKC;
-                        this.totalFJKC = this.totaldataFJKC.length;
-                    }
-                }
-                if (this.listDutyfreeVo === 14 || this.tab === "14") {
-                    let start =
-                        (this.listQueryListMS.page - 1) * this.listQueryListMS.limit;
-                    let end = this.listQueryListMS.page * this.listQueryListMS.limit;
-                    if (this.totaldataDutyfreeVo) {
-                        let pListDutyfreeVo = this.totaldataDutyfreeVo.slice(start, end);
-                        this.tableMS = pListDutyfreeVo;
-                        this.totalDutyfreeVo = this.totaldataDutyfreeVo.length;
-                    }
-                }
-                if (this.listAccumulatedTax === 15 || this.tab === "15") {
-                    let start =
-                        (this.listQueryListLJSJ.page - 1) * this.listQueryListLJSJ.limit;
-                    let end = this.listQueryListLJSJ.page * this.listQueryListLJSJ.limit;
-                    if (this.totaldataAccumulatedTax) {
-                        let pListAccumulatedTax = this.totaldataAccumulatedTax.slice(
-                            start,
-                            end
-                        );
-                        this.tableLJSJ = pListAccumulatedTax;
-                        this.totalAccumulatedTax = this.totaldataAccumulatedTax.length;
-                    }
-                }
-                if (this.listContrast === 16 || this.tab === "16") {
-                    let start =
-                        (this.listQueryListGRDB.page - 1) * this.listQueryListGRDB.limit;
-                    let end = this.listQueryListGRDB.page * this.listQueryListGRDB.limit;
-                    if (this.totaldataContrast) {
-                        let pListContrast = this.totaldataContrast.slice(start, end);
-                        this.tableGRDB = pListContrast;
-                        this.totalContrast = this.totaldataContrast.length;
-                    }
-                }
-                this.loading = false;
-            },
-            getListimprot() {
-                this.loading = true;
-                let start = (this.listQuery.page - 1) * this.listQuery.limit;
-                let end = this.listQuery.page * this.listQuery.limit;
-                if (this.totaldataimprot) {
-                    let pList = this.totaldataimprot.slice(start, end);
-                    this.message = pList;
-                    this.total = this.totaldataimprot.length;
-                }
-                this.loading = false;
-            },
-            tabInfoSave(tabFlg,wagesFlg) {
-                if(this.$route.params.status === '2' || this.$route.params.status === '4'){
-                    return;
-                }
-                this.baseInfo = {};
-                this.baseInfo.strFlg = this.tab;
-                this.baseInfo.otherOne = [];
-                this.baseInfo.contrast = [];
-                this.baseInfo.otherTwo = [];
-                if (this.tab === "2") {
-                    //其他1去掉基数对象 不需要保存-lxx
-                    // for (let i = 0; i < this.tableQT1Woman.length; i++) {
-                    //   this.baseInfo.otherOne.push({
-                    //     otherone_id: this.tableQT1Woman[i].otherone_id,
-                    //     basedata: this.tableQT1Woman[i].basedata
-                    //   });
-                    // }
-                    //其他1去掉基数对象 不需要保存-lxx
-                } else if (this.tab === "3") {
-                    this.baseInfo.otherTwo = this.totaldataQT2;
-                } else if (this.tab === "16") {
-                    this.baseInfo.contrast = this.totaldataContrast;
-                } else if (this.tab === "8") {
-                    this.baseInfo.lackattendance = this.totaldataQQ;
-                } else if (this.tab === "9") {
-                    this.baseInfo.residual = this.totaldataCY;
-                } else if (this.tab === "6") {
-                    this.baseInfo.entryVo = this.totaldataRZ;
-                } else if (this.tab === "7") {
-                    this.baseInfo.retireVo = this.totaldataTZ;
-                }
-                if (
-                    this.tab === "3" ||
-                    this.tab === "16" ||
-                    this.tab === "8" ||
-                    this.tab === "9" ||
-                    this.tab === "6" ||
-                    this.tab === "7" ||
-                    tabFlg === '0'
-                ) {
-                    this.loading = true;
-                    this.$store
-                        .dispatch("PFANS2005Store/save", this.baseInfo)
-                        .then(response => {
-                            this.data = response;
-                            this.getListdata(wagesFlg);
-                            if(tabFlg !== "0" && wagesFlg === '0'){
-                              this.loading = false;
-                            }
-                        })
-                        .catch(error => {
-                            this.$message.error({
-                                message: error,
-                                type: "error",
-                                duration: 5 * 1000
-                            });
-                            this.loading = false;
-                        });
-                }
-                else{
-                  if(wagesFlg === '2'){
-                    this.getListdata(wagesFlg);
-                  }
-                }
-            },
-            rowheight({row, column, rowIndex, columnIndex}) {
-              var returnvar = 'row_height_left ';
-              if(row.updatelist !== undefined){
-                if(row.updatelist !== null){
-                  //社保总计特殊判断与【工资总额(纳税+免税)taxestotal】中的【total】重复
-                  if(column.prop === 'total'){
-                    if(row.updatelist.indexOf('toxtal') != -1){
-                      returnvar = returnvar + 'org_company';
-                    }
-                  }
-                  else{
-                    if(row.updatelist.indexOf(column.prop) != -1){
-                      returnvar = returnvar + 'org_company';
-                    }
-                  }
-                }
-              }
-              return returnvar;
-            },
-            handleClick(tab, event) {
-                if(this.$route.params.status === '2' || this.$route.params.status === '4'){
-                    return;
-                }
-                //调用保存-lxx
-                this.tabInfoSave(tab.index,'0');
-                //调用保存-lxx
-                this.tab = tab.index;
-                if (
-                    tab.index === "3" ||
-                    tab.index === "4" ||
-                    tab.index === "5" ||
-                    tab.index === "10" ||
-                    tab.index === "13"
-                ) {
-                    this.buttonList[2].disabled = false;
-                } else if (
-                    tab.index === "0" ||
-                    tab.index === "1" ||
-                    tab.index === "2" ||
-                    tab.index === "6" ||
-                    tab.index === "7" ||
-                    tab.index === "8" ||
-                    tab.index === "9" ||
-                    tab.index === "11" ||
-                    tab.index === "12" ||
-                    tab.index === "14" ||
-                    tab.index === "15" ||
-                    tab.index === "16"
-                ) {
-                    this.buttonList[2].disabled = true;
-                }
-                // zqu start 只有工资tab 保存按钮可以使用
-                if (tab.index === "0") {
-                    this.buttonList[0].disabled = false;
-                } else {
-                    this.buttonList[0].disabled = true;
-                }
-            },
-            getSummaries(param) {
-                const {columns, data} = param;
-                const sums = [];
-                columns.forEach((column, index) => {
-                    if (index === 0) {
-                        if (this.$i18n) {
-                          sums[index] = this.$t("label.PFANS2005FORMVIEW_HJ");
-                          return;
-                        }
-                    }
-                    const values = data.map(item => Number(item[column.property]));
-                    if (!values.every(value => isNaN(value))) {
-                        sums[index] = values.reduce((prev, curr) => {
-                            const value = parseFloat(curr);
-                            if (!isNaN(value)) {
-                                return this.setScale2(parseFloat(prev) + parseFloat(curr));
-                            } else {
-                                return this.setScale2(prev);
-                            }
-                        }, 0);
-                        sums[index] += " ";
-                    } else {
-                        //非合计项显示空 -- lxx
-                        sums[index] = " ";
-                        //非合计项显示空 -- lxx
-                    }
-                });
-                return sums;
-            },
-            handleChange(file, fileList) {
-                this.clear(true);
-            },
-            handleSuccess(response, file, fileList) {
-                this.loading = true;
-                if (response.code !== 0) {
-                    this.cuowu = response.message;
-                    if (this.tab === "3") {
-                        this.Messageothertwo = true;
-                    }
-                    if (this.tab === "4") {
-                        this.Messageotherfour = true;
-                    }
-                    if (this.tab === "5") {
-                        this.Messageotherfive = true;
-                    }
-                    if (this.tab === "10") {
-                        this.Messageappreciation = true;
-                    }
-                    if (this.tab === "13") {
-                        this.Messagefjkc = true;
-                    }
-                } else {
-                    response.data = JSON.parse(Decrypt(response.data));
-                    let datalist = [];
-                    for (let c = 0; c < response.data.length; c++) {
-                        let error = response.data[c];
-                        error = error.substring(0, 3);
-                        if (this.$i18n) {
-                          if (error === this.$t("label.PFANS2005FORMVIEW_SB")) {
-                            this.errorCount = response.data[c].substring(4);
-                            if (this.tab === "3") {
-                              this.resultShowothertwo = true;
-                            }
-                            if (this.tab === "4") {
-                              this.resultShowotherfour = true;
-                            }
-                            if (this.tab === "5") {
-                              this.resultShowotherfive = true;
-                            }
-                            if (this.tab === "10") {
-                              this.resultShowappreciation = true;
-                            }
-                            if (this.tab === "13") {
-                              this.resultShowfjkc = true;
-                            }
-                          }
-                          if (error === this.$t("label.PFANS2005FORMVIEW_CG")) {
-                            this.successCount = response.data[c].substring(4);
-                            if (this.tab === "3") {
-                              this.resultShowothertwo = true;
-                            }
-                            if (this.tab === "4") {
-                              this.resultShowotherfour = true;
-                            }
-                            if (this.tab === "5") {
-                              this.resultShowotherfive = true;
-                            }
-                            if (this.tab === "10") {
-                              this.resultShowappreciation = true;
-                            }
-                            if (this.tab === "13") {
-                              this.resultShowfjkc = true;
-                            }
-                          }
-                          if (error === this.$t("label.PFANS2017VIEW_D")) {
-                            let obj = {};
-                            var str = response.data[c];
-                            var aPos = str.indexOf(this.$t("label.PFANS2017VIEW_BAN"));
-                            var bPos = str.indexOf(this.$t("label.PFANS2017VIEW_DE"));
-                            var r = str.substr(aPos + 1, bPos - aPos - 1);
-                            obj.hang = r;
-                            obj.error = response.data[c].substring(6);
-                            datalist[c] = obj;
-                          }
-                        }
-                        this.message = datalist;
-                        this.getListdata("0");
-                        this.totaldataimprot = this.message;
-                        this.getListimprot();
-                        if (this.errorCount === "0") {
-                            if (this.tab === "3") {
-                                this.resultothertwo = false;
-                            }
-                            if (this.tab === "4") {
-                                this.resultotherfour = false;
-                            }
-                            if (this.tab === "5") {
-                                this.resultotherfive = false;
-                            }
-                            if (this.tab === "10") {
-                                this.resultappreciation = false;
-                            }
-                            if (this.tab === "13") {
-                                this.resultfjkc = false;
-                            }
-                        } else {
-                            if (this.tab === "3") {
-                                this.resultothertwo = true;
-                            }
-                            if (this.tab === "4") {
-                                this.resultotherfour = true;
-                            }
-                            if (this.tab === "5") {
-                                this.resultotherfive = true;
-                            }
-                            if (this.tab === "10") {
-                                this.resultappreciation = true;
-                            }
-                            if (this.tab === "13") {
-                                this.resultfjkc = true;
-                            }
-                        }
-                    }
-                    this.tabInfoSave('','0');
-                }
-                this.loading = false;
-            },
-            clear(safe) {
-                this.file = null;
-                if (this.tab === "3") {
-                    this.resultothertwo = false;
-                    this.Messageothertwo = false;
-                    this.resultShowothertwo = false;
-                }
-                if (this.tab === "4") {
-                    this.resultotherfour = false;
-                    this.Messageotherfour = false;
-                    this.resultShowotherfour = false;
-                }
-                if (this.tab === "5") {
-                    this.resultotherfive = false;
-                    this.Messageotherfive = false;
-                    this.resultShowotherfive = false;
-                }
-                if (this.tab === "10") {
-                    this.resultappreciation = false;
-                    this.Messageappreciation = false;
-                    this.resultShowappreciation = false;
-                }
-                if (this.tab === "13") {
-                    this.resultfjkc = false;
-                    this.Messagefjkc = false;
-                    this.resultShowfjkc = false;
-                }
-                if (!safe) {
-                    this.$refs.uploader.clearFiles();
-                }
-            },
-            // 按钮点击事件
-            buttonClick(val) {
-                // zqu start 导入按钮点击事件
-                if (val === "import") {
-                    //其他2
-                    if (this.tab === "3") {
-                        this.OTherTwo.giving_id = this.Giving;
-                        this.OTherTwo.type = "1";
-                        this.$store
-                            .dispatch("PFANS2005Store/deleteothertwo", {
-                                type: "1",
-                                giving_id: this.Giving
-                            })
-                            .then(response => {
-                                this.daoruothertwo = true;
-                            });
-                    }
-                    //其他4
-                    if (this.tab === "4") {
-                        this.daoruotherfour = true;
-                    }
-                    //其他5
-                    if (this.tab === "5") {
-                        this.daoruotherfive = true;
-                    }
-                    //月度赏与
-                    if (this.tab === "10") {
-                        this.daoruappreciation = true;
-                    }
-                    //附加控除
-                    if (this.tab === "13") {
-                        this.daorufjkc = true;
-                    }
-                } else if (val === "save") {
-                  this.responseDataInit[0].status = this.status;
-                  this.responseDataInit[0].actual = "0";//预计工资
-                  //region add_qhr_20210628 工资计算保存时判断计算的值
-                  for (let i = 0; i < this.responseDataInit.length; i++) {
-                    if (this.responseDataInit[i].comtotalwages === null || this.responseDataInit[i].comtotalwages === "") {
-                      this.responseDataInit[i].comtotalwages = "0";
-                    }
-                    if (this.responseDataInit[i].totalbonus === null || this.responseDataInit[i].totalbonus === "") {
-                      this.responseDataInit[i].totalbonus = "0";
-                    }
-                  };
-                  //endregion add_qhr_20210628 工资计算保存时判断计算的值
-                  this.loading = true;
-                  // 插入工资数据
-                  this.$store
-                    .dispatch("PFANS2005Store/insertWages", this.responseDataInit)
-                    .then(response => {
-                      // 重新获取工资数据
-                      this.getListdata("0");
-                      if(this.status === "0"){
-                        // 重新计算按钮可用
-                        this.buttonList[1].disabled = false;
-                        Message({
-                          message: this.$t("normal.success_01"),
-                          type: "success",
-                          duration: 5 * 1000
-                        });
-                      }
-                      this.loading = false;
-                    })
-                    .catch(err => {
-                      this.loading = false;
-                      this.$message.error({
-                        message: this.$t("normal.error_04"),
-                        type: "error"
-                      });
-                    });
-                } else if (val === "calculation") { // 重新计算
-                  if(this.thisWages){
-                    this.$confirm('当月工资表已生成，确认要重新计算吗？', '提示', {
-                      confirmButtonText: '确定',
-                      cancelButtonText: '取消',
-                      type: 'warning',
-                      center: true
-                    }).then(() => {
-                      this.tabInfoSave(this.tab,'2');
-                      this.activeName = "first";
-                      this.buttonList[0].disabled = false;
-                    }).catch(() => {
-                      this.$message.info({
-                        type: 'info',
-                        message: '已取消'
-                      });
-                    });
-                  }
-                }
-                // zqu end
-            },
-            //本月加班数据变更时，重新计算加班费合计
-            thisMonthOvertimeChange(val) {
-                // 合计（H）
-                this.tableCY.find(
-                    item => item.rowindex === val.rowindex
-                ).thistotalh = this.setScale2(
-                    parseFloat(val.thisweekdays) +
-                    parseFloat(val.thisrestDay) +
-                    parseFloat(val.thislegal) +
-                    parseFloat(val.thisreplace) +
-                    parseFloat(val.thisreplace3)
-                );
-                val.isDirty = true;
-                this.givingVo.residual = [];
-                this.givingVo.residual.push(val);
-                this.givingVo.base = this.totaldataBase;
-                this.loading = true;
-                this.$store
-                    .dispatch("PFANS2005Store/thisMonthOvertimeChange", this.givingVo)
-                    .then(response => {
-                        if (this.tableCY.find(item => item.rowindex === val.rowindex)) {
-                            this.tableCY.find(
-                                item => item.rowindex === val.rowindex
-                            ).thistotaly = this.setScale2(response.thistotaly);
-                            this.tableCY.find(
-                                item => item.rowindex === val.rowindex
-                            ).subsidy = this.setScale2(response.subsidy);
-                        }
-                        this.loading = false;
-                    })
-                    .catch(err => {
-                        this.loading = false;
-                        this.$message.error({
-                            message: err,
-                            type: "error",
-                            duration: 5 * 1000
-                        });
-                    });
-            },
-            //本月欠勤数据变更时，重新计算欠勤费合计
-            thisMonthLacktimeChange(val) {
-                // 欠勤
-                this.tableQQ.find(
-                    item => item.rowindex === val.rowindex
-                ).thisdiligence = this.setScale2(
-                    parseFloat(val.thisdiligencetry) + parseFloat(val.thisdiligenceformal)
-                );
-                // 短病欠
-                this.tableQQ.find(
-                    item => item.rowindex === val.rowindex
-                ).thisshortdeficiency = this.setScale2(
-                    parseFloat(val.thisshortdeficiencytry) +
-                    parseFloat(val.thisshortdeficiencyformal)
-                );
-                // 长病欠
-                this.tableQQ.find(
-                    item => item.rowindex === val.rowindex
-                ).thischronicdeficiency = this.setScale2(
-                    parseFloat(val.thischronicdeficiencytry) +
-                    parseFloat(val.thischronicdeficiencyformal)
-                );
-                this.givingVo.lackattendance = [];
-                val.isDirty = true;
-                this.givingVo.lackattendance.push(val);
-                this.givingVo.base = this.totaldataBase;
-                this.loading = true;
-                this.$store
-                    .dispatch("PFANS2005Store/thisMonthLacktimeChange", this.givingVo)
-                    .then(response => {
-                        if (this.tableQQ.find(item => item.rowindex === val.rowindex)) {
-                            this.tableQQ.find(
-                                item => item.rowindex === val.rowindex
-                            ).thistotal = this.setScale2(response.thistotal);
-                            this.tableQQ.find(
-                                item => item.rowindex === val.rowindex
-                            ).give = this.setScale2(response.give);
-                        }
-                        this.loading = false;
-                    })
-                    .catch(err => {
-                        this.loading = false;
-                        this.$message.error({
-                            message: err,
-                            type: "error",
-                            duration: 5 * 1000
-                        });
-                    });
-            },
-            //数值小数位数控制
-            setScale2(val) {
-                if (val) {
-                    return Math.round(val * 100) / 100;
-                } else {
-                    return 0;
-                }
-            }
-        }
+      ],
+      OTherTwo: {},
+      tableJS: [],
+      tableWages: [], // 工资分页截取
+      tableQT5: [],
+      tableRZ: [],
+      tableTZ: [],
+      tableQT1Woman: [],
+      tableQT1Man: [],
+      tableQT2: [],
+      tableYDSY: [],
+      tableQT4: [],
+      tableFJKC: [],
+      tableZHSR: [],
+      tableMS: [],
+      tableZXKC: [],
+      tableQQ: [],
+      tableCY: [],
+      tableLJSJ: [],
+      tableGRDB: [],
+      baseInfo: {},
+      givingVo: {},
     };
+  },
+  created() {
+  },
+  mounted() {
+    if (this.$i18n) {
+      this.thismonth = moment(new Date(this.$route.params.generationdate)).format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JULY');
+      this.lastmonth = moment(new Date(this.$route.params.generationdate)).add(-1, 'months').format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JUNE');
+    }
+    this.Giving = this.$route.params._id;
+    this.getListdata('0');
+    // todo By Skaixx : 添加滚动条滑动监听事件
+    // let element = this.$refs['BasfTable'];
+    // element.$el.addEventListener("scroll", this.handleScroll, true);
+    // const dom = this.$refs["eltable"].$el;
+    // dom.addEventListener("scroll", this.handleScroll, true);
+    if (this.$route.params.status === '2' || this.$route.params.status === '4') {
+      this.buttonList[0].disabled = true;
+      this.buttonList[1].disabled = true;
+      this.buttonList[2].disabled = true;
+    }
+  },
+  methods: {
+    // update   ml    20210702  监听过滤名称和部门  from
+    inputChange(val) {
+      if (val === 1) {
+        if (this.filterName === '') {
+          this.totaldata = this.responseDataInit;
+        } else {
+          if (this.responseDataInit !== null && this.responseDataInit !== 'undefined') {
+            this.totaldata = this.responseDataInit.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 2) {
+        if (this.filterName === '') {
+          this.tableJS = this.responseJS;
+        } else {
+          if (this.responseJS !== null && this.responseJS !== 'undefined') {
+            this.tableJS = this.responseJS.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 3) {
+        if (this.filterName === '') {
+          this.tableQT1Woman = this.responseQT1Woman;
+          this.tableQT1Man = this.responseQT1Man;
+        } else {
+          if ((this.responseQT1Woman !== null && this.responseQT1Woman !== 'undefined') || (this.responseQT1Man !== null && this.responseQT1Man !== 'undefined')) {
+            this.tableQT1Woman = this.responseQT1Woman.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+            this.tableQT1Man = this.responseQT1Man.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 4) {
+        if (this.filterName === '') {
+          this.tableQT2 = this.responseQT2;
+        } else {
+          if (this.responseQT2 !== null && this.responseQT2 !== 'undefined') {
+            this.tableQT2 = this.responseQT2.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 5) {
+        if (this.filterName === '') {
+          this.tableQT4 = this.responseQT4;
+        } else {
+          if (this.responseQT4 !== null && this.responseQT4 !== 'undefined') {
+            this.tableQT4 = this.responseQT4.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 6) {
+        if (this.filterName === '') {
+          this.tableQT5 = this.responseQT5;
+        } else {
+          if (this.responseQT5 !== null && this.responseQT5 !== 'undefined') {
+            this.tableQT5 = this.responseQT5.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 7) {
+        if (this.filterName === '') {
+          this.tableRZ = this.responseRZ;
+        } else {
+          if (this.responseRZ !== null && this.responseRZ !== 'undefined') {
+            this.tableRZ = this.responseRZ.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 8) {
+        if (this.filterName === '') {
+          this.tableTZ = this.responseTZ;
+        } else {
+          if (this.responseTZ !== null && this.responseTZ !== 'undefined') {
+            this.tableTZ = this.responseTZ.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 9) {
+        if (this.filterName === '') {
+          this.tableQQ = this.responseQQ;
+        } else {
+          if (this.responseQQ !== null && this.responseQQ !== 'undefined') {
+            this.tableQQ = this.responseQQ.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 10) {
+        if (this.filterName === '') {
+          this.tableCY = this.responseCY;
+        } else {
+          if (this.responseCY !== null && this.responseCY !== 'undefined') {
+            this.tableCY = this.responseCY.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 11) {
+        if (this.filterName === '') {
+          this.tableYDSY = this.responseYDSY;
+        } else {
+          if (this.responseYDSY !== null && this.responseYDSY !== 'undefined') {
+            this.tableYDSY = this.responseYDSY.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 12) {
+        if (this.filterName === '') {
+          this.tableZHSR = this.responseZHSR;
+        } else {
+          if (this.responseZHSR !== null && this.responseZHSR !== 'undefined') {
+            this.tableZHSR = this.responseZHSR.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 13) {
+        if (this.filterName === '') {
+          this.tableZXKC = this.responseZXKC;
+        } else {
+          if (this.responseZXKC !== null && this.responseZXKC !== 'undefined') {
+            this.tableZXKC = this.responseZXKC.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 14) {
+        if (this.filterName === '') {
+          this.tableFJKC = this.responseFJKC;
+        } else {
+          if (this.responseFJKC !== null && this.responseFJKC !== 'undefined') {
+            this.tableFJKC = this.responseFJKC.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 15) {
+        if (this.filterName === '') {
+          this.tableMS = this.responseMS;
+        } else {
+          if (this.responseMS !== null && this.responseMS !== 'undefined') {
+            this.tableMS = this.responseMS.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else if (val === 16) {
+        if (this.filterName === '') {
+          this.tableLJSJ = this.responseLJSJ;
+        } else {
+          if (this.responseLJSJ !== null && this.responseLJSJ !== 'undefined') {
+            this.tableLJSJ = this.responseLJSJ.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      } else {
+        if (this.filterName === '') {
+          this.tableGRDB = this.responseGRDB;
+        } else {
+          if (this.responseGRDB !== null && this.responseGRDB !== 'undefined') {
+            this.tableGRDB = this.responseGRDB.filter(item => {
+              return item.user_name === this.filterName
+                || item.department_id === this.filterName;
+            });
+          }
+        }
+      }
+    },
+    // update   ml    20210702  监听过滤名称和部门  to
+    workflowState(val) {
+      if (val.state === '1') {
+        this.status = '3';
+      } else if (val.state === '2') {
+        this.status = '4';
+      }
+      this.buttonClick('save');
+    },
+    start(val) {
+      if (val.state === '0') {
+        this.status = '2';
+      } else if (val.state === '2') {
+        this.status = '4';
+      }
+      this.buttonClick('save');
+    },
+    end() {
+      this.status = 'X';//不好区分所以先用X代替
+      this.buttonClick('save');
+    },
+    // zqu start 工资tab 录入项change事件
+    wagesChange(row, noId, val, prop) {
+      // 其他2
+      if (prop === 'other2') {
+        //小计2
+        row.total2 = Math.round((Number(val) + Number(row.appreciation) + Number(row.other3)) * 100) / 100;
+        //纳税工资总额(小计1+2)
+        row.taxestotal = Math.round((Number(row.total1) + Number(row.total2)) * 100) / 100;
+        //工资总额(纳税+免税)
+        row.totalwages = Math.round((Number(row.taxestotal) + Number(row.total3)) * 100) / 100;
+        //当月応発工資（工资总额(纳税+免税)+只納税）
+        //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,#当月応発工資（工资总额(纳税+免税)+只納税）
+        row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(row.other5)) * 100) / 100;
+        //累計応発工資（当月含）
+        //@YEARSTOTAL12 := round(base.COMPREHENSIVE_YEARSTOTAL12 + @DYYKGZ,2) AS SHOULDCUMULATIVE,#累計応発工資（当月含）
+        row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12) + Number(row.shouldwages)) * 100) / 100;
+        //累計应纳税所得额
+        //本月应扣缴所得税
+        //当月实发工资
+        this.wagesChange1(row);
+      }
+      // 月度賞与
+      if (prop === 'appreciation') {
+        //小计2
+        row.total2 = Math.round((Number(row.other2) + Number(val) + Number(row.other3)) * 100) / 100;
+        //纳税工资总额(小计1+2)
+        row.taxestotal = Math.round((Number(row.total1) + Number(row.total2)) * 100) / 100;
+        //工资总额(纳税+免税)
+        row.totalwages = Math.round((Number(row.taxestotal) + Number(row.total3)) * 100) / 100;
+        //当月応発工資（工资总额(纳税+免税)+只納税）
+        //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,#当月応発工資（工资总额(纳税+免税)+只納税）
+        row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(row.other5)) * 100) / 100;
+        //累計応発工資（当月含）
+        //@YEARSTOTAL12 := round(base.COMPREHENSIVE_YEARSTOTAL12 + @DYYKGZ,2) AS SHOULDCUMULATIVE,#累計応発工資（当月含）
+        row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12) + Number(row.shouldwages)) * 100) / 100;
+        //累計应纳税所得额
+        //本月应扣缴所得税
+        //当月实发工资
+        this.wagesChange1(row);
+        //工会经费基数
+        row.labourunionbase = Math.round((Number(row.total1) + Number(val)) * 100) / 100;
+        //工会经费
+        row.labourunionfunds = Math.round((Number(row.labourunionbase) * 0.02) * 100) / 100;
+
+        //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
+        row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(row.total) + Number(row.labourunionfunds)) * 100) / 100;
+        //总计+計上奨金
+        if (new Date().getMonth() + 1 === 4) {
+          row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
+        } else {
+          row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
+        }
+
+      }
+      //其他3ok
+      if (prop === 'other3') {
+        //纳税工资总额(小计1+2)
+        row.total2 = Math.round((Number(row.other2) + Number(row.appreciation) + Number(val)) * 100) / 100;
+        //纳税工资总额(小计1+2)
+        row.taxestotal = Math.round((Number(row.total1) + Number(row.total2)) * 100) / 100;
+        //工资总额(纳税+免税)
+        row.totalwages = Math.round((Number(row.taxestotal) + Number(row.total3)) * 100) / 100;
+        //当月応発工資（工资总额(纳税+免税)+只納税）
+        //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,#当月応発工資（工资总额(纳税+免税)+只納税）
+        row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(row.other5)) * 100) / 100;
+        //累計応発工資（当月含）
+        //@YEARSTOTAL12 := round(base.COMPREHENSIVE_YEARSTOTAL12 + @DYYKGZ,2) AS SHOULDCUMULATIVE,#累計応発工資（当月含）
+        row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12) + Number(row.shouldwages)) * 100) / 100;
+        //累計应纳税所得额
+        //本月应扣缴所得税
+        //当月实发工资
+        this.wagesChange1(row);
+      }
+      //纳税工资总额（小计1+2）
+      if (prop === 'taxestotal') {//工资总额(纳税+免税)taxes
+        row.totalwages = Math.round((Number(val) + Number(row.total3)) * 100) / 100;
+        //当月応発工資（工资总额(纳税+免税)+只納税）
+        //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,#当月応発工資（工资总额(纳税+免税)+只納税）
+        row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(row.other5)) * 100) / 100;
+        //累計応発工資（当月含）
+        //@YEARSTOTAL12 := round(base.COMPREHENSIVE_YEARSTOTAL12 + @DYYKGZ,2) AS SHOULDCUMULATIVE,#累計応発工資（当月含）
+        row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12) + Number(row.shouldwages)) * 100) / 100;
+        //累計应纳税所得额
+        //本月应扣缴所得税
+        //当月实发工资
+        this.wagesChange1(row);
+      }
+      //社保各个分项（个人）
+      //个人社会保险（专项控除）ok
+      if (prop === 'socialinsurance') {
+        //个人社会保险费+公积金(専項控除)合计
+        row.disciplinarycontrol = Math.round((Number(val) + Number(row.accumulationfund)) * 100) / 100;
+        //専項控除累計（当月まで）
+        row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
+        //累計应纳税所得额
+        //本月应扣缴所得税
+        //当月实发工资
+        this.wagesChange1(row);
+      }
+      //个人社会保险（专项控除）ok
+      if (prop === 'accumulationfund') {
+        //个人社会保险费+公积金(専項控除)合计
+        row.disciplinarycontrol = Math.round((Number(row.socialinsurance) + Number(val)) * 100) / 100;
+        //専項控除累計（当月まで）
+        row.thismonthterm = Math.round((Number(row.disciplinary_total) + Number(row.disciplinarycontrol)) * 100) / 100;
+        //累計应纳税所得额
+        //本月应扣缴所得税
+        //当月实发工资
+        this.wagesChange1(row);
+      }
+      //本月应扣缴所得税ok
+      if (prop === 'thismonthadjustment') {
+        //当月实发工资
+        row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(val) + Number(row.other6)) * 100) / 100;
+      }
+      //社保各个分项（企业）添加社保总计
+      if (prop === 'socialsecurity') {
+        //公司担负保险总计
+        row.total = Math.round((Number(val) + Number(row.comaccumulationfund)) * 100) / 100;
+        //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
+        row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(row.total) + Number(row.labourunionfunds)) * 100) / 100;
+        //总计+計上奨金
+        if (new Date().getMonth() + 1 === 4) {
+          row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
+        } else {
+          row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
+        }
+      }
+      //公积金ok
+      if (prop === 'comaccumulationfund') {
+        //公司担负保险总计
+        row.total = Math.round((Number(row.socialsecurity) + Number(val)) * 100) / 100;
+        //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
+        row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(row.total) + Number(row.labourunionfunds)) * 100) / 100;
+        //总计+計上奨金
+        if (new Date().getMonth() + 1 === 4) {
+          row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
+        } else {
+          row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
+        }
+      }
+      //公司担负保险总计ok
+      if (prop === 'total') {
+        prop = 'toxtal';
+        //@GZFZFDZJ := ROUND( ( 工资总额(纳税+免税) + @其他4 + @其他5 + @公司担负保险总计 + @工会经费 ), 2 ) AS COMTOTALWAGES,#工资总额(纳税+免税)+福祉+公司負担+工会経費总计
+        //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
+        row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(val) + Number(row.labourunionfunds)) * 100) / 100;
+        //总计+計上奨金
+        if (new Date().getMonth() + 1 === 4) {
+          row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
+        } else {
+          row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
+        }
+      }
+      ///OTHER4ok
+      if (prop === 'other4') {
+        //当月応発工資（工资总额(纳税+免税)+只納税）
+        //@DYYKGZ := round( ( @工资总额(纳税+免税) + @住房公积金应纳税金额 + @其他4 + @其他5 ), 2 ) AS SHOULDWAGES,
+        row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(val) + Number(row.other5)) * 100) / 100;
+        //累計応発工資（当月含）
+        row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12) + Number(row.shouldwages)) * 100) / 100;
+        //累計应纳税所得额
+        //本月应扣缴所得税
+        //当月实发工资
+        this.wagesChange1(row);
+
+      }
+      //OTHER5ok
+      if (prop === 'other5') {
+        //当月応発工資（工资总额(纳税+免税)+只納税）
+        row.shouldwages = Math.round((Number(row.totalwages) + Number(row.housingmoneys) + Number(row.other4) + Number(val)) * 100) / 100;
+        //累計応発工資（当月含）
+        row.shouldcumulative = Math.round((Number(row.comprehensive_yearstotal12) + Number(row.shouldwages)) * 100) / 100;
+        //累計应纳税所得额
+        //本月应扣缴所得税
+        //当月实发工资
+        this.wagesChange1(row);
+
+      }
+      //总计+记上奖金ok
+      if (prop === 'other6') {
+        row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment) + Number(val)) * 100) / 100;
+      }
+      //字段修改记录保存
+      if (row.updatelist != undefined) {
+        if (row.updatelist != null) {
+          if (row.updatelist.indexOf(prop) === -1) {
+            row.updatelist = row.updatelist + ',' + prop;
+          }
+        } else {
+          row.updatelist = prop;
+        }
+      } else {
+        row.updatelist = prop;
+      }
+      // this.totaldata.forEach((item, index) => {
+      //   if (item.no === noId) {
+      //     this.wagesChangeSwitch(item, prop, val);
+      //   }
+      // });
+    },
+    //累計应纳税所得额/本月应扣缴所得税/当月实发工资
+    wagesChange1(row) {
+      let newdate = new Date();
+      //入社日
+      let workdate = new Date(row.workdate);
+      let thismonthterm = Number(row.thismonthterm) + Number(row.thismonthadditional) + Number(row.thismonthdutyfree);
+      if (newdate.getFullYear() === workdate.getFullYear()) {
+        //累計应纳税所得额
+        row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * (newdate.getMonth() - 0 - workdate.getMonth() + 1) - thismonthterm) * 100) / 100;
+      } else {
+        //累計应纳税所得额
+        row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * (newdate.getMonth() - 0) - thismonthterm) * 100) / 100;
+      }
+      //本月应扣缴所得税
+      if (Number(row.shouldpaytaxes) >= Number(row.dic_0je) && Number(row.shouldpaytaxes) <= Number(row.dic_1je)) {
+        row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_0sl) - Number(row.dic_0sskc) - Number(row.lastdutyfree)) * 100) / 100;
+      } else if (Number(row.shouldpaytaxes) > 36000 && Number(row.shouldpaytaxes) <= Number(row.dic_2je)) {
+        row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_1sl) - Number(row.dic_1sskc) - Number(row.lastdutyfree)) * 100) / 100;
+      } else if (Number(row.shouldpaytaxes) > 144000 && Number(row.shouldpaytaxes) <= Number(row.dic_3je)) {
+        row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_2sl) - Number(row.dic_2sskc) - Number(row.lastdutyfree)) * 100) / 100;
+      } else if (Number(row.shouldpaytaxes) > 300000 && Number(row.shouldpaytaxes) <= Number(row.dic_4je)) {
+        row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_3sl) - Number(row.dic_3sskc) - Number(row.lastdutyfree)) * 100) / 100;
+      } else if (Number(row.shouldpaytaxes) > 420000 && Number(row.shouldpaytaxes) <= Number(row.dic_5je)) {
+        row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_4sl) - Number(row.dic_4sskc) - Number(row.lastdutyfree)) * 100) / 100;
+      } else if (Number(row.shouldpaytaxes) > 660000 && Number(row.shouldpaytaxes) <= Number(row.dic_6je)) {
+        row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_5sl) - Number(row.dic_6sskc) - Number(row.lastdutyfree)) * 100) / 100;
+      } else {
+        row.thismonthadjustment = Math.round((Number(row.shouldpaytaxes) * Number(row.dic_6sl) - Number(row.dic_6sskc) - Number(row.lastdutyfree)) * 100) / 100;
+      }
+      row.thismonthadjustment = row.thismonthadjustment < 0 ? 0 : row.thismonthadjustment;
+      //当月实发工资
+      row.realwages = Math.round((Number(row.totalwages) - Number(row.disciplinarycontrol) - Number(row.thismonthadjustment) + Number(row.other6)) * 100) / 100;
+    },
+    // 工资tab 录入项change事件 逻辑
+    wagesChangeSwitch(item, prop, val) {
+      // 用于存储prop初始值
+      let propInit = prop + 'Init';
+      if (!item[propInit]) {
+        item[propInit] = item[prop];
+      }
+      // val存在正常计算，不存在使用init初始值
+      item[prop] = val
+        ? (parseFloat(item[propInit]) + parseFloat(val)).toFixed(2)
+        : item[propInit];
+    },
+    // zqu end
+
+    // todo by skaixx : 滚动条滑动handeler
+    // handleScroll(e) {
+    //   let parentNode = e.srcElement;
+    //   // parentNode.scrollTop += 53;
+    //   console.log("scroll top:  " + parentNode.scrollTop + "px"); //当前DIV滚动条距离顶部的高度
+    //   // 当前页面第一行显示的No
+    //   console.log("当前页面显示的第一行为：");
+    // },
+    setdisabled(val) {
+      if (this.$route.params.disabled) {
+        this.disabled = val;
+      }
+    },
+    // 根据giving获取数据
+    getListdata(wagesFlg) {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS2005Store/givinglist', {giving_id: this.Giving, wagesFlg: wagesFlg})
+        .then(response => {
+          //region add_qhr_20210702 修改工资计算基数中月份显示
+          if (this.$i18n) {
+            this.YEARLAST = response.yearOfLastMonth +
+              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+              response.monthOfLastMonth +
+              this.$t('label.PFANS2005FORMVIEW_MONTH');
+            this.YEARNOW = response.yearOfThisMonth +
+              this.$t('label.PFANS2005FORMVIEW_YEAR') +
+              response.monthOfThisMonth +
+              this.$t('label.PFANS2005FORMVIEW_MONTH');
+          }
+          //endregion add_qhr_20210702 修改工资计算基数中月份显示
+          let lettableQT1Woman = [];
+          let lettableQT1Man = [];
+          let datalist = [];
+          let datalistgrdb = [];
+          let datalistzxkc = [];
+          let datalistqq = [];
+          let datalistcy = [];
+          let datalistljsj = [];
+          let datalistms = [];
+          let datalistzhsr = [];
+          //判断是否取自工资表数据
+          if (response.wagesList.length > 0) {
+            if (response.wagesList[0].wages_id !== null) {
+              this.thisWages = true;
+              if (this.$route.params.status === '2' || this.$route.params.status === '4') {
+                this.buttonList[1].disabled = true;
+              } else {
+                this.buttonList[1].disabled = false;
+              }
+            }
+          }
+          // 工资tab页数据处理
+          response.wagesList.forEach(function(item, index) {
+            let user = getUserInfo(item.user_id);
+            if (user) {
+              item.user_name = user.userinfo.customername;
+              //item.department_name = user.userinfo.centername;
+              item.department_id = user.userinfo.budgetunit;
+            }
+            item.no = index + 1;
+            item.workdate = moment(item.workdate).format('YYYY-MM-DD');
+            item.sexshow = item.sex === 'PR019001' ? '男' : '女';
+            item.onlychildshow = item.onlychild === '1' ? '是' : '-';
+            item.typeshow =
+              item.type === '1'
+                ? '入職'
+                : item.type === '2'
+                ? '女産休'
+                : item.type === '3'
+                  ? '男看护'
+                  : item.type === '4'
+                    ? '退職'
+                    : '-';
+            //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG 奖金记上用字典【PR021】_020 FROM
+            item.bonusshow = item.bonus; //=== "2" ? "老员工" : "新员工";
+            //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG_020 奖金记上用字典【PR021】 TO
+            item.sociologyshow = item.sociology === '1' ? '是' : '-';
+            item.registeredshow = item.registered === '1' ? '是' : '-';
+          });
+          this.responseDataInit = response.wagesList;
+          this.totaldata = response.wagesList;
+          this.listWages = 0;
+          this.getList();
+          // todo By Skaixx: 定位测试
+          // const name = "祖成玉";
+          // const location =
+          //   this.totaldata.find(item => item.user_name === name).no * 40;
+
+          // region 欠勤 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.lackattendance) {
+            for (let j = 0; j < response.lackattendance.length; j++) {
+              let user = getUserInfo(response.lackattendance[j].user_id);
+              if (user) {
+                response.lackattendance[j].user_name = getUserInfo(
+                  response.lackattendance[j].user_id,
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.user_id = response.lackattendance[j].user_id;
+              obj.user_name = response.lackattendance[j].user_name;
+              obj.lastdiligencetry = this.setScale2(
+                response.lackattendance[j].lastdiligencetry,
+              );
+              obj.lastshortdeficiencytry = this.setScale2(
+                response.lackattendance[j].lastshortdeficiencytry,
+              );
+              obj.lastchronicdeficiencytry = this.setScale2(
+                response.lackattendance[j].lastchronicdeficiencytry,
+              );
+              obj.lastdiligenceformal = this.setScale2(
+                response.lackattendance[j].lastdiligenceformal,
+              );
+              obj.lastshortdeficiencyformal = this.setScale2(
+                response.lackattendance[j].lastshortdeficiencyformal,
+              );
+              obj.lastchronicdeficiencyformal = this.setScale2(
+                response.lackattendance[j].lastchronicdeficiencyformal,
+              );
+              obj.lastdiligence = this.setScale2(
+                response.lackattendance[j].lastdiligence,
+              );
+              obj.lastshortdeficiency = this.setScale2(
+                response.lackattendance[j].lastshortdeficiency,
+              );
+              obj.lastchronicdeficiency = this.setScale2(
+                response.lackattendance[j].lastchronicdeficiency,
+              );
+              obj.lasttotal = this.setScale2(
+                response.lackattendance[j].lasttotal,
+              );
+              obj.thisdiligence = this.setScale2(
+                response.lackattendance[j].thisdiligence,
+              );
+              obj.thisdiligencetry = this.setScale2(
+                response.lackattendance[j].thisdiligencetry,
+              );
+              obj.thisshortdeficiencytry = this.setScale2(
+                response.lackattendance[j].thisshortdeficiencytry,
+              );
+              obj.thischronicdeficiencytry = this.setScale2(
+                response.lackattendance[j].thischronicdeficiencytry,
+              );
+              obj.thisdiligenceformal = this.setScale2(
+                response.lackattendance[j].thisdiligenceformal,
+              );
+              obj.thisshortdeficiencyformal = this.setScale2(
+                response.lackattendance[j].thisshortdeficiencyformal,
+              );
+              obj.thischronicdeficiencyformal = this.setScale2(
+                response.lackattendance[j].thischronicdeficiencyformal,
+              );
+              obj.thisshortdeficiency = this.setScale2(
+                response.lackattendance[j].thisshortdeficiency,
+              );
+              obj.thischronicdeficiency = this.setScale2(
+                response.lackattendance[j].thischronicdeficiency,
+              );
+              obj.thistotal = this.setScale2(
+                response.lackattendance[j].thistotal,
+              );
+              obj.remarks = response.lackattendance[j].remarks;
+              obj.give = response.lackattendance[j].give;
+              obj.rowindex = j + 1;
+              obj.lackattendance_id =
+                response.lackattendance[j].lackattendance_id;
+              obj.isDirty = false;
+              datalistqq[j] = obj;
+              this.responseQQ = datalistqq;
+              this.tableQQ = datalistqq;
+              this.totaldataQQ = datalistqq;
+              this.ListQQ = 8;
+              this.getList();
+            }
+          }
+          // endregion
+          // region 残业 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.residual) {
+            for (let j = 0; j < response.residual.length; j++) {
+
+              if (
+                response.residual[j].rn !== null &&
+                response.residual[j].rn !== ''
+              ) {
+                let letErrortype = getDictionaryInfo(response.residual[j].rn);
+                if (letErrortype != null) {
+                  response.residual[j].rn = letErrortype.value1;
+                }
+              }
+              let obj = {};
+              obj.rowindex = j + 1;
+              obj.user_id = response.residual[j].user_id;
+              let user = getUserInfo(response.residual[j].user_id);
+              if (user) {
+                obj.user_name = getUserInfo(
+                  response.residual[j].user_id,
+                ).userinfo.customername;
+              }
+              obj.rn = response.residual[j].rn;
+              obj.lastweekdays = this.setScale2(
+                response.residual[j].lastweekdays,
+              );
+              obj.lastlatenight = this.setScale2(
+                response.residual[j].lastlatenight,
+              );
+              obj.lastrestDay = this.setScale2(
+                response.residual[j].lastrestDay,
+              );
+              obj.lastrestlatenight = this.setScale2(
+                response.residual[j].lastrestlatenight,
+              );
+              obj.lastlegal = this.setScale2(response.residual[j].lastlegal);
+              obj.lastlegallatenight = this.setScale2(
+                response.residual[j].lastlegallatenight,
+              );
+              obj.lastreplace = this.setScale2(
+                response.residual[j].lastreplace,
+              );
+              obj.lasttotalh = this.setScale2(response.residual[j].lasttotalh);
+              obj.lasttotaly = this.setScale2(response.residual[j].lasttotaly);
+              obj.thisweekdays = this.setScale2(
+                response.residual[j].thisweekdays,
+              );
+              obj.thislatenight = this.setScale2(
+                response.residual[j].thislatenight,
+              );
+              obj.thisrestDay = this.setScale2(
+                response.residual[j].thisrestDay,
+              );
+              obj.thisrestlatenight = this.setScale2(
+                response.residual[j].thisrestlatenight,
+              );
+              obj.thislegal = this.setScale2(response.residual[j].thislegal);
+              obj.thislegallatenight = this.setScale2(
+                response.residual[j].thislegallatenight,
+              );
+              obj.thisreplace = this.setScale2(
+                response.residual[j].thisreplace,
+              );
+              obj.thisreplace3 = this.setScale2(
+                response.residual[j].thisreplace3,
+              );
+              obj.thistotalh = this.setScale2(response.residual[j].thistotalh);
+              obj.thistotaly = this.setScale2(response.residual[j].thistotaly);
+              obj.remarks = response.residual[j].remarks;
+              obj.subsidy = this.setScale2(response.residual[j].subsidy);
+              obj.residual_id = response.residual[j].residual_id;
+              obj.isDirty = false;
+              datalistcy[j] = obj;
+              this.responseCY = datalistcy;
+              this.tableCY = datalistcy;
+              this.totaldataCY = datalistcy;
+              this.ListCY = 9;
+              this.getList();
+            }
+          }
+          // endregion
+          // region 专项控除 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.disciplinaryVo) {
+            for (let i = 0; i < response.disciplinaryVo.length; i++) {
+              let user = getUserInfo(response.disciplinaryVo[i].user_id);
+              if (user) {
+                response.disciplinaryVo[i].user_name = getUserInfo(
+                  response.disciplinaryVo[i].user_id,
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.number = i + 1;
+              obj.user_id = response.disciplinaryVo[i].user_id;
+              obj.user_name = response.disciplinaryVo[i].user_name;
+              obj.january = response.disciplinaryVo[i].month1;
+              obj.february = response.disciplinaryVo[i].month2;
+              obj.march = response.disciplinaryVo[i].month3;
+              obj.april = response.disciplinaryVo[i].month4;
+              obj.may = response.disciplinaryVo[i].month5;
+              obj.june = response.disciplinaryVo[i].month6;
+              obj.july = response.disciplinaryVo[i].month7;
+              obj.august = response.disciplinaryVo[i].month8;
+              obj.september = response.disciplinaryVo[i].month9;
+              obj.october = response.disciplinaryVo[i].month10;
+              obj.november = response.disciplinaryVo[i].month11;
+              obj.december = response.disciplinaryVo[i].month12;
+              obj.total = response.disciplinaryVo[i].total;
+              datalistzxkc[i] = obj;
+              this.responseZXKC = datalistzxkc;
+              this.tableZXKC = datalistzxkc;
+              this.totaldataZXKC = datalistzxkc;
+              this.ListZXKC = 12;
+              this.getList();
+            }
+          }
+          // endregion
+          for (let j = 0; j < response.otherOne.length; j++) {
+            if (response.otherOne[j].basedata === '1') {
+              this.menuList.value = '1';
+              this.menuList.label = 1;
+            }
+            if (response.otherOne[j].basedata === '2') {
+              this.menuList.value = '2';
+              this.menuList.label = 2;
+            }
+            if (response.otherOne[j].type === '1') {
+              let user = getUserInfo(response.otherOne[j].user_id);
+              if (user) {
+                response.otherOne[j].user_name = user.userinfo.customername;
+                //response.otherOne[j].department_id = user.userinfo.centername;
+                response.otherOne[j].department_id = user.userinfo.budgetunit;
+
+              }
+              if (
+                response.otherOne[j].sex !== null &&
+                response.otherOne[j].sex !== ''
+              ) {
+                if (this.$i18n) {
+                  response.otherOne[j].sex = this.$t('label.PFANS2002FORMVIEW_GRIL');
+                }
+              }
+              if (
+                response.otherOne[j].workdate !== null &&
+                response.otherOne[j].workdate !== ''
+              ) {
+                response.otherOne[j].workdate = moment(
+                  response.otherOne[j].workdate,
+                ).format('YYYY-MM-DD');
+              }
+              if (
+                response.otherOne[j].reststart !== null &&
+                response.otherOne[j].reststart !== ''
+              ) {
+                response.otherOne[j].reststart = moment(
+                  response.otherOne[j].reststart,
+                ).format('YYYY-MM-DD');
+              }
+              if (
+                response.otherOne[j].restend !== null &&
+                response.otherOne[j].restend !== ''
+              ) {
+                response.otherOne[j].restend = moment(
+                  response.otherOne[j].restend,
+                ).format('YYYY-MM-DD');
+              }
+
+              //添加对其他1的处理-lxx
+              // let other1 = "0";
+              // if (response.otherOne[j].other1.indexOf(",") !== -1) {
+              //   if (response.otherOne[j].basedata === "1") {
+              //     other1 = response.otherOne[j].other1.split(",")[0];
+              //   }
+              //   if (response.otherOne[j].basedata === "2") {
+              //     other1 = response.otherOne[j].other1.split(",")[1];
+              //   }
+              // }
+              //添加对其他1的处理-lxx
+              lettableQT1Woman.push({
+                otherone_id: response.otherOne[j].otherone_id,
+                giving_id: response.otherOne[j].giving_id,
+                rowindex: response.otherOne[j].rowindex,
+                department_id: response.otherOne[j].department_id,
+                user_id: response.otherOne[j].user_id,
+                user_name: response.otherOne[j].user_name,
+                sex: response.otherOne[j].sex,
+                workdate: response.otherOne[j].workdate,
+                reststart: response.otherOne[j].reststart,
+                restend: response.otherOne[j].restend,
+                attendance: response.otherOne[j].attendance,
+                // other1: other1,
+                basedata: response.otherOne[j].basedata,
+                //对其他1结果存储-lxx
+                // temp: response.otherOne[j].other1
+                //对其他1结果存储-lxx
+              });
+              this.ListOtherOneSex = 1;
+            } else if (response.otherOne[j].type === '2') {
+              let user = getUserInfo(response.otherOne[j].user_id);
+              if (user) {
+                response.otherOne[j].user_name = user.userinfo.customername;
+                //response.otherOne[j].department_id = user.userinfo.centername;
+                response.otherOne[j].department_id = user.userinfo.budgetunit;
+              }
+              if (
+                response.base[j].sex !== null &&
+                response.base[j].sex !== ''
+              ) {
+                if (this.$i18n) {
+                  response.otherOne[j].sex = this.$t('label.PFANS2002FORMVIEW_BOY');
+                }
+
+                if (
+                  response.otherOne[j].workdate !== null &&
+                  response.otherOne[j].workdate !== ''
+                ) {
+                  response.otherOne[j].workdate = moment(
+                    response.otherOne[j].workdate,
+                  ).format('YYYY-MM-DD');
+                }
+                if (
+                  response.otherOne[j].startdate !== null &&
+                  response.otherOne[j].startdate !== ''
+                ) {
+                  response.otherOne[j].startdate = moment(
+                    response.otherOne[j].startdate,
+                  ).format('YYYY-MM-DD');
+                }
+                if (
+                  response.otherOne[j].enddate !== null &&
+                  response.otherOne[j].enddate !== ''
+                ) {
+                  response.otherOne[j].enddate = moment(
+                    response.otherOne[j].enddate,
+                  ).format('YYYY-MM-DD');
+                }
+                lettableQT1Man.push({
+                  rowindex: response.otherOne[j].rowindex,
+                  department_id: response.otherOne[j].department_id,
+                  user_id: response.otherOne[j].user_id,
+                  user_name: response.otherOne[j].user_name,
+                  sex: response.otherOne[j].sex,
+                  workdate: response.otherOne[j].workdate,
+                  startdate: response.otherOne[j].startdate,
+                  enddate: response.otherOne[j].enddate,
+                  vacation: response.otherOne[j].vacation,
+                  handsupport: response.otherOne[j].handsupport,
+                });
+                this.ListOtherOneSex = 2;
+              }
+            }
+            if (this.ListOtherOneSex === 1) {
+              this.totaldataOtherOneWoman = lettableQT1Woman;
+            } else if (this.ListOtherOneSex === 2) {
+              this.totaldataOtherOneMan = lettableQT1Man;
+            }
+            this.responseQT1Woman = lettableQT1Woman;
+            this.tableQT1Woman = lettableQT1Woman;
+            this.responseQT1Man = lettableQT1Man;
+            this.tableQT1Man = lettableQT1Man;
+            this.ListOtherOne = 2;
+            this.getList();
+          }
+          for (let a = 0; a < response.otherTwo.length; a++) {
+            if (
+              response.otherTwo[a].rootknot !== null &&
+              response.otherTwo[a].rootknot !== ''
+            ) {
+              let letErrortype = getDictionaryInfo(
+                response.otherTwo[a].rootknot,
+              );
+              if (letErrortype != null) {
+                response.otherTwo[a].rootknot = letErrortype.value1;
+              }
+            }
+            let Obj = {};
+            Obj.othertwo_id = response.otherTwo[a].othertwo_id;
+            Obj.user_id = response.otherTwo[a].user_id;
+            let user = getUserInfo(response.otherTwo[a].user_id);
+            if (user) {
+              Obj.user_name = user.userinfo.customername;
+            }
+            Obj.moneys = response.otherTwo[a].moneys;
+            Obj.rootknot = response.otherTwo[a].rootknot;
+            Obj.type = response.otherTwo[a].type;
+            Obj.giving_id = response.otherTwo[a].giving_id;
+            Obj.rowindex = a + 1;
+            datalist[a] = Obj;
+            this.responseQT2 = datalist;
+            this.tableQT2 = datalist;
+            this.totaldataQT2 = datalist;
+            this.ListQt2 = 3;
+            this.getList();
+          }
+          // region 月度赏与 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.appreciation) {
+            for (let j = 0; j < response.appreciation.length; j++) {
+              let user = getUserInfo(response.appreciation[j].user_id);
+              if (user) {
+                response.appreciation[j].user_name = getUserInfo(
+                  response.appreciation[j].user_id,
+                ).userinfo.customername;
+              }
+              this.responseYDSY = response.appreciation;
+              this.tableYDSY = response.appreciation;
+              this.totaldataYDSY = response.appreciation;
+              this.ListYDSY = 10;
+              this.getList();
+            }
+          }
+          // endregion
+
+          for (let j = 0; j < response.otherFour.length; j++) {
+            let user = getUserInfo(response.otherFour[j].user_id);
+            if (user) {
+              response.otherFour[j].user_name = getUserInfo(
+                response.otherFour[j].user_id,
+              ).userinfo.customername;
+            }
+            this.responseQT4 = response.otherFour;
+            this.tableQT4 = response.otherFour;
+            this.totaldataQT4 = response.otherFour;
+            this.ListQT4 = 4;
+            this.getList();
+          }
+
+          // region 附加控除 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.addiTional) {
+            for (let j = 0; j < response.addiTional.length; j++) {
+              let user = getUserInfo(response.addiTional[j].user_id);
+              if (user) {
+                response.addiTional[j].user_name = getUserInfo(
+                  response.addiTional[j].user_id,
+                ).userinfo.customername;
+              }
+              this.responseFJKC = response.addiTional;
+              this.tableFJKC = response.addiTional;
+              this.totaldataFJKC = response.addiTional;
+              this.ListFJKC = 13;
+              this.getList();
+            }
+          }
+          // endregion
+
+          for (let j = 0; j < response.otherFive.length; j++) {
+            let user = getUserInfo(response.otherFive[j].user_id);
+            if (user) {
+              response.otherFive[j].user_name = getUserInfo(
+                response.otherFive[j].user_id,
+              ).userinfo.customername;
+            }
+            this.responseQT5 = response.otherFive;
+            this.tableQT5 = response.otherFive;
+            this.totaldataQT5 = response.otherFive;
+            this.ListQt5 = 5;
+            this.getList();
+          }
+
+          // region 入职和离职处理 By Myt
+          // 入职
+          for (let j = 0; j < response.entryVo.length; j++) {
+            let user = getUserInfo(response.entryVo[j].user_id);
+            if (user) {
+              response.entryVo[j].user_name = getUserInfo(
+                response.entryVo[j].user_id,
+              ).userinfo.customername;
+            }
+            if (
+              response.entryVo[j].worddate !== null &&
+              response.entryVo[j].worddate !== ''
+            ) {
+              response.entryVo[j].worddate = moment(
+                response.entryVo[j].worddate,
+              ).format('YYYY-MM-DD');
+            }
+            if (
+              response.entryVo[j].startdate !== null &&
+              response.entryVo[j].startdate !== ''
+            ) {
+              response.entryVo[j].startdate = moment(
+                response.entryVo[j].startdate,
+              ).format('YYYY-MM-DD');
+            }
+            this.responseRZ = response.entryVo;
+            this.tableRZ = response.entryVo;
+            this.totaldataRZ = response.entryVo;
+            this.ListRZ = 6;
+            this.getList();
+          }
+          // 上月年月和今月年月赋值
+          this.yearOfLastMonth = response.yearOfLastMonth;
+          this.monthOfLastMonth = response.monthOfLastMonth;
+          this.yearOfThisMonth = response.yearOfThisMonth;
+          this.monthOfThisMonth = response.monthOfThisMonth;
+
+          // 退职
+          for (let j = 0; j < response.retireVo.length; j++) {
+            let user = getUserInfo(response.retireVo[j].user_id);
+            if (user) {
+              response.retireVo[j].user_name = getUserInfo(
+                response.retireVo[j].user_id,
+              ).userinfo.customername;
+            }
+            if (
+              response.retireVo[j].retiredate !== null &&
+              response.retireVo[j].retiredate !== ''
+            ) {
+              response.retireVo[j].retiredate = moment(
+                response.retireVo[j].retiredate,
+              ).format('YYYY-MM-DD');
+            }
+            this.responseTZ = response.retireVo;
+            this.tableTZ = response.retireVo;
+            this.totaldataTZ = response.retireVo;
+            this.ListTZ = 6;
+            this.getList();
+          }
+          // endregion
+          for (let j = 0; j < response.base.length; j++) {
+            if (this.$i18n) {
+              if (response.base[j].type === '1') {
+                response.base[j].type = this.$t('label.PFANS2005FORMVIEW_SFRZ');
+              } else if (response.base[j].type === '4') {
+                response.base[j].type = this.$t('label.PFANS2005FORMVIEW_SFTZ');
+              } else if (response.base[j].type === '2') {
+                response.base[j].type = this.$t('label.PFANS2005FORMVIEW_NSFCX');
+              } else if (response.base[j].type === '3') {
+                response.base[j].type = this.$t('label.PFANS2005FORMVIEW_NVSFCX');
+              } else {
+                response.base[j].type = '-';
+              }
+            }
+            let user = getUserInfo(response.base[j].user_id);
+            if (user) {
+              response.base[j].user_name = user.userinfo.customername;
+              //response.base[j].department_id = user.userinfo.centername;
+              response.base[j].department_id = user.userinfo.budgetunit;
+            }
+            if (response.base[j].rn !== null && response.base[j].rn !== '') {
+              let letErrortype = getDictionaryInfo(response.base[j].rn);
+              if (letErrortype != null) {
+                response.base[j].rnname = letErrortype.value1;
+              }
+            }
+            if (
+              response.base[j].workdate !== null &&
+              response.base[j].workdate !== ''
+            ) {
+              response.base[j].workdate = moment(
+                response.base[j].workdate,
+              ).format('YYYY-MM-DD');
+            }
+            if (response.base[j].sex !== null && response.base[j].sex !== '') {
+              if (this.$i18n) {
+                if (response.base[j].sex === 'PR019001') {
+                  response.base[j].sex = this.$t('label.PFANS2002FORMVIEW_BOY');
+                } else if (response.base[j].sex === 'PR019002') {
+                  response.base[j].sex = this.$t('label.PFANS2002FORMVIEW_GRIL');
+                }
+              }
+            }
+            if (
+              response.base[j].registered !== null &&
+              response.base[j].registered !== ''
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].registered === '1') {
+                  if (this.$i18n) {
+                    response.base[j].registered = this.$t('label.yes');
+                  }
+                } else {
+                  response.base[j].registered = '-';
+                }
+              }
+            }
+            // if (
+            //   response.base[j].bonus !== null &&
+            //   response.base[j].bonus !== ""
+            // ) {
+            //   if (this.$i18n) {
+            //     if (response.base[j].bonus === "1") {
+            //       response.base[j].bonus = this.$t(
+            //         "label.PFANSUSERFORMVIEW_NEWSTAFF"
+            //       );
+            //     } else {
+            //       response.base[j].bonus = this.$t(
+            //         "label.PFANSUSERFORMVIEW_OLDSTAFF"
+            //       );
+            //     }
+            //   }
+            // }
+            if (
+              response.base[j].onlychild !== null &&
+              response.base[j].onlychild !== ''
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].onlychild === '1') {
+                  if (this.$i18n) {
+                    response.base[j].onlychild = this.$t('label.yes');
+                  }
+                } else {
+                  response.base[j].onlychild = '-';
+                }
+              }
+            }
+            if (
+              response.base[j].sociology !== null &&
+              response.base[j].sociology !== ''
+            ) {
+              if (this.$i18n) {
+                if (response.base[j].sociology === '1') {
+                  response.base[j].sociology = this.$t('label.yes');
+                } else {
+                  response.base[j].sociology = '-';
+                }
+              }
+            }
+            this.responseJS = response.base;
+            // this.tableJS = response.base;
+            this.totaldataBase = response.base;
+            this.listBase = 1;
+            this.getList();
+          }
+          for (let j = 0; j < response.contrast.length; j++) {
+            let user = getUserInfo(response.contrast[j].user_id);
+            if (user) {
+              response.contrast[j].user_name = user.userinfo.customername;
+              //response.contrast[j].department_id = user.userinfo.centername;
+              response.contrast[j].department_id = user.userinfo.budgetunit;
+            }
+            let obj = {};
+            obj.contrast_id = response.contrast[j].contrast_id;
+            obj.department_id = response.contrast[j].department_id;
+            obj.user_id = response.contrast[j].user_id;
+            obj.user_name = response.contrast[j].user_name;
+            obj.thismonth = response.contrast[j].thismonth;
+            obj.lastmonth = response.contrast[j].lastmonth;
+            obj.reason = response.contrast[j].reason;
+            obj.rowindex = response.contrast[j].rowindex;
+            if (
+              response.contrast[j].thismonth != null &&
+              response.contrast[j].lastmonth != null
+            ) {
+              //update 20210319 个人到手差额对比数据格式化 start
+              obj.difference =
+                Math.round((response.contrast[j].thismonth - response.contrast[j].lastmonth) * 100) / 100;
+              //update 20210319 个人到手差额对比数据格式化 end
+            }
+            datalistgrdb[j] = obj;
+            this.responseGRDB = datalistgrdb;
+            this.tableGRDB = datalistgrdb;
+            this.totaldataContrast = datalistgrdb;
+            this.listContrast = 16;
+            this.getList();
+          }
+          // region 累计税金 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.accumulatedTaxVo) {
+            for (let j = 0; j < response.accumulatedTaxVo.length; j++) {
+              let user = getUserInfo(response.accumulatedTaxVo[j].user_id);
+              if (user) {
+                response.accumulatedTaxVo[j].user_name = getUserInfo(
+                  response.accumulatedTaxVo[j].user_id,
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.rowindex = j + 1;
+              obj.user_id = response.accumulatedTaxVo[j].user_id;
+              obj.user_name = response.accumulatedTaxVo[j].user_name;
+              obj.january = response.accumulatedTaxVo[j].january;
+              obj.february = response.accumulatedTaxVo[j].february;
+              obj.march = response.accumulatedTaxVo[j].march;
+              obj.april = response.accumulatedTaxVo[j].april;
+              obj.may = response.accumulatedTaxVo[j].may;
+              obj.june = response.accumulatedTaxVo[j].june;
+              obj.july = response.accumulatedTaxVo[j].july;
+              obj.august = response.accumulatedTaxVo[j].august;
+              obj.september = response.accumulatedTaxVo[j].september;
+              obj.october = response.accumulatedTaxVo[j].october;
+              obj.november = response.accumulatedTaxVo[j].november;
+              obj.december = response.accumulatedTaxVo[j].december;
+              obj.sumThis = response.accumulatedTaxVo[j].sumThis;
+              obj.shouldwages = response.accumulatedTaxVo[j].shouldwages;
+              obj.shouldtax = response.accumulatedTaxVo[j].shouldtax;
+              obj.balance = response.accumulatedTaxVo[j].balance;
+              datalistljsj[j] = obj;
+              this.responseLJSJ = datalistljsj;
+              this.tableLJSJ = datalistljsj;
+              this.totaldataAccumulatedTax = datalistljsj;
+              this.listAccumulatedTax = 15;
+              this.getList();
+            }
+          }
+          // endregion
+          // region 免税 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.dutyfreeVo) {
+            for (let j = 0; j < response.dutyfreeVo.length; j++) {
+              let user = getUserInfo(response.dutyfreeVo[j].user_id);
+              if (user) {
+                response.dutyfreeVo[j].user_name = getUserInfo(
+                  response.dutyfreeVo[j].user_id,
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.rowindex = j + 1;
+              obj.user_id = response.dutyfreeVo[j].user_id;
+              obj.user_name = response.dutyfreeVo[j].user_name;
+              obj.january = response.dutyfreeVo[j].january;
+              obj.february = response.dutyfreeVo[j].february;
+              obj.march = response.dutyfreeVo[j].march;
+              obj.april = response.dutyfreeVo[j].april;
+              obj.may = response.dutyfreeVo[j].may;
+              obj.june = response.dutyfreeVo[j].june;
+              obj.july = response.dutyfreeVo[j].july;
+              obj.august = response.dutyfreeVo[j].august;
+              obj.september = response.dutyfreeVo[j].september;
+              obj.october = response.dutyfreeVo[j].october;
+              obj.november = response.dutyfreeVo[j].november;
+              obj.december = response.dutyfreeVo[j].december;
+              obj.total = response.dutyfreeVo[j].total;
+              datalistms[j] = obj;
+              this.responseMS = datalistms;
+              this.tableMS = datalistms;
+              this.totaldataDutyfreeVo = datalistms;
+              this.listDutyfreeVo = 14;
+              this.getList();
+            }
+          }
+          // endregion
+          //region  综合收入 By SKAIXX
+          // 添加非空判断 By SKAIXX
+          if (response.comprehensiveVo) {
+            for (let j = 0; j < response.comprehensiveVo.length; j++) {
+              let user = getUserInfo(response.comprehensiveVo[j].user_id);
+              if (user) {
+                response.comprehensiveVo[j].user_name = getUserInfo(
+                  response.comprehensiveVo[j].user_id,
+                ).userinfo.customername;
+              }
+              let obj = {};
+              obj.rowindex = j + 1;
+              obj.user_id = response.comprehensiveVo[j].user_id;
+              obj.user_name = response.comprehensiveVo[j].user_name;
+              obj.totalbonus1 = response.comprehensiveVo[j].totalbonus1;
+              obj.month1wages = response.comprehensiveVo[j].month1wages;
+              obj.month1appreciation =
+                response.comprehensiveVo[j].month1appreciation;
+              obj.month2wages = response.comprehensiveVo[j].month2wages;
+              obj.month2appreciation =
+                response.comprehensiveVo[j].month2appreciation;
+              obj.month3wages = response.comprehensiveVo[j].month3wages;
+              obj.month3appreciation =
+                response.comprehensiveVo[j].month3appreciation;
+              obj.month4wages = response.comprehensiveVo[j].month4wages;
+              obj.month4appreciation =
+                response.comprehensiveVo[j].month4appreciation;
+              obj.month5wages = response.comprehensiveVo[j].month5wages;
+              obj.month5appreciation =
+                response.comprehensiveVo[j].month5appreciation;
+              obj.month6wages = response.comprehensiveVo[j].month6wages;
+              obj.month6appreciation =
+                response.comprehensiveVo[j].month6appreciation;
+              obj.month7wages = response.comprehensiveVo[j].month7wages;
+              obj.month7appreciation =
+                response.comprehensiveVo[j].month7appreciation;
+              obj.month8wages = response.comprehensiveVo[j].month8wages;
+              obj.month8appreciation =
+                response.comprehensiveVo[j].month8appreciation;
+              obj.month9wages = response.comprehensiveVo[j].month9wages;
+              obj.month9appreciation =
+                response.comprehensiveVo[j].month9appreciation;
+              obj.month10wages = response.comprehensiveVo[j].month10wages;
+              obj.month10appreciation =
+                response.comprehensiveVo[j].month10appreciation;
+              obj.month11wages = response.comprehensiveVo[j].month11wages;
+              obj.month11appreciation =
+                response.comprehensiveVo[j].month11appreciation;
+              obj.month12wages = response.comprehensiveVo[j].month12wages;
+              obj.month12appreciation =
+                response.comprehensiveVo[j].month12appreciation;
+              obj.appreciationtotal =
+                response.comprehensiveVo[j].appreciationtotal;
+              obj.totalwithout12 = response.comprehensiveVo[j].totalwithout12;
+              obj.totalwithin12 = response.comprehensiveVo[j].totalwithin12;
+              datalistzhsr[j] = obj;
+              this.responseZHSR = datalistzhsr;
+              this.tableZHSR = datalistzhsr;
+              this.totaldataZHSR = datalistzhsr;
+              this.ListZHSR = 11;
+              this.getList();
+            }
+          }
+          this.loading = false;
+          //endregion
+
+          // TODO By Skaixx : 设置滚动条
+          // console.log("Start setting", location);
+          // this.$nextTick(() => {
+          //   this.$refs[
+          //     "eltable"
+          //   ].$el.children[0].children[0].children[2].scrollTop = location;
+          // });
+          // console.log("End setting");
+          //region add_qhr_20210702  保存后保留查询项及查询结果
+          this.inputChange(1);
+          //endregion add_qhr_20210702 保存后保留查询项及查询结果
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    },
+    UploadUrlfjkc: function() {
+      return (
+        process.env.BASE_API +
+        '/giving/importUseradditional?givingid=' +
+        this.Giving
+      );
+    },
+    UploadUrlothertwo: function() {
+      return (
+        process.env.BASE_API +
+        '/giving/importUserothertwo?givingid=' +
+        this.Giving
+      );
+    },
+    UploadUrlotherfour: function() {
+      return (
+        process.env.BASE_API +
+        '/giving/importUserotherfour?givingid=' +
+        this.Giving
+      );
+    },
+    UploadUrlotherfive: function() {
+      return (
+        process.env.BASE_API +
+        '/giving/importUserotherfive?givingid=' +
+        this.Giving
+      );
+    },
+    UploadUrlappreciation: function() {
+      return (
+        process.env.BASE_API +
+        '/giving/importUserappreciation?givingid=' +
+        this.Giving
+      );
+    },
+    handleSizeChangeYDSY(val) {
+      this.listQueryListYDSY.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeYDSY(val) {
+      this.listQueryListYDSY.page = val;
+      this.getList();
+    },
+    handleSizeChangeZHSR(val) {
+      this.listQueryListZHSR.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeZHSR(val) {
+      this.listQueryListZHSR.page = val;
+      this.getList();
+    },
+    handleSizeChangeZXKC(val) {
+      this.listQueryListZXKC.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeZXKC(val) {
+      this.listQueryListZXKC.page = val;
+      this.getList();
+    },
+    handleSizeChangeFJKC(val) {
+      this.listQueryListFJKC.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeFJKC(val) {
+      this.listQueryListFJKC.page = val;
+      this.getList();
+    },
+    handleSizeChangeMS(val) {
+      this.listQueryListMS.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeMS(val) {
+      this.listQueryListMS.page = val;
+      this.getList();
+    },
+    handleSizeChangeLJSJ(val) {
+      this.listQueryListLJSJ.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeLJSJ(val) {
+      this.listQueryListLJSJ.page = val;
+      this.getList();
+    },
+    handleSizeChangeGRDB(val) {
+      this.listQueryListGRDB.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeGRDB(val) {
+      this.listQueryListGRDB.page = val;
+      this.getList();
+    },
+    handleSizeChangeQT1Woman(val) {
+      this.listQueryListQT1Woman.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeQT1Woman(val) {
+      this.listQueryListQT1Woman.page = val;
+      this.getList();
+    },
+    handleSizeChangeQT2(val) {
+      this.listQueryListQT2.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeQT2(val) {
+      this.listQueryListQT2.page = val;
+      this.getList();
+    },
+    handleSizeChangeQT4(val) {
+      this.listQueryListQT4.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeQT4(val) {
+      this.listQueryListQT4.page = val;
+      this.getList();
+    },
+    handleSizeChangeQT5(val) {
+      this.listQueryListQT5.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeQT5(val) {
+      this.listQueryListQT5.page = val;
+      this.getList();
+    },
+    handleSizeChangeRZ(val) {
+      this.listQueryListRZ.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeRZ(val) {
+      this.listQueryListRZ.page = val;
+      this.getList();
+    },
+    handleSizeChangeTZ(val) {
+      this.listQueryListTZ.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeTZ(val) {
+      this.listQueryListTZ.page = val;
+      this.getList();
+    },
+    handleSizeChangeQQ(val) {
+      this.listQueryListQQ.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeQQ(val) {
+      this.listQueryListQQ.page = val;
+      this.getList();
+    },
+    handleSizeChangeCY(val) {
+      this.listQueryListCY.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeCY(val) {
+      this.listQueryListCY.page = val;
+      this.getList();
+    },
+    handleSizeChangeQT1Man(val) {
+      this.listQueryListQT1Man.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeQT1Man(val) {
+      this.listQueryListQT1Man.page = val;
+      this.getList();
+    },
+    handleCurrentChangeWages(val) {
+      this.listQueryListWages.page = val;
+      this.getList();
+    },
+    handleSizeChangeWages(val) {
+      this.listQueryListWages.limit = val;
+      this.getList();
+    },
+    handleSizeChangeJS(val) {
+      this.listQueryListJS.limit = val;
+      this.getList();
+    },
+    handleCurrentChangeJS(val) {
+      this.listQueryListJS.page = val;
+      this.getList();
+    },
+    handleSizeChangeimprot(val) {
+      this.listQuery.limit = val;
+      this.getListimprot();
+    },
+    handleCurrentChangeimprot(val) {
+      this.listQuery.page = val;
+      this.getListimprot();
+    },
+    // 获取tab页数据
+    getList() {
+      this.loading = true;
+      if (this.listWages === 0 || this.tab === '0') {
+        let start =
+          (this.listQueryListWages.page - 1) * this.listQueryListWages.limit;
+        let end = this.listQueryListWages.page * this.listQueryListWages.limit;
+        if (this.totaldata) {
+          let pListBase = this.totaldata.slice(start, end);
+          this.tableWages = pListBase;
+          this.total_wages = this.totaldata.length;
+        }
+      }
+      if (this.listBase === 1 || this.tab === '1') {
+        let start =
+          (this.listQueryListJS.page - 1) * this.listQueryListJS.limit;
+        let end = this.listQueryListJS.page * this.listQueryListJS.limit;
+        if (this.totaldataBase) {
+          let pListBase = this.totaldataBase.slice(start, end);
+          this.tableJS = pListBase;
+          this.totalBase = this.totaldataBase.length;
+        }
+      }
+      if (this.ListOtherOne === 2 || this.tab === '2') {
+        if (this.totaldataOtherOneWoman || this.totaldataOtherOneMan) {
+          if (this.ListOtherOneSex === 1) {
+            let start =
+              (this.listQueryListQT1Woman.page - 1) *
+              this.listQueryListQT1Woman.limit;
+            let end =
+              this.listQueryListQT1Woman.page *
+              this.listQueryListQT1Woman.limit;
+            let pListWoman = this.totaldataOtherOneWoman.slice(start, end);
+            this.tableQT1Woman = pListWoman;
+            this.totalOtherOne = this.totaldataOtherOneWoman.length;
+          } else if (this.ListOtherOneSex === 2) {
+            let start =
+              (this.listQueryListQT1Man.page - 1) *
+              this.listQueryListQT1Man.limit;
+            let end =
+              this.listQueryListQT1Man.page * this.listQueryListQT1Man.limit;
+            let pListMan = this.totaldataOtherOneMan.slice(start, end);
+            this.tableQT1Man = pListMan;
+            this.totalOtherOneMan = this.totaldataOtherOneMan.length;
+          }
+        }
+      }
+      if (this.ListQt2 === 3 || this.tab === '3') {
+        let start =
+          (this.listQueryListQT2.page - 1) * this.listQueryListQT2.limit;
+        let end = this.listQueryListQT2.page * this.listQueryListQT2.limit;
+        if (this.totaldataQT2) {
+          let pListQT2 = this.totaldataQT2.slice(start, end);
+          this.tableQT2 = pListQT2;
+          this.totalQT2 = this.totaldataQT2.length;
+        }
+      }
+      if (this.ListQT4 === 4 || this.tab === '4') {
+        let start =
+          (this.listQueryListQT4.page - 1) * this.listQueryListQT4.limit;
+        let end = this.listQueryListQT4.page * this.listQueryListQT4.limit;
+        if (this.totaldataQT4) {
+          let pListQT4 = this.totaldataQT4.slice(start, end);
+          this.tableQT4 = pListQT4;
+          this.totalQT4 = this.totaldataQT4.length;
+        }
+      }
+      if (this.ListQt5 === 5 || this.tab === '5') {
+        let start =
+          (this.listQueryListQT5.page - 1) * this.listQueryListQT5.limit;
+        let end = this.listQueryListQT5.page * this.listQueryListQT5.limit;
+        if (this.totaldataQT5) {
+          let pListQT5 = this.totaldataQT5.slice(start, end);
+          this.tableQT5 = pListQT5;
+          this.totalQT5 = this.totaldataQT5.length;
+        }
+      }
+      if (this.ListRZ === 6 || this.tab === '6') {
+        let start =
+          (this.listQueryListRZ.page - 1) * this.listQueryListRZ.limit;
+        let end = this.listQueryListRZ.page * this.listQueryListRZ.limit;
+        if (this.totaldataRZ) {
+          let pListRZ = this.totaldataRZ.slice(start, end);
+          this.tableRZ = pListRZ;
+          this.totalRZ = this.totaldataRZ.length;
+        }
+      }
+      if (this.ListTZ === 7 || this.tab === '7') {
+        let start =
+          (this.listQueryListTZ.page - 1) * this.listQueryListTZ.limit;
+        let end = this.listQueryListTZ.page * this.listQueryListTZ.limit;
+        if (this.totaldataTZ) {
+          let pListTZ = this.totaldataTZ.slice(start, end);
+          this.tableTZ = pListTZ;
+          this.totalTZ = this.totaldataTZ.length;
+        }
+      }
+      if (this.ListQQ === 8 || this.tab === '8') {
+        let start =
+          (this.listQueryListQQ.page - 1) * this.listQueryListQQ.limit;
+        let end = this.listQueryListQQ.page * this.listQueryListQQ.limit;
+        if (this.totaldataQQ) {
+          let pListQQ = this.totaldataQQ.slice(start, end);
+          this.tableQQ = pListQQ;
+          this.totalQQ = this.totaldataQQ.length;
+        }
+      }
+      if (this.ListCY === 9 || this.tab === '9') {
+        let start =
+          (this.listQueryListCY.page - 1) * this.listQueryListCY.limit;
+        let end = this.listQueryListCY.page * this.listQueryListCY.limit;
+        if (this.totaldataCY) {
+          let pListCY = this.totaldataCY.slice(start, end);
+          this.tableCY = pListCY;
+          this.totalCY = this.totaldataCY.length;
+        }
+      }
+      if (this.ListYDSY === 10 || this.tab === '10') {
+        let start =
+          (this.listQueryListYDSY.page - 1) * this.listQueryListYDSY.limit;
+        let end = this.listQueryListYDSY.page * this.listQueryListYDSY.limit;
+        if (this.totaldataYDSY) {
+          let pListYDSY = this.totaldataYDSY.slice(start, end);
+          this.tableYDSY = pListYDSY;
+          this.totalYDSY = this.totaldataYDSY.length;
+        }
+      }
+      if (this.ListZHSR === 11 || this.tab === '11') {
+        let start =
+          (this.listQueryListZHSR.page - 1) * this.listQueryListZHSR.limit;
+        let end = this.listQueryListZHSR.page * this.listQueryListZHSR.limit;
+        if (this.totaldataZHSR) {
+          let pListZHSR = this.totaldataZHSR.slice(start, end);
+          this.tableZHSR = pListZHSR;
+          this.totalZHSR = this.totaldataZHSR.length;
+        }
+      }
+      if ((this.ListZXKC = 12 || this.tab === '12')) {
+        let start =
+          (this.listQueryListZXKC.page - 1) * this.listQueryListZXKC.limit;
+        let end = this.listQueryListZXKC.page * this.listQueryListZXKC.limit;
+        if (this.totaldataZXKC) {
+          let pListZXKC = this.totaldataZXKC.slice(start, end);
+          this.tableZXKC = pListZXKC;
+          this.totalZXKC = this.totaldataZXKC.length;
+        }
+      }
+      if ((this.ListFJKC = 13 || this.tab === '13')) {
+        let start =
+          (this.listQueryListFJKC.page - 1) * this.listQueryListFJKC.limit;
+        let end = this.listQueryListFJKC.page * this.listQueryListFJKC.limit;
+        if (this.totaldataFJKC) {
+          let pListFJKC = this.totaldataFJKC.slice(start, end);
+          this.tableFJKC = pListFJKC;
+          this.totalFJKC = this.totaldataFJKC.length;
+        }
+      }
+      if (this.listDutyfreeVo === 14 || this.tab === '14') {
+        let start =
+          (this.listQueryListMS.page - 1) * this.listQueryListMS.limit;
+        let end = this.listQueryListMS.page * this.listQueryListMS.limit;
+        if (this.totaldataDutyfreeVo) {
+          let pListDutyfreeVo = this.totaldataDutyfreeVo.slice(start, end);
+          this.tableMS = pListDutyfreeVo;
+          this.totalDutyfreeVo = this.totaldataDutyfreeVo.length;
+        }
+      }
+      if (this.listAccumulatedTax === 15 || this.tab === '15') {
+        let start =
+          (this.listQueryListLJSJ.page - 1) * this.listQueryListLJSJ.limit;
+        let end = this.listQueryListLJSJ.page * this.listQueryListLJSJ.limit;
+        if (this.totaldataAccumulatedTax) {
+          let pListAccumulatedTax = this.totaldataAccumulatedTax.slice(
+            start,
+            end,
+          );
+          this.tableLJSJ = pListAccumulatedTax;
+          this.totalAccumulatedTax = this.totaldataAccumulatedTax.length;
+        }
+      }
+      if (this.listContrast === 16 || this.tab === '16') {
+        let start =
+          (this.listQueryListGRDB.page - 1) * this.listQueryListGRDB.limit;
+        let end = this.listQueryListGRDB.page * this.listQueryListGRDB.limit;
+        if (this.totaldataContrast) {
+          let pListContrast = this.totaldataContrast.slice(start, end);
+          this.tableGRDB = pListContrast;
+          this.totalContrast = this.totaldataContrast.length;
+        }
+      }
+      this.loading = false;
+    },
+    getListimprot() {
+      this.loading = true;
+      let start = (this.listQuery.page - 1) * this.listQuery.limit;
+      let end = this.listQuery.page * this.listQuery.limit;
+      if (this.totaldataimprot) {
+        let pList = this.totaldataimprot.slice(start, end);
+        this.message = pList;
+        this.total = this.totaldataimprot.length;
+      }
+      this.loading = false;
+    },
+    tabInfoSave(tabFlg, wagesFlg) {
+      if (this.$route.params.status === '2' || this.$route.params.status === '4') {
+        return;
+      }
+      this.baseInfo = {};
+      this.baseInfo.strFlg = this.tab;
+      this.baseInfo.otherOne = [];
+      this.baseInfo.contrast = [];
+      this.baseInfo.otherTwo = [];
+      if (this.tab === '2') {
+        //其他1去掉基数对象 不需要保存-lxx
+        // for (let i = 0; i < this.tableQT1Woman.length; i++) {
+        //   this.baseInfo.otherOne.push({
+        //     otherone_id: this.tableQT1Woman[i].otherone_id,
+        //     basedata: this.tableQT1Woman[i].basedata
+        //   });
+        // }
+        //其他1去掉基数对象 不需要保存-lxx
+      } else if (this.tab === '3') {
+        this.baseInfo.otherTwo = this.totaldataQT2;
+      } else if (this.tab === '16') {
+        this.baseInfo.contrast = this.totaldataContrast;
+      } else if (this.tab === '8') {
+        this.baseInfo.lackattendance = this.totaldataQQ;
+      } else if (this.tab === '9') {
+        this.baseInfo.residual = this.totaldataCY;
+      } else if (this.tab === '6') {
+        this.baseInfo.entryVo = this.totaldataRZ;
+      } else if (this.tab === '7') {
+        this.baseInfo.retireVo = this.totaldataTZ;
+      }
+      if (
+        this.tab === '3' ||
+        this.tab === '16' ||
+        this.tab === '8' ||
+        this.tab === '9' ||
+        this.tab === '6' ||
+        this.tab === '7' ||
+        tabFlg === '0'
+      ) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2005Store/save', this.baseInfo)
+          .then(response => {
+            this.data = response;
+            this.getListdata(wagesFlg);
+            if (tabFlg !== '0' && wagesFlg === '0') {
+              this.loading = false;
+            }
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      } else {
+        if (wagesFlg === '2') {
+          this.getListdata(wagesFlg);
+        }
+      }
+    },
+    rowheight({row, column, rowIndex, columnIndex}) {
+      var returnvar = 'row_height_left ';
+      if (row.updatelist !== undefined) {
+        if (row.updatelist !== null) {
+          //社保总计特殊判断与【工资总额(纳税+免税)taxestotal】中的【total】重复
+          if (column.prop === 'total') {
+            if (row.updatelist.indexOf('toxtal') != -1) {
+              returnvar = returnvar + 'org_company';
+            }
+          } else {
+            if (row.updatelist.indexOf(column.prop) != -1) {
+              returnvar = returnvar + 'org_company';
+            }
+          }
+        }
+      }
+      return returnvar;
+    },
+    handleClick(tab, event) {
+      if (this.$route.params.status === '2' || this.$route.params.status === '4') {
+        return;
+      }
+      //调用保存-lxx
+      this.tabInfoSave(tab.index, '0');
+      //调用保存-lxx
+      this.tab = tab.index;
+      if (
+        tab.index === '3' ||
+        tab.index === '4' ||
+        tab.index === '5' ||
+        tab.index === '10' ||
+        tab.index === '13'
+      ) {
+        this.buttonList[2].disabled = false;
+      } else if (
+        tab.index === '0' ||
+        tab.index === '1' ||
+        tab.index === '2' ||
+        tab.index === '6' ||
+        tab.index === '7' ||
+        tab.index === '8' ||
+        tab.index === '9' ||
+        tab.index === '11' ||
+        tab.index === '12' ||
+        tab.index === '14' ||
+        tab.index === '15' ||
+        tab.index === '16'
+      ) {
+        this.buttonList[2].disabled = true;
+      }
+      // zqu start 只有工资tab 保存按钮可以使用
+      if (tab.index === '0') {
+        this.buttonList[0].disabled = false;
+      } else {
+        this.buttonList[0].disabled = true;
+      }
+    },
+    getSummaries(param) {
+      const {columns, data} = param;
+      const sums = [];
+      columns.forEach((column, index) => {
+        if (index === 0) {
+          if (this.$i18n) {
+            sums[index] = this.$t('label.PFANS2005FORMVIEW_HJ');
+            return;
+          }
+        }
+        const values = data.map(item => Number(item[column.property]));
+        if (!values.every(value => isNaN(value))) {
+          sums[index] = values.reduce((prev, curr) => {
+            const value = parseFloat(curr);
+            if (!isNaN(value)) {
+              return this.setScale2(parseFloat(prev) + parseFloat(curr));
+            } else {
+              return this.setScale2(prev);
+            }
+          }, 0);
+          sums[index] += ' ';
+        } else {
+          //非合计项显示空 -- lxx
+          sums[index] = ' ';
+          //非合计项显示空 -- lxx
+        }
+      });
+      return sums;
+    },
+    handleChange(file, fileList) {
+      this.clear(true);
+    },
+    handleSuccess(response, file, fileList) {
+      this.loading = true;
+      if (response.code !== 0) {
+        this.cuowu = response.message;
+        if (this.tab === '3') {
+          this.Messageothertwo = true;
+        }
+        if (this.tab === '4') {
+          this.Messageotherfour = true;
+        }
+        if (this.tab === '5') {
+          this.Messageotherfive = true;
+        }
+        if (this.tab === '10') {
+          this.Messageappreciation = true;
+        }
+        if (this.tab === '13') {
+          this.Messagefjkc = true;
+        }
+      } else {
+        response.data = JSON.parse(Decrypt(response.data));
+        let datalist = [];
+        for (let c = 0; c < response.data.length; c++) {
+          let error = response.data[c];
+          error = error.substring(0, 3);
+          if (this.$i18n) {
+            if (error === this.$t('label.PFANS2005FORMVIEW_SB')) {
+              this.errorCount = response.data[c].substring(4);
+              if (this.tab === '3') {
+                this.resultShowothertwo = true;
+              }
+              if (this.tab === '4') {
+                this.resultShowotherfour = true;
+              }
+              if (this.tab === '5') {
+                this.resultShowotherfive = true;
+              }
+              if (this.tab === '10') {
+                this.resultShowappreciation = true;
+              }
+              if (this.tab === '13') {
+                this.resultShowfjkc = true;
+              }
+            }
+            if (error === this.$t('label.PFANS2005FORMVIEW_CG')) {
+              this.successCount = response.data[c].substring(4);
+              if (this.tab === '3') {
+                this.resultShowothertwo = true;
+              }
+              if (this.tab === '4') {
+                this.resultShowotherfour = true;
+              }
+              if (this.tab === '5') {
+                this.resultShowotherfive = true;
+              }
+              if (this.tab === '10') {
+                this.resultShowappreciation = true;
+              }
+              if (this.tab === '13') {
+                this.resultShowfjkc = true;
+              }
+            }
+            if (error === this.$t('label.PFANS2017VIEW_D')) {
+              let obj = {};
+              var str = response.data[c];
+              var aPos = str.indexOf(this.$t('label.PFANS2017VIEW_BAN'));
+              var bPos = str.indexOf(this.$t('label.PFANS2017VIEW_DE'));
+              var r = str.substr(aPos + 1, bPos - aPos - 1);
+              obj.hang = r;
+              obj.error = response.data[c].substring(6);
+              datalist[c] = obj;
+            }
+          }
+          this.message = datalist;
+          this.getListdata('0');
+          this.totaldataimprot = this.message;
+          this.getListimprot();
+          if (this.errorCount === '0') {
+            if (this.tab === '3') {
+              this.resultothertwo = false;
+            }
+            if (this.tab === '4') {
+              this.resultotherfour = false;
+            }
+            if (this.tab === '5') {
+              this.resultotherfive = false;
+            }
+            if (this.tab === '10') {
+              this.resultappreciation = false;
+            }
+            if (this.tab === '13') {
+              this.resultfjkc = false;
+            }
+          } else {
+            if (this.tab === '3') {
+              this.resultothertwo = true;
+            }
+            if (this.tab === '4') {
+              this.resultotherfour = true;
+            }
+            if (this.tab === '5') {
+              this.resultotherfive = true;
+            }
+            if (this.tab === '10') {
+              this.resultappreciation = true;
+            }
+            if (this.tab === '13') {
+              this.resultfjkc = true;
+            }
+          }
+        }
+        this.tabInfoSave('', '0');
+      }
+      this.loading = false;
+    },
+    clear(safe) {
+      this.file = null;
+      if (this.tab === '3') {
+        this.resultothertwo = false;
+        this.Messageothertwo = false;
+        this.resultShowothertwo = false;
+      }
+      if (this.tab === '4') {
+        this.resultotherfour = false;
+        this.Messageotherfour = false;
+        this.resultShowotherfour = false;
+      }
+      if (this.tab === '5') {
+        this.resultotherfive = false;
+        this.Messageotherfive = false;
+        this.resultShowotherfive = false;
+      }
+      if (this.tab === '10') {
+        this.resultappreciation = false;
+        this.Messageappreciation = false;
+        this.resultShowappreciation = false;
+      }
+      if (this.tab === '13') {
+        this.resultfjkc = false;
+        this.Messagefjkc = false;
+        this.resultShowfjkc = false;
+      }
+      if (!safe) {
+        this.$refs.uploader.clearFiles();
+      }
+    },
+    // 按钮点击事件
+    buttonClick(val) {
+      // zqu start 导入按钮点击事件
+      if (val === 'import') {
+        //其他2
+        if (this.tab === '3') {
+          this.OTherTwo.giving_id = this.Giving;
+          this.OTherTwo.type = '1';
+          this.$store
+            .dispatch('PFANS2005Store/deleteothertwo', {
+              type: '1',
+              giving_id: this.Giving,
+            })
+            .then(response => {
+              this.daoruothertwo = true;
+            });
+        }
+        //其他4
+        if (this.tab === '4') {
+          this.daoruotherfour = true;
+        }
+        //其他5
+        if (this.tab === '5') {
+          this.daoruotherfive = true;
+        }
+        //月度赏与
+        if (this.tab === '10') {
+          this.daoruappreciation = true;
+        }
+        //附加控除
+        if (this.tab === '13') {
+          this.daorufjkc = true;
+        }
+      } else if (val === 'save') {
+        this.responseDataInit[0].status = this.status;
+        this.responseDataInit[0].actual = '0';//预计工资
+        //region add_qhr_20210628 工资计算保存时判断计算的值
+        for (let i = 0; i < this.responseDataInit.length; i++) {
+          if (this.responseDataInit[i].comtotalwages === null || this.responseDataInit[i].comtotalwages === '') {
+            this.responseDataInit[i].comtotalwages = '0';
+          }
+          if (this.responseDataInit[i].totalbonus === null || this.responseDataInit[i].totalbonus === '') {
+            this.responseDataInit[i].totalbonus = '0';
+          }
+        }
+        ;
+        //endregion add_qhr_20210628 工资计算保存时判断计算的值
+        this.loading = true;
+        // 插入工资数据
+        this.$store
+          .dispatch('PFANS2005Store/insertWages', this.responseDataInit)
+          .then(response => {
+            // 重新获取工资数据
+            this.getListdata('0');
+            if (this.status === '0') {
+              // 重新计算按钮可用
+              this.buttonList[1].disabled = false;
+              Message({
+                message: this.$t('normal.success_01'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+            }
+            this.loading = false;
+          })
+          .catch(err => {
+            this.loading = false;
+            this.$message.error({
+              message: this.$t('normal.error_04'),
+              type: 'error',
+            });
+          });
+      } else if (val === 'calculation') { // 重新计算
+        if (this.thisWages) {
+          this.$confirm('当月工资表已生成，确认要重新计算吗？', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+            center: true,
+          }).then(() => {
+            this.tabInfoSave(this.tab, '2');
+            this.activeName = 'first';
+            this.buttonList[0].disabled = false;
+          }).catch(() => {
+            this.$message.info({
+              type: 'info',
+              message: '已取消',
+            });
+          });
+        }
+      }
+      // zqu end
+    },
+    //本月加班数据变更时，重新计算加班费合计
+    thisMonthOvertimeChange(val) {
+      // 合计（H）
+      this.tableCY.find(
+        item => item.rowindex === val.rowindex,
+      ).thistotalh = this.setScale2(
+        parseFloat(val.thisweekdays) +
+        parseFloat(val.thisrestDay) +
+        parseFloat(val.thislegal) +
+        parseFloat(val.thisreplace) +
+        parseFloat(val.thisreplace3),
+      );
+      val.isDirty = true;
+      this.givingVo.residual = [];
+      this.givingVo.residual.push(val);
+      this.givingVo.base = this.totaldataBase;
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS2005Store/thisMonthOvertimeChange', this.givingVo)
+        .then(response => {
+          if (this.tableCY.find(item => item.rowindex === val.rowindex)) {
+            this.tableCY.find(
+              item => item.rowindex === val.rowindex,
+            ).thistotaly = this.setScale2(response.thistotaly);
+            this.tableCY.find(
+              item => item.rowindex === val.rowindex,
+            ).subsidy = this.setScale2(response.subsidy);
+          }
+          this.loading = false;
+        })
+        .catch(err => {
+          this.loading = false;
+          this.$message.error({
+            message: err,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        });
+    },
+    //本月欠勤数据变更时，重新计算欠勤费合计
+    thisMonthLacktimeChange(val) {
+      // 欠勤
+      this.tableQQ.find(
+        item => item.rowindex === val.rowindex,
+      ).thisdiligence = this.setScale2(
+        parseFloat(val.thisdiligencetry) + parseFloat(val.thisdiligenceformal),
+      );
+      // 短病欠
+      this.tableQQ.find(
+        item => item.rowindex === val.rowindex,
+      ).thisshortdeficiency = this.setScale2(
+        parseFloat(val.thisshortdeficiencytry) +
+        parseFloat(val.thisshortdeficiencyformal),
+      );
+      // 长病欠
+      this.tableQQ.find(
+        item => item.rowindex === val.rowindex,
+      ).thischronicdeficiency = this.setScale2(
+        parseFloat(val.thischronicdeficiencytry) +
+        parseFloat(val.thischronicdeficiencyformal),
+      );
+      this.givingVo.lackattendance = [];
+      val.isDirty = true;
+      this.givingVo.lackattendance.push(val);
+      this.givingVo.base = this.totaldataBase;
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS2005Store/thisMonthLacktimeChange', this.givingVo)
+        .then(response => {
+          if (this.tableQQ.find(item => item.rowindex === val.rowindex)) {
+            this.tableQQ.find(
+              item => item.rowindex === val.rowindex,
+            ).thistotal = this.setScale2(response.thistotal);
+            this.tableQQ.find(
+              item => item.rowindex === val.rowindex,
+            ).give = this.setScale2(response.give);
+          }
+          this.loading = false;
+        })
+        .catch(err => {
+          this.loading = false;
+          this.$message.error({
+            message: err,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        });
+    },
+    //数值小数位数控制
+    setScale2(val) {
+      if (val) {
+        return Math.round(val * 100) / 100;
+      } else {
+        return 0;
+      }
+    },
+  },
+};
 </script>
-<style rel="stylesheet/scss" lang="scss">
-.org_company{
-  .el-input-number.is-controls-right .el-input__inner{
-    background-color:#FFFF37;
+<style lang="scss" rel="stylesheet/scss">
+.org_company {
+  .el-input-number.is-controls-right .el-input__inner {
+    background-color: #FFFF37;
   }
 }
 </style>

@@ -1,33 +1,33 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         @end="end" @disabled="setdisabled"
-                         @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
-      <div slot="customize" >
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 3vw">
+    <EasyNormalContainer ref="container" v-loading="loading" :buttonList="buttonList" :canStart="canStart"
+                         :title="title" @buttonClick="buttonClick"
+                         @disabled="setdisabled" @end="end" @start="start" @workflowState="workflowState">
+      <div slot="customize">
+        <el-form ref="reff" :model="form" :rules="rules" label-position="top" label-width="8vw" style="padding: 3vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.user_name')" prop="user_name">
                 <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 20vw"></user>
+                      style="width: 20vw" @getUserids="getUserids"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2020VIEW_JOBNUMBER')">
-                <el-input :disabled="true" maxlength="20" style="width: 20vw" v-model="form.jobnumber"></el-input>
+                <el-input v-model="form.jobnumber" :disabled="true" maxlength="20" style="width: 20vw"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2020VIEW_JOB')">
-                <el-input :disabled="true" maxlength="20" style="width: 20vw" v-model="form.job"></el-input>
+                <el-input v-model="form.job" :disabled="true" maxlength="20" style="width: 20vw"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-col :span="24">
             <el-row>
               <el-form-item :label="$t('label.cause')">
-                <el-input :disabled="!disable" style="width: 72vw"  type="textarea"
-                          v-model="form.reason"></el-input>
+                <el-input v-model="form.reason" :disabled="!disable" style="width: 72vw"
+                          type="textarea"></el-input>
               </el-form-item>
             </el-row>
           </el-col>
@@ -37,211 +37,210 @@
   </div>
 </template>
 <script>
-  import EasyNormalContainer from "@/components/EasyNormalContainer";
-  import user from "../../../components/user.vue";
-  import {Message} from 'element-ui'
-  import {getUserInfo} from '@/utils/customize'
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import user from '../../../components/user.vue';
+import {Message} from 'element-ui';
+import {getUserInfo} from '@/utils/customize';
 
 
-  export default {
-    name: 'PFANS2020FormVIEW',
-    components: {
-      EasyNormalContainer, user,
-    },
-    data() {
-      var checkuser = (rule, value, callback) => {
-        if (!this.form.user_id || this.form.user_id === '') {
-          this.error = this.$t('normal.error_09') + this.$t('label.user_name');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.user_name')));
-        } else {
-          this.error = "";
-          return callback();
-        }
-      };
-      return {
-        selectType: "Single",
-        error: '',
-        loading: false,
-        userlist: "",
-        title: "title.PFANS2020VIEW",
-        buttonList: [
-          {
-            key: "save",
-            name: "button.save",
-            disabled: false,
-            icon: "el-icon-check"
-          }
-        ],
-        form: {
-          user_id: '',
-          jobnumber: '',
-          job: '',
-          reason: '',
-        },
-        disable: false,
-        rules: {
-          user_name: [{
-            required: true,
-            validator: checkuser,
-            trigger: 'change'
-          }],
-        },
-        canStart: false
-      };
-    },
-    mounted() {
-      this.loading = true;
-      if (this.$route.params._id) {
-        this.$store
-          .dispatch('PFANS2020Store/getIrregulartimingOne', {"irregulartiming_id": this.$route.params._id})
-          .then(response => {
-            this.form = response;
-            this.userlist = this.form.user_id;
-            if (this.form.status === '2') {
-              this.disable = false;
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          })
+export default {
+  name: 'PFANS2020FormVIEW',
+  components: {
+    EasyNormalContainer, user,
+  },
+  data() {
+    var checkuser = (rule, value, callback) => {
+      if (!this.form.user_id || this.form.user_id === '') {
+        this.error = this.$t('normal.error_09') + this.$t('label.user_name');
+        return callback(new Error(this.$t('normal.error_09') + this.$t('label.user_name')));
       } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        this.form.user_id = this.userlist;
-        this.loading = false;
-        if (this.userlist !== null && this.userlist !== "") {
-          let lst = getUserInfo(this.$store.getters.userinfo.userid);
-          this.form.jobnumber = lst.userinfo.jobnumber;
-          this.form.job = lst.userinfo.post;
+        this.error = '';
+        return callback();
+      }
+    };
+    return {
+      selectType: 'Single',
+      error: '',
+      loading: false,
+      userlist: '',
+      title: 'title.PFANS2020VIEW',
+      buttonList: [
+        {
+          key: 'save',
+          name: 'button.save',
+          disabled: false,
+          icon: 'el-icon-check',
+        },
+      ],
+      form: {
+        user_id: '',
+        jobnumber: '',
+        job: '',
+        reason: '',
+      },
+      disable: false,
+      rules: {
+        user_name: [{
+          required: true,
+          validator: checkuser,
+          trigger: 'change',
+        }],
+      },
+      canStart: false,
+    };
+  },
+  mounted() {
+    this.loading = true;
+    if (this.$route.params._id) {
+      this.$store
+        .dispatch('PFANS2020Store/getIrregulartimingOne', {'irregulartiming_id': this.$route.params._id})
+        .then(response => {
+          this.form = response;
+          this.userlist = this.form.user_id;
+          if (this.form.status === '2') {
+            this.disable = false;
+          }
           this.loading = false;
-        }
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    } else {
+      this.userlist = this.$store.getters.userinfo.userid;
+      this.form.user_id = this.userlist;
+      this.loading = false;
+      if (this.userlist !== null && this.userlist !== '') {
+        let lst = getUserInfo(this.$store.getters.userinfo.userid);
+        this.form.jobnumber = lst.userinfo.jobnumber;
+        this.form.job = lst.userinfo.post;
+        this.loading = false;
+      }
+    }
+  },
+  created() {
+    if (!this.$route.params.disabled) {
+      this.buttonList = [];
+    }
+    this.disable = this.$route.params.disabled;
+  },
+  methods: {
+    setdisabled(val) {
+      if (this.$route.params.disabled) {
+        this.disabled = val;
       }
     },
-    created() {
-      if (!this.$route.params.disabled) {
-        this.buttonList = [];
+    getUserids(val) {
+      this.form.user_id = val;
+      let lst = getUserInfo(val);
+      if (lst) {
+        this.form.jobnumber = lst.userinfo.jobnumber;
+        this.form.job = lst.userinfo.post;
       }
-      this.disable = this.$route.params.disabled;
+      if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
+        this.error = this.$t('normal.error_08') + this.$t('label.node_operate_user');
+        this.form.jobnumber = '',
+          this.form.job = '';
+      } else {
+        this.error = '';
+      }
     },
-    methods: {
-      setdisabled(val){
-        if(this.$route.params.disabled){
-          this.disabled = val;
-        }
-      },
-      getUserids(val) {
-        this.form.user_id = val;
-        let lst = getUserInfo(val);
-        if(lst){
-          this.form.jobnumber = lst.userinfo.jobnumber;
-          this.form.job = lst.userinfo.post;
-        }
-        if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
-          this.error = this.$t('normal.error_08') + this.$t('label.node_operate_user');
-          this.form.jobnumber='',
-           this.form.job=""
-        } else {
-          this.error = "";
-        }
-      },
-      workflowState(val) {
-        if (val.state === '1') {
-          this.form.status = '3';
-        } else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        this.buttonClick("update");
-      },
-      //add-ws-5-20-流程恒展开
-      start(val) {
-        if (val.state === '0') {
-          this.form.status = '2';
-        }else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        this.buttonClick("update");
-      },
-      //add-ws-5-20-流程恒展开
-      end() {
-        this.form.status = '0';
-        this.buttonClick("update");
-      },
-      buttonClick(val) {
-        this.$refs["reff"].validate(valid => {
-          if (valid) {
-            this.loading = true;
-            if (this.$route.params._id) {
-              this.form.user_id = this.userlist;
-              this.$store
-                .dispatch('PFANS2020Store/updateIrregulartiming', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if(val !== "update") {
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  }
-                })
-                .catch(error => {
-                  this.$message.error({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000
-                  });
-                  this.loading = false;
-                })
-            } else {
-              this.form.user_id = this.userlist;
-              this.$store
-                .dispatch('PFANS2020Store/insertIrregulartiming', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
+    workflowState(val) {
+      if (val.state === '1') {
+        this.form.status = '3';
+      } else if (val.state === '2') {
+        this.form.status = '4';
+      }
+      this.buttonClick('update');
+    },
+    //add-ws-5-20-流程恒展开
+    start(val) {
+      if (val.state === '0') {
+        this.form.status = '2';
+      } else if (val.state === '2') {
+        this.form.status = '4';
+      }
+      this.buttonClick('update');
+    },
+    //add-ws-5-20-流程恒展开
+    end() {
+      this.form.status = '0';
+      this.buttonClick('update');
+    },
+    buttonClick(val) {
+      this.$refs['reff'].validate(valid => {
+        if (valid) {
+          this.loading = true;
+          if (this.$route.params._id) {
+            this.form.user_id = this.userlist;
+            this.$store
+              .dispatch('PFANS2020Store/updateIrregulartiming', this.form)
+              .then(response => {
+                this.data = response;
+                this.loading = false;
+                if (val !== 'update') {
                   Message({
-                    message: this.$t('normal.success_01'),
+                    message: this.$t('normal.success_02'),
                     type: 'success',
-                    duration: 5 * 1000
+                    duration: 5 * 1000,
                   });
                   if (this.$store.getters.historyUrl) {
                     this.$router.push(this.$store.getters.historyUrl);
                   }
-                })
-                .catch(error => {
-                  this.$message.error({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000
-                  });
-                  this.loading = false;
-                })
-            }
-          }
-          else{
-              Message({
-                  message: this.$t("normal.error_12"),
+                }
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
                   type: 'error',
-                  duration: 5 * 1000
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+          } else {
+            this.form.user_id = this.userlist;
+            this.$store
+              .dispatch('PFANS2020Store/insertIrregulartiming', this.form)
+              .then(response => {
+                this.data = response;
+                this.loading = false;
+                Message({
+                  message: this.$t('normal.success_01'),
+                  type: 'success',
+                  duration: 5 * 1000,
+                });
+                if (this.$store.getters.historyUrl) {
+                  this.$router.push(this.$store.getters.historyUrl);
+                }
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
               });
           }
-        })
-      }
-    }
-  }
+        } else {
+          Message({
+            message: this.$t('normal.error_12'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
+      });
+    },
+  },
+};
 
 
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
+<style lang="scss" rel="stylesheet/scss">
 
 </style>

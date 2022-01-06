@@ -1,185 +1,185 @@
 import {
-  userSave,
-  getUserTableList,
-  getById,
-  getme,
-  mobileCheck,
+  checkPassword,
   disableUser,
+  download,
+  getById,
+  getCustomerPage,
+  getme,
   getRoleList,
-  setRoleToUser,
+  getSigninlog,
+  getUserTableList,
   getUserTableList2,
   getUserTableList3,
-  download,
-  getSigninlog,
-  checkPassword,
-  getCustomerPage,
-} from './usersApi'
+  mobileCheck,
+  setRoleToUser,
+  userSave,
+} from './usersApi';
 
 const usersStore = {
   namespaced: true,
   state: {
-    orgs:[]
+    orgs: [],
   },
   mutations: {
     SET_ORGS(state, Orgs) {
-      state.orgs = Orgs
+      state.orgs = Orgs;
     },
   },
   actions: {
     // 保存/更新 用户
-    userSave({ commit }, data) {
+    userSave({commit}, data) {
       return new Promise((resolve, reject) => {
         userSave(data).then(response => {
           if (response.code === 0) {
             resolve(response.message);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     // 根据orgid获取用户列表
-    getUserTableList({ commit }, params) {
+    getUserTableList({commit}, params) {
       return new Promise((resolve, reject) => {
         getUserTableList(params).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //人员信息添加分页 ztc fr
-    getCustomerPage({ commit }, params) {
+    getCustomerPage({commit}, params) {
       return new Promise((resolve, reject) => {
         getCustomerPage(params).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //人员信息添加分页 ztc fr
-    getUserTableList2({ commit }, params) {
+    getUserTableList2({commit}, params) {
       return new Promise((resolve, reject) => {
         getUserTableList2(params).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 //add-ws-9/12-财务人员编码处理
-    getUserTableList3({ commit }, params) {
+    getUserTableList3({commit}, params) {
       return new Promise((resolve, reject) => {
         getUserTableList3(params).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add-ws-9/12-财务人员编码处理
 
     // 根据userid获取该用户的详细信息
-    getById({ commit }, params) {
+    getById({commit}, params) {
       return new Promise((resolve, reject) => {
         getById(params).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    getme({ commit }) {
+    getme({commit}) {
       return new Promise((resolve, reject) => {
         getme().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     // 手机号重复验证
-    mobileCheck({ commit }, params) {
+    mobileCheck({commit}, params) {
       return new Promise((resolve, reject) => {
         mobileCheck(params).then(response => {
           if (response.code === 0) {
             resolve(response);
           } else {
-            resolve(response)
+            resolve(response);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     // 用户启用/禁用
-    disableUser({ commit }, params) {
+    disableUser({commit}, params) {
       return new Promise((resolve, reject) => {
         disableUser(params).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     // 获取角色列表
-    getRoleList({ commit }, data) {
+    getRoleList({commit}, data) {
       return new Promise((resolve, reject) => {
         getRoleList(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     // 给用户赋角色
-    setRoleToUser({ commit }, data) {
+    setRoleToUser({commit}, data) {
       return new Promise((resolve, reject) => {
         setRoleToUser(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     download({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -187,8 +187,8 @@ const usersStore = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     // add gbb 0815 获取当前用户登陸信息（IP）
     getSigninlog() {
@@ -197,28 +197,28 @@ const usersStore = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add-lyt-21/2/3-禅道734
-    checkPassword({ commit }, params) {
+    checkPassword({commit}, params) {
       return new Promise((resolve, reject) => {
         checkPassword(params).then(response => {
           if (response.code === 0) {
             resolve(response);
           } else {
-            reject(response)
+            reject(response);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
-}
+  },
+};
 
 export default usersStore;

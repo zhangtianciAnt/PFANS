@@ -1,4 +1,4 @@
-import {getPsdcd, selectById, update, insert} from './PFANS1017Api'
+import {getPsdcd, insert, selectById, update} from './PFANS1017Api';
 
 const PFANS1017Store = {
   namespaced: true,
@@ -11,12 +11,12 @@ const PFANS1017Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     selectById({commit}, data) {
@@ -25,12 +25,12 @@ const PFANS1017Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     update({commit}, data) {
@@ -39,12 +39,12 @@ const PFANS1017Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     insert({commit}, data) {
@@ -53,14 +53,14 @@ const PFANS1017Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 
 export default PFANS1017Store;

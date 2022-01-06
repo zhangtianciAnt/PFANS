@@ -1,25 +1,26 @@
 <template>
   <div>
     <EasyNormalTable
-      :title="title"
+      :buttonList="buttonList"
       :columns="columns"
       :data="data"
+      :title="title"
       @buttonClick="buttonClick"
-      :buttonList="buttonList"
     ></EasyNormalTable>
   </div>
 </template>
 
 <script>
-import EasyNormalContainer from "@/components/EasyNormalContainer";
-import EasyNormalTable from "@/components/EasyNormalTable";
-let moment = require("moment");
-import { getUserInfo } from "../../../../utils/customize";
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import EasyNormalTable from '@/components/EasyNormalTable';
+
+let moment = require('moment');
+
 export default {
-  name: "PFANS2025View",
+  name: 'PFANS2025View',
   components: {
     EasyNormalContainer,
-    EasyNormalTable
+    EasyNormalTable,
   },
 
   data() {
@@ -27,130 +28,130 @@ export default {
       loading: false,
       data: [
         {
-          center: "123",
-          group: "234",
-          team: "333",
-          name: "121",
-          rushe: "121",
-          tuiyi: "121",
-          jibie: "121",
-          xingbie: "121",
-          xingbie: "121",
-          guoji: "121",
-          birthday: "121",
-          tuixiuri: "121",
-          onstatus: "121"
-        }
+          center: '123',
+          group: '234',
+          team: '333',
+          name: '121',
+          rushe: '121',
+          tuiyi: '121',
+          jibie: '121',
+          xingbie: '121',
+          xingbie: '121',
+          guoji: '121',
+          birthday: '121',
+          tuixiuri: '121',
+          onstatus: '121',
+        },
       ],
-      title: "人员信息",
+      title: '人员信息',
       buttonList: [
         {
-          key: "view",
-          name: "button.view",
+          key: 'view',
+          name: 'button.view',
           disabled: false,
-          icon: "el-icon-search"
+          icon: 'el-icon-search',
         },
         {
-          key: "new",
-          name: "button.insert",
+          key: 'new',
+          name: 'button.insert',
           disabled: false,
-          icon: "el-icon-plus"
+          icon: 'el-icon-plus',
         },
         {
-          key: "update",
-          name: "button.update",
+          key: 'update',
+          name: 'button.update',
           disabled: false,
-          icon: "el-icon-edit"
-        }
+          icon: 'el-icon-edit',
+        },
       ],
 
       columns: [
         {
-          code: "center",
-          label: "所属センター",
+          code: 'center',
+          label: '所属センター',
           width: 150,
           fix: false,
-          filter: true
+          filter: true,
         },
         {
-          code: "group",
-          label: "所属グループ",
+          code: 'group',
+          label: '所属グループ',
           width: 150,
           fix: false,
-          filter: false
+          filter: false,
         },
         {
-          code: "team",
-          label: "所属チーム",
+          code: 'team',
+          label: '所属チーム',
           width: 150,
           fix: false,
-          filter: false
+          filter: false,
         },
         {
-          code: "name",
-          label: "氏名",
+          code: 'name',
+          label: '氏名',
           width: 150,
           fix: false,
-          filter: false
+          filter: false,
         },
         {
-          code: "rushe",
-          label: "入社時間",
+          code: 'rushe',
+          label: '入社時間',
           width: 150,
           fix: false,
-          filter: false
+          filter: false,
         },
         {
-          code: "tuiyi",
-          label: "役職",
+          code: 'tuiyi',
+          label: '役職',
           width: 150,
           fix: false,
-          filter: false
+          filter: false,
         },
         {
-          code: "jibie",
-          label: "ランク",
+          code: 'jibie',
+          label: 'ランク',
           width: 150,
           fix: false,
-          filter: false
+          filter: false,
         },
         {
-          code: "xingbie",
-          label: "性别",
+          code: 'xingbie',
+          label: '性别',
           width: 150,
           fix: false,
-          filter: false
+          filter: false,
         },
         {
-          code: "guoji",
-          label: "国籍",
+          code: 'guoji',
+          label: '国籍',
           width: 150,
           fix: false,
-          filter: false
+          filter: false,
         },
         {
-          code: "birthday",
-          label: "生年月日",
+          code: 'birthday',
+          label: '生年月日',
           width: 150,
           fix: false,
-          filter: false
+          filter: false,
         },
         {
-          code: "tuixiuri",
-          label: "退職日",
+          code: 'tuixiuri',
+          label: '退職日',
           width: 150,
           fix: false,
-          filter: false
+          filter: false,
         },
         {
-          code: "onstatus",
-          label: "在职状态",
+          code: 'onstatus',
+          label: '在职状态',
           width: 150,
           fix: false,
-          filter: false
-        }
+          filter: false,
+        },
       ],
-      row: ""
+      row: '',
     };
   },
   mounted() {
@@ -163,8 +164,8 @@ export default {
     rowClick(row) {
       console.log(row);
       this.row = row;
-    }
-  }
+    },
+  },
 };
 </script>
 

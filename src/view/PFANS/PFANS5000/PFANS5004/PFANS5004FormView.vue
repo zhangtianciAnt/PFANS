@@ -1,24 +1,24 @@
 <template>
   <div>
     <EasyNormalContainer
-      :buttonList="buttonList"
-      :title="titles"
-      @StartWorkflow="buttonClick"
-      @buttonClick="buttonClick"
-      @end="end" @disabled="setdisabled"
-      :defaultStart="defaultStart"
-      @start="start" :workflowCode="workcode"
-      @workflowState="workflowState"
       ref="container"
       v-loading="loading"
+      :buttonList="buttonList"
+      :defaultStart="defaultStart"
+      :title="titles" :workflowCode="workcode"
+      @StartWorkflow="buttonClick"
+      @buttonClick="buttonClick" @disabled="setdisabled"
+      @end="end"
+      @start="start"
+      @workflowState="workflowState"
     >
       <div slot="customize">
         <el-form
+          ref="reff"
           :model="form"
           :rules="rules"
           label-position="top"
           label-width="8vw"
-          ref="reff"
           style="padding: 2vw"
         >
           <el-tabs v-model="activeName" type="border-card">
@@ -27,12 +27,12 @@
                 <el-collapse>
                   <el-collapse-item>
                     <template slot="title">
-                      <span class="collapse_Title">{{$t('label.PFANS5004VIEW_CLOSEAPPLICAT')}}</span>
+                      <span class="collapse_Title">{{ $t('label.PFANS5004VIEW_CLOSEAPPLICAT') }}</span>
                     </template>
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
-                          <el-input :disabled="true" style="width:20vw" v-model="form.project_name"></el-input>
+                          <el-input v-model="form.project_name" :disabled="true" style="width:20vw"></el-input>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
@@ -66,18 +66,18 @@
                             :disabled="true"
                             :error="errorManager"
                             :userlist="userlist"
-                            @getUserids="getUserids"
                             style="width: 20vw"
+                            @getUserids="getUserids"
                           ></user>
                         </el-form-item>
                       </el-col>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5001FORMVIEW_STARTDATE')" prop="startdate">
                           <el-date-picker
+                            v-model="form.startdate"
                             :disabled="true"
                             style="width: 20vw"
                             type="date"
-                            v-model="form.startdate"
                           ></el-date-picker>
                         </el-form-item>
                       </el-col>
@@ -93,8 +93,8 @@
                       <!--                      </el-col>-->
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5004VIEW_TIME')" prop="endtime">
-                          <el-date-picker :disabled="!disable" style="width:20vw" type="date"
-                                          v-model="form.endtime"></el-date-picker>
+                          <el-date-picker v-model="form.endtime" :disabled="!disable" style="width:20vw"
+                                          type="date"></el-date-picker>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -103,29 +103,29 @@
                 <el-collapse>
                   <el-collapse-item>
                     <template slot="title">
-                      <span class="collapse_Title">{{$t('label.PFANS5004VIEW_RESULT')}}</span>
+                      <span class="collapse_Title">{{ $t('label.PFANS5004VIEW_RESULT') }}</span>
                     </template>
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5004VIEW_ASSETADDRESS')" prop="assetaddress">
-                          <el-input :disabled="!disable" style="width:72vw" type="textarea"
-                                    v-model="form.assetaddress"></el-input>
+                          <el-input v-model="form.assetaddress" :disabled="!disable" style="width:72vw"
+                                    type="textarea"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXPLAIN')">
-                          <el-input :disabled="!disable" style="width:72vw" type="textarea"
-                                    v-model="form.instructions"></el-input>
+                          <el-input v-model="form.instructions" :disabled="!disable" style="width:72vw"
+                                    type="textarea"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5004VIEW_EXPRENCE')">
-                          <el-input :disabled="!disable" style="width:72vw" type="textarea"
-                                    v-model="form.exprence"></el-input>
+                          <el-input v-model="form.exprence" :disabled="!disable" style="width:72vw"
+                                    type="textarea"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -133,24 +133,24 @@
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5004VIEW_ADVISE')">
-                          <el-input :disabled="!disable" style="width:72vw" type="textarea"
-                                    v-model="form.advise"></el-input>
+                          <el-input v-model="form.advise" :disabled="!disable" style="width:72vw"
+                                    type="textarea"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.remarks')">
-                          <el-input :disabled="!disable" style="width:72vw" type="textarea"
-                                    v-model="form.note"></el-input>
+                          <el-input v-model="form.note" :disabled="!disable" style="width:72vw"
+                                    type="textarea"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
                     <el-row>
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5004VIEW_MESSAGE')">
-                          <el-input :disabled="!disable" style="width:72vw" type="textarea"
-                                    v-model="form.message"></el-input>
+                          <el-input v-model="form.message" :disabled="!disable" style="width:72vw"
+                                    type="textarea"></el-input>
                         </el-form-item>
                       </el-col>
                     </el-row>
@@ -158,20 +158,20 @@
                       <el-col :span="8">
                         <el-form-item :label="$t('label.PFANS5004VIEW_UPLOADFILE')">
                           <el-upload
+                            ref="upload"
                             v-model="form.uploadfile"
                             :action="upload"
                             :disabled="!disable"
                             :file-list="fileList"
-                            :on-remove="fileRemove"
-                            :on-preview="fileDownload"
-                            :on-success="fileSuccess"
                             :on-error="fileError"
+                            :on-preview="fileDownload"
+                            :on-remove="fileRemove"
+                            :on-success="fileSuccess"
                             class="upload-demo"
-                            drag
-                            ref="upload">
+                            drag>
                             <i class="el-icon-upload"></i>
                             <div class="el-upload__text">
-                              {{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>
+                              {{ $t('label.enclosurecontent') }}<em>{{ $t('normal.info_09') }}</em></div>
                           </el-upload>
                         </el-form-item>
                       </el-col>
@@ -187,37 +187,37 @@
                         header-cell-class-name="sub_bg_color_blue" stripe>
                 <el-table-column :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" align="center" width="100">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" maxlength="20" v-model="scope.row.number"></el-input>
+                    <el-input v-model="scope.row.number" :disabled="true" maxlength="20"></el-input>
                   </template>
                 </el-table-column>
                 <!--姓名-->
                 <el-table-column :label="$t('label.user_name')" align="center" width="150">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" maxlength="20" v-model="scope.row.name"></el-input>
+                    <el-input v-model="scope.row.name" :disabled="true" maxlength="20"></el-input>
                   </template>
                 </el-table-column>
                 <!--社员外协-->
                 <el-table-column :label="$t('label.PFANS5004VIEW_COMMUNE')" align="center" width="120">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" maxlength="20" v-model="scope.row.type"></el-input>
+                    <el-input v-model="scope.row.type" :disabled="true" maxlength="20"></el-input>
                   </template>
                   <!--稼働率-->
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5004VIEW_CROPRATE')" align="center" width="120">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" maxlength="20" v-model="scope.row.croprate"></el-input>
+                    <el-input v-model="scope.row.croprate" :disabled="true" maxlength="20"></el-input>
                   </template>
                 </el-table-column>
                 <!--PJ稼働率-->
                 <el-table-column :label="$t('label.PFANS5004VIEW_PJCROPRATE')" align="center" width="120">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" maxlength="20" v-model="scope.row.pjcroprate"></el-input>
+                    <el-input v-model="scope.row.pjcroprate" :disabled="true" maxlength="20"></el-input>
                   </template>
                 </el-table-column>
                 <!--直接稼働率-->
                 <el-table-column :label="$t('label.PFANS5004VIEW_DICROPRATE')" align="center" width="120">
                   <template slot-scope="scope">
-                    <el-input :disabled="true" maxlength="20" v-model="scope.row.dicroprate"></el-input>
+                    <el-input v-model="scope.row.dicroprate" :disabled="true" maxlength="20"></el-input>
                   </template>
                 </el-table-column>
               </el-table>
@@ -258,10 +258,10 @@
                         align="center">
                         <template slot-scope="scope">
                           <el-input
+                            v-model="scope.row.estimatedwork"
                             :disabled="true"
                             :no="scope.row"
-                            style="width: 100%"
-                            v-model="scope.row.estimatedwork">
+                            style="width: 100%">
                           </el-input>
                         </template>
                       </el-table-column>
@@ -272,10 +272,10 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
+                            v-model="scope.row.estimatedstarttime"
                             :disabled="true"
                             style="width: 100%"
                             type="date"
-                            v-model="scope.row.estimatedstarttime"
                           ></el-date-picker>
                         </template>
                       </el-table-column>
@@ -287,10 +287,10 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
+                            v-model="scope.row.estimatedendtime"
                             :disabled="true"
                             style="width: 100%"
                             type="date"
-                            v-model="scope.row.estimatedendtime"
                           >
                           </el-date-picker>
                         </template>
@@ -300,10 +300,10 @@
                         align="center">
                         <template slot-scope="scope">
                           <el-input
+                            v-model="scope.row.remarks"
                             :disabled="true"
                             :no="scope.row"
-                            style="width: 100%"
-                            v-model="scope.row.remarks">
+                            style="width: 100%">
                           </el-input>
                         </template>
                       </el-table-column>
@@ -319,520 +319,520 @@
   </div>
 </template>
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import dicselect from '../../../components/dicselect.vue';
-  import {getDictionaryInfo, getOrgInfoByUserId, getUserInfo, uploadUrl} from '@/utils/customize';
-  import {Message} from 'element-ui';
-  import user from '../../../components/user.vue';
-  import org from '../../../components/org';
-  import moment from 'moment';
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import dicselect from '../../../components/dicselect.vue';
+import {getDictionaryInfo, getOrgInfoByUserId, getUserInfo, uploadUrl} from '@/utils/customize';
+import {Message} from 'element-ui';
+import user from '../../../components/user.vue';
+import org from '../../../components/org';
+import moment from 'moment';
 
-  export default {
-    name: 'PFANS5004FormView',
-    components: {
-      dicselect,
-      EasyNormalContainer,
-      getOrgInfoByUserId,
-      user,
-      org,
-    },
-    data() {
-      return {
-        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
-        defaultStart: false,
-        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
-        workcode: '',
-        disabled: true,
-        activeName: 'first',
-        errorManager: '',
-        userlist: '',
-        buttonList: [{
-          key: 'save',
-          name: 'button.save',
-          disabled: false,
-          icon: 'el-icon-check',
-        }],
-        source: [{
-          projectsystem_id: '',
-          companyprojects_id: '',
-          type: '',
-          number: '',
-          company: '',
-          name: '',
-          name_id: '',
-          position: '',
-          admissiontime: '',
-          exittime: '',
-          rowindex: '',
-        }],
-        stage: [{
-          stageinformation_id: '',
-          companyprojects_id: '',
-          phase: '',
-          stageproduct: '',
-          estimatedwork: '',
-          estimatedstarttime: '',
-          estimatedendtime: '',
-          remarks: '',
-          actualwork: '',
-          productstatus: '',
-          actualstarttime: '',
-          actualendtime: '',
-          product: '',
-          rowindex: '',
-        }],
-        data: [],
-        loading: false,
-        titles: this.$route.params.type === 1 ? 'title.PFANS5004VIEW' : 'title.PFANS5004VIEW2',
-        rules: {
-          assetaddress: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS5004VIEW_ASSETADDRESS'),
-            trigger: 'blur',
-          }],
-        },
-        baseInfo: {},
-        form: {
-          project_name: '',
-          managerid: '',
-          projecttype: '',
-          field: '',
-          startdate: '',
-          endtime: moment(new Date()).format('YYYY-MM-DD'),
-          assetaddress: '',
-          instructions: '',
-          exprence: '',
-          advise: '',
-          note: '',
-          message: '',
-          uploadfile: '',
-
-        },
-        code1: 'PP012',
-        code2: 'PP001',
-        code3: 'PJ063',
-        code5: 'PP013',
-        code6: 'PP014',
-        code4: 'PP015',
-        multiple: false,
-        canStart: false,
-        fileList: [],
-        upload: uploadUrl(),
-      };
-    },
-    mounted() {
-      if (this.$route.params._id) {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS5001Store/selectById', {companyprojectsid: this.$route.params._id})
-          .then(response => {
-            // if(this.region === '2'){
-            //   if (this.$i18n) {
-            //     this.title = this.$t('title.PFANS5004VIEW2');
-            //   }
-            // }else{
-            //   if (this.$i18n) {
-            //     this.title = this.$t('title.PFANS5004VIEW');
-            //   }
-            // }
-
-            //NT_PFANS_20210304_BUG_054 投资类流程加入总经理审批
-            if (response.companyprojects.projecttype === 'PP001002') {
-              this.workcode = 'W0009';
-            } else {
-              this.workcode = 'W0065';
-            }
-
-            response.companyprojects.endtime = new Date();
-            this.form = response.companyprojects;
-            this.userlist = this.form.managerid;
-            /*阶段信息*/
-            if (response.stageinformation.length > 0) {
-              let tablestage = [];
-              for (var j = 0; j < response.stageinformation.length; j++) {
-                if (response.stageinformation[j].stageproduct !== null && response.stageinformation[j].stageproduct !== '') {
-                  let letErrortype = getDictionaryInfo(response.stageinformation[j].stageproduct);
-                  if (letErrortype != null) {
-                    response.stageinformation[j].stageproduct = letErrortype.value1;
-                  }
-                }
-                tablestage.push({
-                  phase: response.stageinformation[j].phase,
-                  stageproduct: response.stageinformation[j].stageproduct,
-                  estimatedwork: response.stageinformation[j].estimatedwork,
-                  estimatedstarttime: response.stageinformation[j].estimatedstarttime,
-                  estimatedendtime: response.stageinformation[j].estimatedendtime,
-                  remarks: response.stageinformation[j].remarks,
-                  actualwork: response.stageinformation[j].actualwork,
-                  productstatus: response.stageinformation[j].productstatus,
-                  actualstarttime: response.stageinformation[j].actualstarttime,
-                  actualendtime: response.stageinformation[j].actualendtime,
-                  product: response.stageinformation[j].product,
-                });
-              }
-              this.stage = tablestage;
-            }
-            /*项目资源*///项目体制
-            if (response.projectsystem.length > 0) {
-              this.source = response.projectsystem;
-              for (var i = 0; i < this.source.length; i++) {
-                if (this.source[i].type === '0') {
-                  if (this.$i18n) {
-                    this.source[i].type = this.$t('label.PFANS5004VIEW_STAFF');
-                  }
-                  this.source[i].name_id  = this.source[i].name
-                  let lst = getUserInfo(this.source[i].name);
-                  this.source[i].name = lst.userinfo.customername;
-                } else {
-                  let name = '';
-                  name = this.source[i].name
-                  if (this.$i18n) {
-                    this.source[i].type = this.$t('label.PFANS5004VIEW_ASSIST');
-                  }
-                  this.source[i].name = this.source[i].name_id
-                  this.source[i].name_id = name
-                }
-              }
-            }
-            if (this.form.uploadfile != null) {
-              if (this.form.uploadfile != '') {
-                let uploadfile = this.form.uploadfile.split(';');
-                for (var i = 0; i < uploadfile.length; i++) {
-                  if (uploadfile[i].split(',')[0] != '') {
-                    let o = {};
-                    o.name = uploadfile[i].split(',')[0];
-                    o.url = uploadfile[i].split(',')[1];
-                    this.fileList.push(o);
-                  }
-                }
-              }
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-
-            this.loading = false;
-          });
-      }
-    },
-    created() {
-      if (!this.$route.params.disabled) {
-        this.buttonList = [];
-      }
-      this.disable = this.$route.params.disabled;
-    },
-    methods: {
-      checkRequire() {
-        if (!this.form.assetaddress) {
-          this.activeName = 'first';
-        }
-      },
-      setdisabled(val) {
-        if (this.$route.params.disabled) {
-          this.disabled = val;
-        }
-      },
-      getUserids(val) {
-        this.userlist = val;
-        this.form.managerid = val;
-        if (
-          !this.form.managerid ||
-          this.form.managerid === '' ||
-          val === 'undefined'
-        ) {
-          if (this.$i18n) {
-            this.errorManager =
-              this.$t('normal.error_08') +
-              this.$t('label.PFANS5001FORMVIEW_MANAGERID');
-          }
-        } else {
-          this.errorManager = '';
-        }
-      },
-      workflowState(val) {
-        if (val.state === '1') {
-          this.form.status = '8';
-        } else if (val.state === '2') {
-          this.form.status = '9';
-        }
-        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
-        this.buttonClick2();
-        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
-      },
-      start(val) {
-        if (val.state === '0') {
-          this.form.status = '7';
-        } else if (val.state === '2') {
-          this.form.status = '9';
-        }
-        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
-        this.buttonClick2();
-        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
-      },
-      end() {
-          this.form.status = '4';
-        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
-        this.buttonClick2();
-        //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
-      },
+export default {
+  name: 'PFANS5004FormView',
+  components: {
+    dicselect,
+    EasyNormalContainer,
+    getOrgInfoByUserId,
+    user,
+    org,
+  },
+  data() {
+    return {
       //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
-      buttonClick2() {
-        this.baseInfo = {};
-        this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-        this.baseInfo.stageinformation = [];
-        this.baseInfo.projectsystem = [];
-        //项目计划
-        for (let i = 0; i < this.stage.length; i++) {
-          if (
-            this.stage[i].phase !== '' ||
-            this.stage[i].stageproduct !== '' ||
-            this.stage[i].estimatedwork !== '' ||
-            this.stage[i].estimatedstarttime !== '' ||
-            this.stage[i].estimatedendtime !== '' ||
-            this.stage[i].remarks !== '' ||
-            this.stage[i].actualwork !== '' ||
-            this.stage[i].productstatus !== '' ||
-            this.stage[i].actualstarttime !== '' ||
-            this.stage[i].actualendtime !== '' ||
-            this.stage[i].product !== ''
-          ) {
-            this.baseInfo.stageinformation.push({
-              phase: this.stage[i].phase,
-              stageproduct: this.stage[i].stageproduct,
-              estimatedwork: this.stage[i].estimatedwork,
-              estimatedstarttime: this.stage[i].estimatedstarttime,
-              estimatedendtime: this.stage[i].estimatedendtime,
-              remarks: this.stage[i].remarks,
-              actualwork: this.stage[i].actualwork,
-              productstatus: this.stage[i].productstatus,
-              actualstarttime: this.stage[i].actualstarttime,
-              actualendtime: this.stage[i].actualendtime,
-              product: this.stage[i].product,
-            });
-          }
-        }
-        for (let i = 0; i < this.source.length; i++) {
-          if (this.source[i].type === this.$t('label.PFANS5004VIEW_STAFF')) {
-            this.source[i].type = '0';
-          } else if (this.source[i].type === this.$t('label.PFANS5004VIEW_ASSIST')) {
-            this.source[i].type = '1';
-          }
-          if (
-            this.source[i].number !== '' ||
-            this.source[i].name !== '' ||
-            this.source[i].admissiontime !== '' ||
-            this.source[i].exittime !== ''
-          ) {
-            this.baseInfo.projectsystem.push({
-              number: this.source[i].number,
-              name_id: this.source[i].name,
-              name: this.source[i].name_id,
-              type: this.source[i].type,
-              position: this.source[i].position,
-              admissiontime: this.source[i].admissiontime,
-              exittime: this.source[i].exittime,
-            });
-          }
-        }
-        this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
-        this.$store
-          .dispatch('PFANS5001Store/update', this.baseInfo)
-          .then(response => {
-            this.data = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
+      defaultStart: false,
       //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
-      fileError(err, file, fileList) {
-        Message({
-          message: this.$t('normal.error_04'),
-          type: 'error',
-          duration: 5 * 1000,
+      workcode: '',
+      disabled: true,
+      activeName: 'first',
+      errorManager: '',
+      userlist: '',
+      buttonList: [{
+        key: 'save',
+        name: 'button.save',
+        disabled: false,
+        icon: 'el-icon-check',
+      }],
+      source: [{
+        projectsystem_id: '',
+        companyprojects_id: '',
+        type: '',
+        number: '',
+        company: '',
+        name: '',
+        name_id: '',
+        position: '',
+        admissiontime: '',
+        exittime: '',
+        rowindex: '',
+      }],
+      stage: [{
+        stageinformation_id: '',
+        companyprojects_id: '',
+        phase: '',
+        stageproduct: '',
+        estimatedwork: '',
+        estimatedstarttime: '',
+        estimatedendtime: '',
+        remarks: '',
+        actualwork: '',
+        productstatus: '',
+        actualstarttime: '',
+        actualendtime: '',
+        product: '',
+        rowindex: '',
+      }],
+      data: [],
+      loading: false,
+      titles: this.$route.params.type === 1 ? 'title.PFANS5004VIEW' : 'title.PFANS5004VIEW2',
+      rules: {
+        assetaddress: [{
+          required: true,
+          message: this.$t('normal.error_08') + this.$t('label.PFANS5004VIEW_ASSETADDRESS'),
+          trigger: 'blur',
+        }],
+      },
+      baseInfo: {},
+      form: {
+        project_name: '',
+        managerid: '',
+        projecttype: '',
+        field: '',
+        startdate: '',
+        endtime: moment(new Date()).format('YYYY-MM-DD'),
+        assetaddress: '',
+        instructions: '',
+        exprence: '',
+        advise: '',
+        note: '',
+        message: '',
+        uploadfile: '',
+
+      },
+      code1: 'PP012',
+      code2: 'PP001',
+      code3: 'PJ063',
+      code5: 'PP013',
+      code6: 'PP014',
+      code4: 'PP015',
+      multiple: false,
+      canStart: false,
+      fileList: [],
+      upload: uploadUrl(),
+    };
+  },
+  mounted() {
+    if (this.$route.params._id) {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS5001Store/selectById', {companyprojectsid: this.$route.params._id})
+        .then(response => {
+          // if(this.region === '2'){
+          //   if (this.$i18n) {
+          //     this.title = this.$t('title.PFANS5004VIEW2');
+          //   }
+          // }else{
+          //   if (this.$i18n) {
+          //     this.title = this.$t('title.PFANS5004VIEW');
+          //   }
+          // }
+
+          //NT_PFANS_20210304_BUG_054 投资类流程加入总经理审批
+          if (response.companyprojects.projecttype === 'PP001002') {
+            this.workcode = 'W0009';
+          } else {
+            this.workcode = 'W0065';
+          }
+
+          response.companyprojects.endtime = new Date();
+          this.form = response.companyprojects;
+          this.userlist = this.form.managerid;
+          /*阶段信息*/
+          if (response.stageinformation.length > 0) {
+            let tablestage = [];
+            for (var j = 0; j < response.stageinformation.length; j++) {
+              if (response.stageinformation[j].stageproduct !== null && response.stageinformation[j].stageproduct !== '') {
+                let letErrortype = getDictionaryInfo(response.stageinformation[j].stageproduct);
+                if (letErrortype != null) {
+                  response.stageinformation[j].stageproduct = letErrortype.value1;
+                }
+              }
+              tablestage.push({
+                phase: response.stageinformation[j].phase,
+                stageproduct: response.stageinformation[j].stageproduct,
+                estimatedwork: response.stageinformation[j].estimatedwork,
+                estimatedstarttime: response.stageinformation[j].estimatedstarttime,
+                estimatedendtime: response.stageinformation[j].estimatedendtime,
+                remarks: response.stageinformation[j].remarks,
+                actualwork: response.stageinformation[j].actualwork,
+                productstatus: response.stageinformation[j].productstatus,
+                actualstarttime: response.stageinformation[j].actualstarttime,
+                actualendtime: response.stageinformation[j].actualendtime,
+                product: response.stageinformation[j].product,
+              });
+            }
+            this.stage = tablestage;
+          }
+          /*项目资源*///项目体制
+          if (response.projectsystem.length > 0) {
+            this.source = response.projectsystem;
+            for (var i = 0; i < this.source.length; i++) {
+              if (this.source[i].type === '0') {
+                if (this.$i18n) {
+                  this.source[i].type = this.$t('label.PFANS5004VIEW_STAFF');
+                }
+                this.source[i].name_id = this.source[i].name;
+                let lst = getUserInfo(this.source[i].name);
+                this.source[i].name = lst.userinfo.customername;
+              } else {
+                let name = '';
+                name = this.source[i].name;
+                if (this.$i18n) {
+                  this.source[i].type = this.$t('label.PFANS5004VIEW_ASSIST');
+                }
+                this.source[i].name = this.source[i].name_id;
+                this.source[i].name_id = name;
+              }
+            }
+          }
+          if (this.form.uploadfile != null) {
+            if (this.form.uploadfile != '') {
+              let uploadfile = this.form.uploadfile.split(';');
+              for (var i = 0; i < uploadfile.length; i++) {
+                if (uploadfile[i].split(',')[0] != '') {
+                  let o = {};
+                  o.name = uploadfile[i].split(',')[0];
+                  o.url = uploadfile[i].split(',')[1];
+                  this.fileList.push(o);
+                }
+              }
+            }
+          }
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+
+          this.loading = false;
         });
-      },
-      fileRemove(file, fileList) {
+    }
+  },
+  created() {
+    if (!this.$route.params.disabled) {
+      this.buttonList = [];
+    }
+    this.disable = this.$route.params.disabled;
+  },
+  methods: {
+    checkRequire() {
+      if (!this.form.assetaddress) {
+        this.activeName = 'first';
+      }
+    },
+    setdisabled(val) {
+      if (this.$route.params.disabled) {
+        this.disabled = val;
+      }
+    },
+    getUserids(val) {
+      this.userlist = val;
+      this.form.managerid = val;
+      if (
+        !this.form.managerid ||
+        this.form.managerid === '' ||
+        val === 'undefined'
+      ) {
+        if (this.$i18n) {
+          this.errorManager =
+            this.$t('normal.error_08') +
+            this.$t('label.PFANS5001FORMVIEW_MANAGERID');
+        }
+      } else {
+        this.errorManager = '';
+      }
+    },
+    workflowState(val) {
+      if (val.state === '1') {
+        this.form.status = '8';
+      } else if (val.state === '2') {
+        this.form.status = '9';
+      }
+      //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+      this.buttonClick2();
+      //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+    },
+    start(val) {
+      if (val.state === '0') {
+        this.form.status = '7';
+      } else if (val.state === '2') {
+        this.form.status = '9';
+      }
+      //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+      this.buttonClick2();
+      //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+    },
+    end() {
+      this.form.status = '4';
+      //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+      this.buttonClick2();
+      //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+    },
+    //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+    buttonClick2() {
+      this.baseInfo = {};
+      this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+      this.baseInfo.stageinformation = [];
+      this.baseInfo.projectsystem = [];
+      //项目计划
+      for (let i = 0; i < this.stage.length; i++) {
+        if (
+          this.stage[i].phase !== '' ||
+          this.stage[i].stageproduct !== '' ||
+          this.stage[i].estimatedwork !== '' ||
+          this.stage[i].estimatedstarttime !== '' ||
+          this.stage[i].estimatedendtime !== '' ||
+          this.stage[i].remarks !== '' ||
+          this.stage[i].actualwork !== '' ||
+          this.stage[i].productstatus !== '' ||
+          this.stage[i].actualstarttime !== '' ||
+          this.stage[i].actualendtime !== '' ||
+          this.stage[i].product !== ''
+        ) {
+          this.baseInfo.stageinformation.push({
+            phase: this.stage[i].phase,
+            stageproduct: this.stage[i].stageproduct,
+            estimatedwork: this.stage[i].estimatedwork,
+            estimatedstarttime: this.stage[i].estimatedstarttime,
+            estimatedendtime: this.stage[i].estimatedendtime,
+            remarks: this.stage[i].remarks,
+            actualwork: this.stage[i].actualwork,
+            productstatus: this.stage[i].productstatus,
+            actualstarttime: this.stage[i].actualstarttime,
+            actualendtime: this.stage[i].actualendtime,
+            product: this.stage[i].product,
+          });
+        }
+      }
+      for (let i = 0; i < this.source.length; i++) {
+        if (this.source[i].type === this.$t('label.PFANS5004VIEW_STAFF')) {
+          this.source[i].type = '0';
+        } else if (this.source[i].type === this.$t('label.PFANS5004VIEW_ASSIST')) {
+          this.source[i].type = '1';
+        }
+        if (
+          this.source[i].number !== '' ||
+          this.source[i].name !== '' ||
+          this.source[i].admissiontime !== '' ||
+          this.source[i].exittime !== ''
+        ) {
+          this.baseInfo.projectsystem.push({
+            number: this.source[i].number,
+            name_id: this.source[i].name,
+            name: this.source[i].name_id,
+            type: this.source[i].type,
+            position: this.source[i].position,
+            admissiontime: this.source[i].admissiontime,
+            exittime: this.source[i].exittime,
+          });
+        }
+      }
+      this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
+      this.$store
+        .dispatch('PFANS5001Store/update', this.baseInfo)
+        .then(response => {
+          this.data = response;
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    },
+    //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
+    fileError(err, file, fileList) {
+      Message({
+        message: this.$t('normal.error_04'),
+        type: 'error',
+        duration: 5 * 1000,
+      });
+    },
+    fileRemove(file, fileList) {
+      this.fileList = [];
+      this.form.uploadfile = '';
+      for (var item of fileList) {
+        let o = {};
+        o.name = item.name;
+        o.url = item.url;
+        this.fileList.push(o);
+        this.form.uploadfile += item.name + ',' + item.url + ';';
+      }
+    },
+    fileDownload(file) {
+      if (file.url) {
+        file.url = file.url.replace('%', '%25');
+        file.url = file.url.replace('#', '%23');
+        file.url = file.url.replace('&', '%26');
+        file.url = file.url.replace('+', '%2B');
+        file.url = file.url.replace('=', '%3D');
+        file.url = file.url.replace('?', '%3F');
+        var url = downLoadUrl(file.url);
+        window.open(url);
+      }
+    },
+    fileSuccess(response, file, fileList) {
+      if (response.data == 'upload_success') {
         this.fileList = [];
         this.form.uploadfile = '';
         for (var item of fileList) {
           let o = {};
           o.name = item.name;
-          o.url = item.url;
+          if (!item.url) {
+            o.url = item.response.info;
+          } else {
+            o.url = item.url;
+          }
           this.fileList.push(o);
-          this.form.uploadfile += item.name + ',' + item.url + ';';
+          this.form.uploadfile += o.name + ',' + o.url + ';';
         }
-      },
-      fileDownload(file) {
-        if (file.url) {
-          file.url = file.url.replace("%","%25");
-          file.url = file.url.replace("#","%23");
-          file.url = file.url.replace("&","%26");
-          file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("=","%3D");
-          file.url = file.url.replace("?","%3F");
-          var url = downLoadUrl(file.url);
-          window.open(url);
-        }
-      },
-      fileSuccess(response, file, fileList) {
-        if (response.data == "upload_success") {
-          this.fileList = [];
-          this.form.uploadfile = '';
-          for (var item of fileList) {
-            let o = {};
-            o.name = item.name;
-            if (!item.url) {
-              o.url = item.response.info;
-            } else {
-              o.url = item.url;
+      } else {
+        Message({
+          message: this.$t('label.PFANS2016FORMVIEW_FILEERROR'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+        this.form.uploadfile = '';
+        this.$refs.upload.clearFiles();
+      }
+    },
+    buttonClick(val) {
+      this.checkRequire();
+      this.$refs['reff'].validate(valid => {
+        if (valid) {
+          this.loading = true;
+          // this.form.endtime = moment(this.form.endtime).format('YYYY-MM-DD');
+          this.baseInfo = {};
+          this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+          this.baseInfo.stageinformation = [];
+          this.baseInfo.projectsystem = [];
+          //项目计划
+          for (let i = 0; i < this.stage.length; i++) {
+            if (
+              this.stage[i].phase !== '' ||
+              this.stage[i].stageproduct !== '' ||
+              this.stage[i].estimatedwork !== '' ||
+              this.stage[i].estimatedstarttime !== '' ||
+              this.stage[i].estimatedendtime !== '' ||
+              this.stage[i].remarks !== '' ||
+              this.stage[i].actualwork !== '' ||
+              this.stage[i].productstatus !== '' ||
+              this.stage[i].actualstarttime !== '' ||
+              this.stage[i].actualendtime !== '' ||
+              this.stage[i].product !== ''
+            ) {
+              this.baseInfo.stageinformation.push({
+                phase: this.stage[i].phase,
+                stageproduct: this.stage[i].stageproduct,
+                estimatedwork: this.stage[i].estimatedwork,
+                estimatedstarttime: this.stage[i].estimatedstarttime,
+                estimatedendtime: this.stage[i].estimatedendtime,
+                remarks: this.stage[i].remarks,
+                actualwork: this.stage[i].actualwork,
+                productstatus: this.stage[i].productstatus,
+                actualstarttime: this.stage[i].actualstarttime,
+                actualendtime: this.stage[i].actualendtime,
+                product: this.stage[i].product,
+              });
             }
-            this.fileList.push(o);
-            this.form.uploadfile += o.name + ',' + o.url + ';';
+          }
+          for (let i = 0; i < this.source.length; i++) {
+            if (this.source[i].type === this.$t('label.PFANS5004VIEW_STAFF')) {
+              this.source[i].type = '0';
+            } else if (this.source[i].type === this.$t('label.PFANS5004VIEW_ASSIST')) {
+              this.source[i].type = '1';
+            }
+            if (
+              this.source[i].number !== '' ||
+              this.source[i].name !== '' ||
+              this.source[i].admissiontime !== '' ||
+              this.source[i].exittime !== ''
+            ) {
+              this.baseInfo.projectsystem.push({
+                number: this.source[i].number,
+                name_id: this.source[i].name,
+                name: this.source[i].name_id,
+                type: this.source[i].type,
+                position: this.source[i].position,
+                admissiontime: this.source[i].admissiontime,
+                exittime: this.source[i].exittime,
+              });
+            }
+          }
+          if (this.$route.params._id) {
+            this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
+            this.$store
+              .dispatch('PFANS5001Store/update', this.baseInfo)
+              .then(response => {
+                this.data = response;
+                this.loading = false;
+                Message({
+                  message: this.$t('normal.success_02'),
+                  type: 'success',
+                  duration: 5 * 1000,
+                });
+                if (val !== 'save' && val !== 'StartWorkflow') {
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
+                  }
+                }
+                if (val === 'StartWorkflow') {
+                  this.$refs.container.$refs.workflow.startWorkflow();
+                }
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
           }
         } else {
           Message({
-            message: this.$t('label.PFANS2016FORMVIEW_FILEERROR'),
+            message: this.$t('normal.error_12'),
             type: 'error',
             duration: 5 * 1000,
           });
-          this.form.uploadfile =''
-          this.$refs.upload.clearFiles();
         }
-      },
-      buttonClick(val) {
-        this.checkRequire();
-        this.$refs['reff'].validate(valid => {
-          if (valid) {
-            this.loading = true;
-            // this.form.endtime = moment(this.form.endtime).format('YYYY-MM-DD');
-            this.baseInfo = {};
-            this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.stageinformation = [];
-            this.baseInfo.projectsystem = [];
-            //项目计划
-            for (let i = 0; i < this.stage.length; i++) {
-              if (
-                this.stage[i].phase !== '' ||
-                this.stage[i].stageproduct !== '' ||
-                this.stage[i].estimatedwork !== '' ||
-                this.stage[i].estimatedstarttime !== '' ||
-                this.stage[i].estimatedendtime !== '' ||
-                this.stage[i].remarks !== '' ||
-                this.stage[i].actualwork !== '' ||
-                this.stage[i].productstatus !== '' ||
-                this.stage[i].actualstarttime !== '' ||
-                this.stage[i].actualendtime !== '' ||
-                this.stage[i].product !== ''
-              ) {
-                this.baseInfo.stageinformation.push({
-                  phase: this.stage[i].phase,
-                  stageproduct: this.stage[i].stageproduct,
-                  estimatedwork: this.stage[i].estimatedwork,
-                  estimatedstarttime: this.stage[i].estimatedstarttime,
-                  estimatedendtime: this.stage[i].estimatedendtime,
-                  remarks: this.stage[i].remarks,
-                  actualwork: this.stage[i].actualwork,
-                  productstatus: this.stage[i].productstatus,
-                  actualstarttime: this.stage[i].actualstarttime,
-                  actualendtime: this.stage[i].actualendtime,
-                  product: this.stage[i].product,
-                });
-              }
-            }
-            for (let i = 0; i < this.source.length; i++) {
-              if (this.source[i].type === this.$t('label.PFANS5004VIEW_STAFF')) {
-                this.source[i].type = '0';
-              } else if (this.source[i].type === this.$t('label.PFANS5004VIEW_ASSIST')) {
-                this.source[i].type = '1';
-              }
-              if (
-                this.source[i].number !== '' ||
-                this.source[i].name !== '' ||
-                this.source[i].admissiontime !== '' ||
-                this.source[i].exittime !== ''
-              ) {
-                this.baseInfo.projectsystem.push({
-                  number: this.source[i].number,
-                  name_id: this.source[i].name,
-                  name: this.source[i].name_id,
-                  type: this.source[i].type,
-                  position: this.source[i].position,
-                  admissiontime: this.source[i].admissiontime,
-                  exittime: this.source[i].exittime,
-                });
-              }
-            }
-            if (this.$route.params._id) {
-              this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
-              this.$store
-                .dispatch('PFANS5001Store/update', this.baseInfo)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_02'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  if (val !== 'save' && val !== 'StartWorkflow') {
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  }
-                  if (val === 'StartWorkflow') {
-                    this.$refs.container.$refs.workflow.startWorkflow();
-                  }
-                })
-                .catch(error => {
-                  this.$message.error({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-            }
-          } else {
-            Message({
-              message: this.$t('normal.error_12'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-          }
-        });
-      },
+      });
     },
-  };
+  },
+};
 </script>
-<style rel="stylesheet/scss" lang="scss">
-  .el-table {
-    overflow-x: auto;
-  }
+<style lang="scss" rel="stylesheet/scss">
+.el-table {
+  overflow-x: auto;
+}
 
-  .el-table__header-wrapper,
-  .el-table__body-wrapper,
-  .el-table__footer-wrapper {
-    overflow: visible;
-  }
+.el-table__header-wrapper,
+.el-table__body-wrapper,
+.el-table__footer-wrapper {
+  overflow: visible;
+}
 
-  .el-table::after {
-    position: relative;
-  }
+.el-table::after {
+  position: relative;
+}
 
-  .el-table--scrollable-x .el-table__body-wrapper {
-    overflow: visible;
-  }
+.el-table--scrollable-x .el-table__body-wrapper {
+  overflow: visible;
+}
 </style>
 

@@ -1,20 +1,20 @@
-import request from "../../../../utils/request"
-import requestDownload from '../../../../utils/requestDownload'
+import request from '../../../../utils/request';
+import requestDownload from '../../../../utils/requestDownload';
 
 
 export function getFpans2029List(data) {
   return request({
     url: 'punchcardrecordbp/list',
     method: 'get',
-    params: data
-  })
+    params: data,
+  });
 }
 
 export function getFpans2029Listowner() {
   return request({
     url: 'punchcardrecordbp/list1',
-    method: 'post'
-  })
+    method: 'post',
+  });
 }
 
 export function download(data) {
@@ -22,16 +22,17 @@ export function download(data) {
     url: 'punchcardrecordbp/download',
     method: 'post',
     data: data,
-    responseType: 'blob'
-  })
+    responseType: 'blob',
+  });
 }
+
 //获取打卡详细
 export function getPunDetail(data) {
   return request({
     url: 'punchcardrecordbp/getPunDetailbp',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 

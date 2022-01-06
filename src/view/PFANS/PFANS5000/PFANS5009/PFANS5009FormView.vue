@@ -1,20 +1,20 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer
+      ref="container"
+      v-loading="loading"
       :buttonList="buttonList"
       :title="title"
       @buttonClick="buttonClick"
-      ref="container"
-      v-loading="loading"
 
     >
       <div slot="customize">
         <el-form
+          ref="refform"
           :model="form"
           :rules="rules"
           label-position="top"
           label-width="8vw"
-          ref="refform"
           style="padding: 2rem"
         >
           <el-tabs v-model="activeName" type="border-card">
@@ -22,7 +22,7 @@
               <template slot="title">
                 <span
                   class="collapse_Title"
-                >{{$t('label.PFANS5009FORMVIEW_PROJECTBASICINFORMATION')}}</span>
+                >{{ $t('label.PFANS5009FORMVIEW_PROJECTBASICINFORMATION') }}</span>
               </template>
               <el-row>
                 <el-col :span="8">
@@ -31,9 +31,9 @@
                       :disabled="true"
                       :error="errorcenter"
                       :orglist="centerorglist"
-                      @getOrgids="getCenterId"
                       orgtype="1"
                       style="width:20vw"
+                      @getOrgids="getCenterId"
                     ></org>
                   </el-form-item>
                 </el-col>
@@ -43,9 +43,9 @@
                       :disabled="true"
                       :error="errorgroup"
                       :orglist="grouporglist"
-                      @getOrgids="getGroupId"
                       orgtype="2"
                       style="width:20vw"
+                      @getOrgids="getGroupId"
                     ></org>
                   </el-form-item>
                 </el-col>
@@ -54,9 +54,9 @@
                     <org
                       :disabled="true"
                       :orglist="teamorglist"
-                      @getOrgids="getTeamId"
                       orgtype="3"
                       style="width:20vw"
+                      @getOrgids="getTeamId"
                     ></org>
                   </el-form-item>
                 </el-col>
@@ -65,20 +65,20 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME1')" prop="project_name">
                     <el-input
-                      maxlength="255"
-                      :disabled="true"
-                      style="width:20vw"
                       v-model="form.project_name"
+                      :disabled="true"
+                      maxlength="255"
+                      style="width:20vw"
                     ></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME2')" prop="project_namejp">
                     <el-input
-                      maxlength="255"
-                      :disabled="true"
-                      style="width:20vw"
                       v-model="form.project_namejp"
+                      :disabled="true"
+                      maxlength="255"
+                      style="width:20vw"
                     ></el-input>
                   </el-form-item>
                 </el-col>
@@ -93,8 +93,8 @@
                       :error="errorLeader"
                       :selectType="selectType"
                       :userlist="userlist"
-                      @getUserids="getUserids"
                       style="width: 20vw"
+                      @getUserids="getUserids"
                     ></user>
                   </el-form-item>
                 </el-col>
@@ -111,8 +111,8 @@
                       :error="errorManager"
                       :selectType="selectType"
                       :userlist="userlist1"
-                      @getUserids="getUserids1"
                       style="width: 20vw"
+                      @getUserids="getUserids1"
                     ></user>
                   </el-form-item>
                 </el-col>
@@ -126,8 +126,8 @@
                       :data="form.projecttype"
                       :disabled="true"
                       :multiple="multiple1"
-                      @change="getType"
                       style="width:20vw"
+                      @change="getType"
                     ></dicselect>
                   </el-form-item>
                 </el-col>
@@ -138,8 +138,8 @@
                       :data="form.field"
                       :disabled="true"
                       :multiple="multiple1"
-                      @change="getArea"
                       style="width:20vw"
+                      @change="getArea"
                     ></dicselect>
                   </el-form-item>
                 </el-col>
@@ -172,10 +172,10 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_LANGUAGE')" prop="languages">
                     <el-input
+                      v-model="form.languages"
                       :disabled="!disabled"
                       maxlength="20"
                       style="width:20vw"
-                      v-model="form.languages"
                     ></el-input>
                   </el-form-item>
                 </el-col>
@@ -184,26 +184,27 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5001FORMVIEW_STARTDATE')" prop="startdate">
                     <el-date-picker
+                      v-model="form.startdate"
                       :disabled="!disabled"
                       style="width:20vw"
                       type="date"
-                      v-model="form.startdate"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_ENDTIME')" prop="enddate">
                     <el-date-picker
+                      v-model="form.enddate"
                       :disabled="!disabled"
                       style="width:20vw"
                       type="date"
-                      v-model="form.enddate"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_WORK')" prop="work">
                     <el-input-number
+                      v-model="form.work"
                       :disabled="!disabled"
                       :max="99999"
                       :min="0"
@@ -211,7 +212,6 @@
                       :step="1"
                       controls-position="right"
                       style="width:20vw"
-                      v-model="form.work"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -220,10 +220,10 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_DEADLINE')" prop="deadline">
                     <el-date-picker
+                      v-model="form.deadline"
                       :disabled="!disabled"
                       style="width:20vw"
                       type="date"
-                      v-model="form.deadline"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -235,9 +235,9 @@
                   <el-col :span="24">
                     <el-table
                       :data="tableP"
+                      border
                       header-cell-class-name="sub_bg_color_blue"
                       stripe
-                      border
                     >
                       <el-table-column
                         :label="$t('label.PFANS5009FORMVIEW_PHASE')"
@@ -266,31 +266,31 @@
                           <!--                                    v-show="scope.row.showrow">-->
                           <!--                          </el-input>-->
                           <dicselect
+                            v-if="scope.row.phase === 'PP012001'"
                             :code="code2"
                             :data="scope.row.stageproduct"
                             :disabled="true"
                             :no="scope.row"
-                            @change="getrole1"
                             style="width: 100%"
-                            v-if="scope.row.phase === 'PP012001'"
+                            @change="getrole1"
                           ></dicselect>
                           <dicselect
+                            v-if="scope.row.phase === 'PP012002'"
                             :code="code3"
                             :data="scope.row.stageproduct"
                             :disabled="true"
                             :no="scope.row"
-                            @change="getrole1"
                             style="width: 100%"
-                            v-if="scope.row.phase === 'PP012002'"
+                            @change="getrole1"
                           ></dicselect>
                           <dicselect
+                            v-if="scope.row.phase === 'PP012003'"
                             :code="code4"
                             :data="scope.row.stageproduct"
                             :disabled="true"
                             :no="scope.row"
-                            @change="getrole1"
                             style="width: 100%"
-                            v-if="scope.row.phase === 'PP012003'"
+                            @change="getrole1"
                           ></dicselect>
                         </template>
                       </el-table-column>
@@ -301,11 +301,11 @@
                       >
                         <template slot-scope="scope">
                           <el-input
+                            v-model="scope.row.productstatus"
                             :disabled="!disabled"
                             :no="scope.row"
                             maxlength="20"
                             style="width: 100%;"
-                            v-model="scope.row.productstatus"
                           ></el-input>
                         </template>
                       </el-table-column>
@@ -316,15 +316,15 @@
                       >
                         <template slot-scope="scope">
                           <el-input-number
+                            v-model="scope.row.estimatedwork"
                             :disabled="true"
-                            :no="scope.row"
                             :max="99999"
                             :min="0"
+                            :no="scope.row"
                             :precision="0"
                             :step="1"
                             controls-position="right"
                             style="width:100%"
-                            v-model="scope.row.estimatedwork"
                           ></el-input-number>
                         </template>
                       </el-table-column>
@@ -335,15 +335,15 @@
                       >
                         <template slot-scope="scope">
                           <el-input-number
+                            v-model="scope.row.actualwork"
                             :disabled="!disabled"
-                            :no="scope.row"
                             :max="99999"
                             :min="0"
+                            :no="scope.row"
                             :precision="0"
                             :step="1"
                             controls-position="right"
                             style="width:100%"
-                            v-model="scope.row.actualwork"
                           ></el-input-number>
                         </template>
                       </el-table-column>
@@ -354,12 +354,12 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
-                            maxlength="20"
                             v-model="scope.row.estimatedstarttime"
-                            :no="scope.row"
                             :disabled="true"
-                            type="date"
+                            :no="scope.row"
+                            maxlength="20"
                             style="width: 100%"
+                            type="date"
                           ></el-date-picker>
                         </template>
                       </el-table-column>
@@ -370,12 +370,12 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
-                            maxlength="20"
                             v-model="scope.row.estimatedendtime"
-                            :no="scope.row"
                             :disabled="true"
-                            type="date"
+                            :no="scope.row"
+                            maxlength="20"
                             style="width: 100%"
+                            type="date"
                           ></el-date-picker>
                         </template>
                       </el-table-column>
@@ -386,11 +386,11 @@
                       >
                         <template slot-scope="scope">
                           <el-input
+                            v-model="scope.row.remarks"
                             :disabled="!disabled"
                             :no="scope.row"
                             maxlength="20"
                             style="width: 100%;"
-                            v-model="scope.row.remarks"
                           ></el-input>
                         </template>
                       </el-table-column>
@@ -401,12 +401,12 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
-                            maxlength="20"
                             v-model="scope.row.actualstarttime"
-                            :no="scope.row"
                             :disabled="!disabled"
-                            type="date"
+                            :no="scope.row"
+                            maxlength="20"
                             style="width: 100%"
+                            type="date"
                           ></el-date-picker>
                         </template>
                       </el-table-column>
@@ -417,12 +417,12 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
-                            maxlength="20"
                             v-model="scope.row.actualendtime"
-                            :no="scope.row"
                             :disabled="!disabled"
-                            type="date"
+                            :no="scope.row"
+                            maxlength="20"
                             style="width: 100%"
+                            type="date"
                           ></el-date-picker>
                         </template>
                       </el-table-column>
@@ -433,12 +433,12 @@
                       >
                         <template slot-scope="scope">
                           <el-switch
+                            v-model="scope.row.product"
                             :disabled="!disabled"
                             :no="scope.row"
-                            @change="getProduct(scope.row)"
                             active-value="1"
                             inactive-value="0"
-                            v-model="scope.row.product"
+                            @change="getProduct(scope.row)"
                           ></el-switch>
                         </template>
                       </el-table-column>
@@ -455,11 +455,11 @@
                       <!--                社内-->
                       <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_INCOMMUNITY')" name="first">
                         <el-table
+                          :cell-class-name="setPl"
                           :data="tableB"
-                          stripe
                           border
                           header-cell-class-name="sub_bg_color_blue"
-                          :cell-class-name="setPl"
+                          stripe
                           style="width: 80vw"
                         >
                           <!--                      编号-->
@@ -485,15 +485,15 @@
                             <template slot-scope="scope">
                               <user
                                 :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
+                                :multiple="multiple"
                                 :no="scope.row"
                                 :userlist="scope.row.name"
-                                @getUserids="getCitationUserid"
-                                :multiple="multiple"
                                 style="width: 90%"
+                                @getUserids="getCitationUserid"
                               ></user>
                             </template>
                           </el-table-column>
-<!--                          //add_qhr_20210810 添加rank、报告者字段-->
+                          <!--                          //add_qhr_20210810 添加rank、报告者字段-->
                           <!--          RANK-->
                           <el-table-column
                             :label="$t('label.PFANS5001FORMVIEW_RANK')"
@@ -501,9 +501,9 @@
                             width="130">
                             <template slot-scope="scope">
                               <el-input
-                                :no="scope.row"
-                                :disabled="true"
                                 v-model="scope.row.rank"
+                                :disabled="true"
+                                :no="scope.row"
                                 style="width: 100%">
                               </el-input>
                             </template>
@@ -515,15 +515,15 @@
                             width="120">
                             <template slot-scope="scope">
                               <el-input
-                                :no="scope.row"
-                                :disabled="!disable"
-                                maxlength="20"
                                 v-model="scope.row.position"
+                                :disabled="!disable"
+                                :no="scope.row"
+                                maxlength="20"
                                 style="width: 100%">
                               </el-input>
                             </template>
                           </el-table-column>
-<!--                          //add_qhr_20210810 添加rank、报告者字段-->
+                          <!--                          //add_qhr_20210810 添加rank、报告者字段-->
                           <!--          报告者-->
                           <el-table-column
                             :label="$t('label.PFANS5001FORMVIEW_REPORTER')"
@@ -532,11 +532,11 @@
                             <template slot-scope="scope">
                               <user
                                 :disabled="!disable"
+                                :multiple="multiple"
                                 :no="scope.row"
                                 :userlist="scope.row.reporter"
-                                @close="getReporter"
-                                :multiple="multiple"
                                 style="width: 80%"
+                                @close="getReporter"
                               ></user>
                             </template>
                           </el-table-column>
@@ -548,12 +548,12 @@
                             width="180">
                             <template slot-scope="scope">
                               <el-date-picker
-                                :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
-                                type="date"
-                                :no="scope.row"
                                 v-model="scope.row.admissiontime"
+                                :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
+                                :no="scope.row"
                                 style="width: 9rem"
-                                >
+                                type="date"
+                              >
                               </el-date-picker>
                             </template>
                           </el-table-column>
@@ -565,32 +565,32 @@
                             width="180">
                             <template slot-scope="scope">
                               <el-date-picker
-                                :disabled="!disable"
-                                type="date"
-                                :no="scope.row"
                                 v-model="scope.row.exittime"
-                                style="width: 9rem">
+                                :disabled="!disable"
+                                :no="scope.row"
+                                style="width: 9rem"
+                                type="date">
                               </el-date-picker>
                             </template>
                           </el-table-column>
                           <el-table-column :label="$t('label.operation')" align="center" width="200">
                             <template slot-scope="scope">
                               <el-button
+                                v-show="scope.$index != 0"
                                 :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
-                                @click.native.prevent="deleteRow1(scope.$index, tableB)"
-                                plain v-show="scope.$index != 0"
-                                size="small"
+                                plain size="small"
                                 type="danger"
+                                @click.native.prevent="deleteRow1(scope.$index, tableB)"
 
-                              >{{$t('button.delete')}}
+                              >{{ $t('button.delete') }}
                               </el-button>
                               <el-button
+                                v-show="scope.$index != 0"
                                 :disabled="!disable"
-                                @click="addRow1()"
-                                plain v-show="scope.$index != 0"
-                                size="small"
+                                plain size="small"
                                 type="primary"
-                              >{{$t('button.insert')}}
+                                @click="addRow1()"
+                              >{{ $t('button.insert') }}
                               </el-button>
                             </template>
                           </el-table-column>
@@ -603,9 +603,9 @@
                       >
                         <el-table
                           :data="tableC"
-                          stripe
                           border
                           header-cell-class-name="sub_bg_color_blue"
+                          stripe
                           style="width: 80vw"
                         >
                           <!--                      编号-->
@@ -631,9 +631,9 @@
                           >
                             <template slot-scope="scope">
                               <el-input
-                                :no="scope.row"
-                                :disabled="true"
                                 v-model="scope.row.company"
+                                :disabled="true"
+                                :no="scope.row"
                                 style="width: 100%"
                               ></el-input>
                             </template>
@@ -646,27 +646,27 @@
                           >
                             <template slot-scope="scope">
                               <el-col :span="8">
-                                <div class="dpSupIndex" style="width:10vw" prop="expname">
+                                <div class="dpSupIndex" prop="expname" style="width:10vw">
                                   <el-container>
-                                    <input class="content bg" v-model="scope.row.name" :error="errorexpname"
-                                           :disabled="true" v-show="false"></input>
-                                    <input class="content bg" v-model="scope.row.name_id"
-                                           :disabled="true"></input>
-<!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
+                                    <input v-show="false" v-model="scope.row.name" :disabled="true"
+                                           :error="errorexpname" class="content bg"></input>
+                                    <input v-model="scope.row.name_id" :disabled="true"
+                                           class="content bg"></input>
+                                    <!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
                                     <el-button
                                       :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
                                       icon="el-icon-search"
-                                      @click="dialogSys()"
                                       size="small"
+                                      @click="dialogSys()"
                                     ></el-button>
                                     <el-dialog
                                       :title="$t('label.PFANS5001FORMVIEW_OUTSOURCEPERSON')"
                                       :visible.sync="dialogTableVisible1"
+                                      append-to-body
                                       center
+                                      lock-scroll
                                       size="80%"
                                       top="8vh"
-                                      lock-scroll
-                                      append-to-body
                                     >
                                       <div style="text-align: center">
                                         <el-row
@@ -681,46 +681,49 @@
                                             @row-click="handleClickChange"
                                           >
                                             <el-table-column
-                                              property="number"
-                                              fixed
                                               :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
+                                              fixed
+                                              property="number"
                                               width="100"
                                             ></el-table-column>
-                                            <el-table-column property="expatriatesinfor_id" fixed v-if="false"
-                                                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
+                                            <el-table-column v-if="false" :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')" fixed
+                                                             property="expatriatesinfor_id"
                                                              width="0"></el-table-column>
 
-                                            <el-table-column property="expname" fixed
-                                                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
+                                            <el-table-column :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')" fixed
+                                                             property="expname"
                                                              width="100"></el-table-column>
 
                                             <el-table-column
-                                              property="suppliername"
                                               :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
+                                              property="suppliername"
                                               width="200"
                                             ></el-table-column>
-                                            <el-table-column property="suppliernameid" v-if="false"
-                                                             :label="$t('label.PFANSUSERVIEW_POST')"
+                                            <el-table-column v-if="false" :label="$t('label.PFANSUSERVIEW_POST')"
+                                                             property="suppliernameid"
                                                              width="150"></el-table-column>
-<!--                                            <el-table-column-->
-<!--                                              property="post"-->
-<!--                                              :label="$t('label.PFANSUSERVIEW_POST')"-->
-<!--                                              width="150"-->
-<!--                                            ></el-table-column>-->
+                                            <!--                                            <el-table-column-->
+                                            <!--                                              property="post"-->
+                                            <!--                                              :label="$t('label.PFANSUSERVIEW_POST')"-->
+                                            <!--                                              width="150"-->
+                                            <!--                                            ></el-table-column>-->
                                             <el-table-column align="right" width="180">
                                               <template slot="header" slot-scope="scope">
                                                 <el-input
                                                   v-model="search"
-                                                  size="mini"
                                                   :placeholder="$t('label.PFANS5009FORMVIEW_IMPORT')"
+                                                  size="mini"
                                                 />
                                               </template>
                                             </el-table-column>
                                           </el-table>
                                           <div class="pagination-container" style="padding-top: 2rem">
-                                            <el-pagination :current-page.sync="listQuerySys.currentPage" :page-size="listQuerySys.pageSize"
-                                                           :page-sizes="[20,30,50,9999]" :total="totalSysm" @current-change="handleCurrentChangeSys"
-                                                           @size-change="handleSizeChangeSys" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                            <el-pagination :current-page.sync="listQuerySys.currentPage"
+                                                           :page-size="listQuerySys.pageSize"
+                                                           :page-sizes="[20,30,50,9999]" :total="totalSysm"
+                                                           layout="slot,sizes, ->,prev, pager, next, jumper"
+                                                           @current-change="handleCurrentChangeSys"
+                                                           @size-change="handleSizeChangeSys">
                                               <slot><span class="front Content_front"
                                                           style="padding-right: 0.5rem;font-weight: 400"></span></slot>
                                             </el-pagination>
@@ -731,7 +734,7 @@
                                           <el-button
                                             type="primary"
                                             @click="submit(scope.row)"
-                                          >{{$t('button.confirm')}}</el-button>
+                                          >{{ $t('button.confirm') }}</el-button>
                                         </span>
                                       </div>
                                     </el-dialog>
@@ -747,7 +750,7 @@
                               </el-input>
                             </template>-->
                           </el-table-column>
-<!--                          //add_qhr_20210810 添加rank、报告者字段-->
+                          <!--                          //add_qhr_20210810 添加rank、报告者字段-->
                           <!--          RANK-->
                           <el-table-column
                             :label="$t('label.PFANS5001FORMVIEW_RANK')"
@@ -755,9 +758,9 @@
                             width="130">
                             <template slot-scope="scope">
                               <el-input
-                                :no="scope.row"
-                                :disabled="true"
                                 v-model="scope.row.rank"
+                                :disabled="true"
+                                :no="scope.row"
                                 style="width: 100%">
                               </el-input>
                             </template>
@@ -770,14 +773,14 @@
                           >
                             <template slot-scope="scope">
                               <el-input
-                                :no="scope.row"
-                                :disabled="!disable"
                                 v-model="scope.row.position"
+                                :disabled="!disable"
+                                :no="scope.row"
                                 style="width: 100%"
                               ></el-input>
                             </template>
                           </el-table-column>
-<!--                          //add_qhr_20210810 添加rank、报告者字段-->
+                          <!--                          //add_qhr_20210810 添加rank、报告者字段-->
                           <!--          报告者-->
                           <el-table-column
                             :label="$t('label.PFANS5001FORMVIEW_REPORTER')"
@@ -786,11 +789,11 @@
                             <template slot-scope="scope">
                               <user
                                 :disabled="!disable"
+                                :multiple="multiple"
                                 :no="scope.row"
                                 :userlist="scope.row.reporter"
-                                @close="getReporter"
-                                :multiple="multiple"
                                 style="width: 80%"
+                                @close="getReporter"
                               ></user>
                             </template>
                           </el-table-column>
@@ -803,11 +806,11 @@
                           >
                             <template slot-scope="scope">
                               <el-date-picker
-                                :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
-                                type="date"
-                                :no="scope.row"
                                 v-model="scope.row.admissiontime"
+                                :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
+                                :no="scope.row"
                                 style="width: 9rem"
+                                type="date"
                               ></el-date-picker>
                             </template>
                           </el-table-column>
@@ -820,11 +823,11 @@
                           >
                             <template slot-scope="scope">
                               <el-date-picker
-                                :disabled="!disable"
-                                type="date"
-                                :no="scope.row"
                                 v-model="scope.row.exittime"
+                                :disabled="!disable"
+                                :no="scope.row"
                                 style="width: 9rem"
+                                type="date"
                               ></el-date-picker>
                             </template>
                           </el-table-column>
@@ -836,19 +839,19 @@
                             <template slot-scope="scope">
                               <el-button
                                 :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
-                                @click.native.prevent="deleteRow2(scope.$index, tableC)"
                                 plain
                                 size="small"
                                 type="danger"
-                              >{{$t('button.delete')}}
+                                @click.native.prevent="deleteRow2(scope.$index, tableC)"
+                              >{{ $t('button.delete') }}
                               </el-button>
                               <el-button
                                 :disabled="!disable"
-                                @click="addRow2()"
                                 plain
                                 size="small"
                                 type="primary"
-                              >{{$t('button.insert')}}
+                                @click="addRow2()"
+                              >{{ $t('button.insert') }}
                               </el-button>
                             </template>
                           </el-table-column>
@@ -863,34 +866,34 @@
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_CONTRACT')" name="fifth">
               <el-form-item>
                 <el-table
+                  v-show="form.toolstype === '0' || !form.toolstype"
                   :data="tableD"
-                  stripe
                   border
                   header-cell-class-name="sub_bg_color_blue"
+                  stripe
                   style="width: 90vw"
-                  v-show="form.toolstype === '0' || !form.toolstype"
                 >
                   <el-table-column :label="$t('label.PFANS5009FORMVIEW_CONTRACT')" align="center" width="200">
                     <template slot-scope="scope">
                       <el-col :span="8">
                         <div class="dpSupIndex" style="width:20vw">
                           <el-container>
-                            <input class="content bg" v-model="scope.row.contract"
-                                   :disabled="true" style="min-width: 40%;width: 40%"></input>
+                            <input v-model="scope.row.contract" :disabled="true"
+                                   class="content bg" style="min-width: 40%;width: 40%"></input>
                             <el-button
                               :disabled="scope.row.type === '0' ? true : false"
                               icon="el-icon-search"
-                              @click="changecontract(scope.row)"
                               size="small"
+                              @click="changecontract(scope.row)"
                             ></el-button>
                             <el-dialog
                               :visible.sync="dialogTableVisible3"
+                              append-to-body
                               center
+                              lock-scroll
                               size="50%"
                               top="8vh"
                               width="75%"
-                              lock-scroll
-                              append-to-body
                             >
                               <div style="text-align: center">
                                 <el-row style="text-align: center;height: 90%;overflow: hidden">
@@ -903,33 +906,33 @@
                                     @row-click="handleClickChange2"
                                   >
                                     <el-table-column
-                                      property="contract"
                                       :label="$t('label.PFANS1032FORMVIEW_CONTRACTNUMBER')"
+                                      property="contract"
                                       width="100"
                                     ></el-table-column>
                                     <el-table-column
-                                      property="deployment"
                                       :label="$t('label.group')"
+                                      property="deployment"
                                       width="100"
                                     ></el-table-column>
                                     <el-table-column
-                                      property="contracttype"
                                       :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')"
+                                      property="contracttype"
                                       width="150"
                                     ></el-table-column>
                                     <el-table-column
-                                      property="applicationdate"
                                       :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')"
+                                      property="applicationdate"
                                       width="100"
                                     ></el-table-column>
                                     <el-table-column
-                                      property="state"
                                       :label="$t('label.approval_status')"
+                                      property="state"
                                       width="100"
                                     ></el-table-column>
                                     <el-table-column
-                                      property="claimdatetime"
                                       :label="$t('label.PFANS1026VIEW_CONTRACTPERIOD')"
+                                      property="claimdatetime"
                                       width="200"
                                     ></el-table-column>
                                     <el-table-column align="right" width="230">
@@ -937,15 +940,18 @@
                                         <!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
                                         <el-input
                                           v-model="search"
-                                          size="mini"
-                                          :placeholder="$t('label.PFANS5009FORMVIEW_IMPORTCONT')"/>
+                                          :placeholder="$t('label.PFANS5009FORMVIEW_IMPORTCONT')"
+                                          size="mini"/>
                                       </template>
                                     </el-table-column>
                                   </el-table>
                                   <div class="pagination-container" style="padding-top: 2rem">
-                                    <el-pagination :current-page.sync="listQueryCont.currentPage" :page-size="listQueryCont.pageSize"
-                                                   :page-sizes="[20,30,50,9999]" :total="totalCont" @current-change="handleCurrentChangeCont"
-                                                   @size-change="handleSizeChangeCont" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                    <el-pagination :current-page.sync="listQueryCont.currentPage"
+                                                   :page-size="listQueryCont.pageSize"
+                                                   :page-sizes="[20,30,50,9999]" :total="totalCont"
+                                                   layout="slot,sizes, ->,prev, pager, next, jumper"
+                                                   @current-change="handleCurrentChangeCont"
+                                                   @size-change="handleSizeChangeCont">
                                       <slot><span class="front Content_front"
                                                   style="padding-right: 0.5rem;font-weight: 400"></span></slot>
                                     </el-pagination>
@@ -956,7 +962,7 @@
                                   <el-button
                                     type="primary"
                                     @click="submit2(scope.row)"
-                                  >{{$t('button.confirm')}}</el-button>
+                                  >{{ $t('button.confirm') }}</el-button>
                                 </span>
                               </div>
                             </el-dialog>
@@ -965,12 +971,12 @@
                       </el-col>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_THEME')" align="center"  width="180">
+                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_THEME')" align="center" width="180">
                     <template slot-scope="scope">
                       <el-input
-                        :no="scope.row"
-                        :disabled="true"
                         v-model="scope.row.theme"
+                        :disabled="true"
+                        :no="scope.row"
                         style="width: 100%"
                       ></el-input>
                     </template>
@@ -979,7 +985,7 @@
                   <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" width="130">
                     <template slot-scope="scope">
                       <el-form-item>
-                        <el-input :disabled="true" :no="scope.row" v-model="scope.row.claimtype">
+                        <el-input v-model="scope.row.claimtype" :disabled="true" :no="scope.row">
                         </el-input>
                       </el-form-item>
                     </template>
@@ -989,8 +995,8 @@
                   <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center"
                                    width="154px">
                     <template slot-scope="scope">
-                      <el-date-picker :disabled="true" type="date" v-model="scope.row.deliveryfinshdate"
-                                      style="width: 100%"></el-date-picker>
+                      <el-date-picker v-model="scope.row.deliveryfinshdate" :disabled="true" style="width: 100%"
+                                      type="date"></el-date-picker>
                     </template>
                   </el-table-column>
                   <!--                   add-ws-6/9-禅道任务080-->
@@ -1002,43 +1008,45 @@
                   >
                     <template slot-scope="scope">
                       <el-date-picker
-                        unlink-panels
-                        class="bigWidth"
-                        :disabled="true"
                         v-model="scope.row.workinghours"
-                        type="daterange"
+                        :disabled="true"
                         :end-placeholder="$t('label.enddate')"
                         :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                         :start-placeholder="$t('label.startdate')"
+                        class="bigWidth"
                         style="width: 100%"
+                        type="daterange"
+                        unlink-panels
                       ></el-date-picker>
                     </template>
                   </el-table-column>
                   <!--                  add-ws-合同关联项目，分配金额-->
-                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CONTRACTREQUESTAMOUNT')" align="center" width="180">
+                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CONTRACTREQUESTAMOUNT')" align="center"
+                                   width="180">
                     <template slot-scope="scope">
                       <el-input-number
+                        v-model="scope.row.contractrequestamount"
                         :disabled="true"
                         :max="1000000000"
                         :min="0"
                         :precision="2"
                         controls-position="right"
                         style="width: 100%"
-                        v-model="scope.row.contractrequestamount"
                       ></el-input-number>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNT')" align="center" width="180">
+                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNT')" align="center"
+                                   width="180">
                     <template slot-scope="scope">
                       <el-input-number
+                        v-model="scope.row.contractamount"
                         :disabled="!disable"
                         :max="1000000000"
                         :min="0"
                         :precision="2"
                         controls-position="right"
-                        @change="changeRMB(scope.row)"
                         style="width: 100%"
-                        v-model="scope.row.contractamount"
+                        @change="changeRMB(scope.row)"
                       ></el-input-number>
                     </template>
                   </el-table-column>
@@ -1047,101 +1055,101 @@
                     <template slot-scope="scope">
                       <el-button
                         :disabled="scope.row.type === '0' ? true : false"
-                        @click.native.prevent="deleteRow3(scope.$index, tableD)"
                         plain
                         size="small"
                         type="danger"
-                      >{{$t('button.delete')}}
+                        @click.native.prevent="deleteRow3(scope.$index, tableD)"
+                      >{{ $t('button.delete') }}
                       </el-button>
 
                       <el-button
                         :disabled="adddisabled"
-                        @click="addRow3()"
                         plain
                         size="small"
                         type="primary"
-                      >{{$t('button.insert')}}
+                        @click="addRow3()"
+                      >{{ $t('button.insert') }}
                       </el-button>
                     </template>
                   </el-table-column>
                 </el-table>
                 <!--//ADD gbb 07-16 ,内采项目在现场管理中不显示合同-->
-                <el-table :data="tableclaimtype" stripe border header-cell-class-name="sub_bg_color_blue"
-                          style="width: 90vw" v-show="form.toolstype === '1'">
+                <el-table v-show="form.toolstype === '1'" :data="tableclaimtype" border header-cell-class-name="sub_bg_color_blue"
+                          stripe style="width: 90vw">
                   <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype"
                                    width="130">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disable" v-model="scope.row.claimtype">
+                      <el-input v-model="scope.row.claimtype" :disabled="!disable">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"
                                    width="170">
                     <template slot-scope="scope">
-                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate"
-                                      style="width: 9.5rem"></el-date-picker>
+                      <el-date-picker v-model="scope.row.deliverydate" :disabled="!disabled" style="width: 9.5rem"
+                                      type="date"></el-date-picker>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center"
                                    prop="completiondate"
                                    width="170">
                     <template slot-scope="scope">
-                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate"
-                                      style="width: 9.5rem"></el-date-picker>
+                      <el-date-picker v-model="scope.row.completiondate" :disabled="!disabled" style="width: 9.5rem"
+                                      type="date"></el-date-picker>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate"
                                    width="170">
                     <template slot-scope="scope">
-                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate"
-                                      style="width: 9.5rem"></el-date-picker>
+                      <el-date-picker v-model="scope.row.claimdate" :disabled="!disabled" style="width: 9.5rem"
+                                      type="date"></el-date-picker>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"
                                    width="170">
                     <template slot-scope="scope">
-                      <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate"
-                                      style="width: 9.5rem"></el-date-picker>
+                      <el-date-picker v-model="scope.row.supportdate" :disabled="!disabled" style="width: 9.5rem"
+                                      type="date"></el-date-picker>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" prop="claimamount"
                                    width="215">
                     <template slot-scope="scope">
-                      <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
-                                       :disabled="!disabled" :min="0" :max="1000000000"
-                                       :precision="2"></el-input-number>
+                      <el-input-number v-model="scope.row.claimamount" :disabled="!disabled" :max="1000000000"
+                                       :min="0" :precision="2" controls-position="right"
+                                       style="width: 11rem"></el-input-number>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.operation')" align="center" width="200">
                     <template slot-scope="scope">
                       <el-button
                         :disabled="!disable"
-                        @click.native.prevent="deleteRowClaim(scope.$index, tableclaimtype)"
                         plain
                         size="small"
                         type="danger"
-                      >{{$t('button.delete')}}
+                        @click.native.prevent="deleteRowClaim(scope.$index, tableclaimtype)"
+                      >{{ $t('button.delete') }}
                       </el-button>
                       <el-button
                         :disabled="!disable"
-                        @click="addRowClaim()"
                         plain
                         size="small"
                         type="primary"
-                      >{{$t('button.insert')}}
+                        @click="addRowClaim()"
+                      >{{ $t('button.insert') }}
                       </el-button>
                     </template>
                   </el-table-column>
                 </el-table>
                 <!--//ADD gbb 07-16 ,内采项目在现场管理中不显示合同 END-->
-                <el-table :data="tablecompound" stripe border header-cell-class-name="sub_bg_color_blue"
-                          style="padding-top: 2vw" v-if="displaycompound">
+                <el-table v-if="displaycompound" :data="tablecompound" border header-cell-class-name="sub_bg_color_blue"
+                          stripe style="padding-top: 2vw">
                   <el-table-column
                     :label="$t('label.PFANS5009FORMVIEW_CONTRACT')"
                     align="center"
                     width="220%">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.contractnumber"></el-input>
+                      <el-input v-model="scope.row.contractnumber" :disabled="true"></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -1149,7 +1157,7 @@
                     align="center"
                     width="150">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.claimtype"></el-input>
+                      <el-input v-model="scope.row.claimtype" :disabled="true"></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -1157,7 +1165,7 @@
                     align="center"
                     width="370">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.claimamount"></el-input>
+                      <el-input v-model="scope.row.claimamount" :disabled="true"></el-input>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -1165,7 +1173,7 @@
                     align="center"
                     width="270">
                     <template slot-scope="scope">
-                      <el-input :disabled="true" v-model="scope.row.contractrequestamount"></el-input>
+                      <el-input v-model="scope.row.contractrequestamount" :disabled="true"></el-input>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -1247,1104 +1255,188 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import user from '../../../components/user.vue';
-  import dicselect from '../../../components/dicselect.vue';
-  import {Message} from 'element-ui';
-  import moment from 'moment';
-  import {getOrgInfoByUserId,getUserInfo} from '@/utils/customize';
-  import org from '../../../components/org';
-  import {getDictionaryInfo} from '../../../../utils/customize';
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import user from '../../../components/user.vue';
+import dicselect from '../../../components/dicselect.vue';
+import {Message} from 'element-ui';
+import moment from 'moment';
+import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+import org from '../../../components/org';
+import {getDictionaryInfo} from '../../../../utils/customize';
 
-  export default {
-    name: 'PFANS5009FormView',
-    components: {
-      EasyNormalContainer,
-      getOrgInfoByUserId,
-      user,
-      dicselect,
-      org,
-    },
-    data() {
-      var validateUserid = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
-          callback(
-            new Error(
-              this.$t('normal.error_08') +
-              this.$t('label.PFANS5001FORMVIEW_LEADERID'),
-            ),
-          );
-          this.errorLeader =
+export default {
+  name: 'PFANS5009FormView',
+  components: {
+    EasyNormalContainer,
+    getOrgInfoByUserId,
+    user,
+    dicselect,
+    org,
+  },
+  data() {
+    var validateUserid = (rule, value, callback) => {
+      if (!value || value === '' || value === 'undefined') {
+        callback(
+          new Error(
             this.$t('normal.error_08') +
-            this.$t('label.PFANS5001FORMVIEW_LEADERID');
-        } else {
-          callback();
-          this.errorLeader = '';
-        }
-      };
-      var validateUserid1 = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
-          callback(
-            new Error(
-              this.$t('normal.error_08') +
-              this.$t('label.PFANS5001FORMVIEW_MANAGERID'),
-            ),
-          );
-          this.errorManager =
-            this.$t('normal.error_08') +
-            this.$t('label.PFANS5001FORMVIEW_MANAGERID');
-        } else {
-          callback();
-          this.errorManager = '';
-        }
-      };
-      var checkcenter = (rule, value, callback) => {
-        if (!value || value === '') {
-          this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
-          return callback(
-            new Error(this.$t('normal.error_09') + this.$t('label.center')),
-          );
-        } else {
-          this.errorcenter = '';
-          return callback();
-        }
-      };
-      var checkgroup = (rule, value, callback) => {
-        if (!value || value === '') {
-          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
-          return callback(
-            new Error(this.$t('normal.error_09') + this.$t('label.group')),
-          );
-        } else {
-          this.errorgroup = '';
-          return callback();
-        }
-      };
-      return {
-        // 项目dialog 体制 合同优化添加分页 ztc fr
-        listQuerySys: {
-          currentPage: 1,
-          pageSize: 20,
-        },
-        listQueryCont: {
-          currentPage: 1,
-          pageSize: 50,
-        },
-        totalSysm: 0,
-        totalCont: 0,
-        // 项目dialog 体制 合同优化添加分页 ztc to
-        tableclaimtype: [{
-          claimtype: '',
-          deliverydate: '',
-          completiondate: '',
-          claimdate: '',
-          supportdate: '',
-          claimamount: 0,
-        }],
-        currentRow5: '',
-        //add_qhr_20210810 添加rank、报告者字段
-        currentRow9: '',
-        adddisabled: false,
-        disable: true,
-        //合同时间check
-        time: [],
-        contra: [],
-        nowtime: '',
-        //合同时间check
-        centerorglist: '',
-        grouporglist: '',
-        claimamount: '',
-        teamorglist: '',
-        userlist: '',
-        userlist1: '',
-        dialogTableVisible3: false,
-        loading: false,
-        errorLeader: '',
-        errorManager: '',
-        errorcenter: '',
-        errorgroup: '',
-        errorexpname: '',
-        checkmessage: '',
-        search: '',
-        gridData1: [],
-        customerinfor: [],
-        checkList: [],
-        expatriates: [],
-        selectType: 'Single',
-        activeName: 'first',
-        activeName2: 'first',
-        title: 'title.PFANS5009VIEW',
-        buttonList: [],
-        currentRow: '',
-        currentRow1: '',
-        currentRow2: '',
-        currentRow3: '',
-        tabIndex: 0,
-        multiple1: false,
-        multiple: false,
-        //主页
-        form: {
-          center_id: '',
-          group_id: '',
-          team_id: '',
-          project_name: '',
-          project_namejp: '',
-          leaderid: '',
-          managerid: '',
-          projecttype: '',
-          field: '',
-          languages: '',
-          startdate: moment(new Date()).format('YYYY-MM-DD'),
-          toolstype: '',
-          enddate: '',
-          work: '',
-          deadline: moment(new Date()).format('YYYY-MM-DD'),
-        },
-
-        //阶段信息
-        tableP: [
-          {
-            companyprojects_id: '',
-            stageinformation_id: '',
-            phase: '',
-            stageproduct: '',
-            productstatus: '',
-            estimatedwork: '',
-            actualwork: '',
-            estimatedstarttime: '',
-            estimatedendtime: '',
-            month: '',
-            remarks: '',
-            actualstarttime: '',
-            actualendtime: '',
-            product: '',
-            rowindex: '',
-            showrow: true,
-            showrow1: false,
-            showrow2: false,
-            showrow3: false,
-          },
-        ],
-
-        //项目体制  社内
-        tableB: [
-          {
-            projectsystem_id: '',
-            companyprojects_id: '',
-            type: '0',
-            number: '',
-            company: '',
-            name: '',
-            //add_qhr_20210810 添加rank、报告者字段
-            rank: '',
-            reporter: '',
-            position: '',
-            admissiontime: '',
-            exittime: '',
-            rowindex: '',
-            updOrinsflg:'1',//区分修改还是新建
-          },
-        ],
-
-        //项目体制  社外
-        tableC: [
-          {
-            projectsystem_id: '',
-            companyprojects_id: '',
-            type: '1',
-            name_id: '',
-            number: '',
-            company: '',
-            name: '',
-            position: '',
-            admissiontime: '',
-            exittime: '',
-            rowindex: '',
-            updOrinsflg:'1',//区分修改还是新建
-          },
-        ],
-
-        //工时统计
-        tableA: [
-          {
-            stageinformation_id: '',
-            companyprojects_id: '',
-            month: '',
-            estimatedwork: '',
-            actualwork: '',
-            rowindex: '',
-          },
-        ],
-
-        //合同
-        tableD: [
-          {
-            contractnumbercount_id: '',
-            //add-ws-6/9-禅道任务080
-            deliveryfinshdate: '',
-            claimtype: '',
-            //add-ws-6/9-禅道任务080
-            projectcontract_id: '',
-            companyprojects_id: '',
-            contract: '',
-            theme: '',
-            //add-ws-合同关联项目，分配金额
-            contractrequestamount: '',
-            contractamount: '',
-            //add-ws-合同关联项目，分配金额
-            workinghours: '',
-            rowindex: '',
-            type: '0',
-          },
-        ],
-        //合同分配金额
-        tablecompound: [],
-        data: [],
-        tableAnt: [],
-        gridData3: [],
-        // 项目dialog 体制 合同优化添加分页 ztc fr
-        // compounddata: [],
-        // 项目dialog 体制 合同优化添加分页 ztc to
-        displaycompound: false,
-        code: 'PP001',
-        code1: 'PJ063',
-        code2: 'PP013',
-        code3: 'PP014',
-        code4: 'PP015',
-        code5: 'PP012',
-        code6: 'PJ141',
-        code7: 'PP021',
-        showrow: true,
-        showrow1: false,
-        showrow2: false,
-        showrow3: false,
-        disabled: true,
-        menuList: [],
-        baseInfo: {},
-        dialogTableVisible1: false,
-        rules: {
-          center_id: [
-            {
-              required: true,
-              validator: checkcenter,
-              trigger: 'change',
-            },
-          ],
-          group_id: [
-            {
-              required: true,
-              validator: checkgroup,
-              trigger: 'change',
-            },
-          ],
-          project_name: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5009FORMVIEW_NAME1'),
-              trigger: 'blur',
-            },
-          ],
-          project_namejp: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5009FORMVIEW_NAME2'),
-              trigger: 'blur',
-            },
-          ],
-          leaderid: [
-            {
-              required: true,
-              validator: validateUserid,
-              trigger: 'change',
-            },
-          ],
-          managerid: [
-            {
-              required: true,
-              validator: validateUserid1,
-              trigger: 'change',
-            },
-          ],
-          projecttype: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_09') +
-                this.$t('label.PFANS5009FORMVIEW_TYPE'),
-              trigger: 'change',
-            },
-          ],
-          field: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_09') +
-                this.$t('label.PFANS5009FORMVIEW_AREA'),
-              trigger: 'change',
-            },
-          ],
-          languages: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5009FORMVIEW_LANGUAGE'),
-              trigger: 'blur',
-            },
-          ],
-          startdate: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_09') +
-                this.$t('label.PFANS5009FORMVIEW_STARTTIME'),
-              trigger: 'change',
-            },
-          ],
-          enddate: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_09') +
-                this.$t('label.PFANS5009FORMVIEW_ENDTIME'),
-              trigger: 'change',
-            },
-          ],
-          work: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5009FORMVIEW_WORK'),
-              trigger: 'blur',
-            },
-          ],
-          deadline: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_09') +
-                this.$t('label.PFANS5009FORMVIEW_DEADLINE'),
-              trigger: 'change',
-            },
-          ],
-        },
-      };
-    },
-    mounted() {
-      if (this.$route.params._id) {
-          // this.disable = this.$route.params.disabled;
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS5009Store/selectById', {
-            companyprojectsid: this.$route.params._id,
-          })
-          .then(response => {
-            this.form = response.companyprojects;
-            this.userlist = this.form.leaderid;
-            this.userlist1 = this.form.managerid;
-            this.centerorglist = this.form.center_id;
-            this.grouporglist = this.form.group_id;
-            this.teamorglist = this.form.team_id;
-            if (response.stageinformation.length > 0) {
-              this.tableP = [];
-              //阶段信息
-              for (let h = 0; h < response.stageinformation.length; h++) {
-                let o = {};
-                o.phase = response.stageinformation[h].phase;
-                o.stageproduct = response.stageinformation[h].stageproduct;
-                o.productstatus = response.stageinformation[h].productstatus;
-                o.estimatedwork = response.stageinformation[h].estimatedwork;
-                o.actualwork = response.stageinformation[h].actualwork;
-                o.estimatedstarttime =
-                  response.stageinformation[h].estimatedstarttime;
-                o.estimatedendtime =
-                  response.stageinformation[h].estimatedendtime;
-                o.remarks = response.stageinformation[h].remarks;
-                o.actualstarttime = response.stageinformation[h].actualstarttime;
-                o.actualendtime = response.stageinformation[h].actualendtime;
-                o.product = response.stageinformation[h].product;
-                this.tableP.push(o);
-              }
-            }
-            //项目合同
-            if (response.projectcontract.length > 0) {
-              let tabled = [];
-              for (var i = 0; i < response.projectcontract.length; i++) {
-                if (
-                  response.projectcontract[i].workinghours !== '' &&
-                  response.projectcontract[i].workinghours !== null
-                ) {
-                  let claimdatetime = response.projectcontract[i].workinghours;
-                  let claimdatetim = claimdatetime.slice(0, 10);
-                  let claimdatetime1 = claimdatetime.slice(
-                    claimdatetime.length - 10,
-                  );
-                  response.projectcontract[i].workinghours = [
-                    claimdatetim,
-                    claimdatetime1,
-                  ];
-                }
-
-                tabled.push({
-                  contractnumbercount_id: response.projectcontract[i].contractnumbercount_id,
-                  contractamount: response.projectcontract[i].contractamount,
-                  theme: response.projectcontract[i].theme,
-                  type: '0',
-                });
-              }
-              this.tableD = tabled;
-            }
-            if (response.projectcontract.length > 0) {
-              for (let p = 0; p < response.projectcontract.length; p++) {
-                this.tableAnt.push(response.projectcontract[p].contractnumbercount_id)
-              }
-              this.getContractNumber();
-            }
-            //ADD gbb 07-16 ,内采项目在现场管理中不显示合同
-            if (response.contractnumbercount.length > 0) {
-              this.tableclaimtype = response.contractnumbercount;
-            }
-            //ADD gbb 07-16 ,内采项目在现场管理中不显示合同 END
-            if (response.projectsystem.length > 0) {
-              //项目体制
-              this.tableB = [];
-              this.tableC = [];
-              for (var i = 0; i < response.projectsystem.length; i++) {
-                if (response.projectsystem[i].type === '0') {
-                  let o = {};
-                  o.name = response.projectsystem[i].projectsystem_id;
-                  o.companyprojects_id =
-                    response.projectsystem[i].companyprojects_id;
-                  o.type = response.projectsystem[i].type;
-                  o.number = response.projectsystem[i].number;
-                  o.company = response.projectsystem[i].company;
-                  o.name = response.projectsystem[i].name;
-                  //add_qhr_20210810 添加rank、报告者字段
-                  o.rank = response.projectsystem[i].rank;
-                  o.reporter = response.projectsystem[i].reporter;
-                  o.position = response.projectsystem[i].position;
-                  o.admissiontime = response.projectsystem[i].admissiontime;
-                  o.exittime = response.projectsystem[i].exittime;
-                  o.rowindex = response.projectsystem[i].rowindex;
-                  o.updOrinsflg = '1';
-                  this.tableB.push(o);
-                } else if(response.projectsystem[i].type === '1'){
-                  if (response.projectsystem[i].name != '' || response.projectsystem[i].name != null) {
-                    let o = {};
-                    o.name = response.projectsystem[i].projectsystem_id;
-                    o.companyprojects_id =
-                      response.projectsystem[i].companyprojects_id;
-                    o.type = response.projectsystem[i].type;
-                    o.number = response.projectsystem[i].number;
-                    o.company = response.projectsystem[i].company;
-                    o.name = response.projectsystem[i].name;
-                    o.name_id = response.projectsystem[i].name_id;
-                    //add_qhr_20210810 添加rank、报告者字段
-                    o.rank = response.projectsystem[i].rank;
-                    o.reporter = response.projectsystem[i].reporter;
-                    o.position = response.projectsystem[i].position;
-                    o.admissiontime = response.projectsystem[i].admissiontime;
-                    o.exittime = response.projectsystem[i].exittime;
-                    o.rowindex = response.projectsystem[i].rowindex;
-                    o.updOrinsflg = '1';
-                    this.tableC.push(o);
-                  }
-                }
-              }
-             //add-ws-修改判断tableC没数据的时候添加空行
-              if (this.tableC.length === 0) {
-                this.addRow2();
-              }
-              //add-ws-修改判断tableC没数据的时候添加空行
-            }
-            // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-            // this.baseInfo.stageInformation = JSON.parse(JSON.stringify(this.tableP));
-            this.loading = false;
-            //add-ws-修改判断tableB为一条的时候添加空行
-            let checktableb = 0;
-            for (var i = 0; i < this.tableB.length; i++) {
-              checktableb =checktableb+1
-            }
-            if(checktableb===1){
-              this.addRow1()
-            }
-            //add-ws-修改判断tableB为一条的时候添加空行
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
+            this.$t('label.PFANS5001FORMVIEW_LEADERID'),
+          ),
+        );
+        this.errorLeader =
+          this.$t('normal.error_08') +
+          this.$t('label.PFANS5001FORMVIEW_LEADERID');
       } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        this.userlist1 = this.$store.getters.userinfo.userid;
+        callback();
+        this.errorLeader = '';
       }
-      this.$store.dispatch('PFANS5001Store/getcustomer', {}).then(response => {
-        for (let i = 0; i < response.length; i++) {
-          var vote = {};
-          this.result1 = response;
-          vote.value = response[i].customerinfor_id;
-          vote.label = response[i].custchinese;
-          this.customerinfor.push(vote);
-        }
-      });
-      // this.$store
-      //   .dispatch('PFANS5001Store/getexpatriatesinfor', {})
-      //   .then(response => {
-      //     for (let i = 0; i < response.length; i++) {
-      //       var vote = {};
-      //       this.result = response;
-      //       vote.value = response[i].expatriatesinfor_id;
-      //       vote.label = response[i].expname;
-      //       this.expatriates.push(vote);
-      //     }
-      //   });
-    },
-    created() {
-        if (this.$route.params._disto === "1") {
-            this.disabled = true;
-        } else {
-            this.disabled = this.$route.params.disabled;
-        }
-      this.adddisabled = this.$route.params.adddisabled;
-      if (this.disabled) {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
+    };
+    var validateUserid1 = (rule, value, callback) => {
+      if (!value || value === '' || value === 'undefined') {
+        callback(
+          new Error(
+            this.$t('normal.error_08') +
+            this.$t('label.PFANS5001FORMVIEW_MANAGERID'),
+          ),
+        );
+        this.errorManager =
+          this.$t('normal.error_08') +
+          this.$t('label.PFANS5001FORMVIEW_MANAGERID');
+      } else {
+        callback();
+        this.errorManager = '';
       }
-    },
-    methods: {
-      getContractNumber() {
-        for(let h = 0 ; h < this.tableAnt.length; h ++){
-          this.$store
-            .dispatch('PFANS5001Store/selectConnumList', {'contractnumbercount_id': this.tableAnt[h]})
-            .then(response => {
-              if (response.claimdatetimeqh !== '' && response.claimdatetimeqh !== null) {
-                let claimdatetime = response.claimdatetimeqh;
-                let claimdatetim = claimdatetime.slice(0, 10);
-                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                response.claimdatetimeqh = [claimdatetim, claimdatetime1];
-              }
-
-              this.tableD[h].deliveryfinshdate = response.deliveryfinshdate,
-                this.tableD[h].claimtype = response.claimtype,
-                this.tableD[h].contractrequestamount = response.claimamount,
-                this.tableD[h].contract = response.contractnumber,
-                this.tableD[h].workinghours = response.claimdatetimeqh
-
-            });
-        }
-      },
-      //ADD-WS-合同分配金额不能大于合同分配金额
-      changeRMB(row){
-        this.checkmessage = 0;
-        if(row.contractrequestamount<row.contractamount){
-          this.checkmessage = 1;
-          Message({
-            message: this.$t('label.PFANS5001FORMVIEW_CHECKERRORMESSAGE'),
-            type: 'error',
-            duration: 5 * 1000,
-          });
-        }
-      },
-      //ADD-WS-合同分配金额不能大于合同分配金额
-      //项目体制(外协)
-      addRow2() {
-        this.tableC.push({
-          projectsystem_id: '',
-          companyprojects_id: '',
-          type: '1',
-          number: '',
-          company: '',
-          name: '',
-          //add_qhr_20210810 添加rank、报告者字段
-          rank: '',
-          reporter: '',
-          suppliernameid: '',
-          position: '',
-          admissiontime: '',
-          exittime: '',
-          rowindex: '',
-          updOrinsflg:'0',//区分修改还是新建
-        });
-      },
-      // 体制-社外
-      deleteRow2(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableC = [
-            {
-              projectsystem_id: '',
-              companyprojects_id: '',
-              type: '1',
-              number: '',
-              company: '',
-              name: '',
-              //add_qhr_20210810 添加rank、报告者字段
-              rank: '',
-              reporter: '',
-              position: '',
-              admissiontime: '',
-              exittime: '',
-              rowindex: '',
-              updOrinsflg:'0',//区分修改还是新建
-            },
-          ];
-        }
-      },
-      setPl({row, column, rowIndex, columnIndex}) {
-        if (row.position.toUpperCase() === 'PL') {
-          return 'PlStyles';
-        }
-      },
-      checkRequire() {
-        if (
-          !this.form.center_id ||
-          !this.form.group_id ||
-          !this.form.project_name ||
-          !this.form.project_namejp ||
-          !this.form.leaderid ||
-          !this.form.managerid ||
-          !this.form.projecttype ||
-          !this.form.field ||
-          !this.form.languages ||
-          !this.form.startdate ||
-          !this.form.enddate ||
-          !this.form.work ||
-          !this.form.deadline
-        ) {
-          this.activeName = 'first';
-        }
-      },
-      // setdisabled(val) {
-      //   if (this.$route.params.disabled) {
-      //     this.disabled = val;
-      //   }
-      // },
-      // workflowState(val) {
-      //   if (val.state === '1') {
-      //     this.form.status = '6';
-      //   } else if (val.state === '2') {
-      //     this.form.status = '4';
-      //   }
-      //   this.buttonClick('update');
-      // },
-      // start() {
-      //   this.form.status = '5';
-      //   this.buttonClick('update');
-      // },
-      // end() {
-      //   this.form.status = '4';
-      //   this.buttonClick('update');
-      // },
-      addRow3() {
-        this.tableD.push({
-          contractnumbercount_id: '',
-          //add-ws-6/9-禅道任务080
-          deliveryfinshdate: '',
-          claimtype: '',
-          //add-ws-6/9-禅道任务080
-          projectcontract_id: '',
-          companyprojects_id: '',
-          //add-ws-合同关联项目，分配金额
-          contractrequestamount: '',
-          contractamount: '',
-          //add-ws-合同关联项目，分配金额
-          contract: '',
-          theme: '',
-          workinghours: '',
-          rowindex: '',
-          type: '1',
-        });
-      },
-      deleteRow3(index, rows) {
-        if (rows.length > 1) {
-          for (let i = 0; i < this.tablecompound.length; i++) {
-              if (this.tablecompound[i].contractnumber === rows[index].contract) {
-                  this.tablecompound.splice(i, 1);
-              }
-          }
-          rows.splice(index, 1);
-        } else {
-          this.tablecompound = [];
-          this.displaycompound = false;
-          this.tableD = [
-            {
-              contractnumbercount_id: '',
-              //add-ws-6/9-禅道任务080
-              deliveryfinshdate: '',
-              claimtype: '',
-              //add-ws-6/9-禅道任务080
-              projectcontract_id: '',
-              companyprojects_id: '',
-              //add-ws-合同关联项目，分配金额
-              contractrequestamount: '',
-              contractamount: '',
-              //add-ws-合同关联项目，分配金额
-              contract: '',
-              theme: '',
-              workinghours: '',
-              rowindex: '',
-              type: '1',
-            },
-          ];
-        }
-      },
-      //ADD gbb 07-16 ,内采项目在现场管理中不显示合同
-      addRowClaim() {
-        this.tableclaimtype.push({
-          claimtype: '',
-          deliverydate: '',
-          completiondate: '',
-          claimdate: '',
-          supportdate: '',
-          claimamount: '',
-        });
-      },
-      //合同
-      deleteRowClaim(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableclaimtype = [{
-            claimtype: '',
-            deliverydate: '',
-            completiondate: '',
-            claimdate: '',
-            supportdate: '',
-            claimamount: '',
-          }];
-        }
-      },
-      //ADD gbb 07-16 ,内采项目在现场管理中不显示合同 END
-      getcontract() {
-        // 项目dialog 体制 合同优化添加分页 ztc fr
-        // this.contractapplication = {
-        //   state: '有效' //只获取审批状态为有效的合同
-        // };
-        // this.contractapplication.entrycondition = [];
-        // this.contractapplication.entrycondition = 'HT004007';//契約締結完了
-        let params = {
-          currentPage: this.listQueryCont.currentPage,
-          pageSize: this.listQueryCont.pageSize,
-        }
-        this.$store
-          .dispatch('PFANS1026Store/getforContDiaLog', params)
-          .then(response => {
-            this.gridData3 = [];
-            // this.compounddata = [];
-            for (let i = 0; i < response.resultList.length; i++) {
-              if (response.resultList[i].claimdatetime !== '' && response.resultList[i].claimdatetime !== null && response.resultList[i].claimdatetime !== undefined) {
-                let claimdatetime = response.resultList[i].claimdatetime;
-                let claimdatetim = claimdatetime.slice(0, 10);
-                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                response.resultList[i].claimdatetime = [claimdatetim + ' ~ ' + claimdatetime1];
-
-                response.resultList[i].entrypayment = [claimdatetim, claimdatetime1];
-
-              }
-              //resign  add  scc  20200202  选择合同页面显示合同时间 from
-            else if (response.resultList[i].contractdate !== '' && response.resultList[i].contractdate !== null && response.resultList[i].contractdate !== undefined){
-                let contractdate = response.resultList[i].contractdate;
-                let contractdate_st_end = contractdate.split('~');
-                response.resultList[i].claimdatetime = [contractdate_st_end[0] + '~' + contractdate_st_end[1]];
-              }
-              //end resign  add  scc  20200202  选择合同页面显示合同时间 to
-              var vote2 = {};
-              vote2.contract = response.resultList[i].contractnumber;
-              vote2.deployment = response.resultList[i].deployment;
-              vote2.entrypayment = response.resultList[i].entrypayment;
-              vote2.contracttype = getDictionaryInfo(
-                response.resultList[i].contracttype,
-              ).value1;
-              vote2.applicationdate = moment(
-                response.resultList[i].applicationdate,
-              ).format('YYYY-MM-DD');
-              vote2.state = response.resultList[i].state;
-              vote2.claimdatetime = response.resultList[i].claimdatetime;
-              //add-ws-5/11-合同请求金额数据赋值
-              vote2.claimamount = response.resultList[i].claimamount;
-              //add-ws-5/11-合同请求金额数据赋值
-              this.gridData3.push(vote2);
-            }
-            // this.compounddata = response.contractcompound;
-            this.totalCont = response.total;
-          })
-          // 项目dialog 体制 合同优化添加分页 ztc to
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-          });
-      },
-      handleClickChange2(val) {
-        //add-ws-5/11-合同请求金额数据赋值
-        this.claimamount = val.claimamount;
-        //add-ws-5/11-合同请求金额数据赋值
-        this.currentRow = val.contract;
-        this.themeRow = val.theme;
-        //add-ws-5/11-合同请求期间数据赋值
-        this.workinghoursRow = val.entrypayment;
-        //add-ws-5/11-合同请求期间数据赋值
-      },
-      //add-ws-6/9-禅道任务080
-      //根据合同号查询合同期间 scc
-      findCon(){
-        if(this.contra.length > 0) {
-          //获取合同号字符串 scc
-          let contra = "";
-          for (let i = 0; i < this.contra.length; i++) {
-            if (i === this.contra.length - 1) {
-              contra += this.contra[i];
-            } else {
-              contra += this.contra[i] + ",";
-            }
-          }
-          //获取合同号字符串 scc
-          //后台请求合同号对应的合同期间 scc
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS1026Store/getContranumber', {'contra': contra})
-            .then(response => {
-              this.time = [];
-              if (response.length > 0) {
-                for (let i = 0; i < response.length; i++) {
-                  this.time[i] = response[i];
-                }
-              }
-            });
-          this.loading = false;
-        }else{
-          this.time = [];
-        }
-        //后台请求合同号对应的合同期间 scc
-      },
-      //根据合同号查询合同期间 scc
-      changecontract(row) {
-        // 项目dialog 体制 合同优化添加分页 ztc fr
-        this.getcontract();
-        // 项目dialog 体制 合同优化添加分页 ztc to
-        let table = this.tableD;
-        let check = [];
-        let checktable = 0;
-        let checktable1 = 0;
-        this.dialogTableVisible3 = true;
-        this.contra = [];
-        //获取当前表中已有合同 scc
-        for(let i = 0; i < this.tableD.length; i++){
-          if(!this.tableD[i].contract){
-            continue;
-          }
-          //合同号去重 scc
-          this.contra = this.contra.filter(item => item != this.tableD[i].contract);
-          this.contra[this.contra.length] = this.tableD[i].contract;
-          //合同号去重 scc
-        }
-        this.findCon();
-        //获取当前表中已有合同 scc
-        for (let a = 0; a < table.length; a++) {
-          if (row.contract != '') {
-            if (table[a].contract != row.contract) {
-              checktable1 = checktable1+1
-              check.push({
-                contractnumbercount_id: table[a].contractnumbercount_id,
-                deliveryfinshdate: table[a].deliveryfinshdate,
-                claimtype: table[a].claimtype,
-                contract: table[a].contract,
-                theme: table[a].theme,
-                workinghours: table[a].workinghours,
-                contractrequestamount: table[a].contractrequestamount,
-                contractamount: table[a].contractamount,
-              });
-            } else {
-              checktable = checktable + 1;
-            }
-          }
-        }
-        if (checktable === this.tableD.length) {
-          this.tableD = [{
-            contractnumbercount_id: '',
-            deliveryfinshdate: '',
-            claimtype: '',
-            projectcontract_id: '',
-            companyprojects_id: '',
-            contract: '',
-            theme: '',
-            workinghours: '',
-            contractrequestamount: '',
-            contractamount: '',
-            rowindex: '',
-          }];
-        }else{
-          if(checktable1!=0){
-            this.tableD = check
-          }
-        }
-      },
-      //add-ws-6/9-禅道任务080
-      submit2(row) {
-        //add-ws-6/9-禅道任务080
-        let table = [];
-        let tabled = [];
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1026Store/get2', {'contractnumber': this.currentRow})
-          .then(response => {
-            let contractnumbercount = response.contractnumbercount;
-            //判断此次选中合同中的回数 scc
-            var intercept = response.contractnumbercount.length;
-            //判断此次选中合同中的回数 scc
-            if (contractnumbercount.length > 0) {
-              for (let i = 0; i < contractnumbercount.length; i++) {
-                  if (contractnumbercount[i].claimdatetimeqh !== '' && contractnumbercount[i].claimdatetimeqh !== null && contractnumbercount[i].claimdatetimeqh !== undefined) {
-                  let claimdatetime = contractnumbercount[i].claimdatetimeqh;
-                  let claimdatetim = claimdatetime.slice(0, 10);
-                  let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                  contractnumbercount[i].claimdatetimeqh = [claimdatetim, claimdatetime1];
-                }
-                table.push({
-                  contractnumbercount_id: contractnumbercount[i].contractnumbercount_id,
-                  deliveryfinshdate: contractnumbercount[i].deliverydate,
-                  claimtype: contractnumbercount[i].claimtype,
-                  contract: this.currentRow,
-                  theme: this.themeRow,
-                  workinghours: contractnumbercount[i].claimdatetimeqh,
-                  contractrequestamount: contractnumbercount[i].claimamount,
-                  contractamount: '',
-                });
-              }
-              tabled = this.tableD;
-              this.tableD = tabled.concat(table);
-            }
-            //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
-            let contradeta = response.contractapplication;
-            if(contradeta.length > 0){
-              let timec = "";
-              //如果合同没有contractdate，取claimdatetime scc
-              if(contradeta[0].contractdate) {
-                timec = contradeta[0].contractdate;//字符串
-              }else{
-                timec = contradeta[0].claimdatetime;//字符串
-              }
-              //如果合同没有contractdate，取claimdatetime scc
-              //如果存在延止日期，延长合同期限至延止日期 scc
-              let extensdate = contradeta[0].extensiondate;
-              if(extensdate){
-                let time1 = timec.split('~');//数组
-                this.nowtime = time1[0] + "~" + extensdate;
-              } else{
-                this.nowtime = timec;
-              }
-            }
-            //如果存在延止日期，延长合同期限至延止日期 scc
-            //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
-            if (this.nowtime) {
-              var areatime = this.nowtime.split('~');
-              var opentime = areatime[0];
-              var closetime = areatime[1];
-              //当前选中合同日期转成时间对象 scc
-              var date1 = new Date(opentime);
-              var date2 = new Date(closetime);
-              //当前选中合同日期转成时间对象 scc
-            }
-            if(this.time.length > 0) {
-              for (let i = 0; i < this.time.length; i++) {
-                let contra = this.time[i].split("~");
-                //每条合同的时间点 scc
-                let date3 = new Date(contra[0]);
-                let date4 = new Date(contra[1]);
-                //判断新添加合同的两个时间点，在不在已有合同回数时间的区间内 scc
-                let e1 = ((date1.getTime() > date3.getTime() && date1.getTime() < date4.getTime()) || (date2.getTime() > date3.getTime() && date2.getTime() < date4.getTime()));
-                //判断新添加合同的两个时间点，与已有合同回数的时间点是否重合 scc
-                let e2 = (date1.getTime() === date3.getTime() || date1.getTime() === date4.getTime() || date2.getTime() === date3.getTime() || date2.getTime() === date4.getTime());
-                //判断新添加合同的两个时间点，是不是包含或者被包含于已有合同回数时间 scc
-                let e3 = ((date1.getTime() < date3.getTime() && date2.getTime() > date4.getTime()));
-                //判断上述条件是否为真 scc
-                let e4 = (e1 || e2 || e3);
-                //提示错误信息 scc
-                if (e4) {
-                  Message({
-                    message: this.$t('normal.info_27'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.tableD.splice(this.tableD.length - intercept, intercept);
-                  break;
-                }
-                //提示错误信息 scc
-              }
-            }
-            this.loading = false;
-          });
-        for (let a = 0; a < this.tableD.length; a++) {
-          if (this.tableD[a].contract === '') {
-            this.tableD.splice(a, 1);
-          }
-        }
-        //add-ws-6/9-禅道任务080
-        this.dialogTableVisible3 = false;
-        //region复合合同金额分配
-        //   if (this.compounddata.length > 0) {
-        //       let dic = this.compounddata.filter(item => item.contractnumber === row.contract
-        //           && item.group_id === this.form.group_id);
-        //       let claimamount = 0;
-        //       for (let dtem of dic) {
-        //           //add-ws-合同关联项目，分配金额
-        //           claimamount = claimamount + Number(dtem.contractrequestamount);
-        //           this.tablecompound.push({
-        //               contractnumber: dtem.contractnumber,
-        //               claimtype: dtem.claimtype,
-        //               claimamount: dtem.claimamount,
-        //               contractrequestamount: dtem.contractrequestamount,
-        //           });
-        //       }
-        //       if (this.tablecompound.length > 0) {
-        //           row.contractrequestdeleteRow3amount = claimamount;
-        //           this.displaycompound = true;
-        //       }
-        //   }
-        //endregion
-      },
-      deleteRow1(index, rows) {
-        //add-ws-当体制仅有一条删除清空数据项
-        if (index === 1) {
-          rows[1].name = '';
-          rows[1].position = '';
-          rows[1].admissiontime = '';
-          rows[1].exittime = '';
-          //add_qhr_20210810 添加rank、报告者字段
-          rows[1].rank = '';
-          rows[1].reporter = '';
-        }
-        //add-ws-当体制仅有一条删除清空数据项
-        if (rows.length > 2) {
-          rows.splice(index, 1);
-        }
-      },
+    };
+    var checkcenter = (rule, value, callback) => {
+      if (!value || value === '') {
+        this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
+        return callback(
+          new Error(this.$t('normal.error_09') + this.$t('label.center')),
+        );
+      } else {
+        this.errorcenter = '';
+        return callback();
+      }
+    };
+    var checkgroup = (rule, value, callback) => {
+      if (!value || value === '') {
+        this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+        return callback(
+          new Error(this.$t('normal.error_09') + this.$t('label.group')),
+        );
+      } else {
+        this.errorgroup = '';
+        return callback();
+      }
+    };
+    return {
       // 项目dialog 体制 合同优化添加分页 ztc fr
-      dialogSys(){
-        this.dialogTableVisible1 = true;
-        this.getexpatriatesinfor();
+      listQuerySys: {
+        currentPage: 1,
+        pageSize: 20,
       },
+      listQueryCont: {
+        currentPage: 1,
+        pageSize: 50,
+      },
+      totalSysm: 0,
+      totalCont: 0,
       // 项目dialog 体制 合同优化添加分页 ztc to
-      addRow1() {
-        this.tableB.push({
+      tableclaimtype: [{
+        claimtype: '',
+        deliverydate: '',
+        completiondate: '',
+        claimdate: '',
+        supportdate: '',
+        claimamount: 0,
+      }],
+      currentRow5: '',
+      //add_qhr_20210810 添加rank、报告者字段
+      currentRow9: '',
+      adddisabled: false,
+      disable: true,
+      //合同时间check
+      time: [],
+      contra: [],
+      nowtime: '',
+      //合同时间check
+      centerorglist: '',
+      grouporglist: '',
+      claimamount: '',
+      teamorglist: '',
+      userlist: '',
+      userlist1: '',
+      dialogTableVisible3: false,
+      loading: false,
+      errorLeader: '',
+      errorManager: '',
+      errorcenter: '',
+      errorgroup: '',
+      errorexpname: '',
+      checkmessage: '',
+      search: '',
+      gridData1: [],
+      customerinfor: [],
+      checkList: [],
+      expatriates: [],
+      selectType: 'Single',
+      activeName: 'first',
+      activeName2: 'first',
+      title: 'title.PFANS5009VIEW',
+      buttonList: [],
+      currentRow: '',
+      currentRow1: '',
+      currentRow2: '',
+      currentRow3: '',
+      tabIndex: 0,
+      multiple1: false,
+      multiple: false,
+      //主页
+      form: {
+        center_id: '',
+        group_id: '',
+        team_id: '',
+        project_name: '',
+        project_namejp: '',
+        leaderid: '',
+        managerid: '',
+        projecttype: '',
+        field: '',
+        languages: '',
+        startdate: moment(new Date()).format('YYYY-MM-DD'),
+        toolstype: '',
+        enddate: '',
+        work: '',
+        deadline: moment(new Date()).format('YYYY-MM-DD'),
+      },
+
+      //阶段信息
+      tableP: [
+        {
+          companyprojects_id: '',
+          stageinformation_id: '',
+          phase: '',
+          stageproduct: '',
+          productstatus: '',
+          estimatedwork: '',
+          actualwork: '',
+          estimatedstarttime: '',
+          estimatedendtime: '',
+          month: '',
+          remarks: '',
+          actualstarttime: '',
+          actualendtime: '',
+          product: '',
+          rowindex: '',
+          showrow: true,
+          showrow1: false,
+          showrow2: false,
+          showrow3: false,
+        },
+      ],
+
+      //项目体制  社内
+      tableB: [
+        {
           projectsystem_id: '',
           companyprojects_id: '',
           type: '0',
@@ -2358,717 +1450,1622 @@
           admissiontime: '',
           exittime: '',
           rowindex: '',
-          updOrinsflg:'0',//区分修改还是新建
-        });
-      },
-      getUserids(val) {
-        this.tableB[0].name = val;
-        this.userlist = val;
-        this.form.leaderid = val;
-        let lst = getOrgInfoByUserId(val);
-        this.tableB.number = lst.number;
-        this.tableB.position = lst.post;
-        if (
-          !this.form.leaderid ||
-          this.form.leaderid === '' ||
-          val === 'undefined'
-        ) {
-          this.errorLeader =
-            this.$t('normal.error_08') +
-            this.$t('label.PFANS5001FORMVIEW_LEADERID');
-        } else {
-          this.errorLeader = '';
-        }
-      },
+          updOrinsflg: '1',//区分修改还是新建
+        },
+      ],
 
-      getUserids1(val) {
-        this.tableB[1].name = val;
-        this.userlist1 = val;
-        this.form.managerid = val;
-        if (
-          !this.form.managerid ||
-          this.form.managerid === '' ||
-          val === 'undefined'
-        ) {
-          this.errorManager =
-            this.$t('normal.error_08') +
-            this.$t('label.PFANS5001FORMVIEW_MANAGERID');
-        } else {
-          this.errorManager = '';
-        }
-      },
-      getCenterId(val) {
-        this.form.center_id = val;
-        this.centerorglist = val;
-        if (
-          !this.form.center_id ||
-          this.form.center_id === '' ||
-          val === 'undefined'
-        ) {
-          this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
-        } else {
-          this.errorcenter = '';
-        }
-      },
-      getGroupId(val) {
-        this.form.group_id = val;
-        this.grouporglist = val;
-        if (
-          !this.form.group_id ||
-          this.form.group_id === '' ||
-          val === 'undefined'
-        ) {
-          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
-        } else {
-          this.errorgroup = '';
-        }
-      },
-      getTeamId(val) {
-        this.form.team_id = val;
-        this.teamorglist = val;
-      },
-      submit(row) {
-        row.number = this.currentRow;
-        row.name = this.currentRow1;
-        row.company = this.currentRow2;
-        row.suppliernameid = this.currentRow3;
-        //add-ws-数据库id存的是name名，外协关联修改
-        row.name_id = this.currentRow5;
-        //add-ws-数据库id存的是name名，外协关联修改
-        //add_qhr_20210810 添加rank、报告者字段
-        row.rank = getDictionaryInfo(this.currentRow9).value1;
-        this.dialogTableVisible1 = false;
-      },
-      handleClickChange(val) {
-        this.currentRow = val.number;
-        //add-ws-数据库id存的是name名，外协关联修改
-        this.currentRow1 = val.account;
-        //add-ws-数据库id存的是name名，外协关联修改
-        this.currentRow2 = val.suppliername;
-        this.currentRow3 = val.supplierinfor_id;
-        this.currentRow5 = val.expname;
-        //add_qhr_20210810 添加rank、报告者字段
-        // 项目dialog 体制 合同优化添加分页 ztc fr
-        this.currentRow9 = val.rn;
-        // 项目dialog 体制 合同优化添加分页 ztc to
-      },
-      addRow() {
-        this.tableA.push({
+      //项目体制  社外
+      tableC: [
+        {
+          projectsystem_id: '',
+          companyprojects_id: '',
+          type: '1',
+          name_id: '',
+          number: '',
+          company: '',
+          name: '',
+          position: '',
+          admissiontime: '',
+          exittime: '',
+          rowindex: '',
+          updOrinsflg: '1',//区分修改还是新建
+        },
+      ],
+
+      //工时统计
+      tableA: [
+        {
           stageinformation_id: '',
           companyprojects_id: '',
           month: '',
           estimatedwork: '',
           actualwork: '',
           rowindex: '',
-        });
-      },
-      deleteRow(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableA = [
-            {
-              stageinformation_id: '',
-              companyprojects_id: '',
-              month: '',
-              estimatedwork: '',
-              actualwork: '',
-              rowindex: '',
-            },
-          ];
-        }
-      },
-      getCitationUserid(userlist, row) {
-        //upd ccm 20210817 現場管理刪除姓名時清空rank和職務 fr
-        // row.name = userlist;
-        // if (row.name != null && row.name !== '') {
-        //   let lst = getUserInfo(row.name);
-        //   //region add_qhr_20210810 添加rank、报告者字段
-        //   row.position = getDictionaryInfo(lst.userinfo.post).value1;
-        //   row.number = lst.userinfo.jobnumber;
-        //   row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
-        //   //endregion add_qhr_20210810 添加rank、报告者字段
-        // }
-        if (userlist !='') {
-          // 可以进行重复选择，只需要做进组退组时间不重复的check ztc fr
-          // if (this.tableB.filter(item => item.name === userlist).length === 0) {
-            row.name = userlist;
-            if (row.name != null && row.name !== '') {
-              let lst = getUserInfo(row.name);
-              row.position = getDictionaryInfo(lst.userinfo.post).value1;
-              row.number = lst.userinfo.jobnumber;
-              row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
-            }
-          // }
-          // 可以进行重复选择，只需要做进组退组时间不重复的check ztc to
-        }
-        else
-        {
-          row.name = null;
-          row.position = '';
-          row.rank ='';
-        }
-        //upd ccm 20210817 現場管理刪除姓名時清空rank和職務 to
-      },
-      //add_qhr_20210810 添加rank、报告者字段
-      getReporter(userlist, row) {
-        //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check fr
-        row.reporter = userlist;
-        if (userlist!=null && userlist !='' && userlist !=undefined)
-        {
-          if(this.tableB.filter(item => item.name === userlist).length === 0)
-          {
-            if (row.type === '0')
-            {
-              Message({
-                message: this.$t(row.name == null || row.name == '' ? '': getUserInfo(row.name).userinfo.customername)
-                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
-            else
-            {
-              Message({
-                message: this.$t(row.name_id || '')
-                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
-          }
-        }
-        //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check to
-      },
-      getcustomer(val) {
-        this.result1.forEach(res => {
-          if (res.customerinfor_id === val) {
-            this.form.representative = res.liableperson;
-          }
-        });
-      },
-      getexpatriatesinfor() {
-        // 项目dialog 体制 合同优化添加分页 ztc fr
-        let params = {
-          currentPage: this.listQuerySys.currentPage,
-          pageSize: this.listQuerySys.pageSize,
-        }
-        this.$store
-          .dispatch('PFANS6004Store/getforSysDiaLog', params)
-          .then(response => {
-            this.gridData1 = [];
-            this.gridData1 = response.resultList;
-            this.totalSysm = response.total;
-            this.centerorglist = this.form.center_id;
-            this.grouporglist = this.form.group_id;
-            this.teamorglist = this.form.team_id;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
-      handleSizeChangeSys(val) {
-        this.listQuerySys.pageSize = val;
-        this.getexpatriatesinfor();
-      },
-      handleCurrentChangeSys(val) {
-        this.listQuerySys.currentPage = val;
-        this.getexpatriatesinfor();
-      },
-      handleSizeChangeCont(val) {
-        this.listQueryCont.pageSize = val;
-        this.getcontract();
-      },
-      handleCurrentChangeCont(val) {
-        this.listQueryCont.currentPage = val;
-        this.getcontract();
-      },
-      // 项目dialog 体制 合同优化添加分页 ztc to
-      // getrole(val, row) {
-      //   row.phase = val;
-      //   row.stageproduct = '';
-      //   if (val === '') {
-      //     row.showrow = true;
-      //     row.showrow1 = false;
-      //     row.showrow2 = false;
-      //     row.showrow3 = false;
-      //   } else if (val === 'PP012001') {
-      //     row.showrow = false;
-      //     row.showrow1 = true;
-      //     row.showrow2 = false;
-      //     row.showrow3 = false;
-      //   } else if (val === 'PP012002') {
-      //     row.showrow = false;
-      //     row.showrow1 = false;
-      //     row.showrow2 = true;
-      //     row.showrow3 = false;
-      //   } else if (val === 'PP012003') {
-      //     row.showrow = false;
-      //     row.showrow1 = false;
-      //     row.showrow2 = false;
-      //     row.showrow3 = true;
-      //   }
-      // },
-      getrole1(val, row) {
-        row.stageproduct = val;
-      },
-      getProduct(row) {
-        if (row.product === '1') {
-          row.productstatus = this.$t('label.PFANS5009FORMVIEW_SUBMITTED');
-        } else {
-          row.productstatus = this.$t('label.PFANS5009FORMVIEW_NOTSUBMITTED');
-        }
-      },
-      getArea(val) {
-        this.form.field = val;
-      },
-      getType(val) {
-        this.form.projecttype = val;
-      },
-      getcountry(val1) {
-        this.form.country = val1;
-      },
-      getcaron(val1) {
-        this.form.caron = val1;
-      },
-      getworkinghours(workinghours) {
-        if (workinghours != null) {
-          if (workinghours.length > 0) {
-            return (
-              moment(workinghours[0]).format('YYYY-MM-DD') +
-              ' ~ ' +
-              moment(workinghours[1]).format('YYYY-MM-DD')
-            );
-          } else {
-            return '';
-          }
-        } else {
-          return '';
-        }
-      },
-      buttonClick(val) {
+        },
+      ],
 
-        //NT_PFANS_20210304_BUG_053  保存时，提示实际开始时间不能大于实际结束时间。
-        if (moment(this.form.startdate).format("YYYY-MM-DD") > moment(this.form.enddate).format("YYYY-MM-DD")) {
-          Message({
-            message: this.$t('label.PFANS5009FORMVIEW_CHECKDATE'),
+      //合同
+      tableD: [
+        {
+          contractnumbercount_id: '',
+          //add-ws-6/9-禅道任务080
+          deliveryfinshdate: '',
+          claimtype: '',
+          //add-ws-6/9-禅道任务080
+          projectcontract_id: '',
+          companyprojects_id: '',
+          contract: '',
+          theme: '',
+          //add-ws-合同关联项目，分配金额
+          contractrequestamount: '',
+          contractamount: '',
+          //add-ws-合同关联项目，分配金额
+          workinghours: '',
+          rowindex: '',
+          type: '0',
+        },
+      ],
+      //合同分配金额
+      tablecompound: [],
+      data: [],
+      tableAnt: [],
+      gridData3: [],
+      // 项目dialog 体制 合同优化添加分页 ztc fr
+      // compounddata: [],
+      // 项目dialog 体制 合同优化添加分页 ztc to
+      displaycompound: false,
+      code: 'PP001',
+      code1: 'PJ063',
+      code2: 'PP013',
+      code3: 'PP014',
+      code4: 'PP015',
+      code5: 'PP012',
+      code6: 'PJ141',
+      code7: 'PP021',
+      showrow: true,
+      showrow1: false,
+      showrow2: false,
+      showrow3: false,
+      disabled: true,
+      menuList: [],
+      baseInfo: {},
+      dialogTableVisible1: false,
+      rules: {
+        center_id: [
+          {
+            required: true,
+            validator: checkcenter,
+            trigger: 'change',
+          },
+        ],
+        group_id: [
+          {
+            required: true,
+            validator: checkgroup,
+            trigger: 'change',
+          },
+        ],
+        project_name: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5009FORMVIEW_NAME1'),
+            trigger: 'blur',
+          },
+        ],
+        project_namejp: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5009FORMVIEW_NAME2'),
+            trigger: 'blur',
+          },
+        ],
+        leaderid: [
+          {
+            required: true,
+            validator: validateUserid,
+            trigger: 'change',
+          },
+        ],
+        managerid: [
+          {
+            required: true,
+            validator: validateUserid1,
+            trigger: 'change',
+          },
+        ],
+        projecttype: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_09') +
+              this.$t('label.PFANS5009FORMVIEW_TYPE'),
+            trigger: 'change',
+          },
+        ],
+        field: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_09') +
+              this.$t('label.PFANS5009FORMVIEW_AREA'),
+            trigger: 'change',
+          },
+        ],
+        languages: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5009FORMVIEW_LANGUAGE'),
+            trigger: 'blur',
+          },
+        ],
+        startdate: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_09') +
+              this.$t('label.PFANS5009FORMVIEW_STARTTIME'),
+            trigger: 'change',
+          },
+        ],
+        enddate: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_09') +
+              this.$t('label.PFANS5009FORMVIEW_ENDTIME'),
+            trigger: 'change',
+          },
+        ],
+        work: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5009FORMVIEW_WORK'),
+            trigger: 'blur',
+          },
+        ],
+        deadline: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_09') +
+              this.$t('label.PFANS5009FORMVIEW_DEADLINE'),
+            trigger: 'change',
+          },
+        ],
+      },
+    };
+  },
+  mounted() {
+    if (this.$route.params._id) {
+      // this.disable = this.$route.params.disabled;
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS5009Store/selectById', {
+          companyprojectsid: this.$route.params._id,
+        })
+        .then(response => {
+          this.form = response.companyprojects;
+          this.userlist = this.form.leaderid;
+          this.userlist1 = this.form.managerid;
+          this.centerorglist = this.form.center_id;
+          this.grouporglist = this.form.group_id;
+          this.teamorglist = this.form.team_id;
+          if (response.stageinformation.length > 0) {
+            this.tableP = [];
+            //阶段信息
+            for (let h = 0; h < response.stageinformation.length; h++) {
+              let o = {};
+              o.phase = response.stageinformation[h].phase;
+              o.stageproduct = response.stageinformation[h].stageproduct;
+              o.productstatus = response.stageinformation[h].productstatus;
+              o.estimatedwork = response.stageinformation[h].estimatedwork;
+              o.actualwork = response.stageinformation[h].actualwork;
+              o.estimatedstarttime =
+                response.stageinformation[h].estimatedstarttime;
+              o.estimatedendtime =
+                response.stageinformation[h].estimatedendtime;
+              o.remarks = response.stageinformation[h].remarks;
+              o.actualstarttime = response.stageinformation[h].actualstarttime;
+              o.actualendtime = response.stageinformation[h].actualendtime;
+              o.product = response.stageinformation[h].product;
+              this.tableP.push(o);
+            }
+          }
+          //项目合同
+          if (response.projectcontract.length > 0) {
+            let tabled = [];
+            for (var i = 0; i < response.projectcontract.length; i++) {
+              if (
+                response.projectcontract[i].workinghours !== '' &&
+                response.projectcontract[i].workinghours !== null
+              ) {
+                let claimdatetime = response.projectcontract[i].workinghours;
+                let claimdatetim = claimdatetime.slice(0, 10);
+                let claimdatetime1 = claimdatetime.slice(
+                  claimdatetime.length - 10,
+                );
+                response.projectcontract[i].workinghours = [
+                  claimdatetim,
+                  claimdatetime1,
+                ];
+              }
+
+              tabled.push({
+                contractnumbercount_id: response.projectcontract[i].contractnumbercount_id,
+                contractamount: response.projectcontract[i].contractamount,
+                theme: response.projectcontract[i].theme,
+                type: '0',
+              });
+            }
+            this.tableD = tabled;
+          }
+          if (response.projectcontract.length > 0) {
+            for (let p = 0; p < response.projectcontract.length; p++) {
+              this.tableAnt.push(response.projectcontract[p].contractnumbercount_id);
+            }
+            this.getContractNumber();
+          }
+          //ADD gbb 07-16 ,内采项目在现场管理中不显示合同
+          if (response.contractnumbercount.length > 0) {
+            this.tableclaimtype = response.contractnumbercount;
+          }
+          //ADD gbb 07-16 ,内采项目在现场管理中不显示合同 END
+          if (response.projectsystem.length > 0) {
+            //项目体制
+            this.tableB = [];
+            this.tableC = [];
+            for (var i = 0; i < response.projectsystem.length; i++) {
+              if (response.projectsystem[i].type === '0') {
+                let o = {};
+                o.name = response.projectsystem[i].projectsystem_id;
+                o.companyprojects_id =
+                  response.projectsystem[i].companyprojects_id;
+                o.type = response.projectsystem[i].type;
+                o.number = response.projectsystem[i].number;
+                o.company = response.projectsystem[i].company;
+                o.name = response.projectsystem[i].name;
+                //add_qhr_20210810 添加rank、报告者字段
+                o.rank = response.projectsystem[i].rank;
+                o.reporter = response.projectsystem[i].reporter;
+                o.position = response.projectsystem[i].position;
+                o.admissiontime = response.projectsystem[i].admissiontime;
+                o.exittime = response.projectsystem[i].exittime;
+                o.rowindex = response.projectsystem[i].rowindex;
+                o.updOrinsflg = '1';
+                this.tableB.push(o);
+              } else if (response.projectsystem[i].type === '1') {
+                if (response.projectsystem[i].name != '' || response.projectsystem[i].name != null) {
+                  let o = {};
+                  o.name = response.projectsystem[i].projectsystem_id;
+                  o.companyprojects_id =
+                    response.projectsystem[i].companyprojects_id;
+                  o.type = response.projectsystem[i].type;
+                  o.number = response.projectsystem[i].number;
+                  o.company = response.projectsystem[i].company;
+                  o.name = response.projectsystem[i].name;
+                  o.name_id = response.projectsystem[i].name_id;
+                  //add_qhr_20210810 添加rank、报告者字段
+                  o.rank = response.projectsystem[i].rank;
+                  o.reporter = response.projectsystem[i].reporter;
+                  o.position = response.projectsystem[i].position;
+                  o.admissiontime = response.projectsystem[i].admissiontime;
+                  o.exittime = response.projectsystem[i].exittime;
+                  o.rowindex = response.projectsystem[i].rowindex;
+                  o.updOrinsflg = '1';
+                  this.tableC.push(o);
+                }
+              }
+            }
+            //add-ws-修改判断tableC没数据的时候添加空行
+            if (this.tableC.length === 0) {
+              this.addRow2();
+            }
+            //add-ws-修改判断tableC没数据的时候添加空行
+          }
+          // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+          // this.baseInfo.stageInformation = JSON.parse(JSON.stringify(this.tableP));
+          this.loading = false;
+          //add-ws-修改判断tableB为一条的时候添加空行
+          let checktableb = 0;
+          for (var i = 0; i < this.tableB.length; i++) {
+            checktableb = checktableb + 1;
+          }
+          if (checktableb === 1) {
+            this.addRow1();
+          }
+          //add-ws-修改判断tableB为一条的时候添加空行
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
             type: 'error',
             duration: 5 * 1000,
           });
-          return;
-        }
-        this.form.leaderid = this.userlist;
-        this.form.managerid = this.userlist1;
-        this.checkRequire();
-        this.$refs['refform'].validate(valid => {
-          if (valid) {
-            this.loading = true;
-            this.baseInfo = {};
-            this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.stageinformation = [];
-            this.baseInfo.projectcontract = [];
-            this.baseInfo.projectsystem = [];
-            //add-ws-存在check关闭loading
-            if (this.checkmessage === 1) {
-              this.loading = false;
-              return;
+          this.loading = false;
+        });
+    } else {
+      this.userlist = this.$store.getters.userinfo.userid;
+      this.userlist1 = this.$store.getters.userinfo.userid;
+    }
+    this.$store.dispatch('PFANS5001Store/getcustomer', {}).then(response => {
+      for (let i = 0; i < response.length; i++) {
+        var vote = {};
+        this.result1 = response;
+        vote.value = response[i].customerinfor_id;
+        vote.label = response[i].custchinese;
+        this.customerinfor.push(vote);
+      }
+    });
+    // this.$store
+    //   .dispatch('PFANS5001Store/getexpatriatesinfor', {})
+    //   .then(response => {
+    //     for (let i = 0; i < response.length; i++) {
+    //       var vote = {};
+    //       this.result = response;
+    //       vote.value = response[i].expatriatesinfor_id;
+    //       vote.label = response[i].expname;
+    //       this.expatriates.push(vote);
+    //     }
+    //   });
+  },
+  created() {
+    if (this.$route.params._disto === '1') {
+      this.disabled = true;
+    } else {
+      this.disabled = this.$route.params.disabled;
+    }
+    this.adddisabled = this.$route.params.adddisabled;
+    if (this.disabled) {
+      this.buttonList = [
+        {
+          key: 'save',
+          name: 'button.save',
+          disabled: false,
+          icon: 'el-icon-check',
+        },
+      ];
+    }
+  },
+  methods: {
+    getContractNumber() {
+      for (let h = 0; h < this.tableAnt.length; h++) {
+        this.$store
+          .dispatch('PFANS5001Store/selectConnumList', {'contractnumbercount_id': this.tableAnt[h]})
+          .then(response => {
+            if (response.claimdatetimeqh !== '' && response.claimdatetimeqh !== null) {
+              let claimdatetime = response.claimdatetimeqh;
+              let claimdatetim = claimdatetime.slice(0, 10);
+              let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+              response.claimdatetimeqh = [claimdatetim, claimdatetime1];
             }
-            //add-ws-存在check关闭loading
-            for (let i = 0; i < this.tableD.length; i++) {
-              this.tableD[i].workinghours = this.getworkinghours(
-                this.tableD[i].workinghours,
-              );
-              if (
-                this.tableD[i].contract !== '' ||
-                this.tableD[i].theme !== '' ||
-                this.tableD[i].workinghours !== ''
-              ) {
-                this.baseInfo.projectcontract.push({
-                  contractnumbercount_id: this.tableD[i].contractnumbercount_id,
-                  //add-ws-6/9-禅道任务080
-                  deliveryfinshdate: this.tableD[i].deliveryfinshdate,
-                  claimtype: this.tableD[i].claimtype,
-                  //add-ws-6/9-禅道任务080
-                  //add-ws-合同关联项目，分配金额
-                  contractrequestamount: this.tableD[i].contractrequestamount,
-                  contractamount: this.tableD[i].contractamount,
-                  //add-ws-合同关联项目，分配金额
-                  contract: this.tableD[i].contract,
-                  theme: this.tableD[i].theme,
-                  workinghours: this.tableD[i].workinghours,
-                });
-              }
-            }
-            for (let i = 0; i < this.tableP.length; i++) {
-              if (
-                this.tableP[i].phase !== '' ||
-                this.tableP[i].stageproduct !== '' ||
-                this.tableP[i].productstatus !== '' ||
-                this.tableP[i].estimatedwork !== '' ||
-                this.tableP[i].actualwork !== '' ||
-                this.tableP[i].estimatedstarttime !== '' ||
-                this.tableP[i].estimatedendtime !== '' ||
-                this.tableP[i].remarks !== '' ||
-                this.tableP[i].actualstarttime !== '' ||
-                this.tableP[i].actualendtime !== '' ||
-                this.tableP[i].product !== ''
-              ) {
-                this.baseInfo.stageinformation.push({
-                  phase: this.tableP[i].phase,
-                  stageproduct: this.tableP[i].stageproduct,
-                  productstatus: this.tableP[i].productstatus,
-                  estimatedwork: this.tableP[i].estimatedwork,
-                  actualwork: this.tableP[i].actualwork,
-                  estimatedstarttime: this.tableP[i].estimatedstarttime,
-                  estimatedendtime: this.tableP[i].estimatedendtime,
-                  remarks: this.tableP[i].remarks,
-                  actualstarttime: this.tableP[i].actualstarttime,
-                  actualendtime: this.tableP[i].actualendtime,
-                  product: this.tableP[i].product,
-                });
-              }
-            }
-            //add-ws-01/16-禅道任务710
-            for (let i = 0; i < this.tableD.length; i++) {
-              // update gbb 20210316 NT_PFANS_20210305_BUG_124 分配金額大余0check start
-              if(this.tableD[i].contractamount === 0 && this.form.toolstype != '1'){
-                  this.activeName = 'fifth';
-                  Message({
-                      message: this.$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNTERROR'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                  return;
-              }
-              // update gbb 20210316 NT_PFANS_20210305_BUG_124 分配金額大余0check end
-              //theme 还未和合同关联 注掉
-              // for (let j = 1; j < this.tableD.length; j++) {
-              //   if (this.tableD[i].theme != this.tableD[j].theme) {
-              //     Message({
-              //       message: this.$t('label.PFANS5001FORMVIEW_PROJECTERROR'),
-              //       type: 'error',
-              //       duration: 5 * 1000,
-              //     });
-              //     this.activeName = 'fifth';
-              //     this.loading = false;
-              //     return;
-              //   }
-              // }
-              //theme 还未和合同关联 注掉
-            }
-            //add-ws-01/16-禅道任务710
-            for (let i = 0; i < this.tableB.length; i++) {
-              // 社内员工进组时间&退出时间必须Check
-              if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === '' || !this.tableB[i].exittime || this.tableB[i].exittime === '') && this.tableB[i].name !== '') {
-                this.activeName = 'third';
-                Message({
-                  message: this.$t('normal.error_pfans50011'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-                return;
-              }
-              if (
-                this.tableB[i].number !== '' ||
-                this.tableB[i].name !== '' ||
-                this.tableB[i].admissiontime !== '' ||
-                this.tableB[i].exittime !== ''
-              ) {
-                this.baseInfo.projectsystem.push({
-                  number: this.tableB[i].number,
-                  name: this.tableB[i].name,
-                  //add_qhr_20210810 添加rank、报告者字段
-                  rank: this.tableB[i].rank,
-                  reporter: this.tableB[i].reporter,
-                  type: this.tableB[i].type,
-                  company: this.tableB[i].company,
-                  position: this.tableB[i].position,
-                  admissiontime: this.tableB[i].admissiontime,
-                  exittime: this.tableB[i].exittime,
-                });
-              }
-            }
-            //ADD-WS-体制时间范围check
-            let error1 = 0;
-            //add-ws-6/9-禅道任务080
-            let error3 = 0;
-            let listsum = [];
-            let Listcheck = this.tableD;
-            for (let list of Listcheck) {
-              listsum = this.tableD.filter(item => item.contract == list.contract && item.claimtype == list.claimtype);
-            }
-            if(listsum.length>1){
-              error1 = error1 + 1;
-              this.activeName = 'fifth';
-              this.loading = false;
-              Message({
-                message: this.$t('label.PFANS5009FORMVIEW_CHECKLANGUAGE'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
-            //add-ws-6/9-禅道任务080
-            // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check start
-            for (let i = 0; i < this.tableP.length; i++) {
-                if (moment(this.tableP[i].actualstarttime).format('YYYY-MM-DD') > moment(this.tableP[i].actualendtime).format('YYYY-MM-DD')) {
-                    this.activeName = 'second';
-                    this.loading = false;
-                    error1 = error1 + 1;
-                    Message({
-                        message: this.$t('label.PFANS5009FORMVIEW_CHECKDATE'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                }
-            }
-            // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check end
-            for (let i = 0; i < this.tableB.length; i++) {
-              // update gbb 20210316 NT_PFANS_20210305_BUG_123 体制人员重复check start
-              // 可以进行重复选择，只需要做进组退组时间不重复的check ztc fr
-              // let num = 0;
-              // for (let j = 0; j < this.tableB.length; j++) {
-              //     if (this.tableB[i].name === this.tableB[j].name) {
-              //         num++;
-              //         if (num > 1) {
-              //             Message({
-              //                 message: this.$t(getUserInfo(this.tableB[i].name).userinfo.customername)
-              //                     + this.$t('label.PFANS5001FORMVIEW_CHECKDOUBLE'),
-              //                 type: 'error',
-              //                 duration: 5 * 1000,
-              //             });
-              //             this.activeName = 'third';
-              //             this.loading = false;
-              //             return;
-              //         }
-              //     }
-              // }
-              // 可以进行重复选择，只需要做进组退组时间不重复的check ztc to
-              //add ccm 20210825 体制报告者在体制中是否存在 fr
-              if(this.tableB[i].reporter!=null && this.tableB[i].reporter!='')
-              {
-                if (this.tableB.filter(item => item.name === this.tableB[i].reporter).length === 0)
-                {
-                  Message({
-                    message: this.$t(this.tableB[i].name == null || this.tableB[i].name == '' ? '': getUserInfo(this.tableB[i].name).userinfo.customername)
-                      + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.activeName = 'third';
-                  this.loading = false;
-                  return;
-                }
-              }
-              // update gbb 20210316 NT_PFANS_20210305_BUG_123 体制人员重复check end
-              if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
-                this.activeName = 'third';
-                this.loading = false;
-                error1 = error1 + 1;
-                Message({
-                  message: this.$t('label.PFANS5001FORMVIEW_CHECKDATAERRORN'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-              }
-            }
-            for (let i = 0; i < this.tableC.length; i++) {
-              //add ccm 20210825 体制报告者在体制中是否存在 fr
-              if(this.tableC[i].reporter!=null && this.tableC[i].reporter!='')
-              {
-                if (this.tableB.filter(item => item.name === this.tableC[i].reporter).length === 0)
-                {
-                  Message({
-                    message: this.$t(this.tableC[i].name_id || '')
-                      + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.activeName = 'third';
-                  this.loading = false;
-                  return;
-                }
-              }
-              //add ccm 20210825 体制报告者在体制中是否存在 to
 
-              if (moment(this.tableC[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableC[i].exittime).format('YYYY-MM-DD')) {
-                this.activeName = 'third';
-                this.loading = false;
-                error1 = error1 + 1;
-                Message({
-                  message: this.$t('label.PFANS5001FORMVIEW_CHECKDATAERRORW'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
+            this.tableD[h].deliveryfinshdate = response.deliveryfinshdate,
+              this.tableD[h].claimtype = response.claimtype,
+              this.tableD[h].contractrequestamount = response.claimamount,
+              this.tableD[h].contract = response.contractnumber,
+              this.tableD[h].workinghours = response.claimdatetimeqh;
+
+          });
+      }
+    },
+    //ADD-WS-合同分配金额不能大于合同分配金额
+    changeRMB(row) {
+      this.checkmessage = 0;
+      if (row.contractrequestamount < row.contractamount) {
+        this.checkmessage = 1;
+        Message({
+          message: this.$t('label.PFANS5001FORMVIEW_CHECKERRORMESSAGE'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+      }
+    },
+    //ADD-WS-合同分配金额不能大于合同分配金额
+    //项目体制(外协)
+    addRow2() {
+      this.tableC.push({
+        projectsystem_id: '',
+        companyprojects_id: '',
+        type: '1',
+        number: '',
+        company: '',
+        name: '',
+        //add_qhr_20210810 添加rank、报告者字段
+        rank: '',
+        reporter: '',
+        suppliernameid: '',
+        position: '',
+        admissiontime: '',
+        exittime: '',
+        rowindex: '',
+        updOrinsflg: '0',//区分修改还是新建
+      });
+    },
+    // 体制-社外
+    deleteRow2(index, rows) {
+      if (rows.length > 1) {
+        rows.splice(index, 1);
+      } else {
+        this.tableC = [
+          {
+            projectsystem_id: '',
+            companyprojects_id: '',
+            type: '1',
+            number: '',
+            company: '',
+            name: '',
+            //add_qhr_20210810 添加rank、报告者字段
+            rank: '',
+            reporter: '',
+            position: '',
+            admissiontime: '',
+            exittime: '',
+            rowindex: '',
+            updOrinsflg: '0',//区分修改还是新建
+          },
+        ];
+      }
+    },
+    setPl({row, column, rowIndex, columnIndex}) {
+      if (row.position.toUpperCase() === 'PL') {
+        return 'PlStyles';
+      }
+    },
+    checkRequire() {
+      if (
+        !this.form.center_id ||
+        !this.form.group_id ||
+        !this.form.project_name ||
+        !this.form.project_namejp ||
+        !this.form.leaderid ||
+        !this.form.managerid ||
+        !this.form.projecttype ||
+        !this.form.field ||
+        !this.form.languages ||
+        !this.form.startdate ||
+        !this.form.enddate ||
+        !this.form.work ||
+        !this.form.deadline
+      ) {
+        this.activeName = 'first';
+      }
+    },
+    // setdisabled(val) {
+    //   if (this.$route.params.disabled) {
+    //     this.disabled = val;
+    //   }
+    // },
+    // workflowState(val) {
+    //   if (val.state === '1') {
+    //     this.form.status = '6';
+    //   } else if (val.state === '2') {
+    //     this.form.status = '4';
+    //   }
+    //   this.buttonClick('update');
+    // },
+    // start() {
+    //   this.form.status = '5';
+    //   this.buttonClick('update');
+    // },
+    // end() {
+    //   this.form.status = '4';
+    //   this.buttonClick('update');
+    // },
+    addRow3() {
+      this.tableD.push({
+        contractnumbercount_id: '',
+        //add-ws-6/9-禅道任务080
+        deliveryfinshdate: '',
+        claimtype: '',
+        //add-ws-6/9-禅道任务080
+        projectcontract_id: '',
+        companyprojects_id: '',
+        //add-ws-合同关联项目，分配金额
+        contractrequestamount: '',
+        contractamount: '',
+        //add-ws-合同关联项目，分配金额
+        contract: '',
+        theme: '',
+        workinghours: '',
+        rowindex: '',
+        type: '1',
+      });
+    },
+    deleteRow3(index, rows) {
+      if (rows.length > 1) {
+        for (let i = 0; i < this.tablecompound.length; i++) {
+          if (this.tablecompound[i].contractnumber === rows[index].contract) {
+            this.tablecompound.splice(i, 1);
+          }
+        }
+        rows.splice(index, 1);
+      } else {
+        this.tablecompound = [];
+        this.displaycompound = false;
+        this.tableD = [
+          {
+            contractnumbercount_id: '',
+            //add-ws-6/9-禅道任务080
+            deliveryfinshdate: '',
+            claimtype: '',
+            //add-ws-6/9-禅道任务080
+            projectcontract_id: '',
+            companyprojects_id: '',
+            //add-ws-合同关联项目，分配金额
+            contractrequestamount: '',
+            contractamount: '',
+            //add-ws-合同关联项目，分配金额
+            contract: '',
+            theme: '',
+            workinghours: '',
+            rowindex: '',
+            type: '1',
+          },
+        ];
+      }
+    },
+    //ADD gbb 07-16 ,内采项目在现场管理中不显示合同
+    addRowClaim() {
+      this.tableclaimtype.push({
+        claimtype: '',
+        deliverydate: '',
+        completiondate: '',
+        claimdate: '',
+        supportdate: '',
+        claimamount: '',
+      });
+    },
+    //合同
+    deleteRowClaim(index, rows) {
+      if (rows.length > 1) {
+        rows.splice(index, 1);
+      } else {
+        this.tableclaimtype = [{
+          claimtype: '',
+          deliverydate: '',
+          completiondate: '',
+          claimdate: '',
+          supportdate: '',
+          claimamount: '',
+        }];
+      }
+    },
+    //ADD gbb 07-16 ,内采项目在现场管理中不显示合同 END
+    getcontract() {
+      // 项目dialog 体制 合同优化添加分页 ztc fr
+      // this.contractapplication = {
+      //   state: '有效' //只获取审批状态为有效的合同
+      // };
+      // this.contractapplication.entrycondition = [];
+      // this.contractapplication.entrycondition = 'HT004007';//契約締結完了
+      let params = {
+        currentPage: this.listQueryCont.currentPage,
+        pageSize: this.listQueryCont.pageSize,
+      };
+      this.$store
+        .dispatch('PFANS1026Store/getforContDiaLog', params)
+        .then(response => {
+          this.gridData3 = [];
+          // this.compounddata = [];
+          for (let i = 0; i < response.resultList.length; i++) {
+            if (response.resultList[i].claimdatetime !== '' && response.resultList[i].claimdatetime !== null && response.resultList[i].claimdatetime !== undefined) {
+              let claimdatetime = response.resultList[i].claimdatetime;
+              let claimdatetim = claimdatetime.slice(0, 10);
+              let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+              response.resultList[i].claimdatetime = [claimdatetim + ' ~ ' + claimdatetime1];
+
+              response.resultList[i].entrypayment = [claimdatetim, claimdatetime1];
+
+            }
+            //resign  add  scc  20200202  选择合同页面显示合同时间 from
+            else if (response.resultList[i].contractdate !== '' && response.resultList[i].contractdate !== null && response.resultList[i].contractdate !== undefined) {
+              let contractdate = response.resultList[i].contractdate;
+              let contractdate_st_end = contractdate.split('~');
+              response.resultList[i].claimdatetime = [contractdate_st_end[0] + '~' + contractdate_st_end[1]];
+            }
+            //end resign  add  scc  20200202  选择合同页面显示合同时间 to
+            var vote2 = {};
+            vote2.contract = response.resultList[i].contractnumber;
+            vote2.deployment = response.resultList[i].deployment;
+            vote2.entrypayment = response.resultList[i].entrypayment;
+            vote2.contracttype = getDictionaryInfo(
+              response.resultList[i].contracttype,
+            ).value1;
+            vote2.applicationdate = moment(
+              response.resultList[i].applicationdate,
+            ).format('YYYY-MM-DD');
+            vote2.state = response.resultList[i].state;
+            vote2.claimdatetime = response.resultList[i].claimdatetime;
+            //add-ws-5/11-合同请求金额数据赋值
+            vote2.claimamount = response.resultList[i].claimamount;
+            //add-ws-5/11-合同请求金额数据赋值
+            this.gridData3.push(vote2);
+          }
+          // this.compounddata = response.contractcompound;
+          this.totalCont = response.total;
+        })
+        // 项目dialog 体制 合同优化添加分页 ztc to
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        });
+    },
+    handleClickChange2(val) {
+      //add-ws-5/11-合同请求金额数据赋值
+      this.claimamount = val.claimamount;
+      //add-ws-5/11-合同请求金额数据赋值
+      this.currentRow = val.contract;
+      this.themeRow = val.theme;
+      //add-ws-5/11-合同请求期间数据赋值
+      this.workinghoursRow = val.entrypayment;
+      //add-ws-5/11-合同请求期间数据赋值
+    },
+    //add-ws-6/9-禅道任务080
+    //根据合同号查询合同期间 scc
+    findCon() {
+      if (this.contra.length > 0) {
+        //获取合同号字符串 scc
+        let contra = '';
+        for (let i = 0; i < this.contra.length; i++) {
+          if (i === this.contra.length - 1) {
+            contra += this.contra[i];
+          } else {
+            contra += this.contra[i] + ',';
+          }
+        }
+        //获取合同号字符串 scc
+        //后台请求合同号对应的合同期间 scc
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1026Store/getContranumber', {'contra': contra})
+          .then(response => {
+            this.time = [];
+            if (response.length > 0) {
+              for (let i = 0; i < response.length; i++) {
+                this.time[i] = response[i];
               }
             }
-            //ADD-WS-体制时间范围check
-            for (let i = 0; i < this.tableC.length; i++) {
-              // 外协员工入场时间&离场时间必须Check
-              if ((!this.tableC[i].admissiontime || this.tableC[i].admissiontime === '' || !this.tableC[i].exittime || this.tableC[i].exittime === '') && this.tableC[i].name !== '') {
-                this.activeName = 'third';
-                Message({
-                  message: this.$t('normal.error_pfans5001'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-                return;
+          });
+        this.loading = false;
+      } else {
+        this.time = [];
+      }
+      //后台请求合同号对应的合同期间 scc
+    },
+    //根据合同号查询合同期间 scc
+    changecontract(row) {
+      // 项目dialog 体制 合同优化添加分页 ztc fr
+      this.getcontract();
+      // 项目dialog 体制 合同优化添加分页 ztc to
+      let table = this.tableD;
+      let check = [];
+      let checktable = 0;
+      let checktable1 = 0;
+      this.dialogTableVisible3 = true;
+      this.contra = [];
+      //获取当前表中已有合同 scc
+      for (let i = 0; i < this.tableD.length; i++) {
+        if (!this.tableD[i].contract) {
+          continue;
+        }
+        //合同号去重 scc
+        this.contra = this.contra.filter(item => item != this.tableD[i].contract);
+        this.contra[this.contra.length] = this.tableD[i].contract;
+        //合同号去重 scc
+      }
+      this.findCon();
+      //获取当前表中已有合同 scc
+      for (let a = 0; a < table.length; a++) {
+        if (row.contract != '') {
+          if (table[a].contract != row.contract) {
+            checktable1 = checktable1 + 1;
+            check.push({
+              contractnumbercount_id: table[a].contractnumbercount_id,
+              deliveryfinshdate: table[a].deliveryfinshdate,
+              claimtype: table[a].claimtype,
+              contract: table[a].contract,
+              theme: table[a].theme,
+              workinghours: table[a].workinghours,
+              contractrequestamount: table[a].contractrequestamount,
+              contractamount: table[a].contractamount,
+            });
+          } else {
+            checktable = checktable + 1;
+          }
+        }
+      }
+      if (checktable === this.tableD.length) {
+        this.tableD = [{
+          contractnumbercount_id: '',
+          deliveryfinshdate: '',
+          claimtype: '',
+          projectcontract_id: '',
+          companyprojects_id: '',
+          contract: '',
+          theme: '',
+          workinghours: '',
+          contractrequestamount: '',
+          contractamount: '',
+          rowindex: '',
+        }];
+      } else {
+        if (checktable1 != 0) {
+          this.tableD = check;
+        }
+      }
+    },
+    //add-ws-6/9-禅道任务080
+    submit2(row) {
+      //add-ws-6/9-禅道任务080
+      let table = [];
+      let tabled = [];
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS1026Store/get2', {'contractnumber': this.currentRow})
+        .then(response => {
+          let contractnumbercount = response.contractnumbercount;
+          //判断此次选中合同中的回数 scc
+          var intercept = response.contractnumbercount.length;
+          //判断此次选中合同中的回数 scc
+          if (contractnumbercount.length > 0) {
+            for (let i = 0; i < contractnumbercount.length; i++) {
+              if (contractnumbercount[i].claimdatetimeqh !== '' && contractnumbercount[i].claimdatetimeqh !== null && contractnumbercount[i].claimdatetimeqh !== undefined) {
+                let claimdatetime = contractnumbercount[i].claimdatetimeqh;
+                let claimdatetim = claimdatetime.slice(0, 10);
+                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                contractnumbercount[i].claimdatetimeqh = [claimdatetim, claimdatetime1];
               }
-              if (
-                this.tableC[i].number !== '' ||
-                this.tableC[i].name !== '' ||
-                this.tableC[i].suppliernameid !== '' ||
-                this.tableC[i].admissiontime !== '' ||
-                this.tableC[i].exittime !== ''
-              ) {
-                this.baseInfo.projectsystem.push({
-                  number: this.tableC[i].number,
-                  name: this.tableC[i].name,
-                  suppliernameid: this.tableC[i].suppliernameid,
-                  type: this.tableC[i].type,
-                  name_id: this.tableC[i].name_id,
-                  //add_qhr_20210810 添加rank、报告者字段
-                  rank: this.tableC[i].rank,
-                  reporter: this.tableC[i].reporter,
-                  company: this.tableC[i].company,
-                  admissiontime: this.tableC[i].admissiontime,
-                  exittime: this.tableC[i].exittime,
-                  position: this.tableC[i].position,
-                });
-              }
-            }
-            // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check start
-            for (let i = 0; i < this.tableP.length; i++) {
-              if (moment(this.tableP[i].actualstarttime).format('YYYY-MM-DD') > moment(this.tableP[i].actualendtime).format('YYYY-MM-DD')) {
-                this.activeName = 'second';
-                this.loading = false;
-                error1 = error1 + 1;
-                Message({
-                  message: this.$t('label.PFANS5009FORMVIEW_CHECKDATE'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-              }
-            }
-            // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check end
-            //add-gbb-7/16-内采项目在现场管理中不显示合同
-            if (this.form.toolstype === '0') {
-              //this.form.toolsorgs = ' ';
-              this.tableclaimtype = [{
-                claimtype: '',
-                deliverydate: '',
-                completiondate: '',
-                claimdate: '',
-                supportdate: '',
-                claimamount: '',
-              }];
-            }
-            this.baseInfo.contractnumbercount = this.tableclaimtype;
-            for (let i = 0; i < this.tableclaimtype.length; i++) {
-              if (this.tableclaimtype[i].claimtype == '' || this.tableclaimtype[i].deliverydate == '' || this.tableclaimtype[i].completiondate == '' || this.tableclaimtype[i].claimdate == '' || this.tableclaimtype[i].supportdate == '' || this.tableclaimtype[i].claimamount == '') {
-                error3 = error3 + 1;
-              }
-            }
-            if (error3 != 0 && this.form.toolstype !== '0') {
-              this.activeName = 'fifth';
-              this.loading = false;
-              Message({
-                message: this.$t('normal.error_08') +
-                  this.$t('label.PFANS5001FORMVIEW_CONTRACT') +
-                  this.$t('label.PFANS1024VIEW_CONTR'),
-                type: 'error',
-                duration: 5 * 1000,
+              table.push({
+                contractnumbercount_id: contractnumbercount[i].contractnumbercount_id,
+                deliveryfinshdate: contractnumbercount[i].deliverydate,
+                claimtype: contractnumbercount[i].claimtype,
+                contract: this.currentRow,
+                theme: this.themeRow,
+                workinghours: contractnumbercount[i].claimdatetimeqh,
+                contractrequestamount: contractnumbercount[i].claimamount,
+                contractamount: '',
               });
             }
-            //ADD gbb 07-16 ,内采项目在现场管理中不显示合同
-            if (error1 === 0 && this.checkmessage != 1) {
-              if (this.$route.params._id) {
-                this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
-                this.form.center_id = this.centerorglist;
-                this.form.group_id = this.grouporglist;
-                this.form.team_id = this.teamorglist;
-                this.form.startdate = moment(this.form.startdate).format(
-                  'YYYY-MM-DD',
-                );
-                this.form.enddate = moment(this.form.enddate).format('YYYY-MM-DD');
-                this.form.deadline = moment(this.form.deadline).format(
-                  'YYYY-MM-DD',
-                );
-                this.loading = true;
-                this.$store
-                  .dispatch('PFANS5009Store/update', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    if (val !== 'update') {
-                      Message({
-                        message: this.$t('normal.success_02'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                      });
-                      this.$router.push({
-                        name: 'PFANS5009View',
-                      });
-                    }
-                  })
-                  .catch(error => {
-                    this.$message.error({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              }
+            tabled = this.tableD;
+            this.tableD = tabled.concat(table);
+          }
+          //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
+          let contradeta = response.contractapplication;
+          if (contradeta.length > 0) {
+            let timec = '';
+            //如果合同没有contractdate，取claimdatetime scc
+            if (contradeta[0].contractdate) {
+              timec = contradeta[0].contractdate;//字符串
+            } else {
+              timec = contradeta[0].claimdatetime;//字符串
             }
+            //如果合同没有contractdate，取claimdatetime scc
+            //如果存在延止日期，延长合同期限至延止日期 scc
+            let extensdate = contradeta[0].extensiondate;
+            if (extensdate) {
+              let time1 = timec.split('~');//数组
+              this.nowtime = time1[0] + '~' + extensdate;
+            } else {
+              this.nowtime = timec;
+            }
+          }
+          //如果存在延止日期，延长合同期限至延止日期 scc
+          //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
+          if (this.nowtime) {
+            var areatime = this.nowtime.split('~');
+            var opentime = areatime[0];
+            var closetime = areatime[1];
+            //当前选中合同日期转成时间对象 scc
+            var date1 = new Date(opentime);
+            var date2 = new Date(closetime);
+            //当前选中合同日期转成时间对象 scc
+          }
+          if (this.time.length > 0) {
+            for (let i = 0; i < this.time.length; i++) {
+              let contra = this.time[i].split('~');
+              //每条合同的时间点 scc
+              let date3 = new Date(contra[0]);
+              let date4 = new Date(contra[1]);
+              //判断新添加合同的两个时间点，在不在已有合同回数时间的区间内 scc
+              let e1 = ((date1.getTime() > date3.getTime() && date1.getTime() < date4.getTime()) || (date2.getTime() > date3.getTime() && date2.getTime() < date4.getTime()));
+              //判断新添加合同的两个时间点，与已有合同回数的时间点是否重合 scc
+              let e2 = (date1.getTime() === date3.getTime() || date1.getTime() === date4.getTime() || date2.getTime() === date3.getTime() || date2.getTime() === date4.getTime());
+              //判断新添加合同的两个时间点，是不是包含或者被包含于已有合同回数时间 scc
+              let e3 = ((date1.getTime() < date3.getTime() && date2.getTime() > date4.getTime()));
+              //判断上述条件是否为真 scc
+              let e4 = (e1 || e2 || e3);
+              //提示错误信息 scc
+              if (e4) {
+                Message({
+                  message: this.$t('normal.info_27'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.tableD.splice(this.tableD.length - intercept, intercept);
+                break;
+              }
+              //提示错误信息 scc
+            }
+          }
+          this.loading = false;
+        });
+      for (let a = 0; a < this.tableD.length; a++) {
+        if (this.tableD[a].contract === '') {
+          this.tableD.splice(a, 1);
+        }
+      }
+      //add-ws-6/9-禅道任务080
+      this.dialogTableVisible3 = false;
+      //region复合合同金额分配
+      //   if (this.compounddata.length > 0) {
+      //       let dic = this.compounddata.filter(item => item.contractnumber === row.contract
+      //           && item.group_id === this.form.group_id);
+      //       let claimamount = 0;
+      //       for (let dtem of dic) {
+      //           //add-ws-合同关联项目，分配金额
+      //           claimamount = claimamount + Number(dtem.contractrequestamount);
+      //           this.tablecompound.push({
+      //               contractnumber: dtem.contractnumber,
+      //               claimtype: dtem.claimtype,
+      //               claimamount: dtem.claimamount,
+      //               contractrequestamount: dtem.contractrequestamount,
+      //           });
+      //       }
+      //       if (this.tablecompound.length > 0) {
+      //           row.contractrequestdeleteRow3amount = claimamount;
+      //           this.displaycompound = true;
+      //       }
+      //   }
+      //endregion
+    },
+    deleteRow1(index, rows) {
+      //add-ws-当体制仅有一条删除清空数据项
+      if (index === 1) {
+        rows[1].name = '';
+        rows[1].position = '';
+        rows[1].admissiontime = '';
+        rows[1].exittime = '';
+        //add_qhr_20210810 添加rank、报告者字段
+        rows[1].rank = '';
+        rows[1].reporter = '';
+      }
+      //add-ws-当体制仅有一条删除清空数据项
+      if (rows.length > 2) {
+        rows.splice(index, 1);
+      }
+    },
+    // 项目dialog 体制 合同优化添加分页 ztc fr
+    dialogSys() {
+      this.dialogTableVisible1 = true;
+      this.getexpatriatesinfor();
+    },
+    // 项目dialog 体制 合同优化添加分页 ztc to
+    addRow1() {
+      this.tableB.push({
+        projectsystem_id: '',
+        companyprojects_id: '',
+        type: '0',
+        number: '',
+        company: '',
+        name: '',
+        //add_qhr_20210810 添加rank、报告者字段
+        rank: '',
+        reporter: '',
+        position: '',
+        admissiontime: '',
+        exittime: '',
+        rowindex: '',
+        updOrinsflg: '0',//区分修改还是新建
+      });
+    },
+    getUserids(val) {
+      this.tableB[0].name = val;
+      this.userlist = val;
+      this.form.leaderid = val;
+      let lst = getOrgInfoByUserId(val);
+      this.tableB.number = lst.number;
+      this.tableB.position = lst.post;
+      if (
+        !this.form.leaderid ||
+        this.form.leaderid === '' ||
+        val === 'undefined'
+      ) {
+        this.errorLeader =
+          this.$t('normal.error_08') +
+          this.$t('label.PFANS5001FORMVIEW_LEADERID');
+      } else {
+        this.errorLeader = '';
+      }
+    },
+
+    getUserids1(val) {
+      this.tableB[1].name = val;
+      this.userlist1 = val;
+      this.form.managerid = val;
+      if (
+        !this.form.managerid ||
+        this.form.managerid === '' ||
+        val === 'undefined'
+      ) {
+        this.errorManager =
+          this.$t('normal.error_08') +
+          this.$t('label.PFANS5001FORMVIEW_MANAGERID');
+      } else {
+        this.errorManager = '';
+      }
+    },
+    getCenterId(val) {
+      this.form.center_id = val;
+      this.centerorglist = val;
+      if (
+        !this.form.center_id ||
+        this.form.center_id === '' ||
+        val === 'undefined'
+      ) {
+        this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
+      } else {
+        this.errorcenter = '';
+      }
+    },
+    getGroupId(val) {
+      this.form.group_id = val;
+      this.grouporglist = val;
+      if (
+        !this.form.group_id ||
+        this.form.group_id === '' ||
+        val === 'undefined'
+      ) {
+        this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+      } else {
+        this.errorgroup = '';
+      }
+    },
+    getTeamId(val) {
+      this.form.team_id = val;
+      this.teamorglist = val;
+    },
+    submit(row) {
+      row.number = this.currentRow;
+      row.name = this.currentRow1;
+      row.company = this.currentRow2;
+      row.suppliernameid = this.currentRow3;
+      //add-ws-数据库id存的是name名，外协关联修改
+      row.name_id = this.currentRow5;
+      //add-ws-数据库id存的是name名，外协关联修改
+      //add_qhr_20210810 添加rank、报告者字段
+      row.rank = getDictionaryInfo(this.currentRow9).value1;
+      this.dialogTableVisible1 = false;
+    },
+    handleClickChange(val) {
+      this.currentRow = val.number;
+      //add-ws-数据库id存的是name名，外协关联修改
+      this.currentRow1 = val.account;
+      //add-ws-数据库id存的是name名，外协关联修改
+      this.currentRow2 = val.suppliername;
+      this.currentRow3 = val.supplierinfor_id;
+      this.currentRow5 = val.expname;
+      //add_qhr_20210810 添加rank、报告者字段
+      // 项目dialog 体制 合同优化添加分页 ztc fr
+      this.currentRow9 = val.rn;
+      // 项目dialog 体制 合同优化添加分页 ztc to
+    },
+    addRow() {
+      this.tableA.push({
+        stageinformation_id: '',
+        companyprojects_id: '',
+        month: '',
+        estimatedwork: '',
+        actualwork: '',
+        rowindex: '',
+      });
+    },
+    deleteRow(index, rows) {
+      if (rows.length > 1) {
+        rows.splice(index, 1);
+      } else {
+        this.tableA = [
+          {
+            stageinformation_id: '',
+            companyprojects_id: '',
+            month: '',
+            estimatedwork: '',
+            actualwork: '',
+            rowindex: '',
+          },
+        ];
+      }
+    },
+    getCitationUserid(userlist, row) {
+      //upd ccm 20210817 現場管理刪除姓名時清空rank和職務 fr
+      // row.name = userlist;
+      // if (row.name != null && row.name !== '') {
+      //   let lst = getUserInfo(row.name);
+      //   //region add_qhr_20210810 添加rank、报告者字段
+      //   row.position = getDictionaryInfo(lst.userinfo.post).value1;
+      //   row.number = lst.userinfo.jobnumber;
+      //   row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
+      //   //endregion add_qhr_20210810 添加rank、报告者字段
+      // }
+      if (userlist != '') {
+        // 可以进行重复选择，只需要做进组退组时间不重复的check ztc fr
+        // if (this.tableB.filter(item => item.name === userlist).length === 0) {
+        row.name = userlist;
+        if (row.name != null && row.name !== '') {
+          let lst = getUserInfo(row.name);
+          row.position = getDictionaryInfo(lst.userinfo.post).value1;
+          row.number = lst.userinfo.jobnumber;
+          row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
+        }
+        // }
+        // 可以进行重复选择，只需要做进组退组时间不重复的check ztc to
+      } else {
+        row.name = null;
+        row.position = '';
+        row.rank = '';
+      }
+      //upd ccm 20210817 現場管理刪除姓名時清空rank和職務 to
+    },
+    //add_qhr_20210810 添加rank、报告者字段
+    getReporter(userlist, row) {
+      //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check fr
+      row.reporter = userlist;
+      if (userlist != null && userlist != '' && userlist != undefined) {
+        if (this.tableB.filter(item => item.name === userlist).length === 0) {
+          if (row.type === '0') {
+            Message({
+              message: this.$t(row.name == null || row.name == '' ? '' : getUserInfo(row.name).userinfo.customername)
+                + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
           } else {
             Message({
-              message: this.$t('normal.error_12'),
+              message: this.$t(row.name_id || '')
+                + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
               type: 'error',
               duration: 5 * 1000,
             });
           }
-        });
-      },
+        }
+      }
+      //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check to
     },
-  };
+    getcustomer(val) {
+      this.result1.forEach(res => {
+        if (res.customerinfor_id === val) {
+          this.form.representative = res.liableperson;
+        }
+      });
+    },
+    getexpatriatesinfor() {
+      // 项目dialog 体制 合同优化添加分页 ztc fr
+      let params = {
+        currentPage: this.listQuerySys.currentPage,
+        pageSize: this.listQuerySys.pageSize,
+      };
+      this.$store
+        .dispatch('PFANS6004Store/getforSysDiaLog', params)
+        .then(response => {
+          this.gridData1 = [];
+          this.gridData1 = response.resultList;
+          this.totalSysm = response.total;
+          this.centerorglist = this.form.center_id;
+          this.grouporglist = this.form.group_id;
+          this.teamorglist = this.form.team_id;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    },
+    handleSizeChangeSys(val) {
+      this.listQuerySys.pageSize = val;
+      this.getexpatriatesinfor();
+    },
+    handleCurrentChangeSys(val) {
+      this.listQuerySys.currentPage = val;
+      this.getexpatriatesinfor();
+    },
+    handleSizeChangeCont(val) {
+      this.listQueryCont.pageSize = val;
+      this.getcontract();
+    },
+    handleCurrentChangeCont(val) {
+      this.listQueryCont.currentPage = val;
+      this.getcontract();
+    },
+    // 项目dialog 体制 合同优化添加分页 ztc to
+    // getrole(val, row) {
+    //   row.phase = val;
+    //   row.stageproduct = '';
+    //   if (val === '') {
+    //     row.showrow = true;
+    //     row.showrow1 = false;
+    //     row.showrow2 = false;
+    //     row.showrow3 = false;
+    //   } else if (val === 'PP012001') {
+    //     row.showrow = false;
+    //     row.showrow1 = true;
+    //     row.showrow2 = false;
+    //     row.showrow3 = false;
+    //   } else if (val === 'PP012002') {
+    //     row.showrow = false;
+    //     row.showrow1 = false;
+    //     row.showrow2 = true;
+    //     row.showrow3 = false;
+    //   } else if (val === 'PP012003') {
+    //     row.showrow = false;
+    //     row.showrow1 = false;
+    //     row.showrow2 = false;
+    //     row.showrow3 = true;
+    //   }
+    // },
+    getrole1(val, row) {
+      row.stageproduct = val;
+    },
+    getProduct(row) {
+      if (row.product === '1') {
+        row.productstatus = this.$t('label.PFANS5009FORMVIEW_SUBMITTED');
+      } else {
+        row.productstatus = this.$t('label.PFANS5009FORMVIEW_NOTSUBMITTED');
+      }
+    },
+    getArea(val) {
+      this.form.field = val;
+    },
+    getType(val) {
+      this.form.projecttype = val;
+    },
+    getcountry(val1) {
+      this.form.country = val1;
+    },
+    getcaron(val1) {
+      this.form.caron = val1;
+    },
+    getworkinghours(workinghours) {
+      if (workinghours != null) {
+        if (workinghours.length > 0) {
+          return (
+            moment(workinghours[0]).format('YYYY-MM-DD') +
+            ' ~ ' +
+            moment(workinghours[1]).format('YYYY-MM-DD')
+          );
+        } else {
+          return '';
+        }
+      } else {
+        return '';
+      }
+    },
+    buttonClick(val) {
+
+      //NT_PFANS_20210304_BUG_053  保存时，提示实际开始时间不能大于实际结束时间。
+      if (moment(this.form.startdate).format('YYYY-MM-DD') > moment(this.form.enddate).format('YYYY-MM-DD')) {
+        Message({
+          message: this.$t('label.PFANS5009FORMVIEW_CHECKDATE'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+        return;
+      }
+      this.form.leaderid = this.userlist;
+      this.form.managerid = this.userlist1;
+      this.checkRequire();
+      this.$refs['refform'].validate(valid => {
+        if (valid) {
+          this.loading = true;
+          this.baseInfo = {};
+          this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+          this.baseInfo.stageinformation = [];
+          this.baseInfo.projectcontract = [];
+          this.baseInfo.projectsystem = [];
+          //add-ws-存在check关闭loading
+          if (this.checkmessage === 1) {
+            this.loading = false;
+            return;
+          }
+          //add-ws-存在check关闭loading
+          for (let i = 0; i < this.tableD.length; i++) {
+            this.tableD[i].workinghours = this.getworkinghours(
+              this.tableD[i].workinghours,
+            );
+            if (
+              this.tableD[i].contract !== '' ||
+              this.tableD[i].theme !== '' ||
+              this.tableD[i].workinghours !== ''
+            ) {
+              this.baseInfo.projectcontract.push({
+                contractnumbercount_id: this.tableD[i].contractnumbercount_id,
+                //add-ws-6/9-禅道任务080
+                deliveryfinshdate: this.tableD[i].deliveryfinshdate,
+                claimtype: this.tableD[i].claimtype,
+                //add-ws-6/9-禅道任务080
+                //add-ws-合同关联项目，分配金额
+                contractrequestamount: this.tableD[i].contractrequestamount,
+                contractamount: this.tableD[i].contractamount,
+                //add-ws-合同关联项目，分配金额
+                contract: this.tableD[i].contract,
+                theme: this.tableD[i].theme,
+                workinghours: this.tableD[i].workinghours,
+              });
+            }
+          }
+          for (let i = 0; i < this.tableP.length; i++) {
+            if (
+              this.tableP[i].phase !== '' ||
+              this.tableP[i].stageproduct !== '' ||
+              this.tableP[i].productstatus !== '' ||
+              this.tableP[i].estimatedwork !== '' ||
+              this.tableP[i].actualwork !== '' ||
+              this.tableP[i].estimatedstarttime !== '' ||
+              this.tableP[i].estimatedendtime !== '' ||
+              this.tableP[i].remarks !== '' ||
+              this.tableP[i].actualstarttime !== '' ||
+              this.tableP[i].actualendtime !== '' ||
+              this.tableP[i].product !== ''
+            ) {
+              this.baseInfo.stageinformation.push({
+                phase: this.tableP[i].phase,
+                stageproduct: this.tableP[i].stageproduct,
+                productstatus: this.tableP[i].productstatus,
+                estimatedwork: this.tableP[i].estimatedwork,
+                actualwork: this.tableP[i].actualwork,
+                estimatedstarttime: this.tableP[i].estimatedstarttime,
+                estimatedendtime: this.tableP[i].estimatedendtime,
+                remarks: this.tableP[i].remarks,
+                actualstarttime: this.tableP[i].actualstarttime,
+                actualendtime: this.tableP[i].actualendtime,
+                product: this.tableP[i].product,
+              });
+            }
+          }
+          //add-ws-01/16-禅道任务710
+          for (let i = 0; i < this.tableD.length; i++) {
+            // update gbb 20210316 NT_PFANS_20210305_BUG_124 分配金額大余0check start
+            if (this.tableD[i].contractamount === 0 && this.form.toolstype != '1') {
+              this.activeName = 'fifth';
+              Message({
+                message: this.$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNTERROR'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+              return;
+            }
+            // update gbb 20210316 NT_PFANS_20210305_BUG_124 分配金額大余0check end
+            //theme 还未和合同关联 注掉
+            // for (let j = 1; j < this.tableD.length; j++) {
+            //   if (this.tableD[i].theme != this.tableD[j].theme) {
+            //     Message({
+            //       message: this.$t('label.PFANS5001FORMVIEW_PROJECTERROR'),
+            //       type: 'error',
+            //       duration: 5 * 1000,
+            //     });
+            //     this.activeName = 'fifth';
+            //     this.loading = false;
+            //     return;
+            //   }
+            // }
+            //theme 还未和合同关联 注掉
+          }
+          //add-ws-01/16-禅道任务710
+          for (let i = 0; i < this.tableB.length; i++) {
+            // 社内员工进组时间&退出时间必须Check
+            if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === '' || !this.tableB[i].exittime || this.tableB[i].exittime === '') && this.tableB[i].name !== '') {
+              this.activeName = 'third';
+              Message({
+                message: this.$t('normal.error_pfans50011'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+              return;
+            }
+            if (
+              this.tableB[i].number !== '' ||
+              this.tableB[i].name !== '' ||
+              this.tableB[i].admissiontime !== '' ||
+              this.tableB[i].exittime !== ''
+            ) {
+              this.baseInfo.projectsystem.push({
+                number: this.tableB[i].number,
+                name: this.tableB[i].name,
+                //add_qhr_20210810 添加rank、报告者字段
+                rank: this.tableB[i].rank,
+                reporter: this.tableB[i].reporter,
+                type: this.tableB[i].type,
+                company: this.tableB[i].company,
+                position: this.tableB[i].position,
+                admissiontime: this.tableB[i].admissiontime,
+                exittime: this.tableB[i].exittime,
+              });
+            }
+          }
+          //ADD-WS-体制时间范围check
+          let error1 = 0;
+          //add-ws-6/9-禅道任务080
+          let error3 = 0;
+          let listsum = [];
+          let Listcheck = this.tableD;
+          for (let list of Listcheck) {
+            listsum = this.tableD.filter(item => item.contract == list.contract && item.claimtype == list.claimtype);
+          }
+          if (listsum.length > 1) {
+            error1 = error1 + 1;
+            this.activeName = 'fifth';
+            this.loading = false;
+            Message({
+              message: this.$t('label.PFANS5009FORMVIEW_CHECKLANGUAGE'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }
+          //add-ws-6/9-禅道任务080
+          // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check start
+          for (let i = 0; i < this.tableP.length; i++) {
+            if (moment(this.tableP[i].actualstarttime).format('YYYY-MM-DD') > moment(this.tableP[i].actualendtime).format('YYYY-MM-DD')) {
+              this.activeName = 'second';
+              this.loading = false;
+              error1 = error1 + 1;
+              Message({
+                message: this.$t('label.PFANS5009FORMVIEW_CHECKDATE'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+          }
+          // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check end
+          for (let i = 0; i < this.tableB.length; i++) {
+            // update gbb 20210316 NT_PFANS_20210305_BUG_123 体制人员重复check start
+            // 可以进行重复选择，只需要做进组退组时间不重复的check ztc fr
+            // let num = 0;
+            // for (let j = 0; j < this.tableB.length; j++) {
+            //     if (this.tableB[i].name === this.tableB[j].name) {
+            //         num++;
+            //         if (num > 1) {
+            //             Message({
+            //                 message: this.$t(getUserInfo(this.tableB[i].name).userinfo.customername)
+            //                     + this.$t('label.PFANS5001FORMVIEW_CHECKDOUBLE'),
+            //                 type: 'error',
+            //                 duration: 5 * 1000,
+            //             });
+            //             this.activeName = 'third';
+            //             this.loading = false;
+            //             return;
+            //         }
+            //     }
+            // }
+            // 可以进行重复选择，只需要做进组退组时间不重复的check ztc to
+            //add ccm 20210825 体制报告者在体制中是否存在 fr
+            if (this.tableB[i].reporter != null && this.tableB[i].reporter != '') {
+              if (this.tableB.filter(item => item.name === this.tableB[i].reporter).length === 0) {
+                Message({
+                  message: this.$t(this.tableB[i].name == null || this.tableB[i].name == '' ? '' : getUserInfo(this.tableB[i].name).userinfo.customername)
+                    + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.activeName = 'third';
+                this.loading = false;
+                return;
+              }
+            }
+            // update gbb 20210316 NT_PFANS_20210305_BUG_123 体制人员重复check end
+            if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
+              this.activeName = 'third';
+              this.loading = false;
+              error1 = error1 + 1;
+              Message({
+                message: this.$t('label.PFANS5001FORMVIEW_CHECKDATAERRORN'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+          }
+          for (let i = 0; i < this.tableC.length; i++) {
+            //add ccm 20210825 体制报告者在体制中是否存在 fr
+            if (this.tableC[i].reporter != null && this.tableC[i].reporter != '') {
+              if (this.tableB.filter(item => item.name === this.tableC[i].reporter).length === 0) {
+                Message({
+                  message: this.$t(this.tableC[i].name_id || '')
+                    + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.activeName = 'third';
+                this.loading = false;
+                return;
+              }
+            }
+            //add ccm 20210825 体制报告者在体制中是否存在 to
+
+            if (moment(this.tableC[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableC[i].exittime).format('YYYY-MM-DD')) {
+              this.activeName = 'third';
+              this.loading = false;
+              error1 = error1 + 1;
+              Message({
+                message: this.$t('label.PFANS5001FORMVIEW_CHECKDATAERRORW'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+          }
+          //ADD-WS-体制时间范围check
+          for (let i = 0; i < this.tableC.length; i++) {
+            // 外协员工入场时间&离场时间必须Check
+            if ((!this.tableC[i].admissiontime || this.tableC[i].admissiontime === '' || !this.tableC[i].exittime || this.tableC[i].exittime === '') && this.tableC[i].name !== '') {
+              this.activeName = 'third';
+              Message({
+                message: this.$t('normal.error_pfans5001'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+              return;
+            }
+            if (
+              this.tableC[i].number !== '' ||
+              this.tableC[i].name !== '' ||
+              this.tableC[i].suppliernameid !== '' ||
+              this.tableC[i].admissiontime !== '' ||
+              this.tableC[i].exittime !== ''
+            ) {
+              this.baseInfo.projectsystem.push({
+                number: this.tableC[i].number,
+                name: this.tableC[i].name,
+                suppliernameid: this.tableC[i].suppliernameid,
+                type: this.tableC[i].type,
+                name_id: this.tableC[i].name_id,
+                //add_qhr_20210810 添加rank、报告者字段
+                rank: this.tableC[i].rank,
+                reporter: this.tableC[i].reporter,
+                company: this.tableC[i].company,
+                admissiontime: this.tableC[i].admissiontime,
+                exittime: this.tableC[i].exittime,
+                position: this.tableC[i].position,
+              });
+            }
+          }
+          // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check start
+          for (let i = 0; i < this.tableP.length; i++) {
+            if (moment(this.tableP[i].actualstarttime).format('YYYY-MM-DD') > moment(this.tableP[i].actualendtime).format('YYYY-MM-DD')) {
+              this.activeName = 'second';
+              this.loading = false;
+              error1 = error1 + 1;
+              Message({
+                message: this.$t('label.PFANS5009FORMVIEW_CHECKDATE'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+          }
+          // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check end
+          //add-gbb-7/16-内采项目在现场管理中不显示合同
+          if (this.form.toolstype === '0') {
+            //this.form.toolsorgs = ' ';
+            this.tableclaimtype = [{
+              claimtype: '',
+              deliverydate: '',
+              completiondate: '',
+              claimdate: '',
+              supportdate: '',
+              claimamount: '',
+            }];
+          }
+          this.baseInfo.contractnumbercount = this.tableclaimtype;
+          for (let i = 0; i < this.tableclaimtype.length; i++) {
+            if (this.tableclaimtype[i].claimtype == '' || this.tableclaimtype[i].deliverydate == '' || this.tableclaimtype[i].completiondate == '' || this.tableclaimtype[i].claimdate == '' || this.tableclaimtype[i].supportdate == '' || this.tableclaimtype[i].claimamount == '') {
+              error3 = error3 + 1;
+            }
+          }
+          if (error3 != 0 && this.form.toolstype !== '0') {
+            this.activeName = 'fifth';
+            this.loading = false;
+            Message({
+              message: this.$t('normal.error_08') +
+                this.$t('label.PFANS5001FORMVIEW_CONTRACT') +
+                this.$t('label.PFANS1024VIEW_CONTR'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }
+          //ADD gbb 07-16 ,内采项目在现场管理中不显示合同
+          if (error1 === 0 && this.checkmessage != 1) {
+            if (this.$route.params._id) {
+              this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
+              this.form.center_id = this.centerorglist;
+              this.form.group_id = this.grouporglist;
+              this.form.team_id = this.teamorglist;
+              this.form.startdate = moment(this.form.startdate).format(
+                'YYYY-MM-DD',
+              );
+              this.form.enddate = moment(this.form.enddate).format('YYYY-MM-DD');
+              this.form.deadline = moment(this.form.deadline).format(
+                'YYYY-MM-DD',
+              );
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS5009Store/update', this.baseInfo)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== 'update') {
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    this.$router.push({
+                      name: 'PFANS5009View',
+                    });
+                  }
+                })
+                .catch(error => {
+                  this.$message.error({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            }
+          }
+        } else {
+          Message({
+            message: this.$t('normal.error_12'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
+      });
+    },
+  },
+};
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
-  .width {
-    width: 13rem;
+<style lang="scss" rel="stylesheet/scss">
+.width {
+  width: 13rem;
+}
+
+.el-table__footer-wrapper tbody td,
+.el-table__header-wrapper tbody td {
+  color: blue;
+}
+
+.PlStyles {
+  background-color: #005baa !important;
+}
+
+.dpSupIndex {
+  .content {
+    height: 34px;
+    min-width: 80%;
+    border: 0.1rem solid #ebeef5;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    line-height: 34px;
+    padding: 0.1rem 0.5rem 0.2rem 0.5rem;
   }
 
-  .el-table__footer-wrapper tbody td,
-  .el-table__header-wrapper tbody td {
-    color: blue;
+  .bg {
+    background: white;
+    border-width: 1px;
   }
-
-  .PlStyles {
-    background-color: #005baa !important;
-  }
-
-  .dpSupIndex {
-    .content {
-      height: 34px;
-      min-width: 80%;
-      border: 0.1rem solid #ebeef5;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      line-height: 34px;
-      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
-    }
-
-    .bg {
-      background: white;
-      border-width: 1px;
-    }
-  }
+}
 </style>

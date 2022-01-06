@@ -1,95 +1,93 @@
-import store from "./index";
-
 const global = {
   namespaced: true,
   state: {
-    historyUrl: "",
-    operateId: "",
-    currentUrl: "",
-    userinfo: "",
-    monthlyrate:[],
+    historyUrl: '',
+    operateId: '',
+    currentUrl: '',
+    userinfo: '',
+    monthlyrate: [],
     customersInfo: [],
-    userList:[],
-    workflowUrl:"",
-    orgList:[],
-    orgallList:[],
-    orgGroupList:[],
-    dictionaryList:[],
-    days:[],
-    fileToken:"",
-    cooperinterviewList:[],
-    supplierinforList:[],
-    orgId:"",
-    userTableList:[],
-    useraccount:"",
+    userList: [],
+    workflowUrl: '',
+    orgList: [],
+    orgallList: [],
+    orgGroupList: [],
+    dictionaryList: [],
+    days: [],
+    fileToken: '',
+    cooperinterviewList: [],
+    supplierinforList: [],
+    orgId: '',
+    userTableList: [],
+    useraccount: '',
     //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 start
-    roles: "",
+    roles: '',
     //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 start
-    operateOwner:"",
+    operateOwner: '',
     //add gbb 20210329 2021组织架构变更 start
-    orgtreeId: "",//树主键
-    orguserList:[],//人员选择时树组织隐藏副总经理节点
+    orgtreeId: '',//树主键
+    orguserList: [],//人员选择时树组织隐藏副总经理节点
     //add gbb 20210329 2021组织架构变更 end
-    pageNo:1,
-    pageSize:50,
-    totalSize:0,
-    axiosConfig:{},
-    menuids:[],
+    pageNo: 1,
+    pageSize: 50,
+    totalSize: 0,
+    axiosConfig: {},
+    menuids: [],
   },
   mutations: {
     SET_MENUIDS(state, menuids) {
-      state.menuids = menuids
+      state.menuids = menuids;
     },
     SET_AXIOSCONFIG(state, axiosConfig) {
-      state.axiosConfig = axiosConfig
+      state.axiosConfig = axiosConfig;
     },
     SET_TOTALSIZE(state, totalSize) {
-      state.totalSize = totalSize
+      state.totalSize = totalSize;
     },
     SET_PAGENO(state, pageNo) {
-      state.pageNo = pageNo
+      state.pageNo = pageNo;
     },
     SET_PAGESIZE(state, pageSize) {
-      state.pageSize = pageSize
+      state.pageSize = pageSize;
     },
     SET_HISTORYURL(state, url) {
-      state.historyUrl = url
+      state.historyUrl = url;
     },
     SET_OPERATEID(state, id) {
-      state.operateId = id
+      state.operateId = id;
     },
     SET_CURRENTURL(state, url) {
-      state.currentUrl = url
+      state.currentUrl = url;
     },
     SET_USERINFO(state, val) {
-      state.userinfo = val
+      state.userinfo = val;
     },
     SET_CUSTOMERSINFO(state, infos) {
-      state.customersInfo = infos
+      state.customersInfo = infos;
     },
     SET_USERLIST(state, infos) {
-      state.userList = infos
+      state.userList = infos;
     },
     SET_WORKFLOWURL(state, url) {
-      state.workflowUrl = url
+      state.workflowUrl = url;
     },
     //add gbb 20210421 获取所有组织信息 start
     SET_ORGALLLIST(state, infos) {
-      state.orgallList = infos
+      state.orgallList = infos;
     },
     //add gbb 20210421 获取所有组织信息 end
     SET_ORGLIST(state, infos) {
-      state.orgList = infos
+      state.orgList = infos;
       //add gbb 20210329 2021组织架构变更 start
       var orgsnew = [];
-      if(infos.length > 0){
+      if (infos.length > 0) {
         //树主键
         state.orgtreeId = infos[0]._id;
-        if(infos[0].orgs.length > 0){
+        if (infos[0].orgs.length > 0) {
           for (let i = 0; i < infos[0].orgs.length; i++) {
             if (infos[0].orgs[i].orgs.length > 0) {
               for (let j = 0; j < infos[0].orgs[i].orgs.length; j++) {
-                if (infos[0].orgs[i].orgs[j].type === "1") {
+                if (infos[0].orgs[i].orgs[j].type === '1') {
                   //所有center[orgGroupList为center数据]
                   orgsnew.push(infos[0].orgs[i].orgs[j]);
                   state.orgGroupList.push({
@@ -101,7 +99,7 @@ const global = {
                     centeruser: infos[0].orgs[i].orgs[j].user,//center负责人
                     companyen: infos[0].orgs[i].orgs[j].companyen,//英文缩写
                     encoding: infos[0].orgs[i].orgs[j].encoding,//预算编码
-                    redirict:infos[0].orgs[i].orgs[j].redirict
+                    redirict: infos[0].orgs[i].orgs[j].redirict,
                   });
                 }
               }
@@ -142,28 +140,28 @@ const global = {
       //add gbb 20210329 2021组织架构变更 end
     },
     SET_DICTIONARYLIST(state, infos) {
-      state.dictionaryList = infos
+      state.dictionaryList = infos;
     },
     SET_DAYS(state, days) {
-      state.days = days
+      state.days = days;
     },
     SET_FILETOKEN(state, fileToken) {
-      state.fileToken = fileToken
+      state.fileToken = fileToken;
     },
     SET_COOPERINTERVIEWLIST(state, infos) {
-      state.cooperinterviewList = infos
+      state.cooperinterviewList = infos;
     },
     SET_SUPPLIERINFOR(state, infos) {
-      state.supplierinforList = infos
+      state.supplierinforList = infos;
     },
     SET_ORGID(state, orgId) {
-      state.orgId = orgId
+      state.orgId = orgId;
     },
     SET_USERTABLELIST(state, userTableList) {
-      state.userTableList = userTableList
+      state.userTableList = userTableList;
     },
     SET_USERACCOUNT(state, useraccount) {
-      state.useraccount = useraccount
+      state.useraccount = useraccount;
       //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 start
       let roles = '';
       let returnroles = '';
@@ -171,7 +169,7 @@ const global = {
         for (let role of useraccount.roles) {
           roles = roles + ',' + role.rolename;
         }
-        roles = roles.replace("副总经理","副总");
+        roles = roles.replace('副总经理', '副总');
         if (roles.indexOf('系统管理员') != -1) {
           returnroles = returnroles + ',' + '10';
         }
@@ -291,14 +289,14 @@ const global = {
       //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 end
     },
     SET_OPERATEOWNER(state, operateOwner) {
-      state.operateOwner = operateOwner
+      state.operateOwner = operateOwner;
     },
     //add-ws-12/10-汇率字典
     SET_MONTHLYRATE(state, monthlyrate) {
-      state.monthlyrate = monthlyrate
+      state.monthlyrate = monthlyrate;
     },
     //add-ws-12/10-汇率字典
-  }
-}
+  },
+};
 
 export default global;

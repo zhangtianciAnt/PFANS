@@ -7,289 +7,286 @@
         style="padding-top:1%"
       >
         <EasyNormalTable
+          v-loading="loading"
           :buttonList="buttonList"
           :columns="columns"
           :data="data"
-          :rowid="rowid"
-          :title="titleIn" @reget="getdata"
+          :rowid="rowid" :title="titleIn"
           @buttonClick="buttonClick"
+          @reget="getdata"
           @rowClick="rowClick"
-          v-loading="loading"
         ></EasyNormalTable>
       </el-tab-pane>
       <el-tab-pane :label="$t('label.PFANS1038VIEW_OUTOFHOME')" name="second" style="padding-top:1%">
         <EasyNormalTable
+          v-loading="loading"
           :buttonList="buttonList"
           :columns="columns"
           :data="outdata"
-          :rowid="rowid"
-          :title="titleOut" @reget="getdata"
+          :rowid="rowid" :title="titleOut"
           @buttonClick="buttonClick"
+          @reget="getdata"
           @rowClick="rowClick"
-          v-loading="loading"
         ></EasyNormalTable>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 <script>
-    import EasyNormalTable from '@/components/EasyNormalTable';
-    import {Message} from "element-ui";
-    import {getUserInfo} from '@/utils/customize'
-    import moment from "moment";
-    import {getOrgInfo} from '@/utils/customize';
+import EasyNormalTable from '@/components/EasyNormalTable';
+import {Message} from 'element-ui';
+import {getOrgInfo, getUserInfo} from '@/utils/customize';
+import moment from 'moment';
 
-    export default {
-        name: 'PFANS1037View',
-        components: {
-            EasyNormalTable,
+export default {
+  name: 'PFANS1037View',
+  components: {
+    EasyNormalTable,
+  },
+  data() {
+    return {
+      data: [],
+      outdata: [],
+      loading: false,
+      rowid: 'personnelplanid',
+      buttonList: [
+        {
+          key: 'view',
+          name: 'button.view',
+          disabled: false,
+          icon: 'el-icon-search',
         },
-        data() {
-            return {
-                data: [],
-                outdata: [],
-                loading: false,
-                rowid: "personnelplanid",
-                buttonList: [
-                    {
-                        key: "view",
-                        name: "button.view",
-                        disabled: false,
-                        icon: "el-icon-search"
-                    },
-                    {
-                        key: "new",
-                        name: "button.insert",
-                        disabled: false,
-                        icon: "el-icon-plus"
-                    },
-                    {
-                        key: "update",
-                        name: "button.update",
-                        disabled: false,
-                        icon: "el-icon-edit"
-                    }
-                ],
-                activeName: "first",
-                titleIn: this.$t("label.PFANS1038VIEW_MEMBERSHIP"),
-                titleOut: this.$t("label.PFANS1038VIEW_OUTOFHOME"),
-                columns: [
-                    {
-                        code: "years",
-                        label: "label.PFANS2023VIEW_YEARS",
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: "department",
-                        label: "label.ASSETS1001VIEW_USEDEPARTMENT",
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: "createby",
-                        label: "label.PFANS8008VIEW_CREATEBY",
-                        width: 200,
-                        fix: false,
-                        filter: false
-                    },
-                    {
-                        code: "createon",
-                        label: "label.information_start",
-                        width: 200,
-                        fix: false,
-                        filter: false
-                    }
-                ]
-            }
+        {
+          key: 'new',
+          name: 'button.insert',
+          disabled: false,
+          icon: 'el-icon-plus',
         },
-        mounted() {
-            // if (this.$store.getters.userinfo.userid) {
-            //     let group = getUserInfo(this.$store.getters.userinfo.userid);
-            //     if (group.userinfo.groupid === "" || group.userinfo.groupid === null) {
-            //         this.buttonList[1].disabled = true;
-            //         this.buttonList[2].disabled = true;
-            //     } else {
-            //         this.buttonList[1].disabled = false;
-            //         this.buttonList[2].disabled = false;
-            //     }
-            // }
-           this.getdata('0');
+        {
+          key: 'update',
+          name: 'button.update',
+          disabled: false,
+          icon: 'el-icon-edit',
         },
-        methods: {
-          handleClick(tab) {
-            this.activeName = tab.name;
-            let type = '';
-            if(this.activeName === 'first'){
-              type = '0';
-            }else{
-              type = '1';
-            }
-            this.getdata(type)
-          },
-          getdata(val){
-            this.loading = true;
-            let params = {
-              'type': val,
-            };
-            this.$store
-              .dispatch("PFANS1038Store/getListforType",params)
-              .then(response => {
-                this.loading = false;
-                let userinfo = "";
-                let data = [];
-                let outdata = [];
-                if (response.length > 0) {
-                  response.forEach(
-                    res => {
-                      if (getUserInfo(res.createby)) {
-                        userinfo = getUserInfo(res.createby).userinfo;
-                      }
-                      res.createby = userinfo.customername;
-                      if(res.centerid)
-                      {
-                        let name = getOrgInfo(res.centerid)
-                        if (name)
-                        {
-                          res.department = name.companyname;
-                        }
-                      }
-                      res.createon = moment(res.createon).format("YYYY-MM-DD");
-                    }
-                  );
-                  if(val === '0'){
-                    this.data = response;
-                  }else{
-                    this.outdata = response;
-                  }
-                }
-              })
-              .catch(err => {
-                this.loading = false;
-                this.$message.error({
-                  message: err,
-                  type: "error",
-                  duration: 5 * 1000
-                });
-              });
-          },
-            rowClick(row) {
-              this.id = row.personnelplanid;
-              //region scc add 9/28 获取编辑按钮可用状态 from
-              this.$store
-                .dispatch("PFANS1036Store/whetherEditor",{'centerid':row.centerid,'years':row.years})
-                .then(response => {
-                  this.buttonList[2].disabled = response;
-                })
-                .catch(err => {
-                  this.$message.error({
-                    message: err,
-                    type: "error",
-                    duration: 5 * 1000
-                  });
-                })
-              //endregion scc add 9/28 获取编辑按钮可用状态 to
-            },
-            buttonClick(val) {
-                this.$store.commit("global/SET_HISTORYURL", this.$route.path);
-                if ("update" === val) {
-                    if (!this.id) {
-                        Message({
-                            message: this.$t("normal.info_01"),
-                            type: 'info',
-                            duration: 2 * 1000
-                        });
-                        return;
-                    }
-                  if(this.activeName === "first"){
-                    this.$router.push({
-                      name: "PFANS1038FormView",
-                      params: {
-                        _id: this.id,
-                        disabled: false,
-                        type: 0,
-                      }
-                    });
-                  }else if(this.activeName === "second"){
-                    this.$router.push({
-                      name: "PFANS1038OutFormView",
-                      params: {
-                        _id: this.id,
-                        disabled: false,
-                        type: 1,
-                      }
-                    });
-                  }
-                    // this.$router.push({
-                    //     name: "PFANS1038FormView",
-                    //     params: {
-                    //         _id: this.id,
-                    //         disabled: false,
-                    //         type: this.activeName === "first" ? 0 : 1
-                    //     }
-                    // });
-                } else if ("view" === val) {
-                    if (!this.id) {
-                        Message({
-                            message: this.$t("normal.info_01"),
-                            type: 'info',
-                            duration: 2 * 1000
-                        });
-                        return;
-                    }
-                  if(this.activeName === "first"){
-                    this.$router.push({
-                      name: "PFANS1038FormView",
-                      params: {
-                        _id: this.id,
-                        disabled: true,
-                        type: 0,
-                      }
-                    });
-                  }else if(this.activeName === "second"){
-                    this.$router.push({
-                      name: "PFANS1038OutFormView",
-                      params: {
-                        _id: this.id,
-                        disabled: true,
-                        type: 1,
-                      }
-                    });
-                  }
-                    // this.$router.push({
-                    //     name: "PFANS1038FormView",
-                    //     params: {
-                    //         _id: this.id,
-                    //         disabled: true,
-                    //         type: this.activeName === "first" ? 0 : 1
-                    //     }
-                    // });
-                } else if ("new" === val) {
-                  if(this.activeName === "first"){
-                    this.$router.push({
-                      name: "PFANS1038FormView",
-                      params: {
-                        _id: "",
-                        disabled: false,
-                        type: 0,
-                      }
-                    });
-                  }else if(this.activeName === "second"){
-                    this.$router.push({
-                      name: "PFANS1038OutFormView",
-                      params: {
-                        _id: "",
-                        disabled: false,
-                        type: 1,
-                      }
-                    });
-                  }
-                }
-            }
-        }
+      ],
+      activeName: 'first',
+      titleIn: this.$t('label.PFANS1038VIEW_MEMBERSHIP'),
+      titleOut: this.$t('label.PFANS1038VIEW_OUTOFHOME'),
+      columns: [
+        {
+          code: 'years',
+          label: 'label.PFANS2023VIEW_YEARS',
+          width: 150,
+          fix: false,
+          filter: true,
+        },
+        {
+          code: 'department',
+          label: 'label.ASSETS1001VIEW_USEDEPARTMENT',
+          width: 150,
+          fix: false,
+          filter: true,
+        },
+        {
+          code: 'createby',
+          label: 'label.PFANS8008VIEW_CREATEBY',
+          width: 200,
+          fix: false,
+          filter: false,
+        },
+        {
+          code: 'createon',
+          label: 'label.information_start',
+          width: 200,
+          fix: false,
+          filter: false,
+        },
+      ],
     };
+  },
+  mounted() {
+    // if (this.$store.getters.userinfo.userid) {
+    //     let group = getUserInfo(this.$store.getters.userinfo.userid);
+    //     if (group.userinfo.groupid === "" || group.userinfo.groupid === null) {
+    //         this.buttonList[1].disabled = true;
+    //         this.buttonList[2].disabled = true;
+    //     } else {
+    //         this.buttonList[1].disabled = false;
+    //         this.buttonList[2].disabled = false;
+    //     }
+    // }
+    this.getdata('0');
+  },
+  methods: {
+    handleClick(tab) {
+      this.activeName = tab.name;
+      let type = '';
+      if (this.activeName === 'first') {
+        type = '0';
+      } else {
+        type = '1';
+      }
+      this.getdata(type);
+    },
+    getdata(val) {
+      this.loading = true;
+      let params = {
+        'type': val,
+      };
+      this.$store
+        .dispatch('PFANS1038Store/getListforType', params)
+        .then(response => {
+          this.loading = false;
+          let userinfo = '';
+          let data = [];
+          let outdata = [];
+          if (response.length > 0) {
+            response.forEach(
+              res => {
+                if (getUserInfo(res.createby)) {
+                  userinfo = getUserInfo(res.createby).userinfo;
+                }
+                res.createby = userinfo.customername;
+                if (res.centerid) {
+                  let name = getOrgInfo(res.centerid);
+                  if (name) {
+                    res.department = name.companyname;
+                  }
+                }
+                res.createon = moment(res.createon).format('YYYY-MM-DD');
+              },
+            );
+            if (val === '0') {
+              this.data = response;
+            } else {
+              this.outdata = response;
+            }
+          }
+        })
+        .catch(err => {
+          this.loading = false;
+          this.$message.error({
+            message: err,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        });
+    },
+    rowClick(row) {
+      this.id = row.personnelplanid;
+      //region scc add 9/28 获取编辑按钮可用状态 from
+      this.$store
+        .dispatch('PFANS1036Store/whetherEditor', {'centerid': row.centerid, 'years': row.years})
+        .then(response => {
+          this.buttonList[2].disabled = response;
+        })
+        .catch(err => {
+          this.$message.error({
+            message: err,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        });
+      //endregion scc add 9/28 获取编辑按钮可用状态 to
+    },
+    buttonClick(val) {
+      this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+      if ('update' === val) {
+        if (!this.id) {
+          Message({
+            message: this.$t('normal.info_01'),
+            type: 'info',
+            duration: 2 * 1000,
+          });
+          return;
+        }
+        if (this.activeName === 'first') {
+          this.$router.push({
+            name: 'PFANS1038FormView',
+            params: {
+              _id: this.id,
+              disabled: false,
+              type: 0,
+            },
+          });
+        } else if (this.activeName === 'second') {
+          this.$router.push({
+            name: 'PFANS1038OutFormView',
+            params: {
+              _id: this.id,
+              disabled: false,
+              type: 1,
+            },
+          });
+        }
+        // this.$router.push({
+        //     name: "PFANS1038FormView",
+        //     params: {
+        //         _id: this.id,
+        //         disabled: false,
+        //         type: this.activeName === "first" ? 0 : 1
+        //     }
+        // });
+      } else if ('view' === val) {
+        if (!this.id) {
+          Message({
+            message: this.$t('normal.info_01'),
+            type: 'info',
+            duration: 2 * 1000,
+          });
+          return;
+        }
+        if (this.activeName === 'first') {
+          this.$router.push({
+            name: 'PFANS1038FormView',
+            params: {
+              _id: this.id,
+              disabled: true,
+              type: 0,
+            },
+          });
+        } else if (this.activeName === 'second') {
+          this.$router.push({
+            name: 'PFANS1038OutFormView',
+            params: {
+              _id: this.id,
+              disabled: true,
+              type: 1,
+            },
+          });
+        }
+        // this.$router.push({
+        //     name: "PFANS1038FormView",
+        //     params: {
+        //         _id: this.id,
+        //         disabled: true,
+        //         type: this.activeName === "first" ? 0 : 1
+        //     }
+        // });
+      } else if ('new' === val) {
+        if (this.activeName === 'first') {
+          this.$router.push({
+            name: 'PFANS1038FormView',
+            params: {
+              _id: '',
+              disabled: false,
+              type: 0,
+            },
+          });
+        } else if (this.activeName === 'second') {
+          this.$router.push({
+            name: 'PFANS1038OutFormView',
+            params: {
+              _id: '',
+              disabled: false,
+              type: 1,
+            },
+          });
+        }
+      }
+    },
+  },
+};
 </script>
 <style lang="scss">
 

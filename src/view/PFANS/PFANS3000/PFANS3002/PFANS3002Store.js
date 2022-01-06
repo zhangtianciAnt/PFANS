@@ -2,8 +2,8 @@ import {
   createHotelReservation,
   getHotelReservation,
   getHotelReservationOne,
-  updateHotelReservation
-} from './PFANS3002Api'
+  updateHotelReservation,
+} from './PFANS3002Api';
 
 const PFANS3002Store = {
   namespaced: true,
@@ -16,12 +16,12 @@ const PFANS3002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getHotelReservationOne({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -29,12 +29,12 @@ const PFANS3002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updateHotelReservation({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -42,12 +42,12 @@ const PFANS3002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     createHotelReservation({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -55,14 +55,14 @@ const PFANS3002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
-    }
-  }
-}
+        });
+      });
+    },
+  },
+};
 
 export default PFANS3002Store;

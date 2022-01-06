@@ -1,4 +1,22 @@
-import {exportjs,insert, get,loanapplication, selectById,getpublicelist, update,getJudgement,getLoanApplication,getLoanApplicationList2,selectJudgement,selectPurchaseApply,selectByIdone2,selectCommunication,gettotalcost,getLoanApplicationList,getworkfolwPurchaseData} from './PFANS1012Api'
+import {
+  exportjs,
+  get,
+  getJudgement,
+  getLoanApplication,
+  getLoanApplicationList,
+  getLoanApplicationList2,
+  getpublicelist,
+  gettotalcost,
+  getworkfolwPurchaseData,
+  insert,
+  loanapplication,
+  selectById,
+  selectByIdone2,
+  selectCommunication,
+  selectJudgement,
+  selectPurchaseApply,
+  update,
+} from './PFANS1012Api';
 
 const PFANS1012Store = {
   namespaced: true,
@@ -11,8 +29,8 @@ const PFANS1012Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //更新
@@ -22,51 +40,51 @@ const PFANS1012Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    selectJudgement({ commit }, data) {
+    selectJudgement({commit}, data) {
       return new Promise((resolve, reject) => {
         selectJudgement(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    selectPurchaseApply({ commit }, data) {
+    selectPurchaseApply({commit}, data) {
       return new Promise((resolve, reject) => {
         selectPurchaseApply(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    selectCommunication({ commit }, data) {
+    selectCommunication({commit}, data) {
       return new Promise((resolve, reject) => {
         selectCommunication(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //根据id获取
     selectById({commit}, data) {
@@ -75,12 +93,12 @@ const PFANS1012Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     selectByIdone2({commit}, data) {
@@ -89,12 +107,12 @@ const PFANS1012Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     getpublicelist({commit}, data) {
@@ -103,12 +121,12 @@ const PFANS1012Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //查看列表
     get() {
@@ -117,12 +135,12 @@ const PFANS1012Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 // add-ws-8/20-禅道469
     loanapplication() {
@@ -131,12 +149,12 @@ const PFANS1012Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     // add-ws-8/20-禅道469
     gettotalcost({commit}, data) {
@@ -145,12 +163,12 @@ const PFANS1012Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //新建
     insert({commit}, data) {
@@ -159,12 +177,12 @@ const PFANS1012Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 //裁决号
     getJudgement({commit}, data) {
@@ -173,12 +191,12 @@ const PFANS1012Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     getLoanApplication({commit}, data) {
@@ -187,12 +205,12 @@ const PFANS1012Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getLoanApplicationList({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -200,12 +218,12 @@ const PFANS1012Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getLoanApplicationList2({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -213,12 +231,12 @@ const PFANS1012Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //采购业务数据流程查看详情
     getworkfolwPurchaseData({commit}, data) {
@@ -227,17 +245,17 @@ const PFANS1012Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //采购业务数据流程查看详情
 
 
-  }
+  },
 };
 export default PFANS1012Store;
 

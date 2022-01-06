@@ -1,6 +1,4 @@
-import {
-  getTableinfo,
-} from './PFANS6011Api'
+import {getTableinfo} from './PFANS6011Api';
 
 const PFANS6011Store = {
   namespaced: true,
@@ -13,14 +11,14 @@ const PFANS6011Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 
 export default PFANS6011Store;

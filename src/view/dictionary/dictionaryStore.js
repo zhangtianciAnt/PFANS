@@ -1,82 +1,82 @@
 import {
   getAll,
+  getFileToken,
   getForSelect,
-  updateDictionary,
   getForvalue2,
-  getFileToken
-} from './dictionaryApi'
+  updateDictionary,
+} from './dictionaryApi';
 
 const dictionaryStore = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
-    getForSelect ({commit}, data) {
+    getForSelect({commit}, data) {
       return new Promise((resolve, reject) => {
         getForSelect(data).then(response => {
           if (response.code === 0) {
-            resolve(response.data)
+            resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
-          reject(error)
-        })
-      })
+          reject(error);
+        });
+      });
     },
-    getFileToken ({commit}) {
+    getFileToken({commit}) {
       return new Promise((resolve, reject) => {
         getFileToken().then(response => {
           if (response.code === 0) {
-            resolve(response.data)
+            resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
-          reject(error)
-        })
-      })
+          reject(error);
+        });
+      });
     },
-    getForvalue2 ({commit}, data) {
+    getForvalue2({commit}, data) {
       return new Promise((resolve, reject) => {
         getForvalue2(data).then(response => {
           if (response.code === 0) {
-            resolve(response.data)
+            resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
-          reject(error)
-        })
-      })
+          reject(error);
+        });
+      });
     },
-    getAll ({commit}) {
+    getAll({commit}) {
       return new Promise((resolve, reject) => {
         getAll().then(response => {
           if (response.code === 0) {
-            resolve(response.data)
+            resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
-          reject(error)
-        })
-      })
+          reject(error);
+        });
+      });
     },
-    updateDictionary({ commit },data) {
+    updateDictionary({commit}, data) {
       return new Promise((resolve, reject) => {
         updateDictionary(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
-}
+  },
+};
 
-export default dictionaryStore
+export default dictionaryStore;

@@ -1,495 +1,495 @@
 <template>
     <span>
-        <el-button @click="addworkflow" plain size="mini" style="margin-left:10px" type="primary" @changeLoading="changeLoading"
-                   v-if="canStartWorkflow">{{$t('button.startWorkflow')}}</el-button>
-        <el-button :data="OperationWorkflowData" @click="OperationWorkflow" plain size="mini" style="margin-left:10px"
-                   type="primary" v-if="canOperationWorkflow">{{$t('button.operationWorkflow')}}</el-button>
-        <el-button @click="ViewWorkflow" plain size="mini" style="margin-left:10px" type="primary"
-                   v-if="canViewWorkflow">{{$t('button.viewWorkflow')}}</el-button>
-        <el-button @click="DelWorkflow" plain size="mini" style="margin-left:10px" type="primary" v-if="canDelWorkflow">{{$t('button.delWorkflow')}}</el-button>
-        <operation :data="data" :userlist="userlist" @refresh="refresh" @workflowState="workflowState"
-                   ref="operation"></operation>
-        <log @refresh="refresh" ref="log"></log>
-        <start :data="workflowlist" :userlist="userlist" @refresh="refresh" @start="start" ref="start"></start>
+        <el-button v-if="canStartWorkflow" plain size="mini" style="margin-left:10px" type="primary"
+                   @changeLoading="changeLoading"
+                   @click="addworkflow">{{ $t('button.startWorkflow') }}</el-button>
+        <el-button v-if="canOperationWorkflow" :data="OperationWorkflowData" plain size="mini" style="margin-left:10px"
+                   type="primary" @click="OperationWorkflow">{{ $t('button.operationWorkflow') }}</el-button>
+        <el-button v-if="canViewWorkflow" plain size="mini" style="margin-left:10px" type="primary"
+                   @click="ViewWorkflow">{{ $t('button.viewWorkflow') }}</el-button>
+        <el-button v-if="canDelWorkflow" plain size="mini" style="margin-left:10px" type="primary" @click="DelWorkflow">{{ $t('button.delWorkflow') }}</el-button>
+        <operation ref="operation" :data="data" :userlist="userlist" @refresh="refresh"
+                   @workflowState="workflowState"></operation>
+        <log ref="log" @refresh="refresh"></log>
+        <start ref="start" :data="workflowlist" :userlist="userlist" @refresh="refresh" @start="start"></start>
 
     </span>
 </template>
 
 <script>
-  import Operation from '@/components/EasyWorkFlow/Operation.vue'
-  import Log from '@/components/EasyWorkFlow/Log.vue'
-  import Start from '@/components/EasyWorkFlow/Start.vue'
-  import {Message} from 'element-ui'
+import Operation from '@/components/EasyWorkFlow/Operation.vue';
+import Log from '@/components/EasyWorkFlow/Log.vue';
+import Start from '@/components/EasyWorkFlow/Start.vue';
 
-  export default {
-    name: 'index',
-    components: {
-      Operation,
-      Log,
-      Start
+export default {
+  name: 'index',
+  components: {
+    Operation,
+    Log,
+    Start,
+  },
+  data() {
+    return {
+      workflow: {
+        menuUrl: '',
+        dataId: '',
+        workFlowId: '',
+      },
+      OperationWorkflowData: [],
+      canStartWorkflow: false,
+      canOperationWorkflow: false,
+      canViewWorkflow: false,
+      canDelWorkflow: false,
+      operationWorkflow: false,
+      instanceId: '',
+      data: {
+        id: '',
+        type: '',
+      },
+      workflowlist: [],
+    };
+  },
+  props: {
+    canStart: {
+      type: Boolean,
+      default: false,
     },
-    data() {
-      return {
-        workflow: {
-          menuUrl: '',
-          dataId: '',
-          workFlowId: ''
-        },
-        OperationWorkflowData: [],
-        canStartWorkflow: false,
-        canOperationWorkflow: false,
-        canViewWorkflow: false,
-        canDelWorkflow: false,
-        operationWorkflow: false,
-        instanceId: '',
-        data: {
-          id: '',
-          type: ''
-        },
-        workflowlist: []
+    workflowCode: {
+      type: String,
+      default: '',
+    },
+    userlist: {
+      type: Array,
+      default: function() {
+        return [];
+      },
+    },
+    defaultStart: {
+      type: Boolean,
+      default: true,
+    },
+    defaultDo: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  methods: {
+    changeLoading(val) {
+      this.$emit('changeLoading', val);
+    },
+    start(val) {
+      this.refresh();
+      this.$emit('start', val);
+    },
+    workflowState(val) {
+      this.$emit('workflowState', val);
+    },
+    //是否可以插销审批
+    isDelWorkflow() {
+
+
+      //add zgd_210326 无画面ID和数据ID时 不能撤销流程 start
+      if (this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+        this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined) {
+        this.canDelWorkflow = false;
+        return;
       }
-    },
-    props: {
-      canStart: {
-        type: Boolean,
-        default: false
-      },
-      workflowCode: {
-        type: String,
-        default: ""
-      },
-      userlist: {
-        type: Array,
-        default: function () {
-          return []
-        }
-      },
-      defaultStart:{
-        type:Boolean,
-        default:true
-      },
-      defaultDo:{
-        type:Boolean,
-        default:true
-      }
-    },
-    methods: {
-      changeLoading(val){
-        this.$emit('changeLoading', val);
-      },
-      start(val) {
-        this.refresh();
-        this.$emit('start',val)
-      },
-      workflowState(val) {
-        this.$emit('workflowState', val)
-      },
-      //是否可以插销审批
-      isDelWorkflow() {
-
-
-        //add zgd_210326 无画面ID和数据ID时 不能撤销流程 start
-        if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
-          this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
-          this.canDelWorkflow = false
-          return;
-        }
-        //add zgd_210326 无画面ID和数据ID时 不能撤销流程 end
-        this.$emit('changeLoading', true);
-        this.workflow.dataId = this.$store.getters.operateId;
-        this.workflow.menuUrl = this.$store.getters.workflowUrl;
-        this.$store
-          .dispatch('EasyWorkflowStore/IsDelWorkflow', this.workflow)
-          .then(response => {
-            this.$emit('changeLoading', false);
-            if (response && response.code === 0) {
-              if (response.message) {
-                this.canDelWorkflow = true;
-                this.instanceId = response.message
-              } else {
-                this.canDelWorkflow = false
-              }
+      //add zgd_210326 无画面ID和数据ID时 不能撤销流程 end
+      this.$emit('changeLoading', true);
+      this.workflow.dataId = this.$store.getters.operateId;
+      this.workflow.menuUrl = this.$store.getters.workflowUrl;
+      this.$store
+        .dispatch('EasyWorkflowStore/IsDelWorkflow', this.workflow)
+        .then(response => {
+          this.$emit('changeLoading', false);
+          if (response && response.code === 0) {
+            if (response.message) {
+              this.canDelWorkflow = true;
+              this.instanceId = response.message;
+            } else {
+              this.canDelWorkflow = false;
             }
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.$emit('changeLoading', false)
-          })
-      },
-      //是否可以发起审批
-      isStartWorkflow() {
-        //add_fjl_0908  添加没有组织结构的人员不能发起审批  start
-        if (!this.$store.getters.userinfo.userinfo.centerid) {
-          this.canStartWorkflow = false;
-          this.$emit('canStartWorkflow', false);
-          return;
-        }
-        //add_fjl_0908  添加没有组织结构的人员不能发起审批  end
-        this.$emit('changeLoading', true);
-        this.workflow.dataId = this.$store.getters.operateId;
-        this.workflow.menuUrl = this.$store.getters.workflowUrl;
-        this.$store
-          .dispatch('EasyWorkflowStore/IsStartWorkflow', this.workflow)
-          .then(response => {
-            this.$emit('changeLoading', false);
-            if (response && response.code === 0) {
-              if (Object.keys(response.data).length > 0) {
-                let workflows = [];
-                console.log(this.workflowCode);
-                if (this.workflowCode && this.workflowCode !== "") {
-                  response.data.list.filter((item) => {
-                    if (item.code === this.workflowCode) {
-                      workflows.push(item)
-                    }
-                  })
-                } else {
+          }
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.$emit('changeLoading', false);
+        });
+    },
+    //是否可以发起审批
+    isStartWorkflow() {
+      //add_fjl_0908  添加没有组织结构的人员不能发起审批  start
+      if (!this.$store.getters.userinfo.userinfo.centerid) {
+        this.canStartWorkflow = false;
+        this.$emit('canStartWorkflow', false);
+        return;
+      }
+      //add_fjl_0908  添加没有组织结构的人员不能发起审批  end
+      this.$emit('changeLoading', true);
+      this.workflow.dataId = this.$store.getters.operateId;
+      this.workflow.menuUrl = this.$store.getters.workflowUrl;
+      this.$store
+        .dispatch('EasyWorkflowStore/IsStartWorkflow', this.workflow)
+        .then(response => {
+          this.$emit('changeLoading', false);
+          if (response && response.code === 0) {
+            if (Object.keys(response.data).length > 0) {
+              let workflows = [];
+              console.log(this.workflowCode);
+              if (this.workflowCode && this.workflowCode !== '') {
+                response.data.list.filter((item) => {
+                  if (item.code === this.workflowCode) {
+                    workflows.push(item);
+                  }
+                });
+              } else {
+                //add zgd_210326 无画面ID和数据ID时 不能发起审批 start
+                if (response.data.list.length > 0) {
+                  this.$emit('setAlert', '如无审批操作相关按钮，请稍作等待或刷新重试！');
+                  this.$emit('canStartWorkflow', false);
+                  return;
+                }
+
+                //add zgd_210326 无画面ID和数据ID时 不能发起审批 end
+              }
+              this.workflowlist = workflows;
+              console.log(this.$store.getters.operateOwner);
+              console.log(this.$store.getters.userinfo.userid);
+              if (response.data.can === '0') {
+                if (this.$store.getters.operateOwner && this.$store.getters.userinfo.userid && (
+                  this.$store.getters.operateOwner === this.$store.getters.userinfo.userid
+                )) {
+
                   //add zgd_210326 无画面ID和数据ID时 不能发起审批 start
-                  if(response.data.list.length > 0){
-                    this.$emit('setAlert', "如无审批操作相关按钮，请稍作等待或刷新重试！");
+                  if (this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+                    this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined) {
+                    this.canStartWorkflow = false;
+                    this.$emit('setAlert', '获取数据失败，无法进行审批操作，请重试！');
                     this.$emit('canStartWorkflow', false);
                     return;
                   }
-
                   //add zgd_210326 无画面ID和数据ID时 不能发起审批 end
-                }
-                this.workflowlist = workflows;
-                console.log(this.$store.getters.operateOwner)
-                console.log(this.$store.getters.userinfo.userid)
-                if (response.data.can === "0") {
-                  if(this.$store.getters.operateOwner && this.$store.getters.userinfo.userid && (
-                    this.$store.getters.operateOwner === this.$store.getters.userinfo.userid
-                  )){
 
-                    //add zgd_210326 无画面ID和数据ID时 不能发起审批 start
-                    if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
-                      this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
-                      this.canStartWorkflow = false;
-                      this.$emit('setAlert', "获取数据失败，无法进行审批操作，请重试！");
-                      this.$emit('canStartWorkflow', false);
-                      return;
-                    }
-                    //add zgd_210326 无画面ID和数据ID时 不能发起审批 end
-
-                    this.canStartWorkflow = true;
-                    this.$emit('canStartWorkflow', true)
-                    if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
-                      || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
-                      || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
-                      this.canStartWorkflow = false;
-                      this.$emit('canStartWorkflow', false)
-                    }
-                  }else{
-                    this.canStartWorkflow = false;
-                    this.$emit('canStartWorkflow', false)
-                  }
-                } else {
-                  if (response.data.can === "1") {
-                    this.canStartWorkflow = false;
-                    this.$emit('canStartWorkflow', false)
-                  } else {
-                    if (this.canStart && response.data.can === "2") {
-                      if(this.$store.getters.operateOwner && this.$store.getters.userinfo.userid && (
-                        this.$store.getters.operateOwner === this.$store.getters.userinfo.userid
-                      )){
-
-                        //add zgd_210326 无画面ID和数据ID时 不能发起审批 start
-                        if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
-                          this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
-                          this.canStartWorkflow = false;
-                          this.$emit('setAlert', "获取数据失败，无法进行审批操作，请重试！");
-                          this.$emit('canStartWorkflow', false);
-                          return;
-                        }
-                        //add zgd_210326 无画面ID和数据ID时 不能发起审批 end
-
-                        this.canStartWorkflow = true;
-                        this.$emit('canStartWorkflow', true)
-                        if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
-                          || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
-                          || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
-                          this.canStartWorkflow = false;
-                          this.$emit('canStartWorkflow', false)
-                        }
-                      }else{
-                        this.canStartWorkflow = false;
-                        this.$emit('canStartWorkflow', false)
-                      }
-                    } else {
-                      this.canStartWorkflow = false;
-                      this.$emit('canStartWorkflow', false)
-                    }
-                  }
-                }
-              }
-            }
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.$emit('changeLoading', false)
-          })
-      },
-      isStartWorkflow2() {
-        this.$emit('changeLoading', true);
-        this.workflow.dataId = this.$store.getters.operateId;
-        this.workflow.menuUrl = this.$store.getters.workflowUrl;
-        this.$store
-          .dispatch('EasyWorkflowStore/IsStartWorkflow', this.workflow)
-          .then(response => {
-            this.$emit('changeLoading', false);
-            if (response && response.code === 0) {
-              if (Object.keys(response.data).length > 0) {
-                if (response.data.can === "0") {
-                  this.$emit('canStartWorkflow', true)
+                  this.canStartWorkflow = true;
+                  this.$emit('canStartWorkflow', true);
                   if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
                     || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
                     || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
-                    this.$emit('canStartWorkflow', false)
+                    this.canStartWorkflow = false;
+                    this.$emit('canStartWorkflow', false);
                   }
                 } else {
-                  if (response.data.can === "1") {
-                    this.$emit('canStartWorkflow', false)
-                  } else {
-                    if (this.canStart && response.data.can === "2") {
-                      this.$emit('canStartWorkflow', true)
+                  this.canStartWorkflow = false;
+                  this.$emit('canStartWorkflow', false);
+                }
+              } else {
+                if (response.data.can === '1') {
+                  this.canStartWorkflow = false;
+                  this.$emit('canStartWorkflow', false);
+                } else {
+                  if (this.canStart && response.data.can === '2') {
+                    if (this.$store.getters.operateOwner && this.$store.getters.userinfo.userid && (
+                      this.$store.getters.operateOwner === this.$store.getters.userinfo.userid
+                    )) {
+
+                      //add zgd_210326 无画面ID和数据ID时 不能发起审批 start
+                      if (this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+                        this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined) {
+                        this.canStartWorkflow = false;
+                        this.$emit('setAlert', '获取数据失败，无法进行审批操作，请重试！');
+                        this.$emit('canStartWorkflow', false);
+                        return;
+                      }
+                      //add zgd_210326 无画面ID和数据ID时 不能发起审批 end
+
+                      this.canStartWorkflow = true;
+                      this.$emit('canStartWorkflow', true);
                       if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
                         || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
                         || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
-                        this.$emit('canStartWorkflow', false)
+                        this.canStartWorkflow = false;
+                        this.$emit('canStartWorkflow', false);
                       }
                     } else {
-                      this.$emit('canStartWorkflow', false)
+                      this.canStartWorkflow = false;
+                      this.$emit('canStartWorkflow', false);
                     }
+                  } else {
+                    this.canStartWorkflow = false;
+                    this.$emit('canStartWorkflow', false);
                   }
                 }
               }
             }
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.$emit('changeLoading', false)
-          })
-      },
-      //是否可以进行审批
-      isOperationWorkflow() {
-
-        //add zgd_210326 无画面ID和数据ID时 不能进行审批 start
-        if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
-          this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
-          this.canOperationWorkflow = false
-          return;
-        }
-        //add zgd_210326 无画面ID和数据ID时 不能进行审批 end
-        this.$emit('changeLoading', true);
-        this.workflow.dataId = this.$store.getters.operateId;
-        this.workflow.menuUrl = this.$store.getters.workflowUrl;
-        this.$store
-          .dispatch(
-            'EasyWorkflowStore/IsOperationWorkflow',
-            this.workflow
-          )
-          .then(response => {
-            this.$emit('changeLoading', false);
-            if (response && response.code === 0) {
-              this.OperationWorkflowData = response.data;
-              if (Object.keys(response.data).length > 0) {
-                this.canOperationWorkflow = true;
-                this.data.id = response.data.id;
-                this.data.type = response.data.type;
-                this.data.remarks = response.data.remarks;
-                this.data.nodeusertype = response.data.nodeusertype;
-
-                let stepInfo = {
-                  code:response.data.code,
-                  no:response.data.nodeord,
-                }
-                console.log(stepInfo);
-                this.$emit('stepInfo',stepInfo);
-              } else {
-                this.canOperationWorkflow = false
-              }
-
-              this.$emit('WorkflowUser',this.canOperationWorkflow);
-            }
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.$emit('changeLoading', false)
-          })
-      },
-      //是否可以查看流程日志
-      isViewWorkflow() {
-
-
-        //add zgd_210326 无画面ID和数据ID时 不能查看流程 start
-        if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
-          this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
-          this.canViewWorkflow = false
-          return;
-        }
-        //add zgd_210326 无画面ID和数据ID时 不能查看流程 end
-        this.$emit('changeLoading', true);
-        this.canViewWorkflow= false;
-        this.workflow.dataId = this.$store.getters.operateId;
-        this.workflow.menuUrl = this.$store.getters.workflowUrl;
-        this.$store
-          .dispatch('EasyWorkflowStore/IsViewWorkflow', this.workflow)
-          .then(response => {
-            this.$emit('changeLoading', false);
-            if (response && response.code === 0) {
-              this.canViewWorkflow = response.data;
-              this.$emit('canViewWorkflow', this.canViewWorkflow)
-            }
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.$emit('changeLoading', false)
-          })
-      },
-      //是否可以查看流程日志
-      isViewWorkflow2() {
-        this.$emit('changeLoading', true);
-        this.workflow.dataId = this.$store.getters.operateId;
-        this.workflow.menuUrl = this.$store.getters.workflowUrl;
-        this.$store
-          .dispatch('EasyWorkflowStore/IsViewWorkflow', this.workflow)
-          .then(response => {
-            this.$emit('changeLoading', false);
-            if (response && response.code === 0) {
-              this.$emit('canViewWorkflow', response.data)
-            }
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.$emit('changeLoading', false)
-          })
-      },
-      // 发起审批
-      addworkflow() {
-        if(this.defaultStart){
-          this.startWorkflow()
-        }else{
-          this.$emit("StartWorkflow","StartWorkflow")
-        }
-      },
-      startWorkflow(){
-        if(this.workflowlist.length > 1){
-          this.$refs.start.startWorkflow = true;
-          this.$refs.start.selectId = this.workflowlist[0].workflowid;
-          this.$refs.start.selectWorkflowstep(
-            this.workflowlist[0].workflowid
-          )
-        }else{
-          // this.$refs.start.startWorkflow = false;
-          if(this.workflowlist.length === 0){
-            this.$message.error({
-              message: this.$t('normal.error_13'),
-              type: 'error'
-            });
-            return;
           }
-          this.$refs.start.selectId = this.workflowlist[0].workflowid;
-          this.$refs.start.selectWorkflowstep(
-            this.workflowlist[0].workflowid
-          )
-          this.$refs.start.submit();
-
-        }
-      },
-      //关闭回掉
-      refresh() {
-        if (this.$route.params._id && this.$route.params._id !== '') {
-          this.isStartWorkflow();
-          this.isOperationWorkflow();
-          this.isViewWorkflow();
-          this.isDelWorkflow()
-        }
-
-      },
-      //打开进行审批画面
-      OperationWorkflow() {
-        if(this.defaultDo){
-          this.$refs.operation.operationWorkflow = true;
-          this.$refs.operation.getlogDetail();
-          this.$refs.operation.init()
-        }else{
-          this.$emit("OperationWorkflow","OperationWorkflow")
-        }
-
-      },
-      ViewWorkflow() {
-        this.$refs.log.viewWorkflow = true;
-        this.$refs.log.getlogDetail()
-      },
-      DelWorkflow() {
-        this.$confirm(this.$t('normal.info_06'), this.$t('normal.info'), {
-          confirmButtonText: this.$t('button.confirm'),
-          cancelButtonText: this.$t('button.cancel'),
-          type: 'info'
-        }).then(() => {
-          this.$emit('changeLoading', true);
-          this.$store
-            .dispatch('EasyWorkflowStore/DelWorkflow', {
-              instanceId: this.instanceId
-            })
-            .then(response => {
-              this.$emit('changeLoading', false);
-              if (response && response.code === 0) {
-                this.$message.success({
-                  message: this.$t('normal.success_03'),
-                  type: 'success'
-                });
-                this.$emit('end');
-                this.refresh()
-              } else {
-                this.$message.error({
-                  message: this.$t('normal.error_04'),
-                  type: 'error'
-                })
-              }
-            })
-            .catch(error => {
-              this.$message.error({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000
-              });
-              this.$emit('changeLoading', false)
-            })
         })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.$emit('changeLoading', false);
+        });
+    },
+    isStartWorkflow2() {
+      this.$emit('changeLoading', true);
+      this.workflow.dataId = this.$store.getters.operateId;
+      this.workflow.menuUrl = this.$store.getters.workflowUrl;
+      this.$store
+        .dispatch('EasyWorkflowStore/IsStartWorkflow', this.workflow)
+        .then(response => {
+          this.$emit('changeLoading', false);
+          if (response && response.code === 0) {
+            if (Object.keys(response.data).length > 0) {
+              if (response.data.can === '0') {
+                this.$emit('canStartWorkflow', true);
+                if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
+                  || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
+                  || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
+                  this.$emit('canStartWorkflow', false);
+                }
+              } else {
+                if (response.data.can === '1') {
+                  this.$emit('canStartWorkflow', false);
+                } else {
+                  if (this.canStart && response.data.can === '2') {
+                    this.$emit('canStartWorkflow', true);
+                    if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
+                      || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
+                      || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
+                      this.$emit('canStartWorkflow', false);
+                    }
+                  } else {
+                    this.$emit('canStartWorkflow', false);
+                  }
+                }
+              }
+            }
+          }
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.$emit('changeLoading', false);
+        });
+    },
+    //是否可以进行审批
+    isOperationWorkflow() {
+
+      //add zgd_210326 无画面ID和数据ID时 不能进行审批 start
+      if (this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+        this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined) {
+        this.canOperationWorkflow = false;
+        return;
+      }
+      //add zgd_210326 无画面ID和数据ID时 不能进行审批 end
+      this.$emit('changeLoading', true);
+      this.workflow.dataId = this.$store.getters.operateId;
+      this.workflow.menuUrl = this.$store.getters.workflowUrl;
+      this.$store
+        .dispatch(
+          'EasyWorkflowStore/IsOperationWorkflow',
+          this.workflow,
+        )
+        .then(response => {
+          this.$emit('changeLoading', false);
+          if (response && response.code === 0) {
+            this.OperationWorkflowData = response.data;
+            if (Object.keys(response.data).length > 0) {
+              this.canOperationWorkflow = true;
+              this.data.id = response.data.id;
+              this.data.type = response.data.type;
+              this.data.remarks = response.data.remarks;
+              this.data.nodeusertype = response.data.nodeusertype;
+
+              let stepInfo = {
+                code: response.data.code,
+                no: response.data.nodeord,
+              };
+              console.log(stepInfo);
+              this.$emit('stepInfo', stepInfo);
+            } else {
+              this.canOperationWorkflow = false;
+            }
+
+            this.$emit('WorkflowUser', this.canOperationWorkflow);
+          }
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.$emit('changeLoading', false);
+        });
+    },
+    //是否可以查看流程日志
+    isViewWorkflow() {
+
+
+      //add zgd_210326 无画面ID和数据ID时 不能查看流程 start
+      if (this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+        this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined) {
+        this.canViewWorkflow = false;
+        return;
+      }
+      //add zgd_210326 无画面ID和数据ID时 不能查看流程 end
+      this.$emit('changeLoading', true);
+      this.canViewWorkflow = false;
+      this.workflow.dataId = this.$store.getters.operateId;
+      this.workflow.menuUrl = this.$store.getters.workflowUrl;
+      this.$store
+        .dispatch('EasyWorkflowStore/IsViewWorkflow', this.workflow)
+        .then(response => {
+          this.$emit('changeLoading', false);
+          if (response && response.code === 0) {
+            this.canViewWorkflow = response.data;
+            this.$emit('canViewWorkflow', this.canViewWorkflow);
+          }
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.$emit('changeLoading', false);
+        });
+    },
+    //是否可以查看流程日志
+    isViewWorkflow2() {
+      this.$emit('changeLoading', true);
+      this.workflow.dataId = this.$store.getters.operateId;
+      this.workflow.menuUrl = this.$store.getters.workflowUrl;
+      this.$store
+        .dispatch('EasyWorkflowStore/IsViewWorkflow', this.workflow)
+        .then(response => {
+          this.$emit('changeLoading', false);
+          if (response && response.code === 0) {
+            this.$emit('canViewWorkflow', response.data);
+          }
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.$emit('changeLoading', false);
+        });
+    },
+    // 发起审批
+    addworkflow() {
+      if (this.defaultStart) {
+        this.startWorkflow();
+      } else {
+        this.$emit('StartWorkflow', 'StartWorkflow');
       }
     },
-    mounted() {
-    },
-    watch: {
-      workflowCode(val) {
-        if (val) {
-          this.isStartWorkflow();
+    startWorkflow() {
+      if (this.workflowlist.length > 1) {
+        this.$refs.start.startWorkflow = true;
+        this.$refs.start.selectId = this.workflowlist[0].workflowid;
+        this.$refs.start.selectWorkflowstep(
+          this.workflowlist[0].workflowid,
+        );
+      } else {
+        // this.$refs.start.startWorkflow = false;
+        if (this.workflowlist.length === 0) {
+          this.$message.error({
+            message: this.$t('normal.error_13'),
+            type: 'error',
+          });
+          return;
         }
+        this.$refs.start.selectId = this.workflowlist[0].workflowid;
+        this.$refs.start.selectWorkflowstep(
+          this.workflowlist[0].workflowid,
+        );
+        this.$refs.start.submit();
+
       }
-    }
-  }
+    },
+    //关闭回掉
+    refresh() {
+      if (this.$route.params._id && this.$route.params._id !== '') {
+        this.isStartWorkflow();
+        this.isOperationWorkflow();
+        this.isViewWorkflow();
+        this.isDelWorkflow();
+      }
+
+    },
+    //打开进行审批画面
+    OperationWorkflow() {
+      if (this.defaultDo) {
+        this.$refs.operation.operationWorkflow = true;
+        this.$refs.operation.getlogDetail();
+        this.$refs.operation.init();
+      } else {
+        this.$emit('OperationWorkflow', 'OperationWorkflow');
+      }
+
+    },
+    ViewWorkflow() {
+      this.$refs.log.viewWorkflow = true;
+      this.$refs.log.getlogDetail();
+    },
+    DelWorkflow() {
+      this.$confirm(this.$t('normal.info_06'), this.$t('normal.info'), {
+        confirmButtonText: this.$t('button.confirm'),
+        cancelButtonText: this.$t('button.cancel'),
+        type: 'info',
+      }).then(() => {
+        this.$emit('changeLoading', true);
+        this.$store
+          .dispatch('EasyWorkflowStore/DelWorkflow', {
+            instanceId: this.instanceId,
+          })
+          .then(response => {
+            this.$emit('changeLoading', false);
+            if (response && response.code === 0) {
+              this.$message.success({
+                message: this.$t('normal.success_03'),
+                type: 'success',
+              });
+              this.$emit('end');
+              this.refresh();
+            } else {
+              this.$message.error({
+                message: this.$t('normal.error_04'),
+                type: 'error',
+              });
+            }
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.$emit('changeLoading', false);
+          });
+      });
+    },
+  },
+  mounted() {
+  },
+  watch: {
+    workflowCode(val) {
+      if (val) {
+        this.isStartWorkflow();
+      }
+    },
+  },
+};
 </script>

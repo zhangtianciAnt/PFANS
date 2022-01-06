@@ -1,4 +1,11 @@
-import {getprojects,insert,get,selectById,downloadExcel} from './PFANS1048Api'
+import {
+  downloadExcel,
+  get,
+  getprojects,
+  insert,
+  selectById,
+} from './PFANS1048Api';
+
 const PFANS1048store = {
   namespaced: true,
   state: {},
@@ -17,59 +24,59 @@ const PFANS1048store = {
         });
       });
     },
-    get({ commit }, data) {
+    get({commit}, data) {
       return new Promise((resolve, reject) => {
         get(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    getprojects({ commit }, data) {
+    getprojects({commit}, data) {
       return new Promise((resolve, reject) => {
         getprojects(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     downloadExcel({commit}, data) {
       return new Promise((resolve, reject) => {
         downloadExcel(data).then(response => {
-          if ( response.type.indexOf("json") == -1 ) {
-            resolve(response)
+          if (response.type.indexOf('json') == -1) {
+            resolve(response);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    insert({ commit }, data) {
+    insert({commit}, data) {
       return new Promise((resolve, reject) => {
         insert(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 
 export default PFANS1048store;

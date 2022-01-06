@@ -1,169 +1,169 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title" @reget="getdata"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+  <EasyNormalTable v-loading="loading" :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
+                   @buttonClick="buttonClick" @reget="getdata" @rowClick="rowClick">
   </EasyNormalTable>
 </template>
 <script>
-    import EasyNormalTable from '@/components/EasyNormalTable'
-    import {Message} from 'element-ui'
-    import {getStatus, getUserInfo,getOrgInfoByUserId} from '@/utils/customize'
+import EasyNormalTable from '@/components/EasyNormalTable';
+import {Message} from 'element-ui';
+import {getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize';
 
-    export default {
-        name: 'PFANS1019View',
-        components: {
-            EasyNormalTable,
+export default {
+  name: 'PFANS1019View',
+  components: {
+    EasyNormalTable,
+  },
+  data() {
+    return {
+      loading: false,
+      title: 'title.PFANS1019VIEW',
+      data: [],
+      columns: [
+        {
+          code: 'user_id',
+          label: 'label.applicant',
+          width: 120,
+          fix: false,
+          filter: true,
         },
-        data() {
-            return {
-                loading: false,
-                title: 'title.PFANS1019VIEW',
-                data: [],
-                columns: [
-                    {
-                        code: 'user_id',
-                        label: 'label.applicant',
-                        width: 120,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'center_id',
-                        label: 'label.center',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'group_id',
-                        label: 'label.group',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'team_id',
-                        label: 'label.team',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                  {
-                    code: 'corresponding',
-                    label: 'label.PFANS1016FORMVIEW_CORRESPONDING',
-                    width: 80,
-                    fix: false,
-                    filter: true
-                  },
-                    {
-                        code: 'status',
-                        label: 'label.approval_status',
-                        width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                ],
-                buttonList: [
-                    {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-                    {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-                    {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
-                ],
-                rowid: '',
-                row: 'trialsoft_id',
+        {
+          code: 'center_id',
+          label: 'label.center',
+          width: 150,
+          fix: false,
+          filter: true,
+        },
+        {
+          code: 'group_id',
+          label: 'label.group',
+          width: 150,
+          fix: false,
+          filter: true,
+        },
+        {
+          code: 'team_id',
+          label: 'label.team',
+          width: 150,
+          fix: false,
+          filter: true,
+        },
+        {
+          code: 'corresponding',
+          label: 'label.PFANS1016FORMVIEW_CORRESPONDING',
+          width: 80,
+          fix: false,
+          filter: true,
+        },
+        {
+          code: 'status',
+          label: 'label.approval_status',
+          width: 150,
+          fix: false,
+          filter: true,
+        },
+      ],
+      buttonList: [
+        {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+        {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+        {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+      ],
+      rowid: '',
+      row: 'trialsoft_id',
+    };
+  },
+  mounted() {
+    this.getdata();
+  },
+  methods: {
+    getdata() {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS1019Store/getTrialsoft')
+        .then(response => {
+          for (let j = 0; j < response.length; j++) {
+            if (response[j].corresponding == 1) {
+              response[j].corresponding = '完成';
+            } else {
+              response[j].corresponding = '未完成';
             }
-        },
-        mounted() {
-            this.getdata();
-        },
-        methods: {
-          getdata(){
-            this.loading = true;
-            this.$store
-              .dispatch('PFANS1019Store/getTrialsoft')
-              .then(response => {
-                for (let j = 0; j < response.length; j++) {
-                  if (response[j].corresponding == 1) {
-                    response[j].corresponding = '完成'
-                  } else {
-                    response[j].corresponding = '未完成'
-                  }
-                  let user = getUserInfo(response[j].user_id);
-                  let nameflg = getOrgInfoByUserId(response[j].user_id);
-                  if (nameflg) {
-                    response[j].center_id = nameflg.centerNmae;
-                    response[j].group_id = nameflg.groupNmae;
-                    response[j].team_id = nameflg.teamNmae;
-                  }
-                  if (user) {
-                    response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
-                  }
-                  response[j].status = getStatus(response[j].status);
-                  // if (response[j].implement_date !== null && response[j].implement_date !== '') {
-                  //   response[j].implement_date = moment(response[j].implement_date).format('YYYY-MM-DD')
-                  // }
-                }
-                this.data = response;
-                this.loading = false
-              })
-              .catch(error => {
-                this.$message.error({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000
-                });
-                this.loading = false
-              })
-          },
-            rowClick(row) {
-                this.rowid = row.trialsoft_id
-            },
-            buttonClick(val) {
-                this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-                if (val === 'view') {
-                    if (this.rowid === '') {
-                        Message({
-                            message: this.$t('normal.info_01'),
-                            type: 'info',
-                            duration: 2 * 1000
-                        });
-                        return
-                    }
-                    this.$router.push({
-                        name: 'PFANS1019FormView',
-                        params: {
-                            _id: this.rowid,
-                            disabled: false
-                        }
-                    })
-                }
-                if (val === 'insert') {
-                    this.$router.push({
-                        name: 'PFANS1019FormView',
-                        params: {
-                            _id: '',
-                            disabled: true
-                        }
-                    })
-                }
-                if (val === 'update') {
-                    if (this.rowid === '') {
-                        Message({
-                            message: this.$t('normal.info_01'),
-                            type: 'info',
-                            duration: 2 * 1000
-                        });
-                        return
-                    }
-                    this.$router.push({
-                        name: 'PFANS1019FormView',
-                        params: {
-                            _id: this.rowid,
-                            disabled: true
-                        }
-                    })
-                }
-            },
+            let user = getUserInfo(response[j].user_id);
+            let nameflg = getOrgInfoByUserId(response[j].user_id);
+            if (nameflg) {
+              response[j].center_id = nameflg.centerNmae;
+              response[j].group_id = nameflg.groupNmae;
+              response[j].team_id = nameflg.teamNmae;
+            }
+            if (user) {
+              response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
+            }
+            response[j].status = getStatus(response[j].status);
+            // if (response[j].implement_date !== null && response[j].implement_date !== '') {
+            //   response[j].implement_date = moment(response[j].implement_date).format('YYYY-MM-DD')
+            // }
+          }
+          this.data = response;
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    },
+    rowClick(row) {
+      this.rowid = row.trialsoft_id;
+    },
+    buttonClick(val) {
+      this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+      if (val === 'view') {
+        if (this.rowid === '') {
+          Message({
+            message: this.$t('normal.info_01'),
+            type: 'info',
+            duration: 2 * 1000,
+          });
+          return;
         }
-    }
+        this.$router.push({
+          name: 'PFANS1019FormView',
+          params: {
+            _id: this.rowid,
+            disabled: false,
+          },
+        });
+      }
+      if (val === 'insert') {
+        this.$router.push({
+          name: 'PFANS1019FormView',
+          params: {
+            _id: '',
+            disabled: true,
+          },
+        });
+      }
+      if (val === 'update') {
+        if (this.rowid === '') {
+          Message({
+            message: this.$t('normal.info_01'),
+            type: 'info',
+            duration: 2 * 1000,
+          });
+          return;
+        }
+        this.$router.push({
+          name: 'PFANS1019FormView',
+          params: {
+            _id: this.rowid,
+            disabled: true,
+          },
+        });
+      }
+    },
+  },
+};
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

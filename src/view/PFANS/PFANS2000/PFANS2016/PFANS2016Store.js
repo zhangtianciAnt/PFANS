@@ -1,9 +1,21 @@
 import {
-  createPfans2016, getFpans2016List, updatePfans2016, deletePfans2016, getPfans2016One,
-        getOvertimelist,getReplacerest,cklength,updateNewUser,getSickleave,getFpans2016List2,
-  selectAbNormalParent, updateOvertime, getRestday, getLeaveNumber,getremainingByuserid
-} from './PFANS2016Api'
-import {getAttendancelist} from '../PFANS2010/PFANS2010Api';
+  cklength,
+  createPfans2016,
+  deletePfans2016,
+  getFpans2016List,
+  getFpans2016List2,
+  getLeaveNumber,
+  getOvertimelist,
+  getPfans2016One,
+  getremainingByuserid,
+  getReplacerest,
+  getRestday,
+  getSickleave,
+  selectAbNormalParent,
+  updateNewUser,
+  updateOvertime,
+  updatePfans2016,
+} from './PFANS2016Api';
 
 const PFANS2016Store = {
   namespaced: true,
@@ -17,12 +29,12 @@ const PFANS2016Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     updateOvertime({commit}, data) {
@@ -31,12 +43,12 @@ const PFANS2016Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     createPfans2016({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -44,41 +56,41 @@ const PFANS2016Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    updateNewUser({ commit },data) {
+    updateNewUser({commit}, data) {
       return new Promise((resolve, reject) => {
         updateNewUser(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    getOvertimelist({commit},data) {
+    getOvertimelist({commit}, data) {
       return new Promise((resolve, reject) => {
         getOvertimelist(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
-      updatePfans2016({commit}, data) {
+    updatePfans2016({commit}, data) {
       // if(data.errortype === 'PR013006'){
       //   let userid = {user_id:data.user_id}
       //   let slectToken = await getReplacerest(userid);
@@ -93,12 +105,12 @@ const PFANS2016Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //ADD_FJL_0904  添加删除data
     deletePfans2016({commit}, data) {
@@ -107,82 +119,82 @@ const PFANS2016Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //ADD_FJL_0904  添加删除data
-    getFpans2016List({commit},data) {
+    getFpans2016List({commit}, data) {
       return new Promise((resolve, reject) => {
         getFpans2016List(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add-ws-6/8-禅道035
-    getFpans2016List2({ commit },data) {
+    getFpans2016List2({commit}, data) {
       return new Promise((resolve, reject) => {
         getFpans2016List2(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add-ws-6/8-禅道035
-    getPfans2016One({ commit },data) {
+    getPfans2016One({commit}, data) {
       return new Promise((resolve, reject) => {
         getPfans2016One(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
-    getReplacerest({ commit },data) {
+    getReplacerest({commit}, data) {
       return new Promise((resolve, reject) => {
         getReplacerest(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
-    cklength({ commit },data) {
+    cklength({commit}, data) {
       return new Promise((resolve, reject) => {
         cklength(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     getSickleave({commit}, data) {
@@ -191,12 +203,12 @@ const PFANS2016Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     selectAbNormalParent({commit}, data) {
@@ -205,12 +217,12 @@ const PFANS2016Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add_fjl_05/26 --添加代休剩余
     getRestday({commit}, data) {
@@ -219,12 +231,12 @@ const PFANS2016Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add_fjl_05/26 --添加代休剩余
     //add ccm 0806 查询申请人的剩余年休，
@@ -234,15 +246,15 @@ const PFANS2016Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add ccm 0806 查询申请人的剩余年休，
-  }
+  },
 };
 
 export default PFANS2016Store;

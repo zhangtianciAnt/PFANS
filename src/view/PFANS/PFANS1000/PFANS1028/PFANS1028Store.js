@@ -1,9 +1,4 @@
-import {
-  getPage,
-  get,
-  one,
-  update
-} from './PFANS1028Api'
+import {get, getPage, one, update} from './PFANS1028Api';
 
 const PFANS1028Store = {
   namespaced: true,
@@ -16,12 +11,12 @@ const PFANS1028Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //   add  ml  211130  分页  from
     getPage() {
@@ -30,12 +25,12 @@ const PFANS1028Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //   add  ml  211130  分页  to
     update({commit}, data) {
@@ -44,12 +39,12 @@ const PFANS1028Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     one({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -57,15 +52,15 @@ const PFANS1028Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
-}
+  },
+};
 export default PFANS1028Store;
 
 

@@ -1,43 +1,43 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :title="title"
-                         @buttonClick="buttonClick" ref="container" v-loading="loading"
-                         @workflowState="workflowState" @start="start" @end="end" :workflowCode="workflowCode"
+    <EasyNormalContainer ref="container" v-loading="loading"
+                         :buttonList="buttonList" :title="title" :workflowCode="workflowCode"
+                         @buttonClick="buttonClick" @end="end" @start="start" @workflowState="workflowState"
     >
       <div slot="customize" style="width: 100%">
-        <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px" :rules="rules">
+        <el-form ref="reff" :rules="rules" label-position="top" label-width="8vw" style="padding-top: 10px">
 
           <el-form-item>
             <el-row style="padding-top: 30px">
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')" prop="year" :error="erroryear">
+                <el-form-item :error="erroryear" :label="$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')" prop="year">
                   <div class="block">
                     <el-date-picker
-                      type="year"
-                      @change="changeYear"
+                      v-model="form.year"
                       :disabled="!disable"
                       style="width: 18vw"
-                      v-model="form.year">
+                      type="year"
+                      @change="changeYear">
                     </el-date-picker>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS2009VIEW_JUNE')" :error="errormonth" prop="month">
+                <el-form-item :error="errormonth" :label="$t('label.PFANS2009VIEW_JUNE')" prop="month">
                   <div class="block">
                     <el-date-picker
-                      type="month"
-                      @change="changeRegion"
+                      v-model="form.region"
                       :disabled="!disable"
                       style="width: 20vw"
-                      v-model="form.region">
+                      type="month"
+                      @change="changeRegion">
                     </el-date-picker>
                   </div>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')" :error="errorgroup" prop="group">
-                  <el-select v-model="form.group_id" style="width: 20vw" :disabled="!disable"
+                <el-form-item :error="errorgroup" :label="$t('label.PFANS1039FORMVIEW_GROUP')" prop="group">
+                  <el-select v-model="form.group_id" :disabled="!disable" style="width: 20vw"
                              @change="changeGroup">
                     <el-option
                       v-for="item in optionsdata"
@@ -53,19 +53,19 @@
         </el-form>
 
         <pl-table
-          :datas="tableData" @selection-change="handleSelectionChange()"
-          border ref="plx" show-summary :summary-method="getSummaries"
-          stripe use-virtual
-          style="width: 100%;height: calc(100vh - 200px - 2rem)"
-          tooltip-effect="dark" cell-class-name="row_height_left" header-row-class-name="height"
-          big-data-checkbox highlight-current-row :header-cell-style="getRowClass"
+          ref="plx" :datas="tableData"
+          :header-cell-style="getRowClass" :summary-method="getSummaries" big-data-checkbox border
+          cell-class-name="row_height_left" header-row-class-name="height"
+          highlight-current-row
+          show-summary stripe style="width: 100%;height: calc(100vh - 200px - 2rem)"
+          tooltip-effect="dark" use-virtual @selection-change="handleSelectionChange()"
         >
           <!-- 序号-->
           <pl-table-column
             :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
             align="center"
-            type="index"
             fixed
+            type="index"
             width="50"
           ></pl-table-column>
           <pl-table-column
@@ -89,8 +89,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTST')"
               align="center"
-              width="150"
-              prop="outst1">
+              prop="outst1"
+              width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.outst1 }}</span>
               </template>
@@ -99,8 +99,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TAXYW')"
               align="center"
-              width="78"
-              prop="outst2">
+              prop="outst2"
+              width="78">
               <template slot-scope="scope">
                 <span>{{ scope.row.taxyw }}</span>
               </template>
@@ -109,8 +109,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TAXSA')"
               align="center"
-              width="78"
-              prop="outst3">
+              prop="outst3"
+              width="78">
               <template slot-scope="scope">
                 <span>{{ scope.row.taxsa }}</span>
               </template>
@@ -119,8 +119,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INST')"
               align="center"
-              width="78"
-              prop="inst">
+              prop="inst"
+              width="78">
               <template slot-scope="scope">
                 <span>{{ scope.row.inst }}</span>
               </template>
@@ -130,8 +130,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_CENTERINTOTAL')"
               align="center"
-              width="108"
-              prop="centerintotal">
+              prop="centerintotal"
+              width="108">
               <template slot-scope="scope">
                 <span>{{ scope.row.centerintotal }}</span>
               </template>
@@ -140,8 +140,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INTOTAL')"
               align="center"
-              width="78"
-              prop="intotal">
+              prop="intotal"
+              width="78">
               <template slot-scope="scope">
                 <span>{{ scope.row.intotal }}</span>
               </template>
@@ -156,8 +156,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PEOCOST')"
               align="center"
-              width="64"
-              prop="peocost">
+              prop="peocost"
+              width="64">
               <template slot-scope="scope">
                 <span>{{ scope.row.peocost }}</span>
               </template>
@@ -166,8 +166,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TWOCOST')"
               align="center"
-              width="64"
-              prop="twocost">
+              prop="twocost"
+              width="64">
               <template slot-scope="scope">
                 <span>{{ scope.row.twocost }}</span>
               </template>
@@ -176,8 +176,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PEOCOSTSUM')"
               align="center"
-              width="92"
-              prop="peocostsum">
+              prop="peocostsum"
+              width="92">
               <template slot-scope="scope">
                 <span>{{ scope.row.peocostsum }}</span>
               </template>
@@ -186,8 +186,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DEPRECIATIONSOFT')"
               align="center"
-              width="148"
-              prop="depreciationsoft">
+              prop="depreciationsoft"
+              width="148">
               <template slot-scope="scope">
                 <span>{{ scope.row.depreciationsoft }}</span>
               </template>
@@ -196,8 +196,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DEPRECIATIONEQUIPMENT')"
               align="center"
-              width="162"
-              prop="depreciationequipment">
+              prop="depreciationequipment"
+              width="162">
               <template slot-scope="scope">
                 <span>{{ scope.row.depreciationequipment }}</span>
               </template>
@@ -206,8 +206,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_RENT')"
               align="center"
-              width="108"
-              prop="rent">
+              prop="rent"
+              width="108">
               <template slot-scope="scope">
                 <span>{{ scope.row.rent }}</span>
               </template>
@@ -216,8 +216,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_LEASECOST')"
               align="center"
-              width="78"
-              prop="leasecost">
+              prop="leasecost"
+              width="78">
               <template slot-scope="scope">
                 <span>{{ scope.row.leasecost }}</span>
               </template>
@@ -226,8 +226,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TEMPORARYRENT')"
               align="center"
-              width="108"
-              prop="temporaryrent">
+              prop="temporaryrent"
+              width="108">
               <template slot-scope="scope">
                 <span>{{ scope.row.temporaryrent }}</span>
               </template>
@@ -236,8 +236,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHER')"
               align="center"
-              width="116"
-              prop="other">
+              prop="other"
+              width="116">
               <template slot-scope="scope">
                 <span>{{ scope.row.other }}</span>
               </template>
@@ -246,8 +246,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_COSTSUBTOTAL')"
               align="center"
-              width="134"
-              prop="costsubtotal">
+              prop="costsubtotal"
+              width="134">
               <template slot-scope="scope">
                 <span>{{ scope.row.costsubtotal }}</span>
               </template>
@@ -256,8 +256,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_RESEARCHCOST')"
               align="center"
-              width="92"
-              prop="researchcost">
+              prop="researchcost"
+              width="92">
               <template slot-scope="scope">
                 <span>{{ scope.row.researchcost }}</span>
               </template>
@@ -266,8 +266,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_SURVEYFEE')"
               align="center"
-              width="64"
-              prop="surveyfee">
+              prop="surveyfee"
+              width="64">
               <template slot-scope="scope">
                 <span>{{ scope.row.surveyfee }}</span>
               </template>
@@ -276,8 +276,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INWEITUO')"
               align="center"
-              width="108"
-              prop="inwetuo">
+              prop="inwetuo"
+              width="108">
               <template slot-scope="scope">
                 <span>{{ scope.row.inwetuo }}</span>
               </template>
@@ -286,8 +286,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTCOST')"
               align="center"
-              width="64"
-              prop="outcost">
+              prop="outcost"
+              width="64">
               <template slot-scope="scope">
                 <span>{{ scope.row.outcost }}</span>
               </template>
@@ -297,8 +297,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHERSOFTWAREFREE')"
               align="center"
-              width="130"
-              prop="othersoftwarefree">
+              prop="othersoftwarefree"
+              width="130">
               <template slot-scope="scope">
                 <span>{{ scope.row.othersoftwarefree }}</span>
               </template>
@@ -307,8 +307,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXPENSESSUBTOTAL')"
               align="center"
-              width="204"
-              prop="departmenttotal">
+              prop="departmenttotal"
+              width="204">
               <template slot-scope="scope">
                 <span>{{ scope.row.departmenttotal }}</span>
               </template>
@@ -317,8 +317,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_MANCOMMONDEPT')"
               align="center"
-              width="148"
-              prop="expensessubtotal">
+              prop="expensessubtotal"
+              width="148">
               <template slot-scope="scope">
                 <span>{{ scope.row.expensessubtotal }}</span>
               </template>
@@ -327,8 +327,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TRANSFERONE')"
               align="center"
-              width="64"
-              prop="transferone">
+              prop="transferone"
+              width="64">
               <template slot-scope="scope">
                 <span>{{ scope.row.transferone }}</span>
               </template>
@@ -337,8 +337,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TRANSFERTWO')"
               align="center"
-              width="64"
-              prop="transfertwo">
+              prop="transfertwo"
+              width="64">
               <template slot-scope="scope">
                 <span>{{ scope.row.transfertwo }}</span>
               </template>
@@ -347,8 +347,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_ALLOCATIONSUM')"
               align="center"
-              width="120"
-              prop="allocationsum">
+              prop="allocationsum"
+              width="120">
               <template slot-scope="scope">
                 <span>{{ scope.row.allocationsum }}</span>
               </template>
@@ -358,8 +358,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_YUANQINCOST')"
               align="center"
-              width="110"
-              prop="yuanqincost">
+              prop="yuanqincost"
+              width="110">
               <template slot-scope="scope">
                 <span>{{ scope.row.yuanqincost }}</span>
               </template>
@@ -368,8 +368,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TRAVALCOST')"
               align="center"
-              width="50"
-              prop="travalcost">
+              prop="travalcost"
+              width="50">
               <template slot-scope="scope">
                 <span>{{ scope.row.travalcost }}</span>
               </template>
@@ -378,8 +378,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_CONCOST')"
               align="center"
-              width="110"
-              prop="concost">
+              prop="concost"
+              width="110">
               <template slot-scope="scope">
                 <span>{{ scope.row.concost }}</span>
               </template>
@@ -388,8 +388,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_CALLCOST')"
               align="center"
-              width="110"
-              prop="callcost">
+              prop="callcost"
+              width="110">
               <template slot-scope="scope">
                 <span>{{ scope.row.callcost }}</span>
               </template>
@@ -399,8 +399,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_THREEFREE')"
               align="center"
-              width="200"
-              prop="threefree">
+              prop="threefree"
+              width="200">
               <template slot-scope="scope">
                 <span>{{ scope.row.threefree }}</span>
               </template>
@@ -409,8 +409,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_COMMONFEE')"
               align="center"
-              width="110"
-              prop="commonfee">
+              prop="commonfee"
+              width="110">
               <template slot-scope="scope">
                 <span>{{ scope.row.commonfee }}</span>
               </template>
@@ -420,8 +420,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_BRANDCOST')"
               align="center"
-              width="150"
-              prop="brandcost">
+              prop="brandcost"
+              width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.brandcost }}</span>
               </template>
@@ -431,8 +431,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHEREXPENSES')"
               align="center"
-              width="110"
-              prop="otherexpenses">
+              prop="otherexpenses"
+              width="110">
               <template slot-scope="scope">
                 <span>{{ scope.row.otherexpenses }}</span>
               </template>
@@ -442,8 +442,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TOTALPRO')"
               align="center"
-              width="92"
-              prop="totalpro">
+              prop="totalpro"
+              width="92">
               <template slot-scope="scope">
                 <span>{{ scope.row.totalpro }}</span>
               </template>
@@ -454,8 +454,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PRO')"
               align="center"
-              width="64"
-              prop="process">
+              prop="process"
+              width="64">
               <template slot-scope="scope">
                 <span>{{ scope.row.process }}</span>
               </template>
@@ -465,12 +465,12 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHERINCOME')"
               align="center"
-              width="140"
-              prop="otherincome">
+              prop="otherincome"
+              width="140">
 
               <template slot-scope="scope">
                 <el-input-number
-                  @change="changeotherincome(scope.row)"
+                  v-model="scope.row.otherincome"
                   :disabled="!disable"
                   :max="1000000000"
                   :min="0"
@@ -478,7 +478,7 @@
                   :precision="2"
                   controls-position="right"
                   style="width: 100%"
-                  v-model="scope.row.otherincome"
+                  @change="changeotherincome(scope.row)"
                 ></el-input-number>
               </template>
             </pl-table-column>
@@ -487,8 +487,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHEREXPENTOTAL')"
               align="center"
-              width="150"
-              prop="otherexpentotal">
+              prop="otherexpentotal"
+              width="150">
               <template slot-scope="scope">
                 <span>{{ scope.row.otherexpentotal }}</span>
               </template>
@@ -507,8 +507,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_COSTTOTAL')"
               align="center"
-              width="50"
-              prop="costtotal">
+              prop="costtotal"
+              width="50">
               <template slot-scope="scope">
                 <span>{{ scope.row.costtotal }}</span>
               </template>
@@ -518,8 +518,8 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_BENEFITRATE')"
             align="center"
-            width="92"
-            prop="benefitrate">
+            prop="benefitrate"
+            width="92">
             <template slot-scope="scope">
               <span v-if="scope.row.benefitrate ==='---'">{{ scope.row.benefitrate }}</span>
               <span v-else>{{ scope.row.benefitrate }}%</span>
@@ -529,25 +529,25 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_OPERATION')"
             align="center"
-            width="78"
-            prop="Operating">
+            prop="Operating"
+            width="78">
             <template slot-scope="scope">
               <span>{{ scope.row.operating }}</span>
             </template>
           </pl-table-column>
           <!--          損--マイナス-->
           <pl-table-column
-            align="center"
-            :label="$t('label.PFANS1042FORMVIEW_LOSSMINUS')">
+            :label="$t('label.PFANS1042FORMVIEW_LOSSMINUS')"
+            align="center">
             <!--            金利-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INTERESTRATE')"
               align="center"
-              width="120"
-              prop="interestrate">
+              prop="interestrate"
+              width="120">
               <template slot-scope="scope">
                 <el-input-number
-                  @change="changeoperatingprofit(scope.row)"
+                  v-model="scope.row.interestrate"
                   :disabled="!disable"
                   :max="1000000000"
                   :min="0"
@@ -555,7 +555,7 @@
                   :precision="2"
                   controls-position="right"
                   style="width: 100%"
-                  v-model="scope.row.interestrate"
+                  @change="changeoperatingprofit(scope.row)"
                 ></el-input-number>
               </template>
             </pl-table-column>
@@ -563,11 +563,11 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXCHANGE')"
               align="center"
-              width="120"
-              prop="exchanges">
+              prop="exchanges"
+              width="120">
               <template slot-scope="scope">
                 <el-input-number
-                  @change="changeoperatingprofit(scope.row)"
+                  v-model="scope.row.exchanges"
                   :disabled="!disable"
                   :max="1000000000"
                   :min="0"
@@ -575,7 +575,7 @@
                   :precision="2"
                   controls-position="right"
                   style="width: 100%"
-                  v-model="scope.row.exchanges"
+                  @change="changeoperatingprofit(scope.row)"
                 ></el-input-number>
               </template>
             </pl-table-column>
@@ -583,8 +583,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OPERATINGPROFIT')"
               align="center"
-              width="92"
-              prop="operatingprofit">
+              prop="operatingprofit"
+              width="92">
               <template slot-scope="scope">
                 <span>{{ scope.row.operatingprofit }}</span>
               </template>
@@ -594,8 +594,8 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_PRETAXPROFIT')"
             align="center"
-            width="92"
-            prop="pretaxprofit">
+            prop="pretaxprofit"
+            width="92">
             <template slot-scope="scope">
               <span>{{ scope.row.pretaxprofit }}</span>
             </template>
@@ -604,11 +604,11 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_TAXALLOWANCE')"
             align="center"
-            width="120"
-            prop="taxallowance">
+            prop="taxallowance"
+            width="120">
             <template slot-scope="scope">
               <el-input-number
-                @change="changetaxallowance(scope.row)"
+                v-model="scope.row.taxallowance"
                 :disabled="!disable"
                 :max="1000000000"
                 :min="0"
@@ -616,7 +616,7 @@
                 :precision="2"
                 controls-position="right"
                 style="width: 100%"
-                v-model="scope.row.taxallowance"
+                @change="changetaxallowance(scope.row)"
               ></el-input-number>
             </template>
           </pl-table-column>
@@ -624,8 +624,8 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_POSTTAXBENEFIT')"
             align="center"
-            width="120"
-            prop="posttaxbenefit">
+            prop="posttaxbenefit"
+            width="120">
             <template slot-scope="scope">
               <span>{{ scope.row.posttaxbenefit }}</span>
             </template>
@@ -634,22 +634,22 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_OPERATINGMARGIN')"
             align="center"
-            width="92"
-            prop="operatingmargin">
+            prop="operatingmargin"
+            width="92">
             <template slot-scope="scope">
               <span>{{ scope.row.operatingmargin }}%</span>
             </template>
           </pl-table-column>
           <!--          人員（名）-->
           <pl-table-column
-            align="center"
-            :label="$t('label.PFANS1042FORMVIEW_PERSONNAME')">
+            :label="$t('label.PFANS1042FORMVIEW_PERSONNAME')"
+            align="center">
             <!--            構外外注(工数)-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGHOURS')"
               align="center"
-              width="108"
-              prop="outsourcinghours">
+              prop="outsourcinghours"
+              width="108">
               <template slot-scope="scope">
                 <span>{{ scope.row.outsourcinghours }}</span>
               </template>
@@ -658,8 +658,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGNAME')"
               align="center"
-              width="124"
-              prop="outsourcingname">
+              prop="outsourcingname"
+              width="124">
               <template slot-scope="scope">
                 <span>{{ scope.row.outsourcingname }}</span>
               </template>
@@ -668,8 +668,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EMPLOYEENAME')"
               align="center"
-              width="92"
-              prop="employeename">
+              prop="employeename"
+              width="92">
               <template slot-scope="scope">
                 <span>{{ scope.row.employeename }}</span>
               </template>
@@ -677,14 +677,14 @@
           </pl-table-column>
           <!--          工数(人月)-->
           <pl-table-column
-            align="center"
-            :label="$t('label.PFANS1042FORMVIEW_EFFORTMONTH')">
+            :label="$t('label.PFANS1042FORMVIEW_EFFORTMONTH')"
+            align="center">
             <!--            外注（構外∔構内）PJ工数-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGPJHOURS')"
               align="center"
-              width="104"
-              prop="outsourcingpjhours">
+              prop="outsourcingpjhours"
+              width="104">
               <template slot-scope="scope">
                 <span>{{ scope.row.outsourcingpjhours }}</span>
               </template>
@@ -693,8 +693,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCING')"
               align="center"
-              width="108"
-              prop="outsourcing">
+              prop="outsourcing"
+              width="108">
               <template slot-scope="scope">
                 <span>{{ scope.row.outsourcing }}</span>
               </template>
@@ -703,8 +703,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EMPLOYEEPJHOURS')"
               align="center"
-              width="104"
-              prop="emhours">
+              prop="emhours"
+              width="104">
               <template slot-scope="scope">
                 <!--                <span>{{scope.row.employeepjhours}}</span>-->
                 <span>{{ scope.row.emhours }}</span>
@@ -714,8 +714,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EMPLOYEEUPTIME')"
               align="center"
-              width="108"
-              prop="employeeuptime">
+              prop="employeeuptime"
+              width="108">
               <template slot-scope="scope">
                 <span>{{ scope.row.employeeuptime }}</span>
               </template>
@@ -723,14 +723,14 @@
           </pl-table-column>
           <!--          稼働率（%）-->
           <pl-table-column
-            align="center"
-            :label="$t('label.PFANS1042FORMVIEW_CROPPINGRATE')">
+            :label="$t('label.PFANS1042FORMVIEW_CROPPINGRATE')"
+            align="center">
             <!--            外注PJ稼働率-->
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXTERNALPJRATE')"
               align="center"
-              width="110"
-              prop="externalpjrate">
+              prop="externalpjrate"
+              width="110">
               <template slot-scope="scope">
                 <span>{{ scope.row.externalpjrate }}%</span>
               </template>
@@ -739,8 +739,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXTERNALINJECTIONRATE')"
               align="center"
-              width="92"
-              prop="externalinjectionrate">
+              prop="externalinjectionrate"
+              width="92">
               <template slot-scope="scope">
                 <span>{{ scope.row.externalinjectionrate }}%</span>
               </template>
@@ -749,8 +749,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_MEMBERPJRATE')"
               align="center"
-              width="110"
-              prop="memberpjrate">
+              prop="memberpjrate"
+              width="110">
               <template slot-scope="scope">
                 <span>{{ scope.row.memberpjrate }}%</span>
               </template>
@@ -759,8 +759,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_MEMBERSHIPRATE')"
               align="center"
-              width="92"
-              prop="membershiprate">
+              prop="membershiprate"
+              width="92">
               <template slot-scope="scope">
                 <span>{{ scope.row.membershiprate }}%</span>
               </template>
@@ -769,8 +769,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PJRATEEMPLOYEES')"
               align="center"
-              width="110"
-              prop="pjrateemployees">
+              prop="pjrateemployees"
+              width="110">
               <template slot-scope="scope">
                 <span>{{ scope.row.pjrateemployees }}%</span>
               </template>
@@ -779,8 +779,8 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_STAFFINGRATE')"
               align="center"
-              width="92"
-              prop="staffingrate">
+              prop="staffingrate"
+              width="92">
               <template slot-scope="scope">
                 <span>{{ scope.row.staffingrate }}%</span>
               </template>
@@ -798,9 +798,7 @@ import moment from 'moment';
 import {Message} from 'element-ui';
 import user from '../../../components/user.vue';
 import org from '../../../components/org';
-import {getDictionaryInfo} from '@/utils/customize';
-import {getOrgInfoByUserId} from '../../../../utils/customize';
-import {getOrgInfo, getCurrentRole, getCurrentRole3,getCurrentRoleNew} from '@/utils/customize';
+import {getCurrentRoleNew} from '@/utils/customize';
 
 export default {
   name: 'PFANS1042FormView',
@@ -1048,97 +1046,89 @@ export default {
       let role = getCurrentRoleNew();
       const vote = [];
       if (role === '3') {//CENTER
-          vote.push(
-              {
-                  value: this.$store.getters.userinfo.userinfo.centerid,
-                  lable: this.$store.getters.userinfo.userinfo.centername,
-              },
-          );
-          //add ccm 0112 兼职部门
-          if (this.$store.getters.userinfo.userinfo.otherorgs)
+        vote.push(
           {
-              for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
-              {
-                  if (others.centerid)
-                  {
-                      this.$store.getters.orgGroupList.filter((item) => {
-                          if (item.centerid === others.centerid) {
-                              vote.push(
-                                  {
-                                      value: item.centerid,
-                                      lable: item.centername,
-                                  },
-                              );
-                          }
-                      })
-                  }
-              }
-          }
-          //add ccm 0112 兼职部门
-      } else if (role === '2') {//副总经理
-          this.$store.getters.orgGroupList.filter((item) => {
-              if (item.virtualuser === this.$store.getters.userinfo.userid) {
+            value: this.$store.getters.userinfo.userinfo.centerid,
+            lable: this.$store.getters.userinfo.userinfo.centername,
+          },
+        );
+        //add ccm 0112 兼职部门
+        if (this.$store.getters.userinfo.userinfo.otherorgs) {
+          for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
+            if (others.centerid) {
+              this.$store.getters.orgGroupList.filter((item) => {
+                if (item.centerid === others.centerid) {
                   vote.push(
-                      {
-                          value: item.centerid,
-                          lable: item.centername,
-                      },
+                    {
+                      value: item.centerid,
+                      lable: item.centername,
+                    },
                   );
-              }
-          })
-          //add ccm 0112 兼职部门
-          if (this.$store.getters.userinfo.userinfo.otherorgs)
-          {
-              for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
-              {
-                  if (others.centerid)
-                  {
-                      this.$store.getters.orgGroupList.filter((item) => {
-                          if (item.centerid === others.centerid) {
-                              vote.push(
-                                  {
-                                      value: item.centerid,
-                                      lable: item.centername,
-                                  },
-                              );
-                          }
-                      })
-                  }
-              }
+                }
+              });
+            }
           }
-          //add ccm 0112 兼职部门
+        }
+        //add ccm 0112 兼职部门
+      } else if (role === '2') {//副总经理
+        this.$store.getters.orgGroupList.filter((item) => {
+          if (item.virtualuser === this.$store.getters.userinfo.userid) {
+            vote.push(
+              {
+                value: item.centerid,
+                lable: item.centername,
+              },
+            );
+          }
+        });
+        //add ccm 0112 兼职部门
+        if (this.$store.getters.userinfo.userinfo.otherorgs) {
+          for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
+            if (others.centerid) {
+              this.$store.getters.orgGroupList.filter((item) => {
+                if (item.centerid === others.centerid) {
+                  vote.push(
+                    {
+                      value: item.centerid,
+                      lable: item.centername,
+                    },
+                  );
+                }
+              });
+            }
+          }
+        }
+        //add ccm 0112 兼职部门
       }
       const vote1 = [];
       if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
-          || this.$store.getters.roles.indexOf("11") != -1 //总经理
-          || this.$store.getters.roles.indexOf("16") != -1) //财务部长
+        || this.$store.getters.roles.indexOf('11') != -1 //总经理
+        || this.$store.getters.roles.indexOf('16') != -1) //财务部长
       {
-          this.$store.getters.orgGroupList.filter((item) => {
-              vote1.push(
-                  {
-                      value: item.centerid,
-                      lable: item.centername,
-                  },
-              );
-          })
-          this.optionsdata = vote1;
-      }
-      else
-      {
-          this.optionsdata = vote;
+        this.$store.getters.orgGroupList.filter((item) => {
+          vote1.push(
+            {
+              value: item.centerid,
+              lable: item.centername,
+            },
+          );
+        });
+        this.optionsdata = vote1;
+      } else {
+        this.optionsdata = vote;
       }
       //去重
       let letoptionsdata = [];
       let arrId = [];
-      for(var item of this.optionsdata){
-          if(arrId.indexOf(item['lable']) == -1){
-              arrId.push(item['lable']);
-              letoptionsdata.push(item);
-          }
+      for (var item of this.optionsdata) {
+        if (arrId.indexOf(item['lable']) == -1) {
+          arrId.push(item['lable']);
+          letoptionsdata.push(item);
+        }
       }
       this.optionsdata = letoptionsdata;
-      if(this.optionsdata.length > 0){
-          this.form.group_id = this.optionsdata[0].value;
+      if (this.optionsdata.length > 0) {
+        this.form.group_id = this.optionsdata[0].value;
       }
       //update gbb 20210401 2021组织架构变更-group下拉变为center下拉 end
       if (this.$route.params.year) {
@@ -1197,13 +1187,13 @@ export default {
         if (!values.every(value => isNaN(value))) {
           sums[index] = values.reduce((prev, curr) => {
             const value = Number(curr);
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+            // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
             if (!isNaN(value)) {
               return Math.round((prev + curr) * 100) / 100;
             } else {
               return Math.round(prev * 100) / 100;
             }
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
+            // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
           }, 0);
           sums[index] = Math.round((sums[index]) * 100) / 100;
         } else {

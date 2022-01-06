@@ -16,13 +16,14 @@ export function getDataList() {
     method: 'get',
   });
 }
+
 //更新update
 export function save(data) {
   return request({
     url: 'giving/save',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 
@@ -67,7 +68,6 @@ export function deleteteappreciation(data) {
 }
 
 
-
 export function givinglist(data) {
   return request({
     url: 'giving/givinglist',
@@ -75,7 +75,6 @@ export function givinglist(data) {
     params: data,
   });
 }
-
 
 
 export function deleteotherfour(data) {
@@ -110,8 +109,9 @@ export function insertWages(data) {
     url: 'wages/insertWages',
     method: 'post',
     data: data,
-  })
+  });
 }
+
 //zqu end
 
 //gbb start insert update wagesdepartment
@@ -119,9 +119,10 @@ export function getWagesdepartment(data) {
   return request({
     url: 'wages/getWagesdepartment',
     method: 'get',
-    params: data
+    params: data,
   });
 }
+
 //gbb end
 
 //gbb start insert update wagescompany
@@ -131,6 +132,7 @@ export function getWagecompany() {
     method: 'get',
   });
 }
+
 //gbb end
 
 //gbb 0721 工资发放按钮 start
@@ -141,6 +143,7 @@ export function updatestate(data) {
     params: data,
   });
 }
+
 //gbb 0721 工资发放按钮 end
 
 //gbb 0720 离职工资对比 start
@@ -151,6 +154,7 @@ export function getWagesByResign(data) {
     params: data,
   });
 }
+
 //gbb 0720 离职工资对比 end
 
 //gbb 0724 模板下载 start
@@ -159,7 +163,8 @@ export function download(data) {
     url: 'wages/download',
     method: 'get',
     params: data,
-    responseType: 'blob'
-  })
+    responseType: 'blob',
+  });
 }
+
 //gbb 0724 模板下载 end

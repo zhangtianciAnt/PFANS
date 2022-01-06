@@ -1,12 +1,12 @@
 import {
+  check,
   getInventoryplan,
   insert,
   isDelInventory,
   selectAll,
   selectById,
-  update,
   selectByResult,
-  check
+  update,
 } from './ASSETS1002Api';
 
 const ASSETS1002Store = {

@@ -1,11 +1,11 @@
 import {
+  createJudgement,
+  createJudgementDetail,
   getJudgement,
   getJudgementOne,
   updateJudgement,
   updateJudgementDetail,
-  createJudgement,
-  createJudgementDetail,
-} from './PFANS1004Api'
+} from './PFANS1004Api';
 
 const PFANS1004Store = {
   namespaced: true,
@@ -18,38 +18,38 @@ const PFANS1004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    getJudgementOne({ commit },data) {
+    getJudgementOne({commit}, data) {
       return new Promise((resolve, reject) => {
         getJudgementOne(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    updateJudgement({ commit },data) {
+    updateJudgement({commit}, data) {
       return new Promise((resolve, reject) => {
         updateJudgement(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updateJudgementDetail({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -57,25 +57,25 @@ const PFANS1004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    createJudgement({ commit },data) {
+    createJudgement({commit}, data) {
       return new Promise((resolve, reject) => {
         createJudgement(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     createJudgementDetail({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -83,14 +83,14 @@ const PFANS1004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 
 export default PFANS1004Store;

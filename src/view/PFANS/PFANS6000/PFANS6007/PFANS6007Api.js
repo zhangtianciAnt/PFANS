@@ -1,58 +1,61 @@
-import request from '../../../../utils/request'
+import request from '../../../../utils/request';
 
 export function getvariousfunds(data) {
   return request({
     url: 'variousfunds/get',
     method: 'get',
-    params: data
-  })
+    params: data,
+  });
 }
 
 export function getPjnameList(data) {
   return request({
     url: 'companyprojects/getPjnameList',
     method: 'post',
-    params: data
-  })
+    params: data,
+  });
 }
-  export function getPjnameList6007(data) {
-    return request({
-      url: 'variousfunds/getPjnameList6007',
-      method: 'post',
-      data: data
-    })
-  }
+
+export function getPjnameList6007(data) {
+  return request({
+    url: 'variousfunds/getPjnameList6007',
+    method: 'post',
+    data: data,
+  });
+}
+
 export function listPsdcd(data) {
   return request({
     url: 'variousfunds/listPsdcd',
     method: 'get',
-    params: data
-  })
+    params: data,
+  });
 }
 
 export function getvariousfundsApplyOne(data) {
   return request({
     url: 'variousfunds/one',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function updatevariousfundsApply(data) {
   return request({
     url: 'variousfunds/update',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function createvariousfundsApply(data) {
   return request({
     url: 'variousfunds/create',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
+
 //
 // export function getexpatriatesinfor(data) {
 //   return request({

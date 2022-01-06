@@ -1,5 +1,4 @@
-import {list, selectlist, insert, getradio} from './PFANS1049Api';
-
+import {getradio, insert, list, selectlist} from './PFANS1049Api';
 
 
 const PFANS1049store = {
@@ -10,15 +9,15 @@ const PFANS1049store = {
     getradio({commit}, data) {
       return new Promise((resolve, reject) => {
         getradio(data).then(response => {
-          if ( response.type.indexOf("json") == -1 ) {
-            resolve(response)
+          if (response.type.indexOf('json') == -1) {
+            resolve(response);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     insert({commit}, data) {
       return new Promise((resolve, reject) => {

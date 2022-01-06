@@ -1,4 +1,9 @@
-import {createStationery, getStationery, getStationeryOne, updateStationery} from './PFANS3004Api'
+import {
+  createStationery,
+  getStationery,
+  getStationeryOne,
+  updateStationery,
+} from './PFANS3004Api';
 
 const PFANS3004Store = {
   namespaced: true,
@@ -11,12 +16,12 @@ const PFANS3004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getStationeryOne({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -24,12 +29,12 @@ const PFANS3004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updateStationery({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -37,12 +42,12 @@ const PFANS3004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     createStationery({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -50,14 +55,14 @@ const PFANS3004Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
-    }
-  }
-}
+        });
+      });
+    },
+  },
+};
 
 export default PFANS3004Store;

@@ -1,52 +1,52 @@
 <template>
   <div>
     <EasyNormalContainer
+      ref="container"
+      v-loading="loading"
       :buttonList="buttonList"
       :title="title"
       @buttonClick="buttonClick"
-      @end="end"
+      @disabled="setdisabled" @end="end"
       @start="start"
-      @workflowState="workflowState" @disabled="setdisabled"
-      ref="container"
-      v-loading="loading"
+      @workflowState="workflowState"
     >
       <div slot="customize">
         <el-form
+          ref="reff"
           :model="form"
           :rules="rules"
           label-position="top"
           label-width="8vw"
-          ref="reff"
           style="padding: 2vw"
         >
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_INFORMATION')" name="first">
               <div>
                 <el-form
+                  ref="from1"
                   :model="form"
                   :rules="rules"
                   label-position="top"
                   label-width="8vw"
-                  ref="from1"
                 >
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :error="errorcenter" :label="$t('label.center')" prop="center_id">
                         <org :disabled="!disable" :error="errorcenter" :orglist="centerorglist"
-                             @getOrgids="getCenterId"
-                             orgtype="1" style="width:20vw"></org>
+                             orgtype="1"
+                             style="width:20vw" @getOrgids="getCenterId"></org>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
-                        <org :disabled="!disable" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
-                             orgtype="2" style="width:20vw"></org>
+                        <org :disabled="!disable" :error="errorgroup" :orglist="grouporglist" orgtype="2"
+                             style="width:20vw" @getOrgids="getGroupId"></org>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.team')">
-                        <org :disabled="!disable" :orglist="teamorglist" @getOrgids="getTeamId" orgtype="3"
-                             style="width:20vw"></org>
+                        <org :disabled="!disable" :orglist="teamorglist" orgtype="3" style="width:20vw"
+                             @getOrgids="getTeamId"></org>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -58,10 +58,10 @@
                         prop="project_name"
                       >
                         <el-input
+                          v-model="form.project_name"
                           :disabled="!disable"
                           maxlength="50"
                           style="width: 20vw"
-                          v-model="form.project_name"
                         ></el-input>
                       </el-form-item>
                     </el-col>
@@ -72,10 +72,10 @@
                         prop="project_namejp"
                       >
                         <el-input
+                          v-model="form.project_namejp"
                           :disabled="!disable"
                           maxlength="50"
                           style="width: 20vw"
-                          v-model="form.project_namejp"
                         ></el-input>
                       </el-form-item>
                     </el-col>
@@ -102,8 +102,8 @@
                           :error="errorLeader"
                           :selectType="selectType"
                           :userlist="userlist"
-                          @getUserids="getUserids"
                           style="width: 20vw"
+                          @getUserids="getUserids"
                         ></user>
                       </el-form-item>
                     </el-col>
@@ -118,8 +118,8 @@
                           :error="errorManager"
                           :selectType="selectType"
                           :userlist="userlist1"
-                          @getUserids="getUserids1"
                           style="width: 20vw"
+                          @getUserids="getUserids1"
                         ></user>
                       </el-form-item>
                     </el-col>
@@ -158,10 +158,10 @@
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS5001FORMVIEW_LANGUAGE')" prop="languages">
                         <el-input
+                          v-model="form.languages"
                           :disabled="!disable"
                           maxlength="20"
                           style="width: 20vw"
-                          v-model="form.languages"
                         ></el-input>
                       </el-form-item>
                     </el-col>
@@ -173,20 +173,20 @@
                         prop="startdate"
                       >
                         <el-date-picker
+                          v-model="form.startdate"
                           :disabled="!disable"
                           style="width: 20vw"
                           type="date"
-                          v-model="form.startdate"
                         ></el-date-picker>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENDDATE')" prop="enddate">
                         <el-date-picker
+                          v-model="form.enddate"
                           :disabled="!disable"
                           style="width: 20vw"
                           type="date"
-                          v-model="form.enddate"
                         ></el-date-picker>
                       </el-form-item>
                     </el-col>
@@ -245,10 +245,10 @@
                         prop="work"
                       >
                         <el-input
+                          v-model="form.work"
                           :disabled="!disable"
                           maxlength="20"
                           style="width: 20vw"
-                          v-model="form.work"
                         ></el-input>
                       </el-form-item>
                     </el-col>
@@ -257,12 +257,13 @@
                       <el-form-item
                         :label="$t('label.PFANS5009FORMVIEW_DEADLINE')"
                         prop="deadline"
-                      ><el-date-picker
-                        :disabled="!disable"
-                        style="width: 20vw"
-                        type="date"
-                        v-model="form.deadline"
-                      ></el-date-picker>
+                      >
+                        <el-date-picker
+                          v-model="form.deadline"
+                          :disabled="!disable"
+                          style="width: 20vw"
+                          type="date"
+                        ></el-date-picker>
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -273,11 +274,11 @@
                         prop="briefintroduction"
                       >
                         <el-input
+                          v-model="form.briefintroduction"
                           :autosize="{ minRows: 3, maxRows: 4}"
                           :disabled="!disable"
                           style="width: 70vw"
                           type="textarea"
-                          v-model="form.briefintroduction"
                         ></el-input>
                       </el-form-item>
                     </el-col>
@@ -289,11 +290,11 @@
                         prop="requirement"
                       >
                         <el-input
+                          v-model="form.requirement"
                           :autosize="{ minRows: 3, maxRows: 4}"
                           :disabled="!disable"
                           style="width: 70vw"
                           type="textarea"
-                          v-model="form.requirement"
                         ></el-input>
                       </el-form-item>
                     </el-col>
@@ -314,8 +315,8 @@
                       :error="errorLeader"
                       :selectType="selectType"
                       :userlist="userlist"
-                      @getUserids="getUserids"
                       style="width: 20vw"
+                      @getUserids="getUserids"
                     ></user>
                   </el-form-item>
                 </el-col>
@@ -330,15 +331,15 @@
                       :error="errorManager"
                       :selectType="selectType"
                       :userlist="userlist1"
-                      @getUserids="getUserids1"
                       style="width: 20vw"
+                      @getUserids="getUserids1"
                     ></user>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5001FORMVIEW_BEHALF')" prop="behalf">
-                    <el-input :disabled="!disable" maxlength='20' style="width:20vw"
-                              v-model="form.behalf"></el-input>
+                    <el-input v-model="form.behalf" :disabled="!disable" maxlength='20'
+                              style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -349,10 +350,10 @@
                     prop="intelligence"
                   >
                     <el-input
+                      v-model="form.intelligence"
                       :disabled="!disable"
                       style="width: 71vw"
                       type="textarea"
-                      v-model="form.intelligence"
                     ></el-input>
                   </el-form-item>
                 </el-col>
@@ -362,7 +363,7 @@
               <el-form-item>
                 <el-row>
                   <el-col :span="24">
-                    <el-table :data="tableA" stripe border header-cell-class-name="sub_bg_color_blue"
+                    <el-table :data="tableA" border header-cell-class-name="sub_bg_color_blue" stripe
                               style="width: 70vw">
                       <el-table-column :label="$t('label.PFANS5009FORMVIEW_PHASE')" align="center">
                         <template slot-scope="scope">
@@ -381,31 +382,31 @@
                         align="center"
                       >
                         <template slot-scope="scope">
-                          <el-input :disabled="!disable" style="width: 100%"
+                          <el-input v-show="scope.row.showrow" v-model="scope.row.stageproduct"
+                                    :disabled="!disable"
                                     maxlength="20"
-                                    v-model="scope.row.stageproduct"
-                                    v-show="scope.row.showrow">
+                                    style="width: 100%">
                           </el-input>
-                          <dicselect :code="code1"
+                          <dicselect v-show="scope.row.showrow1"
+                                     :code="code1"
                                      :data="scope.row.stageproduct"
                                      :disabled="!disable"
                                      :no="scope.row"
-                                     @change="getrole1"
-                                     style="width: 100%" v-show="scope.row.showrow1">
+                                     style="width: 100%" @change="getrole1">
                           </dicselect>
-                          <dicselect :code="code4"
+                          <dicselect v-show="scope.row.showrow2"
+                                     :code="code4"
                                      :data="scope.row.stageproduct"
                                      :disabled="!disable"
                                      :no="scope.row"
-                                     @change="getrole1"
-                                     style="width: 100%" v-show="scope.row.showrow2">
+                                     style="width: 100%" @change="getrole1">
                           </dicselect>
-                          <dicselect :code="code5"
+                          <dicselect v-show="scope.row.showrow3"
+                                     :code="code5"
                                      :data="scope.row.stageproduct"
                                      :disabled="!disable"
                                      :no="scope.row"
-                                     @change="getrole1"
-                                     style="width: 100%" v-show="scope.row.showrow3">
+                                     style="width: 100%" @change="getrole1">
                           </dicselect>
                         </template>
                       </el-table-column>
@@ -414,9 +415,9 @@
                         align="center">
                         <template slot-scope="scope">
                           <el-input
-                            :no="scope.row"
-                            :disabled="!disable"
                             v-model="scope.row.estimatedwork"
+                            :disabled="!disable"
+                            :no="scope.row"
                             style="width: 100%">
                           </el-input>
                         </template>
@@ -430,8 +431,8 @@
                           <el-date-picker
                             v-model="scope.row.estimatedstarttime"
                             :disabled="!disable"
-                            type="date"
                             style="width: 100%"
+                            type="date"
                           ></el-date-picker>
                         </template>
                       </el-table-column>
@@ -445,8 +446,8 @@
                           <el-date-picker
                             v-model="scope.row.estimatedendtime"
                             :disabled="!disable"
-                            type="date"
                             style="width: 100%"
+                            type="date"
                           >
                           </el-date-picker>
                         </template>
@@ -456,9 +457,9 @@
                         align="center">
                         <template slot-scope="scope">
                           <el-input
-                            :no="scope.row"
-                            :disabled="!disable"
                             v-model="scope.row.remarks"
+                            :disabled="!disable"
+                            :no="scope.row"
                             style="width: 100%">
                           </el-input>
                         </template>
@@ -467,19 +468,19 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable"
-                            @click.native.prevent="deleteRow(scope.$index, tableA)"
                             plain
                             size="small"
                             type="danger"
-                          >{{$t('button.delete')}}
+                            @click.native.prevent="deleteRow(scope.$index, tableA)"
+                          >{{ $t('button.delete') }}
                           </el-button>
                           <el-button
                             :disabled="!disable"
-                            @click="addRow()"
                             plain
                             size="small"
                             type="primary"
-                          >{{$t('button.insert')}}
+                            @click="addRow()"
+                          >{{ $t('button.insert') }}
                           </el-button>
                         </template>
                       </el-table-column>
@@ -497,7 +498,7 @@
                     <el-tabs v-model="activeName2" type="border-card">
                       <!--                社内-->
                       <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_INCOMMUNITY')" name="first">
-                        <el-table :data="tableB" stripe border header-cell-class-name="sub_bg_color_blue"
+                        <el-table :data="tableB" border header-cell-class-name="sub_bg_color_blue" stripe
                                   style="width: 80vw">
                           <!--                      编号-->
                           <el-table-column
@@ -506,9 +507,9 @@
                             width="130">
                             <template slot-scope="scope">
                               <el-input
-                                :no="scope.row"
-                                :disabled="true"
                                 v-model="scope.row.number"
+                                :disabled="true"
+                                :no="scope.row"
                                 style="width: 100%">
                               </el-input>
                             </template>
@@ -521,11 +522,11 @@
                             <template slot-scope="scope">
                               <user
                                 :disabled="!disable"
+                                :multiple="multiple"
                                 :no="scope.row"
                                 :userlist="scope.row.name"
-                                @getUserids="getCitationUserid"
-                                :multiple="multiple"
                                 style="width: 18vw"
+                                @getUserids="getCitationUserid"
                               ></user>
                               <!--<user-->
                               <!--:disabled="!disable"-->
@@ -545,9 +546,9 @@
                             width="120">
                             <template slot-scope="scope">
                               <el-input
-                                :no="scope.row"
-                                :disabled="true"
                                 v-model="scope.row.position"
+                                :disabled="true"
+                                :no="scope.row"
                                 style="width: 100%">
                               </el-input>
                             </template>
@@ -560,11 +561,11 @@
                             width="180">
                             <template slot-scope="scope">
                               <el-date-picker
-                                :disabled="!disable"
-                                type="date"
-                                :no="scope.row"
                                 v-model="scope.row.admissiontime"
-                                style="width: 9rem">
+                                :disabled="!disable"
+                                :no="scope.row"
+                                style="width: 9rem"
+                                type="date">
                               </el-date-picker>
                             </template>
                           </el-table-column>
@@ -576,11 +577,11 @@
                             width="180">
                             <template slot-scope="scope">
                               <el-date-picker
-                                :disabled="!disable"
-                                type="date"
-                                :no="scope.row"
                                 v-model="scope.row.exittime"
-                                style="width: 9rem">
+                                :disabled="!disable"
+                                :no="scope.row"
+                                style="width: 9rem"
+                                type="date">
                               </el-date-picker>
                             </template>
                           </el-table-column>
@@ -588,19 +589,19 @@
                             <template slot-scope="scope">
                               <el-button
                                 :disabled="!disable"
-                                @click.native.prevent="deleteRow1(scope.$index, tableB)"
                                 plain
                                 size="small"
                                 type="danger"
-                              >{{$t('button.delete')}}
+                                @click.native.prevent="deleteRow1(scope.$index, tableB)"
+                              >{{ $t('button.delete') }}
                               </el-button>
                               <el-button
                                 :disabled="!disable"
-                                @click="addRow1()"
                                 plain
                                 size="small"
                                 type="primary"
-                              >{{$t('button.insert')}}
+                                @click="addRow1()"
+                              >{{ $t('button.insert') }}
                               </el-button>
                             </template>
                           </el-table-column>
@@ -609,7 +610,7 @@
 
                       <!--                社外-->
                       <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_OUTCOMMUNITY')" name="second">
-                        <el-table :data="tableC" stripe border header-cell-class-name="sub_bg_color_blue"
+                        <el-table :data="tableC" border header-cell-class-name="sub_bg_color_blue" stripe
                                   style="width: 80vw">
                           <!--                      编号-->
                           <el-table-column
@@ -618,9 +619,9 @@
                             width="110">
                             <template slot-scope="scope">
                               <el-input
-                                :no="scope.row"
-                                :disabled="true"
                                 v-model="scope.row.number"
+                                :disabled="true"
+                                :no="scope.row"
                                 style="width: 100%">
                               </el-input>
                             </template>
@@ -632,9 +633,9 @@
                             width="130">
                             <template slot-scope="scope">
                               <el-input
-                                :no="scope.row"
-                                :disabled="true"
                                 v-model="scope.row.company"
+                                :disabled="true"
+                                :no="scope.row"
                                 style="width: 100%">
                               </el-input>
                             </template>
@@ -646,18 +647,18 @@
                             width="200">
                             <template slot-scope="scope">
                               <el-col :span="8">
-                                <div class="dpSupIndex" style="width:10vw" prop="expname">
+                                <div class="dpSupIndex" prop="expname" style="width:10vw">
                                   <el-container>
-                                    <input class="content bg" v-model="scope.row.name" :error="errorexpname"
-                                           :disabled="true"></input>
+                                    <input v-model="scope.row.name" :disabled="true" :error="errorexpname"
+                                           class="content bg"></input>
                                     <el-button :disabled="!disabled" icon="el-icon-search"
-                                               @click="dialogTableVisible1 = true"
-                                               size="small"></el-button>
+                                               size="small"
+                                               @click="dialogTableVisible1 = true"></el-button>
                                     <el-dialog :title="$t('label.PFANS5001FORMVIEW_OUTSOURCEPERSON')"
                                                :visible.sync="dialogTableVisible1"
-                                               center size="50%"
-                                               top="8vh" lock-scroll
-                                               append-to-body>
+                                               append-to-body center
+                                               lock-scroll size="50%"
+                                               top="8vh">
                                       <div style="text-align: center">
                                         <el-row style="text-align: center;height: 90%;overflow: hidden">
                                           <el-table
@@ -665,29 +666,32 @@
                                             height="500px" highlight-current-row style="width: 100%"
                                             tooltip-effect="dark"
                                             @row-click="handleClickChange">
-                                            <el-table-column property="number" fixed :label="$t('label.PFANS5001FORMVIEW_NUMBERS')"
+                                            <el-table-column :label="$t('label.PFANS5001FORMVIEW_NUMBERS')" fixed
+                                                             property="number"
                                                              width="100"></el-table-column>
-                                            <el-table-column property="expname" fixed
-                                                             :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')"
+                                            <el-table-column :label="$t('label.PFANSUSERFORMVIEW_CUSTOMERNAME')" fixed
+                                                             property="expname"
                                                              width="100"></el-table-column>
-                                            <el-table-column property="suppliername" :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
+                                            <el-table-column :label="$t('label.PFANS5001FORMVIEW_COOPERATIONCOMPANY')"
+                                                             property="suppliername"
                                                              width="100"></el-table-column>
-                                            <el-table-column property="post"
-                                                             :label="$t('label.PFANSUSERVIEW_POST')"
+                                            <el-table-column :label="$t('label.PFANSUSERVIEW_POST')"
+                                                             property="post"
                                                              width="150"></el-table-column>
                                             <el-table-column
                                               align="right" width="180">
                                               <template slot="header" slot-scope="scope">
                                                 <el-input
                                                   v-model="search"
-                                                  size="mini"
-                                                  placeholder="请输入姓名关键字搜索"/>
+                                                  placeholder="请输入姓名关键字搜索"
+                                                  size="mini"/>
                                               </template>
                                             </el-table-column>
                                           </el-table>
                                         </el-row>
                                         <span slot="footer" class="dialog-footer">
-                                            <el-button type="primary" @click="submit(scope.row)">{{$t('button.confirm')}}</el-button>
+                                            <el-button type="primary"
+                                                       @click="submit(scope.row)">{{ $t('button.confirm') }}</el-button>
                                           </span>
                                       </div>
                                     </el-dialog>
@@ -703,9 +707,9 @@
                             width="120">
                             <template slot-scope="scope">
                               <el-input
-                                :no="scope.row"
-                                :disabled="true"
                                 v-model="scope.row.position"
+                                :disabled="true"
+                                :no="scope.row"
                                 style="width: 100%">
                               </el-input>
                             </template>
@@ -718,11 +722,11 @@
                             width="180">
                             <template slot-scope="scope">
                               <el-date-picker
-                                :disabled="!disable"
-                                type="date"
-                                :no="scope.row"
                                 v-model="scope.row.admissiontime"
-                                style="width: 9rem">
+                                :disabled="!disable"
+                                :no="scope.row"
+                                style="width: 9rem"
+                                type="date">
                               </el-date-picker>
                             </template>
                           </el-table-column>
@@ -734,11 +738,11 @@
                             width="180">
                             <template slot-scope="scope">
                               <el-date-picker
-                                :disabled="!disable"
-                                type="date"
-                                :no="scope.row"
                                 v-model="scope.row.exittime"
-                                style="width: 9rem">
+                                :disabled="!disable"
+                                :no="scope.row"
+                                style="width: 9rem"
+                                type="date">
                               </el-date-picker>
                             </template>
                           </el-table-column>
@@ -746,19 +750,19 @@
                             <template slot-scope="scope">
                               <el-button
                                 :disabled="!disable"
-                                @click.native.prevent="deleteRow2(scope.$index, tableC)"
                                 plain
                                 size="small"
                                 type="danger"
-                              >{{$t('button.delete')}}
+                                @click.native.prevent="deleteRow2(scope.$index, tableC)"
+                              >{{ $t('button.delete') }}
                               </el-button>
                               <el-button
                                 :disabled="!disable"
-                                @click="addRow2()"
                                 plain
                                 size="small"
                                 type="primary"
-                              >{{$t('button.insert')}}
+                                @click="addRow2()"
+                              >{{ $t('button.insert') }}
                               </el-button>
                             </template>
                           </el-table-column>
@@ -824,726 +828,107 @@
   </div>
 </template>
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import user from '../../../components/user.vue';
-  import dicselect from '../../../components/dicselect.vue';
-  import {uploadUrl} from '@/utils/customize';
-  import {getUserInfo} from '@/utils/customize';
-  import {Message} from 'element-ui';
-  import moment from 'moment';
-  import {getOrgInfoByUserId} from '@/utils/customize';
-  import org from '../../../components/org';
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import user from '../../../components/user.vue';
+import dicselect from '../../../components/dicselect.vue';
+import {getOrgInfoByUserId, getUserInfo, uploadUrl} from '@/utils/customize';
+import {Message} from 'element-ui';
+import moment from 'moment';
+import org from '../../../components/org';
 
-  export default {
-    name: 'PFANS5001FormView',
-    components: {
-      dicselect,
-      EasyNormalContainer,
-      getOrgInfoByUserId,
-      user,
-      org,
-    },
-    data() {
-      var validateUserid = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
+export default {
+  name: 'PFANS5001FormView',
+  components: {
+    dicselect,
+    EasyNormalContainer,
+    getOrgInfoByUserId,
+    user,
+    org,
+  },
+  data() {
+    var validateUserid = (rule, value, callback) => {
+      if (!value || value === '' || value === 'undefined') {
+        callback(
+          new Error(
+            this.$t('normal.error_08') +
+            this.$t('label.PFANS5001FORMVIEW_LEADERID'),
+          ),
+        );
+        this.errorLeader =
+          this.$t('normal.error_08') +
+          this.$t('label.PFANS5001FORMVIEW_LEADERID');
+      } else {
+        callback();
+        this.errorLeader = '';
+      }
+    };
+    var validateUserid1 = (rule, value, callback) => {
+      if (!value || value === '' || value === 'undefined') {
+        callback(
+          new Error(
+            this.$t('normal.error_08') +
+            this.$t('label.PFANS5001FORMVIEW_MANAGERID'),
+          ),
+        );
+        this.errorManager =
+          this.$t('normal.error_08') +
+          this.$t('label.PFANS5001FORMVIEW_MANAGERID');
+      } else {
+        callback();
+        this.errorManager = '';
+      }
+    };
+    var valiresig = (rule, value, callback) => {
+      if (this.form.startdate && this.form.enddate) {
+        let startdate = moment(this.form.startdate).format('YYYY-MM-DD');
+        let enddate = moment(this.form.enddate).format('YYYY-MM-DD');
+        if (moment(enddate).isBefore(startdate)) {
           callback(
             new Error(
-              this.$t('normal.error_08') +
-              this.$t('label.PFANS5001FORMVIEW_LEADERID'),
+              this.$t('label.PFANS5001FORMVIEW_ENDDATE') +
+              this.$t('normal.error_checkTime1') +
+              this.$t('label.PFANS5001FORMVIEW_STARTDATE'),
             ),
           );
-          this.errorLeader =
-            this.$t('normal.error_08') +
-            this.$t('label.PFANS5001FORMVIEW_LEADERID');
-        } else {
-          callback();
-          this.errorLeader = '';
-        }
-      };
-      var validateUserid1 = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
-          callback(
-            new Error(
-              this.$t('normal.error_08') +
-              this.$t('label.PFANS5001FORMVIEW_MANAGERID'),
-            ),
-          );
-          this.errorManager =
-            this.$t('normal.error_08') +
-            this.$t('label.PFANS5001FORMVIEW_MANAGERID');
-        } else {
-          callback();
-          this.errorManager = '';
-        }
-      };
-      var valiresig = (rule, value, callback) => {
-        if (this.form.startdate && this.form.enddate) {
-          let startdate = moment(this.form.startdate).format('YYYY-MM-DD');
-          let enddate = moment(this.form.enddate).format('YYYY-MM-DD');
-          if (moment(enddate).isBefore(startdate)) {
-            callback(
-              new Error(
-                this.$t('label.PFANS5001FORMVIEW_ENDDATE') +
-                this.$t('normal.error_checkTime1') +
-                this.$t('label.PFANS5001FORMVIEW_STARTDATE'),
-              ),
-            );
-          } else {
-            this.$refs['from1'].clearValidate();
-            callback();
-          }
         } else {
           this.$refs['from1'].clearValidate();
           callback();
         }
-      };
-      return {
-        centerorglist: '',
-        grouporglist: '',
-        teamorglist: '',
-        errorcenter: '',
-        errorgroup: '',
-        errorexpname: '',
-        search: '',
-        gridData1: [],
-        disable: false,
-        customerinfor: [],
-        checkList: [],
-        expatriates: [],
-        disabled: true,
-        error: '',
-        errorLeader: '',
-        errorManager: '',
-        selectType: 'Single',
-        userlist: '',
-        userlist1: '',
-        activeName: 'first',
-        activeName2: 'first',
-        buttonList: [],
-        currentRow : '',
-        currentRow1 : '',
-        currentRow2 : '',
-        currentRow3 : '',
-        //项目计划
-        tableA: [
-          {
-            stageinformation_id: '',
-            companyprojects_id: '',
-            phase: '',
-            stageproduct: '',
-            productstatus: '',
-            estimatedwork: '',
-            actualwork: '',
-            estimatedstarttime: '',
-            estimatedendtime: '',
-            remarks: '',
-            actualstarttime: '',
-            actualendtime: '',
-            product: '',
-            phasestatus: '',
-            rowindex: '',
-            showrow: true,
-            showrow1: false,
-            showrow2: false,
-            showrow3: false,
-          },
-        ],
-        //项目体制(本社)
-        tableB: [
-          {
-            projectsystem_id: '',
-            companyprojects_id: '',
-            type: '0',
-            number: '',
-            company: '',
-            name: '',
-            position:'',
-            admissiontime: '',
-            exittime: '',
-            rowindex: '',
-          },
-        ],
-        //项目体制(外协)
-        tableC: [
-          {
-            projectsystem_id: '',
-            companyprojects_id: '',
-            type: '1',
-            number: '',
-            company: '',
-            name: '',
-            position:'',
-            admissiontime: '',
-            exittime: '',
-            rowindex: '',
-          },
-        ],
-        data: [],
-        loading: false,
-        dialogTableVisible1: false,
-        title: 'label.PFANS5001VIEW1',
-        rules: {
-          leaderid: [
-            {
-              required: true,
-              validator: validateUserid,
-              trigger: 'change',
-            },
-          ],
-          managerid: [
-            {
-              required: true,
-              validator: validateUserid1,
-              trigger: 'change',
-            },
-          ],
-          project_name: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_PROJECT_NAME'),
-              trigger: 'blur',
-            },
-          ],
-          project_namejp: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_PROJECT_NAMEJP'),
-              trigger: 'blur',
-            },
-          ],
-          number: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_NUMBERS'),
-              trigger: 'blur',
-            },
-          ],
-          projecttype: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_PROJECTTYPE'),
-              trigger: 'change',
-            },
-          ],
-          field: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_FIELD'),
-              trigger: 'change',
-            },
-          ],
-          startdate: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_STARTDATE'),
-              trigger: 'blur',
-            }, {validator: valiresig, trigger: 'change'},
-          ],
-          enddate: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_ENDDATE'),
-              trigger: 'blur',
-            }, {validator: valiresig, trigger: 'change'},
-          ],
-          manmonth: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_MANMONTH'),
-              trigger: 'blur',
-            },
-          ],
-          salesvolume: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_SALESVOLUME'),
-              trigger: 'blur',
-            },
-          ],
-          cost: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_COST'),
-              trigger: 'blur',
-            },
-          ],
-          projectalabel: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_PROJECTALABEL'),
-              trigger: 'blur',
-            },
-          ],
-          customername: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_CUSTOMERNAME'),
-              trigger: 'change',
-            },
-          ],
-          // 开发语言
-          languages: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
-              trigger: 'blur',
-            },
-          ],
-          // 受託工数
-          work: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
-              trigger: 'blur',
-            },
-          ],
-          //纳期
-          deadline: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
-              trigger: 'blur',
-            },
-          ],
-          // 姓名
-          expname: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.user_name'),
-              trigger: 'blur',
-            },
-          ],
-          // 委托元部署
-          deployment: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.user_name'),
-              trigger: 'blur',
-            },
-          ],
-        },
-        baseInfo: {},
-        form: {
-          center_id: '',
-          group_id: '',
-          team_id: '',
-          project_name: '',
-          project_namejp: '',
-          leaderid: '',
-          managerid: '',
-          projecttype: '',
-          field: '',
-          languages: '',
-          startdate: '',
-          enddate: '',
-          work: '',
-          deadline: '',
-          tools: '',
-          briefintroduction: '',
-          requirement: '',
-          behalf: '',
-          intelligence: '',
-          numbers: '',
-          departmentid: '',
-          technological: '',
-          manmonth: '',
-          cost: '',
-          salesvolume: '',
-          projectalabel: '',
-          situation: '',
-          confidential: '',
-          managementtool: '',
-          customername: '',
-          representative: '',
-          basicsituation: '',
-          uploadfile: '',
-        },
-        multiple: false,
-        code: 'PP012',
-        code1: 'PP013',
-        code2: 'PP001',
-        code3: 'PJ063',
-        code4: "PP014",
-        code5: "PP015",
-        showrow: true,
-        showrow1: false,
-        showrow2: false,
-        showrow3: false,
-        // code7: "PP014",
-        // code8: "PP015",
-        // code9:"PR021",
-        result: '',
-        result1: '',
-        fileList: [],
-        upload: uploadUrl(),
-      };
-    },
-    mounted() {
-      this.getexpatriatesinfor();
-      if (this.$route.params._id) {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS5001Store/selectById', {companyprojectsid: this.$route.params._id})
-          .then(response => {
-            this.form = response.companyprojects;
-            this.userlist = this.form.leaderid;
-            this.userlist1 = this.form.managerid;
-            this.centerorglist = this.form.center_id;
-            this.grouporglist = this.form.group_id;
-            this.teamorglist = this.form.team_id;
-            if(this.form.tools != ''){
-              this.checkList = JSON.parse(this.form.tools);
-            }
-            //项目计划
-            if (response.stageinformation.length > 0) {
-              this.tableA = response.stageinformation;
-            }
-            //项目体制
-            if (response.projectsystem.length > 0) {
-              for (var i = 0; i < response.projectsystem.length; i++) {
-                if(response.projectsystem[i].type === '0'){
-                  this.tableB = [];
-                  let o = {};
-                  o.name = response.projectsystem[i].projectsystem_id;
-                  o.companyprojects_id = response.projectsystem[i].companyprojects_id;
-                  o.type = response.projectsystem[i].type;
-                  o.number = response.projectsystem[i].number;
-                  o.company = response.projectsystem[i].company;
-                  o.name = response.projectsystem[i].name;
-                  o.position = response.projectsystem[i].position;
-                  o.admissiontime = response.projectsystem[i].admissiontime;
-                  o.exittime = response.projectsystem[i].exittime;
-                  o.rowindex = response.projectsystem[i].rowindex;
-                  this.tableB.push(o);
-
-                }
-                else{
-                  this.tableC = [];
-                  let o = {};
-                  o.name = response.projectsystem[i].projectsystem_id;
-                  o.companyprojects_id = response.projectsystem[i].companyprojects_id;
-                  o.type = response.projectsystem[i].type;
-                  o.number = response.projectsystem[i].number;
-                  o.company = response.projectsystem[i].company;
-                  o.name = response.projectsystem[i].name;
-                  o.position = response.projectsystem[i].position;
-                  o.admissiontime = response.projectsystem[i].admissiontime;
-                  o.exittime = response.projectsystem[i].exittime;
-                  o.rowindex = response.projectsystem[i].rowindex;
-                  this.tableC.push(o);
-                }
-              }
-            }
-            // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-            // this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableA));
-            if (this.form.uploadfile != null) {
-              if (this.form.uploadfile != '') {
-                let uploadfile = this.form.uploadfile.split(';');
-                for (var i = 0; i < uploadfile.length; i++) {
-                  if (uploadfile[i].split(',')[0] != '') {
-                    let o = {};
-                    o.name = uploadfile[i].split(',')[0];
-                    o.url = uploadfile[i].split(',')[1];
-                    this.fileList.push(o);
-                  }
-                }
-              }
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
       } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        this.userlist1 = this.$store.getters.userinfo.userid;
+        this.$refs['from1'].clearValidate();
+        callback();
       }
-      this.$store
-        .dispatch('PFANS5001Store/getcustomer', {})
-        .then(response => {
-          for (let i = 0; i < response.length; i++) {
-            var vote = {};
-            this.result1 = response;
-            vote.value = response[i].customerinfor_id;
-            vote.label = response[i].custchinese;
-            this.customerinfor.push(vote);
-          }
-        });
-      this.$store
-        .dispatch('PFANS5001Store/getexpat', {})
-        .then(response => {
-          for (let i = 0; i < response.length; i++) {
-            var vote = {};
-            this.result = response;
-            vote.value = response[i].expatriatesinfor_id;
-            vote.label = response[i].expname;
-            this.expatriates.push(vote);
-          }
-        });
-    },
-
-    created() {
-      this.disable = this.$route.params.disabled;
-      if (this.disable) {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-          },
-        ];
-      }
-    },
-    methods: {
-      setdisabled(val){
-        if(this.$route.params.disabled){
-          this.disabled = val;
-        }
-      },
-      getCenterId(val) {
-        this.form.center_id = val;
-        this.centerorglist = val;
-        if (!this.form.center_id || this.form.center_id === '' || val === 'undefined') {
-          this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
-        } else {
-          this.errorcenter = '';
-        }
-      },
-      getGroupId(val) {
-        this.form.group_id = val;
-        this.grouporglist = val;
-        if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
-          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
-        } else {
-          this.errorgroup = '';
-        }
-      },
-      getTeamId(val) {
-        this.form.team_id = val;
-        this.teamorglist = val;
-      },
-      getUserids(val) {
-        this.userlist = val;
-        this.form.leaderid = val;
-        let lst = getOrgInfoByUserId(val);
-        this.tableB.number = lst.number;
-        this.tableB.position = lst.post;
-        if (
-          !this.form.leaderid ||
-          this.form.leaderid === '' ||
-          val === 'undefined'
-        ) {
-          this.errorLeader =
-            this.$t('normal.error_08') +
-            this.$t('label.PFANS5001FORMVIEW_LEADERID');
-        } else {
-          this.errorLeader = '';
-        }
-      },
-      getUserids1(val) {
-        this.userlist1 = val;
-        this.form.managerid = val;
-        if (
-          !this.form.managerid ||
-          this.form.managerid === '' ||
-          val === 'undefined'
-        ) {
-          this.errorManager =
-            this.$t('normal.error_08') +
-            this.$t('label.PFANS5001FORMVIEW_MANAGERID');
-        } else {
-          this.errorManager = '';
-        }
-      },
-      submit(row) {
-        row.number = this.currentRow;
-        row.name = this.currentRow1;
-        row.company = this.currentRow2;
-        row.position = this.currentRow3;
-        this.dialogTableVisible1 = false;
-      },
-      handleClickChange(val) {
-        this.currentRow = val.number;
-        this.currentRow1 = val.expname;
-        this.currentRow2 = val.suppliername;
-        this.currentRow3 = val.post;
-      },
-      getCitationUserid(userlist, row) {
-        row.name = userlist;
-        if (row.name != null && row.name !== '') {
-          let lst = getUserInfo(row.name);
-          row.position = lst.userinfo.post;
-          row.number = lst.userinfo.jobnumber;
-        }
-      },
-      // getdepartmentid(val1) {
-      //   this.form.departmentid = val1;
-      // },
-      getprojecttype(val1) {
-        this.form.projecttype = val1;
-      },
-      getfield(val1) {
-        this.form.field = val1;
-      },
-      // gettechnological(val1) {
-      //   this.form.technological = val1;
-      // },
-      // getsituation(val1) {
-      //   this.form.situation = val1;
-      // },
-      // getconfidential(val1) {
-      //   this.form.confidential = val1;
-      // },
-      // getmanagementtool(val1) {
-      //   this.form.managementtool = val1;
-      // },
-
-      // getplantype(val1, row) {
-      //   row.plantype = val1;
-      // },
-      getrole(val, row) {
-        row.phase = val;
-        row.stageproduct = ' ';
-        if (val === '') {
-          row.showrow = true;
-          row.showrow1 = false;
-          row.showrow2 = false;
-          row.showrow3 = false;
-        } else if (val === 'PP012001') {
-          row.showrow = false;
-          row.showrow1 = true;
-          row.showrow2 = false;
-          row.showrow3 = false;
-        } else if (val === 'PP012002') {
-          row.showrow = false;
-          row.showrow1 = false;
-          row.showrow2 = true;
-          row.showrow3 = false;
-        } else if (val === 'PP012003') {
-          row.showrow = false;
-          row.showrow1 = false;
-          row.showrow2 = false;
-          row.showrow3 = true;
-        }
-      },
-      getrole1(val, row) {
-        row.stageproduct = val;
-      },
-      getcustomer(val) {
-        this.result1.forEach(res => {
-          if (res.customerinfor_id === val) {
-            this.form.representative = res.liableperson;
-          }
-        });
-      },
-      workflowState(val) {
-        if (val.state === '1') {
-          this.form.status = '3';
-        } else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        this.buttonClick('update');
-      },
-      //upd 审批流程 fr
-      // start(val) {
-      //   this.form.status = '2';
-      //   this.buttonClick("update");
-      // },
-      start(val) {
-        if (val.state === '0') {
-          this.form.status = '2';
-        }else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        this.buttonClick('update');
-      },
-      //upd 审批流程 to
-      end() {
-        this.form.status = '0';
-        this.buttonClick('update');
-      },
-      fileError(err, file, fileList) {
-        Message({
-          message: this.$t('normal.error_04'),
-          type: 'error',
-          duration: 5 * 1000,
-        });
-      },
-      fileRemove(file, fileList) {
-        this.fileList = [];
-        this.form.uploadfile = '';
-        for (var item of fileList) {
-          let o = {};
-          o.name = item.name;
-          o.url = item.url;
-          this.fileList.push(o);
-          this.form.uploadfile += item.name + ',' + item.url + ';';
-        }
-      },
-      fileDownload(file) {
-        if (file.url) {
-          file.url = file.url.replace("%","%25");
-          file.url = file.url.replace("#","%23");
-          file.url = file.url.replace("&","%26");
-          file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("=","%3D");
-          file.url = file.url.replace("?","%3F");
-          var url = downLoadUrl(file.url);
-          window.open(url);
-        }
-      },
-      fileSuccess(response, file, fileList) {
-        this.fileList = [];
-        this.form.uploadfile = '';
-        for (var item of fileList) {
-          let o = {};
-          o.name = item.name;
-          if (!item.url) {
-            o.url = item.response.info;
-          } else {
-            o.url = item.url;
-          }
-          this.fileList.push(o);
-          this.form.uploadfile += o.name + ',' + o.url + ';';
-        }
-      },
-      //开发计划
-      addRow() {
-        this.tableA.push({
+    };
+    return {
+      centerorglist: '',
+      grouporglist: '',
+      teamorglist: '',
+      errorcenter: '',
+      errorgroup: '',
+      errorexpname: '',
+      search: '',
+      gridData1: [],
+      disable: false,
+      customerinfor: [],
+      checkList: [],
+      expatriates: [],
+      disabled: true,
+      error: '',
+      errorLeader: '',
+      errorManager: '',
+      selectType: 'Single',
+      userlist: '',
+      userlist1: '',
+      activeName: 'first',
+      activeName2: 'first',
+      buttonList: [],
+      currentRow: '',
+      currentRow1: '',
+      currentRow2: '',
+      currentRow3: '',
+      //项目计划
+      tableA: [
+        {
           stageinformation_id: '',
           companyprojects_id: '',
           phase: '',
@@ -1563,271 +948,888 @@
           showrow1: false,
           showrow2: false,
           showrow3: false,
-        });
-      },
-      // 开发计划
-      deleteRow(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableA = [{
-            stageinformation_id: '',
-            companyprojects_id: '',
-            phase: '',
-            stageproduct: '',
-            productstatus: '',
-            estimatedwork: '',
-            actualwork: '',
-            estimatedstarttime: '',
-            estimatedendtime: '',
-            remarks: '',
-            actualstarttime: '',
-            actualendtime: '',
-            product: '',
-            phasestatus: '',
-            rowindex: '',
-          }];
-        }
-      },
+        },
+      ],
       //项目体制(本社)
-      addRow1() {
-        this.tableB.push({
+      tableB: [
+        {
           projectsystem_id: '',
           companyprojects_id: '',
           type: '0',
           number: '',
           company: '',
           name: '',
-          position:'',
+          position: '',
           admissiontime: '',
           exittime: '',
           rowindex: '',
-        });
-      },
-      deleteRow1(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableB = [{
-            projectsystem_id: '',
-            companyprojects_id: '',
-            type: '0',
-            number: '',
-            company: '',
-            name: '',
-            position:'',
-            admissiontime: '',
-            exittime: '',
-            rowindex: '',
-          }];
-        }
-      },
+        },
+      ],
       //项目体制(外协)
-      addRow2() {
-        this.tableC.push({
+      tableC: [
+        {
           projectsystem_id: '',
           companyprojects_id: '',
           type: '1',
           number: '',
           company: '',
           name: '',
-          position:'',
+          position: '',
           admissiontime: '',
           exittime: '',
           rowindex: '',
-        });
+        },
+      ],
+      data: [],
+      loading: false,
+      dialogTableVisible1: false,
+      title: 'label.PFANS5001VIEW1',
+      rules: {
+        leaderid: [
+          {
+            required: true,
+            validator: validateUserid,
+            trigger: 'change',
+          },
+        ],
+        managerid: [
+          {
+            required: true,
+            validator: validateUserid1,
+            trigger: 'change',
+          },
+        ],
+        project_name: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_PROJECT_NAME'),
+            trigger: 'blur',
+          },
+        ],
+        project_namejp: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_PROJECT_NAMEJP'),
+            trigger: 'blur',
+          },
+        ],
+        number: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_NUMBERS'),
+            trigger: 'blur',
+          },
+        ],
+        projecttype: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_PROJECTTYPE'),
+            trigger: 'change',
+          },
+        ],
+        field: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_FIELD'),
+            trigger: 'change',
+          },
+        ],
+        startdate: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_STARTDATE'),
+            trigger: 'blur',
+          }, {validator: valiresig, trigger: 'change'},
+        ],
+        enddate: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_ENDDATE'),
+            trigger: 'blur',
+          }, {validator: valiresig, trigger: 'change'},
+        ],
+        manmonth: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_MANMONTH'),
+            trigger: 'blur',
+          },
+        ],
+        salesvolume: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_SALESVOLUME'),
+            trigger: 'blur',
+          },
+        ],
+        cost: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_COST'),
+            trigger: 'blur',
+          },
+        ],
+        projectalabel: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_PROJECTALABEL'),
+            trigger: 'blur',
+          },
+        ],
+        customername: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_CUSTOMERNAME'),
+            trigger: 'change',
+          },
+        ],
+        // 开发语言
+        languages: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
+            trigger: 'blur',
+          },
+        ],
+        // 受託工数
+        work: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
+            trigger: 'blur',
+          },
+        ],
+        //纳期
+        deadline: [
+          {
+            required: true,
+            message:
+              this.$t('normal.error_08') +
+              this.$t('label.PFANS5001FORMVIEW_BRIEFINTRODUCTION'),
+            trigger: 'blur',
+          },
+        ],
+        // 姓名
+        expname: [
+          {
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.user_name'),
+            trigger: 'blur',
+          },
+        ],
+        // 委托元部署
+        deployment: [
+          {
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.user_name'),
+            trigger: 'blur',
+          },
+        ],
       },
-      // 体制-社内
-      deleteRow2(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableC = [{
-            projectsystem_id: '',
-            companyprojects_id: '',
-            type: '1',
-            number: '',
-            company: '',
-            name: '',
-            position:'',
-            admissiontime: '',
-            exittime: '',
-            rowindex: '',
-          }];
-        }
+      baseInfo: {},
+      form: {
+        center_id: '',
+        group_id: '',
+        team_id: '',
+        project_name: '',
+        project_namejp: '',
+        leaderid: '',
+        managerid: '',
+        projecttype: '',
+        field: '',
+        languages: '',
+        startdate: '',
+        enddate: '',
+        work: '',
+        deadline: '',
+        tools: '',
+        briefintroduction: '',
+        requirement: '',
+        behalf: '',
+        intelligence: '',
+        numbers: '',
+        departmentid: '',
+        technological: '',
+        manmonth: '',
+        cost: '',
+        salesvolume: '',
+        projectalabel: '',
+        situation: '',
+        confidential: '',
+        managementtool: '',
+        customername: '',
+        representative: '',
+        basicsituation: '',
+        uploadfile: '',
       },
-      getexpatriatesinfor() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6004Store/getWithoutAuth', {})
-          .then(response => {
-            this.gridData1 = [];
-            for (let i = 0; i < response.length; i++) {
-              var vote1 = {};
-              vote1.number = response[i].number;
-              vote1.expname = response[i].expname;
-              vote1.suppliername =  response[i].suppliername;
-              vote1.post = response[i].post;
-              this.gridData1.push(vote1);
-            }
-            this.centerorglist = this.form.center_id;
-            this.grouporglist = this.form.group_id;
-            this.teamorglist = this.form.team_id;
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
-      buttonClick(val) {
-        this.form.leaderid = this.userlist;
-        this.form.managerid = this.userlist1;
+      multiple: false,
+      code: 'PP012',
+      code1: 'PP013',
+      code2: 'PP001',
+      code3: 'PJ063',
+      code4: 'PP014',
+      code5: 'PP015',
+      showrow: true,
+      showrow1: false,
+      showrow2: false,
+      showrow3: false,
+      // code7: "PP014",
+      // code8: "PP015",
+      // code9:"PR021",
+      result: '',
+      result1: '',
+      fileList: [],
+      upload: uploadUrl(),
+    };
+  },
+  mounted() {
+    this.getexpatriatesinfor();
+    if (this.$route.params._id) {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS5001Store/selectById', {companyprojectsid: this.$route.params._id})
+        .then(response => {
+          this.form = response.companyprojects;
+          this.userlist = this.form.leaderid;
+          this.userlist1 = this.form.managerid;
+          this.centerorglist = this.form.center_id;
+          this.grouporglist = this.form.group_id;
+          this.teamorglist = this.form.team_id;
+          if (this.form.tools != '') {
+            this.checkList = JSON.parse(this.form.tools);
+          }
+          //项目计划
+          if (response.stageinformation.length > 0) {
+            this.tableA = response.stageinformation;
+          }
+          //项目体制
+          if (response.projectsystem.length > 0) {
+            for (var i = 0; i < response.projectsystem.length; i++) {
+              if (response.projectsystem[i].type === '0') {
+                this.tableB = [];
+                let o = {};
+                o.name = response.projectsystem[i].projectsystem_id;
+                o.companyprojects_id = response.projectsystem[i].companyprojects_id;
+                o.type = response.projectsystem[i].type;
+                o.number = response.projectsystem[i].number;
+                o.company = response.projectsystem[i].company;
+                o.name = response.projectsystem[i].name;
+                o.position = response.projectsystem[i].position;
+                o.admissiontime = response.projectsystem[i].admissiontime;
+                o.exittime = response.projectsystem[i].exittime;
+                o.rowindex = response.projectsystem[i].rowindex;
+                this.tableB.push(o);
 
-        this.$refs['from1'].validate(valid => {
-          if (valid) {
-            this.loading = true;
-            this.baseInfo = {};
-            if(JSON.stringify(this.checkList) !== '[]'){
-              this.form.tools = JSON.stringify(this.checkList);
-            }else{
-              this.form.tools = '';
-            }
-            this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo.stageinformation = [];
-            this.baseInfo.projectsystem = [];
-            //项目计划
-            for (let i = 0; i < this.tableA.length; i++) {
-              if (
-                this.tableA[i].phase !== '' ||
-                this.tableA[i].stageproduct !== '' ||
-                this.tableA[i].estimatedwork !== '' ||
-                this.tableA[i].estimatedstarttime !== '' ||
-                this.tableA[i].estimatedendtime !== '' ||
-                this.tableA[i].remarks !== ''
-              ) {
-                this.baseInfo.stageinformation.push({
-                  phase: this.tableA[i].phase,
-                  stageproduct: this.tableA[i].stageproduct,
-                  estimatedwork: this.tableA[i].estimatedwork,
-                  estimatedstarttime: this.tableA[i].estimatedstarttime,
-                  estimatedendtime: this.tableA[i].estimatedendtime,
-                  remarks: this.tableA[i].remarks,
-                });
+              } else {
+                this.tableC = [];
+                let o = {};
+                o.name = response.projectsystem[i].projectsystem_id;
+                o.companyprojects_id = response.projectsystem[i].companyprojects_id;
+                o.type = response.projectsystem[i].type;
+                o.number = response.projectsystem[i].number;
+                o.company = response.projectsystem[i].company;
+                o.name = response.projectsystem[i].name;
+                o.position = response.projectsystem[i].position;
+                o.admissiontime = response.projectsystem[i].admissiontime;
+                o.exittime = response.projectsystem[i].exittime;
+                o.rowindex = response.projectsystem[i].rowindex;
+                this.tableC.push(o);
               }
             }
-            for (let i = 0; i < this.tableB.length; i++) {
-              if (
-                this.tableB[i].number !== '' ||
-                this.tableB[i].name !== '' ||
-                this.tableB[i].admissiontime !== '' ||
-                this.tableB[i].exittime !== ''
-              ) {
-                this.baseInfo.projectsystem.push({
-                  number: this.tableB[i].number,
-                  name: this.tableB[i].name,
-                  type: this.tableB[i].type,
-                  position: this.tableB[i].position,
-                  admissiontime: this.tableB[i].admissiontime,
-                  exittime: this.tableB[i].exittime,
-                });
+          }
+          // this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+          // this.baseInfo.stageinformation = JSON.parse(JSON.stringify(this.tableA));
+          if (this.form.uploadfile != null) {
+            if (this.form.uploadfile != '') {
+              let uploadfile = this.form.uploadfile.split(';');
+              for (var i = 0; i < uploadfile.length; i++) {
+                if (uploadfile[i].split(',')[0] != '') {
+                  let o = {};
+                  o.name = uploadfile[i].split(',')[0];
+                  o.url = uploadfile[i].split(',')[1];
+                  this.fileList.push(o);
+                }
               }
             }
-            for (let i = 0; i < this.tableC.length; i++) {
-              if (
-                this.tableC[i].number !== '' ||
-                this.tableC[i].name !== '' ||
-                this.tableC[i].admissiontime !== '' ||
-                this.tableC[i].exittime !== ''
-              ) {
-                this.baseInfo.projectsystem.push({
-                  number: this.tableC[i].number,
-                  name: this.tableC[i].name,
-                  type: this.tableC[i].type,
-                  company: this.tableC[i].company,
-                  admissiontime: this.tableC[i].admissiontime,
-                  exittime: this.tableC[i].exittime,
-                  position: this.tableC[i].position
-                });
-              }
+          }
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    } else {
+      this.userlist = this.$store.getters.userinfo.userid;
+      this.userlist1 = this.$store.getters.userinfo.userid;
+    }
+    this.$store
+      .dispatch('PFANS5001Store/getcustomer', {})
+      .then(response => {
+        for (let i = 0; i < response.length; i++) {
+          var vote = {};
+          this.result1 = response;
+          vote.value = response[i].customerinfor_id;
+          vote.label = response[i].custchinese;
+          this.customerinfor.push(vote);
+        }
+      });
+    this.$store
+      .dispatch('PFANS5001Store/getexpat', {})
+      .then(response => {
+        for (let i = 0; i < response.length; i++) {
+          var vote = {};
+          this.result = response;
+          vote.value = response[i].expatriatesinfor_id;
+          vote.label = response[i].expname;
+          this.expatriates.push(vote);
+        }
+      });
+  },
+
+  created() {
+    this.disable = this.$route.params.disabled;
+    if (this.disable) {
+      this.buttonList = [
+        {
+          key: 'save',
+          name: 'button.save',
+        },
+      ];
+    }
+  },
+  methods: {
+    setdisabled(val) {
+      if (this.$route.params.disabled) {
+        this.disabled = val;
+      }
+    },
+    getCenterId(val) {
+      this.form.center_id = val;
+      this.centerorglist = val;
+      if (!this.form.center_id || this.form.center_id === '' || val === 'undefined') {
+        this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
+      } else {
+        this.errorcenter = '';
+      }
+    },
+    getGroupId(val) {
+      this.form.group_id = val;
+      this.grouporglist = val;
+      if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
+        this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+      } else {
+        this.errorgroup = '';
+      }
+    },
+    getTeamId(val) {
+      this.form.team_id = val;
+      this.teamorglist = val;
+    },
+    getUserids(val) {
+      this.userlist = val;
+      this.form.leaderid = val;
+      let lst = getOrgInfoByUserId(val);
+      this.tableB.number = lst.number;
+      this.tableB.position = lst.post;
+      if (
+        !this.form.leaderid ||
+        this.form.leaderid === '' ||
+        val === 'undefined'
+      ) {
+        this.errorLeader =
+          this.$t('normal.error_08') +
+          this.$t('label.PFANS5001FORMVIEW_LEADERID');
+      } else {
+        this.errorLeader = '';
+      }
+    },
+    getUserids1(val) {
+      this.userlist1 = val;
+      this.form.managerid = val;
+      if (
+        !this.form.managerid ||
+        this.form.managerid === '' ||
+        val === 'undefined'
+      ) {
+        this.errorManager =
+          this.$t('normal.error_08') +
+          this.$t('label.PFANS5001FORMVIEW_MANAGERID');
+      } else {
+        this.errorManager = '';
+      }
+    },
+    submit(row) {
+      row.number = this.currentRow;
+      row.name = this.currentRow1;
+      row.company = this.currentRow2;
+      row.position = this.currentRow3;
+      this.dialogTableVisible1 = false;
+    },
+    handleClickChange(val) {
+      this.currentRow = val.number;
+      this.currentRow1 = val.expname;
+      this.currentRow2 = val.suppliername;
+      this.currentRow3 = val.post;
+    },
+    getCitationUserid(userlist, row) {
+      row.name = userlist;
+      if (row.name != null && row.name !== '') {
+        let lst = getUserInfo(row.name);
+        row.position = lst.userinfo.post;
+        row.number = lst.userinfo.jobnumber;
+      }
+    },
+    // getdepartmentid(val1) {
+    //   this.form.departmentid = val1;
+    // },
+    getprojecttype(val1) {
+      this.form.projecttype = val1;
+    },
+    getfield(val1) {
+      this.form.field = val1;
+    },
+    // gettechnological(val1) {
+    //   this.form.technological = val1;
+    // },
+    // getsituation(val1) {
+    //   this.form.situation = val1;
+    // },
+    // getconfidential(val1) {
+    //   this.form.confidential = val1;
+    // },
+    // getmanagementtool(val1) {
+    //   this.form.managementtool = val1;
+    // },
+
+    // getplantype(val1, row) {
+    //   row.plantype = val1;
+    // },
+    getrole(val, row) {
+      row.phase = val;
+      row.stageproduct = ' ';
+      if (val === '') {
+        row.showrow = true;
+        row.showrow1 = false;
+        row.showrow2 = false;
+        row.showrow3 = false;
+      } else if (val === 'PP012001') {
+        row.showrow = false;
+        row.showrow1 = true;
+        row.showrow2 = false;
+        row.showrow3 = false;
+      } else if (val === 'PP012002') {
+        row.showrow = false;
+        row.showrow1 = false;
+        row.showrow2 = true;
+        row.showrow3 = false;
+      } else if (val === 'PP012003') {
+        row.showrow = false;
+        row.showrow1 = false;
+        row.showrow2 = false;
+        row.showrow3 = true;
+      }
+    },
+    getrole1(val, row) {
+      row.stageproduct = val;
+    },
+    getcustomer(val) {
+      this.result1.forEach(res => {
+        if (res.customerinfor_id === val) {
+          this.form.representative = res.liableperson;
+        }
+      });
+    },
+    workflowState(val) {
+      if (val.state === '1') {
+        this.form.status = '3';
+      } else if (val.state === '2') {
+        this.form.status = '4';
+      }
+      this.buttonClick('update');
+    },
+    //upd 审批流程 fr
+    // start(val) {
+    //   this.form.status = '2';
+    //   this.buttonClick("update");
+    // },
+    start(val) {
+      if (val.state === '0') {
+        this.form.status = '2';
+      } else if (val.state === '2') {
+        this.form.status = '4';
+      }
+      this.buttonClick('update');
+    },
+    //upd 审批流程 to
+    end() {
+      this.form.status = '0';
+      this.buttonClick('update');
+    },
+    fileError(err, file, fileList) {
+      Message({
+        message: this.$t('normal.error_04'),
+        type: 'error',
+        duration: 5 * 1000,
+      });
+    },
+    fileRemove(file, fileList) {
+      this.fileList = [];
+      this.form.uploadfile = '';
+      for (var item of fileList) {
+        let o = {};
+        o.name = item.name;
+        o.url = item.url;
+        this.fileList.push(o);
+        this.form.uploadfile += item.name + ',' + item.url + ';';
+      }
+    },
+    fileDownload(file) {
+      if (file.url) {
+        file.url = file.url.replace('%', '%25');
+        file.url = file.url.replace('#', '%23');
+        file.url = file.url.replace('&', '%26');
+        file.url = file.url.replace('+', '%2B');
+        file.url = file.url.replace('=', '%3D');
+        file.url = file.url.replace('?', '%3F');
+        var url = downLoadUrl(file.url);
+        window.open(url);
+      }
+    },
+    fileSuccess(response, file, fileList) {
+      this.fileList = [];
+      this.form.uploadfile = '';
+      for (var item of fileList) {
+        let o = {};
+        o.name = item.name;
+        if (!item.url) {
+          o.url = item.response.info;
+        } else {
+          o.url = item.url;
+        }
+        this.fileList.push(o);
+        this.form.uploadfile += o.name + ',' + o.url + ';';
+      }
+    },
+    //开发计划
+    addRow() {
+      this.tableA.push({
+        stageinformation_id: '',
+        companyprojects_id: '',
+        phase: '',
+        stageproduct: '',
+        productstatus: '',
+        estimatedwork: '',
+        actualwork: '',
+        estimatedstarttime: '',
+        estimatedendtime: '',
+        remarks: '',
+        actualstarttime: '',
+        actualendtime: '',
+        product: '',
+        phasestatus: '',
+        rowindex: '',
+        showrow: true,
+        showrow1: false,
+        showrow2: false,
+        showrow3: false,
+      });
+    },
+    // 开发计划
+    deleteRow(index, rows) {
+      if (rows.length > 1) {
+        rows.splice(index, 1);
+      } else {
+        this.tableA = [{
+          stageinformation_id: '',
+          companyprojects_id: '',
+          phase: '',
+          stageproduct: '',
+          productstatus: '',
+          estimatedwork: '',
+          actualwork: '',
+          estimatedstarttime: '',
+          estimatedendtime: '',
+          remarks: '',
+          actualstarttime: '',
+          actualendtime: '',
+          product: '',
+          phasestatus: '',
+          rowindex: '',
+        }];
+      }
+    },
+    //项目体制(本社)
+    addRow1() {
+      this.tableB.push({
+        projectsystem_id: '',
+        companyprojects_id: '',
+        type: '0',
+        number: '',
+        company: '',
+        name: '',
+        position: '',
+        admissiontime: '',
+        exittime: '',
+        rowindex: '',
+      });
+    },
+    deleteRow1(index, rows) {
+      if (rows.length > 1) {
+        rows.splice(index, 1);
+      } else {
+        this.tableB = [{
+          projectsystem_id: '',
+          companyprojects_id: '',
+          type: '0',
+          number: '',
+          company: '',
+          name: '',
+          position: '',
+          admissiontime: '',
+          exittime: '',
+          rowindex: '',
+        }];
+      }
+    },
+    //项目体制(外协)
+    addRow2() {
+      this.tableC.push({
+        projectsystem_id: '',
+        companyprojects_id: '',
+        type: '1',
+        number: '',
+        company: '',
+        name: '',
+        position: '',
+        admissiontime: '',
+        exittime: '',
+        rowindex: '',
+      });
+    },
+    // 体制-社内
+    deleteRow2(index, rows) {
+      if (rows.length > 1) {
+        rows.splice(index, 1);
+      } else {
+        this.tableC = [{
+          projectsystem_id: '',
+          companyprojects_id: '',
+          type: '1',
+          number: '',
+          company: '',
+          name: '',
+          position: '',
+          admissiontime: '',
+          exittime: '',
+          rowindex: '',
+        }];
+      }
+    },
+    getexpatriatesinfor() {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS6004Store/getWithoutAuth', {})
+        .then(response => {
+          this.gridData1 = [];
+          for (let i = 0; i < response.length; i++) {
+            var vote1 = {};
+            vote1.number = response[i].number;
+            vote1.expname = response[i].expname;
+            vote1.suppliername = response[i].suppliername;
+            vote1.post = response[i].post;
+            this.gridData1.push(vote1);
+          }
+          this.centerorglist = this.form.center_id;
+          this.grouporglist = this.form.group_id;
+          this.teamorglist = this.form.team_id;
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    },
+    buttonClick(val) {
+      this.form.leaderid = this.userlist;
+      this.form.managerid = this.userlist1;
+
+      this.$refs['from1'].validate(valid => {
+        if (valid) {
+          this.loading = true;
+          this.baseInfo = {};
+          if (JSON.stringify(this.checkList) !== '[]') {
+            this.form.tools = JSON.stringify(this.checkList);
+          } else {
+            this.form.tools = '';
+          }
+          this.baseInfo.companyprojects = JSON.parse(JSON.stringify(this.form));
+          this.baseInfo.stageinformation = [];
+          this.baseInfo.projectsystem = [];
+          //项目计划
+          for (let i = 0; i < this.tableA.length; i++) {
+            if (
+              this.tableA[i].phase !== '' ||
+              this.tableA[i].stageproduct !== '' ||
+              this.tableA[i].estimatedwork !== '' ||
+              this.tableA[i].estimatedstarttime !== '' ||
+              this.tableA[i].estimatedendtime !== '' ||
+              this.tableA[i].remarks !== ''
+            ) {
+              this.baseInfo.stageinformation.push({
+                phase: this.tableA[i].phase,
+                stageproduct: this.tableA[i].stageproduct,
+                estimatedwork: this.tableA[i].estimatedwork,
+                estimatedstarttime: this.tableA[i].estimatedstarttime,
+                estimatedendtime: this.tableA[i].estimatedendtime,
+                remarks: this.tableA[i].remarks,
+              });
             }
-            if (this.$route.params._id) {
-              this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
-              this.form.center_id = this.centerorglist;
-              this.form.group_id = this.grouporglist;
-              this.form.team_id = this.teamorglist;
-              this.$store
-                .dispatch('PFANS5001Store/update', this.baseInfo)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if (val !== 'update') {
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  }
-                })
-                .catch(error => {
-                  this.$message.error({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-            } else {
-              this.$store
-                .dispatch('PFANS5001Store/insert', this.baseInfo)
-                .then(response => {
-                  console.log("VVVAAAAA" + response);
-                  this.data = response;
-                  this.loading = false;
-                  this.$message.success({
-                    message: this.$t('normal.success_01'),
+          }
+          for (let i = 0; i < this.tableB.length; i++) {
+            if (
+              this.tableB[i].number !== '' ||
+              this.tableB[i].name !== '' ||
+              this.tableB[i].admissiontime !== '' ||
+              this.tableB[i].exittime !== ''
+            ) {
+              this.baseInfo.projectsystem.push({
+                number: this.tableB[i].number,
+                name: this.tableB[i].name,
+                type: this.tableB[i].type,
+                position: this.tableB[i].position,
+                admissiontime: this.tableB[i].admissiontime,
+                exittime: this.tableB[i].exittime,
+              });
+            }
+          }
+          for (let i = 0; i < this.tableC.length; i++) {
+            if (
+              this.tableC[i].number !== '' ||
+              this.tableC[i].name !== '' ||
+              this.tableC[i].admissiontime !== '' ||
+              this.tableC[i].exittime !== ''
+            ) {
+              this.baseInfo.projectsystem.push({
+                number: this.tableC[i].number,
+                name: this.tableC[i].name,
+                type: this.tableC[i].type,
+                company: this.tableC[i].company,
+                admissiontime: this.tableC[i].admissiontime,
+                exittime: this.tableC[i].exittime,
+                position: this.tableC[i].position,
+              });
+            }
+          }
+          if (this.$route.params._id) {
+            this.baseInfo.companyprojects.companyprojects_id = this.$route.params._id;
+            this.form.center_id = this.centerorglist;
+            this.form.group_id = this.grouporglist;
+            this.form.team_id = this.teamorglist;
+            this.$store
+              .dispatch('PFANS5001Store/update', this.baseInfo)
+              .then(response => {
+                this.data = response;
+                this.loading = false;
+                if (val !== 'update') {
+                  Message({
+                    message: this.$t('normal.success_02'),
                     type: 'success',
+                    duration: 5 * 1000,
                   });
                   if (this.$store.getters.historyUrl) {
                     this.$router.push(this.$store.getters.historyUrl);
                   }
-                })
-                .catch(error => {
-                  this.$message.error({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
+                }
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
                 });
-            }
+                this.loading = false;
+              });
+          } else {
+            this.$store
+              .dispatch('PFANS5001Store/insert', this.baseInfo)
+              .then(response => {
+                console.log('VVVAAAAA' + response);
+                this.data = response;
+                this.loading = false;
+                this.$message.success({
+                  message: this.$t('normal.success_01'),
+                  type: 'success',
+                });
+                if (this.$store.getters.historyUrl) {
+                  this.$router.push(this.$store.getters.historyUrl);
+                }
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
           }
-        });
-      },
+        }
+      });
     },
-  };
+  },
+};
 </script>
 <style lang="scss" rel="stylesheet/scss">
-  .dpSupIndex {
-    .content {
-      height: 34px;
-      min-width: 80%;
-      border: 0.1rem solid #ebeef5;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      line-height: 34px;
-      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
-    }
-    .bg {
-      background: white;
-      border-width: 1px;
-    }
+.dpSupIndex {
+  .content {
+    height: 34px;
+    min-width: 80%;
+    border: 0.1rem solid #ebeef5;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    line-height: 34px;
+    padding: 0.1rem 0.5rem 0.2rem 0.5rem;
   }
+
+  .bg {
+    background: white;
+    border-width: 1px;
+  }
+}
 </style>

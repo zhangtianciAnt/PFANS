@@ -1,24 +1,26 @@
 <template>
   <div class="upload-container">
     <!-- readonly:String, -->
-    <el-button icon="upload" :disabled="disabled" @click=" dialogVisible=true" type="primary">{{this.$t('normal.info_10')}}</el-button>
+    <el-button :disabled="disabled" icon="upload" type="primary" @click=" dialogVisible=true">
+      {{ this.$t('normal.info_10') }}
+    </el-button>
     <el-dialog :visible.sync="dialogVisible" append-to-body center>
       <el-upload
-        class="editor-slide-upload"
-        action="https://httpbin.org/post"
-        :multiple="true"
+        :before-upload="beforeUpload"
         :file-list="fileList"
-        :show-file-list="true"
-        list-type="picture-card"
+        :multiple="true"
         :on-remove="handleRemove"
         :on-success="handleSuccess"
-        :before-upload="beforeUpload"
+        :show-file-list="true"
+        action="https://httpbin.org/post"
+        class="editor-slide-upload"
+        list-type="picture-card"
       >
-        <el-button size="small" type="primary">{{this.$t('normal.info_09')}}</el-button>
+        <el-button size="small" type="primary">{{ this.$t('normal.info_09') }}</el-button>
       </el-upload>
       <div slot="footer">
-        <el-button @click="dialogVisible = false">{{this.$t('button.cancel')}}</el-button>
-        <el-button type="primary" @click="handleSubmit">{{this.$t('button.confirm')}}</el-button>
+        <el-button @click="dialogVisible = false">{{ this.$t('button.cancel') }}</el-button>
+        <el-button type="primary" @click="handleSubmit">{{ this.$t('button.confirm') }}</el-button>
       </div>
     </el-dialog>
   </div>
@@ -28,28 +30,28 @@
 // import { getToken } from 'api/qiniu'
 
 export default {
-  name: "editorSlideUpload",
+  name: 'editorSlideUpload',
   props: {
     color: {
       type: String,
-      default: "#20a0ff"
+      default: '#20a0ff',
     },
     disabled: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       dialogVisible: false,
       listObj: {},
-      fileList: []
+      fileList: [],
     };
   },
   methods: {
     checkAllSuccess() {
       return Object.keys(this.listObj).every(
-        item => this.listObj[item].hasSuccess
+        item => this.listObj[item].hasSuccess,
       );
     },
     handleSubmit() {
@@ -57,13 +59,13 @@ export default {
       if (!this.checkAllSuccess()) {
         this.$message.info({
             message: this.$t('normal.info_11'),
-            type: "info"
-          }
+            type: 'info',
+          },
         );
         return;
       }
-      console.log("handleSubmit", arr);
-      this.$emit("successCBK", arr);
+      console.log('handleSubmit', arr);
+      this.$emit('successCBK', arr);
       this.listObj = {};
       this.fileList = [];
       this.dialogVisible = false;
@@ -102,17 +104,17 @@ export default {
             hasSuccess: false,
             uid: file.uid,
             width: this.width,
-            height: this.height
+            height: this.height,
           };
         };
         resolve(true);
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style lang="scss" rel="stylesheet/scss" scoped>
 .upload-container {
   .editor-slide-upload {
     margin-bottom: 20px;

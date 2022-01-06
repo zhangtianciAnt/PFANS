@@ -1,13 +1,13 @@
 import {
   createvariousfundsApply,
-  getvariousfunds,
   getPjnameList,
-  getvariousfundsApplyOne,
-  updatevariousfundsApply,
-  getexpatriatesinfor,
   getPjnameList6007,
+  getvariousfunds,
+  getvariousfundsApplyOne,
   listPsdcd,
-} from './PFANS6007Api'
+  updatevariousfundsApply,
+} from './PFANS6007Api';
+
 const PFANS6007Store = {
   namespaced: true,
   state: {},
@@ -19,12 +19,12 @@ const PFANS6007Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getPjnameList() {
       return new Promise((resolve, reject) => {
@@ -32,12 +32,12 @@ const PFANS6007Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getPjnameList6007({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -45,12 +45,12 @@ const PFANS6007Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     listPsdcd({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -58,12 +58,12 @@ const PFANS6007Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getvariousfundsApplyOne({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -71,12 +71,12 @@ const PFANS6007Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updatevariousfundsApply({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -84,12 +84,12 @@ const PFANS6007Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     createvariousfundsApply({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -97,12 +97,12 @@ const PFANS6007Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     // getexpatriatesinfor() {
     //   return new Promise((resolve, reject) => {
@@ -117,7 +117,7 @@ const PFANS6007Store = {
     //     })
     //   })
     // },
-  }
+  },
 };
 
 export default PFANS6007Store;

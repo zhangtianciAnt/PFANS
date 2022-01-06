@@ -1,19 +1,16 @@
 import {
-  insertrecognition,
-  createPfans4001,
-  getFpans4001List,
-  updatePfans4001,
-  getPfans4001One,
   createbook,
+  createPfans4001,
+  getEffSeal,
+  getFpans4001List,
+  getPfans4001One,
   insertnamedialog,
+  insertrecognition,
+  sealDetailList,
+  sealList,
   selectcognition,
   selectEffective,
-  // 盖印监管者增加履历 ztc 0723 fr
-  getEffSeal
-  // 盖印监管者增加履历 ztc 0723 to
-  //页面增加分页 ztc 1129 fr
-  , sealList,sealDetailList
-  //页面增加分页 ztc 1129 to
+  updatePfans4001,
 } from './PFANS4001Api';
 
 const PFANS4001store = {

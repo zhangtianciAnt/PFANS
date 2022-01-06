@@ -1,50 +1,51 @@
-import request from '../../../../utils/request'
-import requestDownload from "../../../../utils/requestDownload";
-import requestPdf from "../../../../utils/requestPdf";
+import request from '../../../../utils/request';
+import requestDownload from '../../../../utils/requestDownload';
 
 export function get() {
   return request({
     url: 'businessplan/get',
-    method: 'get'
-  })
+    method: 'get',
+  });
 }
 
 export function selectById(data) {
   return request({
     url: 'businessplan/selectById',
     method: 'get',
-    params: data
-  })
+    params: data,
+  });
 }
+
 export function getPersonPlan(data) {
   return request({
     url: 'businessplan/getpersonplan',
     method: 'get',
-    params: data
-  })
+    params: data,
+  });
 }
 
 export function updateBusinessplan(data) {
   return request({
     url: 'businessplan/update',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function createBusinessplan(data) {
   return request({
     url: 'businessplan/create',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
+
 export function getPlan(data) {
   return request({
     url: 'personnelplan/get',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function getgroupA1(data) {
@@ -52,7 +53,7 @@ export function getgroupA1(data) {
     url: 'businessplan/getgroupA1',
     method: 'get',
     params: data,
-  })
+  });
 }
 
 export function getgroup(data) {
@@ -60,7 +61,7 @@ export function getgroup(data) {
     url: 'businessplan/getgroup',
     method: 'get',
     params: data,
-  })
+  });
 }
 
 export function getgroupcompanyen(data) {
@@ -68,16 +69,18 @@ export function getgroupcompanyen(data) {
     url: 'businessplan/getgroupcompanyen',
     method: 'get',
     params: data,
-  })
+  });
 }
+
 //region scc add 9/28 编辑按钮状态 from
 export function whetherEditor(data) {
   return request({
     url: 'businessplan/whetherEditor',
     method: 'get',
-    params: data
-  })
+    params: data,
+  });
 }
+
 //endregion scc add 9/28 编辑按钮状态 to
 
 //region scc add 10/9 事业计划模板下载 from
@@ -86,9 +89,10 @@ export function download(data) {
     url: 'businessplan/download',
     method: 'get',
     params: data,
-    responseType: 'blob'
-  })
+    responseType: 'blob',
+  });
 }
+
 //endregion scc add 10/9 事业计划模板下载 to
 
 //region scc add 事业计划PL导出 from
@@ -97,9 +101,10 @@ export function BusinessplanExport(data) {
     url: 'businessplan/export',
     method: 'post',
     data: data,
-    responseType: 'blob'
-  })
+    responseType: 'blob',
+  });
 }
+
 //endregion scc add 事业计划PL导出 to
 
 
@@ -107,8 +112,8 @@ export function getBusBalns(data) {
   return request({
     url: 'businessplan/getBusBalns',
     method: 'get',
-    params: data
-  })
+    params: data,
+  });
 }
 
 //region scc add 保存部分PL from
@@ -116,9 +121,10 @@ export function Pl(data) {
   return request({
     url: 'businessplan/Pl',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
+
 //endregion scc add 保存部分PL to
 
 //region scc add 事业计划消耗 from
@@ -126,7 +132,8 @@ export function consumption(data) {
   return request({
     url: 'businessplan/consumption',
     method: 'get',
-    params: data
-  })
+    params: data,
+  });
 }
+
 //endregion scc add 事业计划消耗 to

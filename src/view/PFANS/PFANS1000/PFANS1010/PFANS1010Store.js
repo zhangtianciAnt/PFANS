@@ -1,4 +1,9 @@
-import {getCommunication,getCommunicationOne, updateCommunication,createCommunication} from './PFANS1010Api'
+import {
+  createCommunication,
+  getCommunication,
+  getCommunicationOne,
+  updateCommunication,
+} from './PFANS1010Api';
 
 const PFANS1010Store = {
   namespaced: true,
@@ -11,12 +16,12 @@ const PFANS1010Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     getCommunicationOne({commit}, data) {
@@ -25,12 +30,12 @@ const PFANS1010Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     updateCommunication({commit}, data) {
@@ -39,12 +44,12 @@ const PFANS1010Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     createCommunication({commit}, data) {
@@ -53,14 +58,14 @@ const PFANS1010Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 
 export default PFANS1010Store;

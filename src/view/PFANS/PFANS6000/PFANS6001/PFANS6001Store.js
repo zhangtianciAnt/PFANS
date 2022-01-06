@@ -1,10 +1,10 @@
 import {
+  createcooperinterviewApply,
   getcooperinterview,
   getcooperinterviewApplyOne,
+  getSupplierNameList,
   updateinfor,
-  createcooperinterviewApply,
-  getSupplierNameList
-} from './PFANS6001Api'
+} from './PFANS6001Api';
 
 const PFANS6001Store = {
   namespaced: true,
@@ -17,12 +17,12 @@ const PFANS6001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getcooperinterviewApplyOne({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -30,12 +30,12 @@ const PFANS6001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updatecooperinterviewApply({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -43,12 +43,12 @@ const PFANS6001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updateinfor({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -56,12 +56,12 @@ const PFANS6001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     createcooperinterviewApply({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -69,12 +69,12 @@ const PFANS6001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getSupplierNameList({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -82,14 +82,14 @@ const PFANS6001Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 
 export default PFANS6001Store;

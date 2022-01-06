@@ -1,4 +1,10 @@
-import {createBusiness, getBusiness, selectById, updateBusiness,list} from './PFANS1002Api'
+import {
+  createBusiness,
+  getBusiness,
+  list,
+  selectById,
+  updateBusiness,
+} from './PFANS1002Api';
 
 const PFANS1002Store = {
   namespaced: true,
@@ -12,12 +18,12 @@ const PFANS1002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //add-ws-7/10-禅道247
     getBusiness() {
@@ -26,12 +32,12 @@ const PFANS1002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     selectById({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -39,12 +45,12 @@ const PFANS1002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updateBusiness({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -52,12 +58,12 @@ const PFANS1002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     createBusiness({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -65,14 +71,14 @@ const PFANS1002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
-    }
-  }
-}
+        });
+      });
+    },
+  },
+};
 
 export default PFANS1002Store;

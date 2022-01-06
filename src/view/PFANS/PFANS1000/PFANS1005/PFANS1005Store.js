@@ -1,4 +1,4 @@
-import {selectById,update,insert} from './PFANS1005Api'
+import {insert, selectById, update} from './PFANS1005Api';
 
 const PFANS1005Store = {
   namespaced: true,
@@ -12,12 +12,12 @@ const PFANS1005Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     update({commit}, data) {
@@ -26,12 +26,12 @@ const PFANS1005Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     insert({commit}, data) {
@@ -40,14 +40,14 @@ const PFANS1005Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 export default PFANS1005Store;
 

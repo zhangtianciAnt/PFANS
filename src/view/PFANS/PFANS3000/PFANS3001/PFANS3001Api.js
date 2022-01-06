@@ -58,15 +58,17 @@ export function selectById(data) {
   return request({
     url: 'tickets/selectById',
     method: 'get',
-    params: data
+    params: data,
   });
 }
+
 //add-ws-7/14-禅道247
 export function selectByIdchange(data) {
   return request({
     url: 'tickets/selectByIdchange',
     method: 'get',
-    params: data
+    params: data,
   });
 }
+
 //add-ws-7/14-禅道247

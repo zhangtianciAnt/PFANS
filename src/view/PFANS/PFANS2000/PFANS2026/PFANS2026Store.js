@@ -1,4 +1,20 @@
-import {get, getList2,get3,selectById, update, insert,get2, selectById2, update2, insert2, deletesta,generatesta,getList,change,change2} from './PFANS2026Api';
+import {
+  change,
+  change2,
+  deletesta,
+  generatesta,
+  get,
+  get2,
+  get3,
+  getList,
+  getList2,
+  insert,
+  insert2,
+  selectById,
+  selectById2,
+  update,
+  update2,
+} from './PFANS2026Api';
 
 
 const PFANS2026Store = {
@@ -7,31 +23,31 @@ const PFANS2026Store = {
   mutations: {},
   actions: {
 
-    getList({ commit }, data) {
+    getList({commit}, data) {
       return new Promise((resolve, reject) => {
         getList(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    getList2({ commit }, data) {
+    getList2({commit}, data) {
       return new Promise((resolve, reject) => {
         getList2(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 //add-ws-6/16-禅道106
     deletesta({commit}, data) {
@@ -122,8 +138,8 @@ const PFANS2026Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //更新
     update({commit}, data) {

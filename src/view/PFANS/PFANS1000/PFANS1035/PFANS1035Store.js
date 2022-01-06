@@ -1,4 +1,12 @@
-import {createBusiness, getBusiness, selectById, updateBusiness,selectById2,selectById4,selectById3} from './PFANS1035Api'
+import {
+  createBusiness,
+  getBusiness,
+  selectById,
+  selectById2,
+  selectById3,
+  selectById4,
+  updateBusiness,
+} from './PFANS1035Api';
 
 const PFANS1035Store = {
   namespaced: true,
@@ -52,12 +60,12 @@ const PFANS1035Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     selectById({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -65,12 +73,12 @@ const PFANS1035Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updateBusiness({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -78,12 +86,12 @@ const PFANS1035Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     createBusiness({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -91,14 +99,14 @@ const PFANS1035Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
-    }
-  }
-}
+        });
+      });
+    },
+  },
+};
 
 export default PFANS1035Store;

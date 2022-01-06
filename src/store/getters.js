@@ -1,5 +1,3 @@
-
-
 const getters = {
   historyUrl: state => state.global.historyUrl,
   operateId: state => state.global.operateId,
@@ -37,6 +35,6 @@ const getters = {
   totalSize: state => state.global.totalSize,
   axiosConfig: state => state.global.axiosConfig,
   menuids: state => state.global.menuids,
-}
+};
 
-export default getters
+export default getters;

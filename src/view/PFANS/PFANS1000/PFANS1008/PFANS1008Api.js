@@ -1,36 +1,36 @@
-import request from '../../../../utils/request'
-import requestPdf from "../../../../utils/requestPdf";
+import request from '../../../../utils/request';
+import requestPdf from '../../../../utils/requestPdf';
 
 
 export function getSoftwaretransfer() {
   return request({
     url: 'softwaretransfer/getSoftwaretransfer',
     method: 'get',
-  })
+  });
 }
 
 export function selectById(data) {
   return request({
     url: 'softwaretransfer/selectById',
     method: 'get',
-    params: data
-  })
+    params: data,
+  });
 }
 
 export function updateSoftwaretransfer(data) {
   return request({
     url: 'softwaretransfer/update',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function insert(data) {
   return request({
     url: 'softwaretransfer/insert',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function downLoad(data) {
@@ -38,6 +38,6 @@ export function downLoad(data) {
     url: 'softwaretransfer/downLoad1',
     method: 'get',
     params: data,
-    responseType: 'blob'
-  })
+    responseType: 'blob',
+  });
 }

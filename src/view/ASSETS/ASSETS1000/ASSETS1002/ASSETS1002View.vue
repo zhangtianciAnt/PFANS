@@ -1,94 +1,172 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" @reget="getInventoryplan"
-                   :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+  <EasyNormalTable v-loading="loading" :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
+                   :title="title" @buttonClick="buttonClick" @reget="getInventoryplan" @rowClick="rowClick">
   </EasyNormalTable>
 </template>
 
 <script>
-  import EasyNormalTable from '@/components/EasyNormalTable';
-  import {Message} from 'element-ui';
+import EasyNormalTable from '@/components/EasyNormalTable';
+import {Message} from 'element-ui';
 
-  export default {
-    name: 'ASSETS1002View',
-    components: {
-      EasyNormalTable,
-    },
-    data() {
-      return {
-        loading: false,
-        title: 'title.ASSETS1002VIEW',
-        data: [],
-        columns: [
-          {
-            code: 'inventorycycle',
-            label: 'label.ASSETS1002VIEW_INVENTORYCYCLE',
-            width: 120,
-            fix: false,
-            filter: false,
-          },
-          {
-            code: 'totalnumber',
-            label: 'label.ASSETS1002VIEW_TOTALNUMBER',
-            width: 120,
-            fix: false,
-            filter: false,
-          },
-          {
-            code: 'inquantity',
-            label: 'label.ASSETS1002VIEW_INQUANTITY',
-            width: 140,
-            fix: false,
-            filter: false,
-          },
-          {
-            code: 'unquantity',
-            label: 'label.ASSETS1002VIEW_UNQUANTITY',
-            width: 140,
-            fix: false,
-            filter: false,
-          },
-          {
-            code: 'status',
-            label: 'label.status',
-            width: 120,
-            fix: false,
-            filter: false,
-          },
-        ],
-        buttonList: [
-          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'new', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-          {'key': 'delete', 'name': 'button.delete', 'disabled': false, 'icon': 'el-icon-delete'},
-        ],
-        rowid: '',
-        row_id: 'inventoryplan_id',
-      };
-    },
-    mounted() {
-      this.getInventoryplan();
-    },
-    methods: {
-      getInventoryplan() {
-        this.loading = true;
-        this.$store
-          .dispatch('ASSETS1002Store/getInventoryplan', {})
-          .then(response => {
-            for(let j = 0; j < response.length; j++){
-              if (this.$i18n){
-                if(response[j].status === "0"){
-                  response[j].status = this.$t('label.node_step4');
-                } else if(response[j].status === "2"){
-                  response[j].status = this.$t('button.end');
-                } else if(response[j].status === "3"){
-                  response[j].status = this.$t('button.trash');
-                }// 禅道任务741
-                 else if(response[j].status === "4"){
-                  response[j].status = this.$t('button.pause');
-                }// 禅道任务741
-              }
+export default {
+  name: 'ASSETS1002View',
+  components: {
+    EasyNormalTable,
+  },
+  data() {
+    return {
+      loading: false,
+      title: 'title.ASSETS1002VIEW',
+      data: [],
+      columns: [
+        {
+          code: 'inventorycycle',
+          label: 'label.ASSETS1002VIEW_INVENTORYCYCLE',
+          width: 120,
+          fix: false,
+          filter: false,
+        },
+        {
+          code: 'totalnumber',
+          label: 'label.ASSETS1002VIEW_TOTALNUMBER',
+          width: 120,
+          fix: false,
+          filter: false,
+        },
+        {
+          code: 'inquantity',
+          label: 'label.ASSETS1002VIEW_INQUANTITY',
+          width: 140,
+          fix: false,
+          filter: false,
+        },
+        {
+          code: 'unquantity',
+          label: 'label.ASSETS1002VIEW_UNQUANTITY',
+          width: 140,
+          fix: false,
+          filter: false,
+        },
+        {
+          code: 'status',
+          label: 'label.status',
+          width: 120,
+          fix: false,
+          filter: false,
+        },
+      ],
+      buttonList: [
+        {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+        {'key': 'new', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+        {'key': 'delete', 'name': 'button.delete', 'disabled': false, 'icon': 'el-icon-delete'},
+      ],
+      rowid: '',
+      row_id: 'inventoryplan_id',
+    };
+  },
+  mounted() {
+    this.getInventoryplan();
+  },
+  methods: {
+    getInventoryplan() {
+      this.loading = true;
+      this.$store
+        .dispatch('ASSETS1002Store/getInventoryplan', {})
+        .then(response => {
+          for (let j = 0; j < response.length; j++) {
+            if (this.$i18n) {
+              if (response[j].status === '0') {
+                response[j].status = this.$t('label.node_step4');
+              } else if (response[j].status === '2') {
+                response[j].status = this.$t('button.end');
+              } else if (response[j].status === '3') {
+                response[j].status = this.$t('button.trash');
+              }// 禅道任务741
+              else if (response[j].status === '4') {
+                response[j].status = this.$t('button.pause');
+              }// 禅道任务741
             }
-            this.data = response;
-            this.loading = false;
+          }
+          this.data = response;
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    },
+    rowClick(row) {
+      this.rowid = row.inventoryplan_id;
+      // 禅道任务741
+      this.status = row.status;
+      // 禅道任务741
+    },
+    buttonClick(val) {
+      this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+      if (val === 'new') {
+        this.$router.push({
+          name: 'ASSETS1002FormView',
+          params: {
+            _id: '',
+            disabled: true,
+          },
+        });
+      }
+      if (val === 'view') {
+
+        if (this.rowid === '') {
+          Message({
+            message: this.$t('normal.info_01'),
+            type: 'info',
+            duration: 2 * 1000,
+          });
+          return;
+        }
+        this.$router.push({
+          name: 'ASSETS1002FormView',
+          params: {
+            _id: this.rowid,
+            disabled: false,
+            // 禅道任务741
+            viewstatus: this.status,
+            // 禅道任务741
+          },
+        });
+      }
+      if (val === 'delete') {
+        if (this.rowid === '') {
+          Message({
+            message: this.$t('normal.info_01'),
+            type: 'info',
+            duration: 2 * 1000,
+          });
+          return;
+        }
+        this.delete();
+      }
+    },
+    delete() {
+      this.loading = true;
+      this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
+        confirmButtonText: this.$t('button.confirm'),
+        cancelButtonText: this.$t('button.cancel'),
+        type: 'warning',
+        center: true,
+      }).then(() => {
+        this.$store
+          .dispatch('ASSETS1002Store/isDelInventory', {inventoryplan_id: this.rowid})
+          .then(response => {
+            this.getInventoryplan();
+            Message({
+              message: this.$t('normal.info_03'),
+              type: 'success',
+              duration: 2 * 1000,
+            });
+            // this.loading = false;   取消关闭loading
           })
           .catch(error => {
             this.$message.error({
@@ -98,94 +176,16 @@
             });
             this.loading = false;
           });
-      },
-      rowClick(row) {
-        this.rowid = row.inventoryplan_id;
-        // 禅道任务741
-        this.status = row.status;
-        // 禅道任务741
-      },
-      buttonClick(val) {
-        this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-        if (val === 'new') {
-          this.$router.push({
-            name: 'ASSETS1002FormView',
-            params: {
-              _id: '',
-              disabled: true,
-            },
-          });
-        }
-        if (val === 'view') {
-
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000,
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'ASSETS1002FormView',
-            params: {
-              _id: this.rowid,
-              disabled: false,
-              // 禅道任务741
-              viewstatus: this.status,
-              // 禅道任务741
-            },
-          });
-        }
-        if (val === 'delete') {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000,
-            });
-            return;
-          }
-          this.delete();
-        }
-      },
-      delete() {
-        this.loading = true;
-        this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
-          confirmButtonText: this.$t('button.confirm'),
-          cancelButtonText: this.$t('button.cancel'),
-          type: 'warning',
-          center: true,
-        }).then(() => {
-          this.$store
-            .dispatch('ASSETS1002Store/isDelInventory', {inventoryplan_id: this.rowid})
-            .then(response => {
-              this.getInventoryplan();
-              Message({
-                message: this.$t('normal.info_03'),
-                type: 'success',
-                duration: 2 * 1000,
-              });
-              // this.loading = false;   取消关闭loading
-            })
-            .catch(error => {
-              this.$message.error({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        }).catch(() => {
-          this.$message.info({
-            type: 'info',
-            message: this.$t('normal.info_04'),
-          });
-          this.loading = false;
+      }).catch(() => {
+        this.$message.info({
+          type: 'info',
+          message: this.$t('normal.info_04'),
         });
-      },
+        this.loading = false;
+      });
     },
-  };
+  },
+};
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

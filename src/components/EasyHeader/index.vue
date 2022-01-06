@@ -12,26 +12,26 @@
 </template>
 
 <script>
-  export default {
-    name: "index",
-    components: {},
-    data() {
-      return {};
+export default {
+  name: 'index',
+  components: {},
+  data() {
+    return {};
+  },
+  props: {
+    maxheight: {
+      type: String,
     },
-    props: {
-      maxheight: {
-        type: String
-      },
-      headerclass: {
-        type: Object
-      }
+    headerclass: {
+      type: Object,
     },
-    methods: {},
-    mounted() {
+  },
+  methods: {},
+  mounted() {
 
-    },
-    watch: {}
-  }
+  },
+  watch: {},
+};
 </script>
 <style lang='scss'>
 

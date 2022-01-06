@@ -1,10 +1,10 @@
 import {
+  downLoad,
   getAssetinformation,
+  insert,
   selectById,
   updateAssetinformation,
-  insert,
-  downLoad,
-} from './PFANS1007Api'
+} from './PFANS1007Api';
 
 const PFANS1007Store = {
   namespaced: true,
@@ -17,51 +17,51 @@ const PFANS1007Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    selectById({ commit },data) {
+    selectById({commit}, data) {
       return new Promise((resolve, reject) => {
         selectById(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    updateAssetinformation({ commit },data) {
+    updateAssetinformation({commit}, data) {
       return new Promise((resolve, reject) => {
         updateAssetinformation(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-    insert({ commit },data) {
+    insert({commit}, data) {
       return new Promise((resolve, reject) => {
         insert(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     downLoad({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -69,10 +69,10 @@ const PFANS1007Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 
 export default PFANS1007Store;

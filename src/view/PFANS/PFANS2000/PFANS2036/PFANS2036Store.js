@@ -1,4 +1,16 @@
-import {getGroupId,getChangeRanks, getPersonalCost,gettableBm,gettableGs,gettableRb,getFuzzyQuery, getYears, insertPenalcost,upPersonalCost,exportinfo} from './PFANS2036Api'
+import {
+  exportinfo,
+  getChangeRanks,
+  getFuzzyQuery,
+  getGroupId,
+  getPersonalCost,
+  gettableBm,
+  gettableGs,
+  gettableRb,
+  getYears,
+  insertPenalcost,
+  upPersonalCost,
+} from './PFANS2036Api';
 
 const PFANS2036Store = {
   namespaced: true,
@@ -12,12 +24,12 @@ const PFANS2036Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //查看列表
     getChangeRanks({commit}, data) {
@@ -26,12 +38,12 @@ const PFANS2036Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //查看详情
     getPersonalCost({commit}, params) {
@@ -40,12 +52,12 @@ const PFANS2036Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //查看列表
     gettableBm({commit}, data) {
@@ -54,12 +66,12 @@ const PFANS2036Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //查看列表
@@ -69,12 +81,12 @@ const PFANS2036Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //查看列表
@@ -84,16 +96,13 @@ const PFANS2036Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-
-
-
 
 
     //查看列表
@@ -103,12 +112,12 @@ const PFANS2036Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     insertPenalcost({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -116,12 +125,12 @@ const PFANS2036Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     upPersonalCost({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -129,28 +138,27 @@ const PFANS2036Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //模糊查询
-    getFuzzyQuery({commit},params){
+    getFuzzyQuery({commit}, params) {
       return new Promise((resolve, reject) => {
-        getFuzzyQuery(params).then(response=>{
-          if(response.code === 0){
+        getFuzzyQuery(params).then(response => {
+          if (response.code === 0) {
             resolve(response.data);
-          }
-          else {
-            reject(response.message)
+          } else {
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
     //查看列表
@@ -160,15 +168,15 @@ const PFANS2036Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
 
-  }
+  },
 };
 export default PFANS2036Store;
 

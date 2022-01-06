@@ -1,7 +1,4 @@
-import {
-  getLogPerson, updateByVoId
-} from './PFANS5016Api';
-import {deletePersonal} from "../PFANS5008/PFANS5008Api";
+import {getLogPerson, updateByVoId} from './PFANS5016Api';
 
 const PFANS5016Store = {
   namespaced: true,

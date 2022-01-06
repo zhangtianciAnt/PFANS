@@ -1,11 +1,11 @@
 import {
+  createcustomerinforApply,
+  download,
   getcustomerinfor,
   getcustomerinfor2,
   getcustomerinforApplyOne,
   updatecustomerinforApply,
-  createcustomerinforApply,
-  download,
-} from './PFANS6002Api'
+} from './PFANS6002Api';
 
 const PFANS6002Store = {
   namespaced: true,
@@ -18,12 +18,12 @@ const PFANS6002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getcustomerinfor2() {
       return new Promise((resolve, reject) => {
@@ -31,12 +31,12 @@ const PFANS6002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     getcustomerinforApplyOne({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -44,12 +44,12 @@ const PFANS6002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     updatecustomerinforApply({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -57,12 +57,12 @@ const PFANS6002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     createcustomerinforApply({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -70,12 +70,12 @@ const PFANS6002Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     download({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -83,10 +83,10 @@ const PFANS6002Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
-    }
-  }
+        });
+      });
+    },
+  },
 };
 
 export default PFANS6002Store;

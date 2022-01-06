@@ -1,38 +1,38 @@
 <template>
-  <div style="min-height: 100%" class="user_view">
-    <el-container class="container" style="width: 100%"  v-loading="loading" element-loading-spinner="el-icon-loading">
-      <el-aside width="20rem" style="overflow: hidden" v-show="false">
+  <div class="user_view" style="min-height: 100%">
+    <el-container v-loading="loading" class="container" element-loading-spinner="el-icon-loading" style="width: 100%">
+      <el-aside v-show="false" style="overflow: hidden" width="20rem">
         <EasyTree
-          :defaultlist="data"
+          ref="treeCom"
           :defaultProps="defaultProps"
-          :showFilter="true"
+          :defaultlist="data"
+          :renderContent="renderContent"
           :showCheckbox="false"
-          @nodeClick="handleNodeClick"
+          :showFilter="true"
           maxheight="20rem"
           minheight="100%"
-          ref="treeCom"
-          :renderContent="renderContent"
+          @nodeClick="handleNodeClick"
         ></EasyTree>
       </el-aside>
       <el-main style="padding: 0;width: 100%">
         <EasyNormalTable
-          :title="title"
+          ref="roletable"
+          :buttonList="buttonList"
           :columns="columns"
           :data="tableList"
-          :buttonList="buttonList"
-          ref="roletable" @reget="getInitDataPage"
+          :showSelection="isShow" :title="title"
           @buttonClick="buttonClick"
+          @reget="getInitDataPage"
           @rowClick="rowClick"
-          :showSelection="isShow"
         >
           <!-- ADD-WS-6/8-禅道037 -->
           <el-select
-            v-model="enterOrleave"
-            placeholder="请选择"
             slot="customize"
+            v-model="enterOrleave"
+            clearable
+            placeholder="请选择"
             style="margin-right:1vw"
             @change="filterInfo"
-            clearable
           >
             <el-option
               v-for="item in optionsForel"
@@ -42,15 +42,15 @@
             ></el-option>
           </el-select>
           <!-- ADD-WS-6/8-禅道037 -->
-          <el-date-picker unlink-panels
-                          class="bigWidth"
+          <el-date-picker slot="customize"
                           v-model="workinghours"
-                          style="margin-right:1vw"
-                          slot="customize"
-                          type="daterange"
                           :end-placeholder="$t('label.enddate')"
                           :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                           :start-placeholder="$t('label.startdate')"
+                          class="bigWidth"
+                          style="margin-right:1vw"
+                          type="daterange"
+                          unlink-panels
                           @change="clickdata"
           ></el-date-picker>
         </EasyNormalTable>
@@ -58,29 +58,29 @@
           <div>
             <div style="margin-top: 1rem;margin-left: 28%">
               <el-upload
-                drag
                 ref="uploader"
                 :action="postAction"
-                :on-success="handleSuccess"
                 :before-upload="handleChange"
                 :headers="authHeader"
                 :limit=1
                 :on-remove="this.clear"
+                :on-success="handleSuccess"
+                drag
                 multiple
               >
                 <i class="el-icon-upload"></i>
-                <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
+                <div>{{ $t('label.PFANS2005FORMVIEW_MBYQ') }}</div>
               </el-upload>
             </div>
             <el-row>
-              <span v-if="this.resultShow">{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span v-if="this.resultShow">{{ $t('label.PFANS2005FORMVIEW_CG') }}{{ this.successCount }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
               <span v-if="this.resultShow"
-              >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
+              >{{ $t('label.PFANS2005FORMVIEW_SB') }}{{ this.errorCount }}</span>
             </el-row>
-            <span v-if="this.Message">{{this.cuowu}}</span>
+            <span v-if="this.Message">{{ this.cuowu }}</span>
             <div v-if="this.result">
               <el-table :data="message">
-                <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" width="120%" prop="hang">
+                <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" prop="hang" width="120%">
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS2017VIEW_ERROR')" align="center" prop="error">
                 </el-table-column>
@@ -88,13 +88,13 @@
             </div>
           </div>
         </el-dialog>
-        <el-dialog :visible.sync="pop_download" width="50%" destroy-on-close>
+        <el-dialog :visible.sync="pop_download" destroy-on-close width="50%">
           <el-table
             :data="downtypes"
             style="width: 100%">
             <el-table-column
-              prop="name"
               :label="$t('label.ASSETS1001VIEW_FILENAME')"
+              prop="name"
             >
             </el-table-column>
 
@@ -103,7 +103,8 @@
                 <el-button
                   size="mini"
                   @click="handleDownload(scope.row)"
-                >{{$t('button.download2')}}</el-button>
+                >{{ $t('button.download2') }}
+                </el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -114,33 +115,33 @@
 </template>
 
 <script>
-import {getToken} from '@/utils/auth'
-import EasyTree from "@/components/EasyTree";
-import EasyButtonBar from "@/components/EasyButtonBar";
-import EasyNormalTable from "@/components/EasyNormalTable";
-import { parseTime, getDictionaryInfo,Decrypt } from "@/utils/customize";
-import { Message } from "element-ui";
-import moment from "moment";
+import {getToken} from '@/utils/auth';
+import EasyTree from '@/components/EasyTree';
+import EasyButtonBar from '@/components/EasyButtonBar';
+import EasyNormalTable from '@/components/EasyNormalTable';
+import {Decrypt, getDictionaryInfo, parseTime} from '@/utils/customize';
+import {Message} from 'element-ui';
+import moment from 'moment';
 
 export default {
-  name: "usersView2",
+  name: 'usersView2',
   components: {
     EasyTree,
     EasyButtonBar,
-    EasyNormalTable
+    EasyNormalTable,
   },
   data() {
     return {
       //ADD-WS-6/8-禅道037
-      enterOrleave: "0", //默认在职的筛选
+      enterOrleave: '0', //默认在职的筛选
       optionsForel: [
         {
-          value: "0",
-          label: this.$t("label.USERSVIEW_ENTER")
+          value: '0',
+          label: this.$t('label.USERSVIEW_ENTER'),
         },
         {
-          value: "1",
-          label: this.$t("label.USERSVIEW_LEAVE")
+          value: '1',
+          label: this.$t('label.USERSVIEW_LEAVE'),
         },
         //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-start
         //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-end
@@ -152,7 +153,7 @@ export default {
       working: '',
       workinghours: '',
       starttime: '',
-      endTime: "",
+      endTime: '',
       daoru: false,
       successCount: 0,
       errorCount: 0,
@@ -160,7 +161,7 @@ export default {
       authHeader: {'x-auth-token': getToken()},
       postAction: process.env.BASE_API + '/user/importUser',
       resultShow: false,
-      message: [{hang: '', error: '',}],
+      message: [{hang: '', error: ''}],
       Message: false,
       addActionUrl: '',
       result: false,
@@ -168,114 +169,114 @@ export default {
       tableList: [],
       downloadLoading: false,
       file: null,
-      title: "label.PFANSUSERVIEW_USER",
+      title: 'label.PFANSUSERVIEW_USER',
       rowData: [],
       checkTableData: [],
       transferData: [],
       selectedlist: [],
       org: {},
       departmentData: {},
-      isShow:true,
+      isShow: true,
       columns: [
         {
-          code: "customername",
-          label: "label.user_name",
+          code: 'customername',
+          label: 'label.user_name',
           width: 120,
           fix: false,
-          filter: false
+          filter: false,
         },
         {
-          code: "jobnumber",
-          label: "label.PFANSUSERFORMVIEW_JOBNUMBER",
+          code: 'jobnumber',
+          label: 'label.PFANSUSERFORMVIEW_JOBNUMBER',
           width: 110,
           fix: false,
-          filter: false
+          filter: false,
         },
         {
-          code: "centername",
-          label: "label.center",
+          code: 'centername',
+          label: 'label.center',
           width: 120,
           fix: false,
-          filter: true
+          filter: true,
         },
         {
-          code: "groupname",
-          label: "label.group",
+          code: 'groupname',
+          label: 'label.group',
           width: 120,
           fix: false,
-          filter: true
+          filter: true,
         },
         {
-          code: "teamname",
-          label: "label.team",
+          code: 'teamname',
+          label: 'label.team',
           width: 120,
           fix: false,
-          filter: true
+          filter: true,
         },
         {
-          code: "enterday",
-          label: "label.PFANSUSERVIEW_ENTERDAY",
+          code: 'enterday',
+          label: 'label.PFANSUSERVIEW_ENTERDAY',
           width: 120,
           fix: false,
-          filter: false
+          filter: false,
         },
         {
-          code: "post",
-          label: "label.PFANSUSERVIEW_POST",
+          code: 'post',
+          label: 'label.PFANSUSERVIEW_POST',
           width: 120,
           fix: false,
-          filter: true
+          filter: true,
         },
         {
-          code: "rank",
-          label: "label.PFANSUSERVIEW_RANK",
+          code: 'rank',
+          label: 'label.PFANSUSERVIEW_RANK',
           width: 120,
           fix: false,
-          filter: true
+          filter: true,
         },
         {
-          code: "sex",
-          label: "label.sex",
+          code: 'sex',
+          label: 'label.sex',
           width: 90,
           fix: false,
-          filter: true
+          filter: true,
         },
         {
-          code: "budgetunit",
-          label: "label.budgetunit",
+          code: 'budgetunit',
+          label: 'label.budgetunit',
           width: 120,
           fix: false,
-          filter: true
+          filter: true,
         },
         {
-          code: "birthday",
-          label: "label.PFANSUSERVIEW_BIRTHDAY",
+          code: 'birthday',
+          label: 'label.PFANSUSERVIEW_BIRTHDAY',
           width: 110,
           fix: false,
-          filter: false
+          filter: false,
         },
         // add_fjl_05/22 --添加退职日
         {
-          code: "resignation_date",
-          label: "label.PFANS2026VIEW_RESIGNATIONDATE",
+          code: 'resignation_date',
+          label: 'label.PFANS2026VIEW_RESIGNATIONDATE',
           width: 120,
           fix: false,
-          filter: false
+          filter: false,
         },
         // add_fjl_05/22 --添加退职日
         // add_ws_06/23 --禅道141
         {
-          code: "reason2",
-          label: "label.PFANS2026VIEW_CAUSE",
+          code: 'reason2',
+          label: 'label.PFANS2026VIEW_CAUSE',
           width: 110,
           fix: false,
-          filter: false
-        }
+          filter: false,
+        },
         // add_ws_06/23 --禅道141
       ],
       defaultProps: {
-        label: "title",
-        children: "orgs"
+        label: 'title',
+        children: 'orgs',
       },
       buttonList: [
         // {
@@ -291,10 +292,10 @@ export default {
         //   icon: "el-icon-plus"
         // },
         {
-          key: "update",
-          name: this.$t("button.view"),
+          key: 'update',
+          name: this.$t('button.view'),
           disabled: true,
-          icon: "el-icon-edit"
+          icon: 'el-icon-edit',
         },
         // {
         //   key: "disableUser",
@@ -321,9 +322,9 @@ export default {
         //   icon: 'el-icon-download'
         // },
       ],
-      departmentname: "",
+      departmentname: '',
       loading: false,
-      currentNodeData: {}
+      currentNodeData: {},
     };
   },
   methods: {
@@ -507,71 +508,71 @@ export default {
           this.$message.error({
             message: error,
             type: 'error',
-            duration: 5 * 1000
+            duration: 5 * 1000,
           });
           this.loading = false;
-        })
+        });
     },
-      getworkinghours(workinghours) {
-          if (workinghours != null) {
-              if (workinghours.length > 0) {
-                  return moment(workinghours[0]).format('YYYY-MM-DD') + " ~ " + moment(workinghours[1]).format('YYYY-MM-DD');
-              } else {
-                  return '';
-              }
-          } else {
-              return '';
+    getworkinghours(workinghours) {
+      if (workinghours != null) {
+        if (workinghours.length > 0) {
+          return moment(workinghours[0]).format('YYYY-MM-DD') + ' ~ ' + moment(workinghours[1]).format('YYYY-MM-DD');
+        } else {
+          return '';
+        }
+      } else {
+        return '';
+      }
+    },
+    clickdata() {
+      this.working = this.getworkinghours(this.workinghours);
+      this.starttime = this.working.substring(0, 10),
+        this.endTime = this.working.substring(13, 23);
+      let tabledate = [];
+      let tabledata = [];
+      if (this.TABLEList != '') {
+        if (this.starttime == '' && this.endTime == '') {
+          for (let i = 0; i < this.TABLEList.length; i++) {
+            tabledata.push({
+              customername: this.TABLEList[i].customername,
+              jobnumber: this.TABLEList[i].jobnumber,
+              centername: this.TABLEList[i].centername,
+              groupname: this.TABLEList[i].groupname,
+              teamname: this.TABLEList[i].teamname,
+              enterday: this.TABLEList[i].enterday,
+              post: this.TABLEList[i].post,
+              rank: this.TABLEList[i].rank,
+              sex: this.TABLEList[i].sex,
+              budgetunit: this.TABLEList[i].budgetunit,
+              birthday: this.TABLEList[i].birthday,
+            });
           }
-      },
-      clickdata() {
-          this.working = this.getworkinghours(this.workinghours);
-          this.starttime =  this.working.substring(0,10),
-          this.endTime = this.working.substring(13,23)
-          let tabledate = [];
-          let tabledata = [];
-          if (this.TABLEList != ''){
-          if(this.starttime == '' && this.endTime == ''){
-              for (let i = 0; i < this.TABLEList.length; i++) {
-                  tabledata.push({
-                      customername: this.TABLEList[i].customername,
-                      jobnumber: this.TABLEList[i].jobnumber,
-                      centername: this.TABLEList[i].centername,
-                      groupname: this.TABLEList[i].groupname,
-                      teamname: this.TABLEList[i].teamname,
-                      enterday: this.TABLEList[i].enterday,
-                      post: this.TABLEList[i].post,
-                      rank: this.TABLEList[i].rank,
-                      sex: this.TABLEList[i].sex,
-                      budgetunit: this.TABLEList[i].budgetunit,
-                      birthday: this.TABLEList[i].birthday,
-                  })
-              }
-              this.tableList = tabledata
-          }else {
-              for (let i = 0; i < this.TABLEList.length; i++) {
-                  if (this.starttime <= this.TABLEList[i].enterday && this.TABLEList[i].enterday <= this.endTime) {
-                      tabledate.push({
-                          customername: this.TABLEList[i].customername,
-                          jobnumber: this.TABLEList[i].jobnumber,
-                          centername: this.TABLEList[i].centername,
-                          groupname: this.TABLEList[i].groupname,
-                          teamname: this.TABLEList[i].teamname,
-                          enterday: this.TABLEList[i].enterday,
-                          post: this.TABLEList[i].post,
-                          rank: this.TABLEList[i].rank,
-                          sex: this.TABLEList[i].sex,
-                          budgetunit: this.TABLEList[i].budgetunit,
-                          birthday: this.TABLEList[i].birthday,
-                      })
-                  }
-              }
-              this.tableList = tabledate
+          this.tableList = tabledata;
+        } else {
+          for (let i = 0; i < this.TABLEList.length; i++) {
+            if (this.starttime <= this.TABLEList[i].enterday && this.TABLEList[i].enterday <= this.endTime) {
+              tabledate.push({
+                customername: this.TABLEList[i].customername,
+                jobnumber: this.TABLEList[i].jobnumber,
+                centername: this.TABLEList[i].centername,
+                groupname: this.TABLEList[i].groupname,
+                teamname: this.TABLEList[i].teamname,
+                enterday: this.TABLEList[i].enterday,
+                post: this.TABLEList[i].post,
+                rank: this.TABLEList[i].rank,
+                sex: this.TABLEList[i].sex,
+                budgetunit: this.TABLEList[i].budgetunit,
+                birthday: this.TABLEList[i].birthday,
+              });
+            }
           }
-          }
-          // add-lyt-21/2/8-NT_PFANS_20210208_BUG_020-start
-          this.filterInfo()
-          // add-lyt-21/2/8-NT_PFANS_20210208_BUG_020-end
-      },
+          this.tableList = tabledate;
+        }
+      }
+      // add-lyt-21/2/8-NT_PFANS_20210208_BUG_020-start
+      this.filterInfo();
+      // add-lyt-21/2/8-NT_PFANS_20210208_BUG_020-end
+    },
     handleChange(file, fileList) {
       this.clear(true);
     },
@@ -581,7 +582,7 @@ export default {
       this.Message = false;
       this.result = false;
       if (!safe) {
-        if(this.$refs.uploader != undefined){
+        if (this.$refs.uploader != undefined) {
           this.$refs.uploader.clearFiles();
         }
       }
@@ -597,19 +598,19 @@ export default {
           let error = response.data[c];
           error = error.substring(0, 3);
           if (this.$i18n) {
-            if (error === this.$t("label.PFANS2005FORMVIEW_SB")) {
+            if (error === this.$t('label.PFANS2005FORMVIEW_SB')) {
               this.errorCount = response.data[c].substring(4);
               this.resultShow = true;
             }
-            if (error === this.$t("label.PFANS2005FORMVIEW_CG")) {
+            if (error === this.$t('label.PFANS2005FORMVIEW_CG')) {
               this.successCount = response.data[c].substring(4);
               this.resultShow = true;
             }
-            if (error === this.$t("label.PFANS2017VIEW_D")) {
+            if (error === this.$t('label.PFANS2017VIEW_D')) {
               let obj = {};
               var str = response.data[c];
-              var aPos = str.indexOf(this.$t("label.PFANS2017VIEW_BAN"));
-              var bPos = str.indexOf(this.$t("label.PFANS2017VIEW_DE"));
+              var aPos = str.indexOf(this.$t('label.PFANS2017VIEW_BAN'));
+              var bPos = str.indexOf(this.$t('label.PFANS2017VIEW_DE'));
               var r = str.substr(aPos + 1, bPos - aPos - 1);
               obj.hang = r;
               obj.error = response.data[c].substring(6);
@@ -618,7 +619,7 @@ export default {
           }
           this.message = datalist;
           this.totaldata = this.message;
-          if (this.errorCount === "0") {
+          if (this.errorCount === '0') {
             this.result = false;
           } else {
             this.result = true;
@@ -629,62 +630,62 @@ export default {
     formatJson(filterVal, jsonData) {
       return jsonData.map(v => filterVal.map(j => {
         if (j === 'timestamp') {
-          return parseTime(v[j])
+          return parseTime(v[j]);
         } else {
-          return v[j]
+          return v[j];
         }
-      }))
+      }));
     },
     buttonClick(val) {
 
       if (val === 'export') {
-        if(this.$refs.roletable.selectedList.length === 0){
+        if (this.$refs.roletable.selectedList.length === 0) {
           Message({
             message: this.$t('normal.info_01'),
             type: 'info',
-            duration: 2 * 1000
+            duration: 2 * 1000,
           });
           return;
         }
         this.selectedlist = this.$refs.roletable.selectedList;
         import('@/vendor/Export2Excel').then(excel => {
-          const tHeader = [this.$t('label.user_name'), this.$t('label.PFANSUSERFORMVIEW_ADFIELD'),  this.$t('label.PFANS2002VIEW_BIRTHDAY'),  this.$t('label.PFANSUSERVIEW_NATIONALITY'), this.$t('label.PFANSUSERFORMVIEW_NATION'), this.$t('label.PFANSUSERFORMVIEW_REGISTER'), this.$t('label.PFANSUSERFORMVIEW_ADDRESS'),this.$t('label.PFANSUSERFORMVIEW_GRADUATION'),this.$t('label.PFANSUSERFORMVIEW_SPECIALTY')];
-          const filterVal = ['customername','adfield', 'birthday', 'nationality', 'nation', 'register', 'address', 'graduation', 'specialty'];
+          const tHeader = [this.$t('label.user_name'), this.$t('label.PFANSUSERFORMVIEW_ADFIELD'), this.$t('label.PFANS2002VIEW_BIRTHDAY'), this.$t('label.PFANSUSERVIEW_NATIONALITY'), this.$t('label.PFANSUSERFORMVIEW_NATION'), this.$t('label.PFANSUSERFORMVIEW_REGISTER'), this.$t('label.PFANSUSERFORMVIEW_ADDRESS'), this.$t('label.PFANSUSERFORMVIEW_GRADUATION'), this.$t('label.PFANSUSERFORMVIEW_SPECIALTY')];
+          const filterVal = ['customername', 'adfield', 'birthday', 'nationality', 'nation', 'register', 'address', 'graduation', 'specialty'];
           const list = this.selectedlist;
           const data = this.formatJson(filterVal, list);
-          excel.export_json_to_excel(tHeader, data,  this.$t('menu.PERSONNEL'));
-        })
+          excel.export_json_to_excel(tHeader, data, this.$t('menu.PERSONNEL'));
+        });
       }
       if (val === 'import') {
-      this.daoru = true;
-      this.clear(false);
-    }
+        this.daoru = true;
+        this.clear(false);
+      }
       if (val === 'export2') {
         this.pop_download = true;
       }
-      this.$store.commit("global/SET_HISTORYURL", this.$route.path);
-      if (val === "new") {
+      this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+      if (val === 'new') {
         this.$router.push({
-          name: "usersFormView",
+          name: 'usersFormView',
           params: {
-            _org: this.org
-          }
+            _org: this.org,
+          },
         });
-      } else if (val === "setRole") {
+      } else if (val === 'setRole') {
         this.$router.push({
-          name: "usersToRoleView",
+          name: 'usersToRoleView',
           params: {
-            _id: this.rowData.userid
-          }
+            _id: this.rowData.userid,
+          },
         });
-      } else if (val === "update") {
+      } else if (val === 'update') {
         this.$router.push({
-          name: "OnlyusersFormView",
+          name: 'OnlyusersFormView',
           params: {
-            _id: this.rowData.userid
-          }
+            _id: this.rowData.userid,
+          },
         });
-      } else if (val === "disableUser") {
+      } else if (val === 'disableUser') {
         this.disableUser();
       }
     },
@@ -692,10 +693,10 @@ export default {
       this.loading = true;
       let params = {
         userid: this.rowData.userid,
-        status: this.rowData.status === "0" ? "1" : "0"
+        status: this.rowData.status === '0' ? '1' : '0',
       };
       this.$store
-        .dispatch("usersStore/disableUser", params)
+        .dispatch('usersStore/disableUser', params)
         .then(() => {
           this.handleNodeClick(this.currentNodeData);
           this.loading = false;
@@ -703,8 +704,8 @@ export default {
         .catch(err => {
           this.$message.error({
             message: err,
-            type: "error",
-            duration: 5 * 1000
+            type: 'error',
+            duration: 5 * 1000,
           });
           this.loading = false;
         });
@@ -716,16 +717,16 @@ export default {
       this.currentNodeData = data;
       let params = {
         orgid: data._id,
-        orgtype: data.type
+        orgtype: data.type,
       };
       if (select) {
         params = {
-          orgid: "",
-          orgtype: ""
+          orgid: '',
+          orgtype: '',
         };
       }
       this.$store
-        .dispatch("usersStore/getUserTableList", params)
+        .dispatch('usersStore/getUserTableList', params)
         .then(response => {
           let _tableList = [];
           if (response.length > 0) {
@@ -737,49 +738,52 @@ export default {
             });
 
             for (var j = 0; j < _tableList.length; j++) {
-              let result = "";
+              let result = '';
               for (var i = 0; i < _tableList[j].departmentid.length; i++) {
                 let departName = this.getDepartmentNameById(
-                  _tableList[j].departmentid[i]
+                  _tableList[j].departmentid[i],
                 );
-                if (departName !== "") {
-                  result += departName + ",";
+                if (departName !== '') {
+                  result += departName + ',';
                 }
               }
-              result = result.substring(0, result.lastIndexOf(","));
+              result = result.substring(0, result.lastIndexOf(','));
               _tableList[j].departmentname = result;
-              _tableList[j].status === "0"
+              _tableList[j].status === '0'
                 ? (_tableList[j].statusname = this.$t(
-                    "label.PFANSUSERVIEW_ENABLE"
-                  ))
+                'label.PFANSUSERVIEW_ENABLE',
+                ))
                 : (_tableList[j].statusname = this.$t(
-                    "label.PFANSUSERVIEW_FORBIDDEN"
-                  ));
+                'label.PFANSUSERVIEW_FORBIDDEN',
+                ));
               if (_tableList[j].rank && getDictionaryInfo(
-                  _tableList[j].rank.value1)){
+                _tableList[j].rank.value1)) {
                 _tableList[j].rank = getDictionaryInfo(
-                  _tableList[j].rank
+                  _tableList[j].rank,
                 ).value1;
-                }
+              }
               //add-ws-7/17-禅道bug35
-              if (_tableList[j].resignation_date)
+              if (_tableList[j].resignation_date) {
                 _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
-                  "YYYY-MM-DD"
+                  'YYYY-MM-DD',
                 );
+              }
               //add-ws-7/17-禅道bug35
-              if (_tableList[j].enterday)
+              if (_tableList[j].enterday) {
                 _tableList[j].enterday = moment(_tableList[j].enterday).format(
-                  "YYYY-MM-DD"
+                  'YYYY-MM-DD',
                 );
-              if (_tableList[j].birthday)
+              }
+              if (_tableList[j].birthday) {
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
-                  "YYYY-MM-DD"
+                  'YYYY-MM-DD',
                 );
-                 if (_tableList[j].sex === "PR019001"){
-                       _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-                }else if (_tableList[j].sex === "PR019002"){
-                      _tableList[j].sex =  this.$t("label.PFANS2002FORMVIEW_GRIL");
-                }
+              }
+              if (_tableList[j].sex === 'PR019001') {
+                _tableList[j].sex = this.$t('label.PFANS2002FORMVIEW_BOY');
+              } else if (_tableList[j].sex === 'PR019002') {
+                _tableList[j].sex = this.$t('label.PFANS2002FORMVIEW_GRIL');
+              }
             }
           }
           this.tableList = _tableList;
@@ -789,8 +793,8 @@ export default {
         .catch(err => {
           this.$message.error({
             message: err,
-            type: "error",
-            duration: 5 * 1000
+            type: 'error',
+            duration: 5 * 1000,
           });
           this.loading = false;
         });
@@ -807,7 +811,7 @@ export default {
     buildDepartmentData(data) {
       for (var i in data) {
         this.departmentData[data[i]._id] = data[i].title;
-        if (data[i].hasOwnProperty("orgs")) {
+        if (data[i].hasOwnProperty('orgs')) {
           this.buildDepartmentData(data[i].orgs);
         }
       }
@@ -816,12 +820,12 @@ export default {
       if (this.departmentData.hasOwnProperty(id)) {
         return this.departmentData[id];
       }
-      return "";
+      return '';
     },
     getInitData() {
       this.loading = true;
       this.$store
-        .dispatch("orgTreeStore/getOrgTree")
+        .dispatch('orgTreeStore/getOrgTree')
         .then(response => {
           if (response) {
             this.data = [response];
@@ -833,17 +837,17 @@ export default {
         .catch(error => {
           this.$message.error({
             message: error,
-            type: "error",
-            duration: 5 * 1000
+            type: 'error',
+            duration: 5 * 1000,
           });
           this.loading = false;
         });
       let params = {
-        orgid: "",
-        orgtype: ""
+        orgid: '',
+        orgtype: '',
       };
       this.$store
-        .dispatch("usersStore/getUserTableList", params)
+        .dispatch('usersStore/getUserTableList', params)
         .then(response => {
           let _tableList = [];
           if (response.length > 0) {
@@ -854,62 +858,67 @@ export default {
               _tableList.push(o);
             });
             for (var j = 0; j < _tableList.length; j++) {
-              let result = "";
-              if(_tableList[j].departmentid != null){
+              let result = '';
+              if (_tableList[j].departmentid != null) {
                 for (var i = 0; i < _tableList[j].departmentid.length; i++) {
                   let departName = this.getDepartmentNameById(
-                    _tableList[j].departmentid[i]
+                    _tableList[j].departmentid[i],
                   );
-                  if (departName !== "") {
-                    result += departName + ",";
+                  if (departName !== '') {
+                    result += departName + ',';
                   }
                 }
-                result = result.substring(0, result.lastIndexOf(","));
+                result = result.substring(0, result.lastIndexOf(','));
                 _tableList[j].departmentname = result;
               }
-              if (this.$i18n){
-                _tableList[j].status === "0"
+              if (this.$i18n) {
+                _tableList[j].status === '0'
                   ? (_tableList[j].statusname = this.$t(
-                  "label.PFANSUSERVIEW_ENABLE"
+                  'label.PFANSUSERVIEW_ENABLE',
                   ))
                   : (_tableList[j].statusname = this.$t(
-                  "label.PFANSUSERVIEW_FORBIDDEN"
+                  'label.PFANSUSERVIEW_FORBIDDEN',
                   ));
               }
 
               if (_tableList[j].post && getDictionaryInfo(
-                _tableList[j].post))
+                _tableList[j].post)) {
                 _tableList[j].post = getDictionaryInfo(
-                  _tableList[j].post
+                  _tableList[j].post,
                 ).value1;
+              }
               if (_tableList[j].rank && getDictionaryInfo(
-                _tableList[j].rank))
+                _tableList[j].rank)) {
                 _tableList[j].rank = getDictionaryInfo(
-                  _tableList[j].rank
+                  _tableList[j].rank,
                 ).value1;
-              if (_tableList[j].enterday)
+              }
+              if (_tableList[j].enterday) {
                 _tableList[j].enterday = moment(_tableList[j].enterday).format(
-                  "YYYY-MM-DD"
+                  'YYYY-MM-DD',
                 );
+              }
               //add-ws-7/17-禅道bug35
-              if (_tableList[j].resignation_date)
+              if (_tableList[j].resignation_date) {
                 _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
-                  "YYYY-MM-DD"
+                  'YYYY-MM-DD',
                 );
+              }
               //add-ws-7/17-禅道bug35
-              if (_tableList[j].birthday)
+              if (_tableList[j].birthday) {
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
-                  "YYYY-MM-DD"
+                  'YYYY-MM-DD',
                 );
-              if (this.$i18n){
-                if (_tableList[j].sex === "PR019001"){
-                  _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-                }else if (_tableList[j].sex === "PR019002"){
-                  _tableList[j].sex =  this.$t("label.PFANS2002FORMVIEW_GRIL");
+              }
+              if (this.$i18n) {
+                if (_tableList[j].sex === 'PR019001') {
+                  _tableList[j].sex = this.$t('label.PFANS2002FORMVIEW_BOY');
+                } else if (_tableList[j].sex === 'PR019002') {
+                  _tableList[j].sex = this.$t('label.PFANS2002FORMVIEW_GRIL');
                 }
               }
 
-              if (_tableList[j].budgetunit!== null && _tableList[j].budgetunit !== "") {
+              if (_tableList[j].budgetunit !== null && _tableList[j].budgetunit !== '') {
                 let letbudge = getDictionaryInfo(_tableList[j].budgetunit);
                 if (letbudge) {
                   _tableList[j].budgetunit = letbudge.value1;
@@ -927,8 +936,8 @@ export default {
         .catch(err => {
           this.$message.error({
             message: err,
-            type: "error",
-            duration: 5 * 1000
+            type: 'error',
+            duration: 5 * 1000,
           });
           this.loading = false;
         });
@@ -937,7 +946,7 @@ export default {
     getInitDataPage() {
       this.loading = true;
       this.$store
-        .dispatch("orgTreeStore/getOrgTree")
+        .dispatch('orgTreeStore/getOrgTree')
         .then(response => {
           if (response) {
             this.data = [response];
@@ -949,24 +958,24 @@ export default {
         .catch(error => {
           this.$message.error({
             message: error,
-            type: "error",
-            duration: 5 * 1000
+            type: 'error',
+            duration: 5 * 1000,
           });
           this.loading = false;
         });
       let type = this.enterOrleave;
       let timing = '';
-      if(this.workinghours){
+      if (this.workinghours) {
         timing = this.getworkinghours(this.workinghours);
       }
       let params = {
-        orgid: "",
-        orgtype: "",
+        orgid: '',
+        orgtype: '',
         pertype: type,
         timee: timing,
       };
       this.$store
-        .dispatch("usersStore/getCustomerPage", params)
+        .dispatch('usersStore/getCustomerPage', params)
         .then(response => {
           let _tableList = [];
           if (response.length > 0) {
@@ -977,62 +986,67 @@ export default {
               _tableList.push(o);
             });
             for (var j = 0; j < _tableList.length; j++) {
-              let result = "";
-              if(_tableList[j].departmentid != null){
+              let result = '';
+              if (_tableList[j].departmentid != null) {
                 for (var i = 0; i < _tableList[j].departmentid.length; i++) {
                   let departName = this.getDepartmentNameById(
-                    _tableList[j].departmentid[i]
+                    _tableList[j].departmentid[i],
                   );
-                  if (departName !== "") {
-                    result += departName + ",";
+                  if (departName !== '') {
+                    result += departName + ',';
                   }
                 }
-                result = result.substring(0, result.lastIndexOf(","));
+                result = result.substring(0, result.lastIndexOf(','));
                 _tableList[j].departmentname = result;
               }
-              if (this.$i18n){
-                _tableList[j].status === "0"
+              if (this.$i18n) {
+                _tableList[j].status === '0'
                   ? (_tableList[j].statusname = this.$t(
-                  "label.PFANSUSERVIEW_ENABLE"
+                  'label.PFANSUSERVIEW_ENABLE',
                   ))
                   : (_tableList[j].statusname = this.$t(
-                  "label.PFANSUSERVIEW_FORBIDDEN"
+                  'label.PFANSUSERVIEW_FORBIDDEN',
                   ));
               }
 
               if (_tableList[j].post && getDictionaryInfo(
-                _tableList[j].post))
+                _tableList[j].post)) {
                 _tableList[j].post = getDictionaryInfo(
-                  _tableList[j].post
+                  _tableList[j].post,
                 ).value1;
+              }
               if (_tableList[j].rank && getDictionaryInfo(
-                _tableList[j].rank))
+                _tableList[j].rank)) {
                 _tableList[j].rank = getDictionaryInfo(
-                  _tableList[j].rank
+                  _tableList[j].rank,
                 ).value1;
-              if (_tableList[j].enterday)
+              }
+              if (_tableList[j].enterday) {
                 _tableList[j].enterday = moment(_tableList[j].enterday).format(
-                  "YYYY-MM-DD"
+                  'YYYY-MM-DD',
                 );
+              }
               //add-ws-7/17-禅道bug35
-              if (_tableList[j].resignation_date)
+              if (_tableList[j].resignation_date) {
                 _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
-                  "YYYY-MM-DD"
+                  'YYYY-MM-DD',
                 );
+              }
               //add-ws-7/17-禅道bug35
-              if (_tableList[j].birthday)
+              if (_tableList[j].birthday) {
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
-                  "YYYY-MM-DD"
+                  'YYYY-MM-DD',
                 );
-              if (this.$i18n){
-                if (_tableList[j].sex === "PR019001"){
-                  _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-                }else if (_tableList[j].sex === "PR019002"){
-                  _tableList[j].sex =  this.$t("label.PFANS2002FORMVIEW_GRIL");
+              }
+              if (this.$i18n) {
+                if (_tableList[j].sex === 'PR019001') {
+                  _tableList[j].sex = this.$t('label.PFANS2002FORMVIEW_BOY');
+                } else if (_tableList[j].sex === 'PR019002') {
+                  _tableList[j].sex = this.$t('label.PFANS2002FORMVIEW_GRIL');
                 }
               }
 
-              if (_tableList[j].budgetunit!== null && _tableList[j].budgetunit !== "") {
+              if (_tableList[j].budgetunit !== null && _tableList[j].budgetunit !== '') {
                 let letbudge = getDictionaryInfo(_tableList[j].budgetunit);
                 if (letbudge) {
                   _tableList[j].budgetunit = letbudge.value1;
@@ -1050,8 +1064,8 @@ export default {
         .catch(err => {
           this.$message.error({
             message: err,
-            type: "error",
-            duration: 5 * 1000
+            type: 'error',
+            duration: 5 * 1000,
           });
           this.loading = false;
         });
@@ -1061,34 +1075,34 @@ export default {
       let org = {};
       let select = false;
       if (id && this.$refs.treeCom.$refs.treeCom.getNode(id)) {
-        if (this.$refs.treeCom.$refs.treeCom.getNode(id).level === 1){
-             return true;
+        if (this.$refs.treeCom.$refs.treeCom.getNode(id).level === 1) {
+          return true;
         }
         let node = id;
         let type = this.$refs.treeCom.$refs.treeCom.getNode(id).data.type || 0;
         for (let index = parseInt(type); index >= 1; index--) {
           if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
             org.teamname = this.$refs.treeCom.$refs.treeCom.getNode(
-              node
+              node,
             ).data.departmentname;
             org.teamid = this.$refs.treeCom.$refs.treeCom.getNode(
-              node
+              node,
             ).data._id;
           }
           if (index === 2) {
             org.groupname = this.$refs.treeCom.$refs.treeCom.getNode(
-              node
+              node,
             ).data.departmentname;
             org.groupid = this.$refs.treeCom.$refs.treeCom.getNode(
-              node
+              node,
             ).data._id;
           }
           if (index === 1) {
             org.centername = this.$refs.treeCom.$refs.treeCom.getNode(
-              node
+              node,
             ).data.companyname;
             org.centerid = this.$refs.treeCom.$refs.treeCom.getNode(
-              node
+              node,
             ).data._id;
           }
           node = this.$refs.treeCom.$refs.treeCom.getNode(node).parent.data._id;
@@ -1099,7 +1113,7 @@ export default {
       }
       return select;
     },
-    renderContent(h, { node, data, store }) {
+    renderContent(h, {node, data, store}) {
       return (
         <span style="font-size:0.8rem">
           <el-tooltip content={node.label} placement="top-end" effect="light">
@@ -1107,29 +1121,29 @@ export default {
           </el-tooltip>
         </span>
       );
-    }
+    },
   },
   mounted() {
     //人员信息添加分页 ztc fr
     this.getInitDataPage();
     //人员信息添加分页 ztc to
-    this.$store.commit("global/SET_OPERATEID", "");
+    this.$store.commit('global/SET_OPERATEID', '');
     this.$store.commit(
-          "usersStore/SET_ORGS",
-          this.$refs.treeCom.$refs.treeCom
-        );
+      'usersStore/SET_ORGS',
+      this.$refs.treeCom.$refs.treeCom,
+    );
   },
   computed: {
-    downtypes(){
+    downtypes() {
       return [
-        {name: this.$t('menu.user'), type: 0}
-      ]
-    }
+        {name: this.$t('menu.user'), type: 0},
+      ];
+    },
   },
 };
 </script>
 
-<style rel="stylesheet/scss" lang="scss">
+<style lang="scss" rel="stylesheet/scss">
 .user_view {
   $bodercolor: rgba(0, 0, 0, 0.2);
 
@@ -1146,6 +1160,7 @@ export default {
   .box-card {
     min-height: 28rem;
   }
+
   .el-aside {
     color: rgb(53, 23, 23);
     border-right: 0.1rem solid #ebeef5;
@@ -1157,6 +1172,7 @@ export default {
 
   .invform {
     min-height: 18rem;
+
     .el-form-item {
       margin-bottom: 0;
     }

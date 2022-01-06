@@ -1,13 +1,13 @@
 import {
   createPfans3001,
   getFpans3001List,
-  getPfans3001One,
-  updatePfans3001,
   geticketsdetail,
-  selectByIdchange,
-  selectById,
+  getPfans3001One,
   insert,
+  selectById,
+  selectByIdchange,
   update,
+  updatePfans3001,
 } from './PFANS3001Api';
 
 const PFANS3001Store = {

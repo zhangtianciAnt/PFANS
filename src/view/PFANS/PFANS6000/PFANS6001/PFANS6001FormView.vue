@@ -1,35 +1,35 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         v-loading="loading" @disabled="setdisabled">
+    <EasyNormalContainer ref="container" v-loading="loading" :buttonList="buttonList" :title="title"
+                         @buttonClick="buttonClick" @disabled="setdisabled">
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+        <el-form ref="refform" :model="form" :rules="rules" label-position="top" label-width="8vw"
                  style="padding: 3vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="expname">
-                <el-input maxlength="100" :disabled="!disabled" style="width: 20vw"
-                          v-model="form.expname"></el-input>
+                <el-input v-model="form.expname" :disabled="!disabled" maxlength="100"
+                          style="width: 20vw"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.sex')" prop="sex">
                 <dicselect
+                  v-model="form.sex"
                   :code="code1"
                   :data="form.sex"
                   :disabled="!disabled"
                   :multiple="multiple"
-                  @change="changesex"
                   style="width: 20vw"
-                  v-model="form.sex">
+                  @change="changesex">
                 </dicselect>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_CONTACTINFORMATION')">
-                <el-input :disabled="!disabled" style="width: 20vw" maxlength="20"
-                          v-model="form.contactinformation"></el-input>
+                <el-input v-model="form.contactinformation" :disabled="!disabled" maxlength="20"
+                          style="width: 20vw"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -38,59 +38,59 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_BIRTH')" prop="birth">
                 <el-date-picker
+                  v-model="form.birth"
                   :disabled="!disabled"
-                  @change="getAge"
                   style="width: 20vw"
                   type="date"
-                  v-model="form.birth">
+                  @change="getAge">
                 </el-date-picker>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_AGE')">
-                <el-input :disabled="true" style="width: 20vw" v-model="age"></el-input>
+                <el-input v-model="age" :disabled="true" style="width: 20vw"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item :error="errorsuppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
                             prop="suppliername">
-                <div class="dpSupIndex" style="width: 19vw" prop="suppliername">
+                <div class="dpSupIndex" prop="suppliername" style="width: 19vw">
                   <el-container>
-                    <input maxlength="255" class="content bg" v-model="form.suppliername" :error="errorsuppliername"
-                           :disabled="true"></input>
-                    <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible = true"
-                               size="small"></el-button>
-                    <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center size="50%"
-                               top="8vh" lock-scroll
-                               append-to-body>
+                    <input v-model="form.suppliername" :disabled="true" :error="errorsuppliername" class="content bg"
+                           maxlength="255"></input>
+                    <el-button :disabled="!disabled" icon="el-icon-search" size="small"
+                               @click="dialogTableVisible = true"></el-button>
+                    <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" append-to-body center
+                               lock-scroll size="50%"
+                               top="8vh">
                       <div style="text-align: center">
                         <el-row style="text-align: center;height: 90%;overflow: hidden">
                           <el-table
                             :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
-                            height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                            :span-method="arraySpanMethod" @row-click="handleClickChange">
-                            <el-table-column property="suppliername" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                            :span-method="arraySpanMethod" height="500px" highlight-current-row style="width: 100%"
+                            tooltip-effect="dark" @row-click="handleClickChange">
+                            <el-table-column :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')" property="suppliername"
                                              width="150"></el-table-column>
-                            <el-table-column property="userid" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                            <el-table-column :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')" property="userid"
                                              width="100"></el-table-column>
-                            <el-table-column property="contactinformation"
-                                             :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                            <el-table-column :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                             property="contactinformation"
                                              width="150"></el-table-column>
                             <el-table-column
                               align="right" width="230">
                               <template slot="header" slot-scope="scope">
                                 <el-input
                                   v-model="search"
-                                  size="mini"
-                                  placeholder="请输入供应商关键字搜索"/>
+                                  placeholder="请输入供应商关键字搜索"
+                                  size="mini"/>
                               </template>
                             </el-table-column>
                           </el-table>
                         </el-row>
                         <span slot="footer" class="dialog-footer">
-                          <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
+                          <el-button type="primary" @click="submit">{{ $t('button.confirm') }}</el-button>
                         </span>
                       </div>
                     </el-dialog>
@@ -104,21 +104,21 @@
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_GRADUATESCHOOL')" prop="graduateschool">
-                <el-input :disabled="!disabled" style="width: 20vw" v-model="form.graduateschool"
-                          maxlength="20"></el-input>
+                <el-input v-model="form.graduateschool" :disabled="!disabled" maxlength="20"
+                          style="width: 20vw"></el-input>
               </el-form-item>
             </el-col>
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND')" prop="education">
                 <dicselect
+                  v-model="form.education"
                   :code="code2"
                   :data="form.education"
                   :disabled="!disabled"
                   :multiple="multiple"
-                  @change="changeeducation"
                   style="width: 20vw"
-                  v-model="form.education">
+                  @change="changeeducation">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -127,10 +127,10 @@
               <!--           卒业年-->
               <el-form-item :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')" prop="graduation_year">
                 <el-date-picker
+                  v-model="form.graduation_year"
                   :disabled="!disabled"
                   style="width:20vw"
-                  type="year"
-                  v-model="form.graduation_year">
+                  type="year">
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -140,8 +140,8 @@
 
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_SPECIALITY')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 71vw" type="textarea"
-                          v-model="form.speciality"></el-input>
+                <el-input v-model="form.speciality" :disabled="!disabled" :rows="2" style="width: 71vw"
+                          type="textarea"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -153,11 +153,11 @@
                             prop="interviewdep">
                 <org
                   :disabled="!disabled"
-                  :orglist="form.interviewdep"
                   :error="errorinterviewdep"
-                  @getOrgids="getInterviewDep"
+                  :orglist="form.interviewdep"
                   orgtype="4"
-                  style="width: 20vw">
+                  style="width: 20vw"
+                  @getOrgids="getInterviewDep">
                 </org>
               </el-form-item>
             </el-col>
@@ -165,10 +165,10 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDATE')" prop="interview_date">
                 <el-date-picker
+                  v-model="form.interview_date"
                   :disabled="!disabled"
                   style="width: 20vw"
-                  @change="changeinterviewdate"
-                  v-model="form.interview_date">
+                  @change="changeinterviewdate">
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -176,13 +176,13 @@
 
               <el-form-item :label="$t('label.PFANS6001VIEW_RESULT')" prop="result">
                 <dicselect
+                  v-model="form.result"
                   :code="code3"
                   :data="form.result"
                   :disabled="!disabled"
                   :multiple="multiple"
-                  @change="changeresult"
                   style="width: 20vw"
-                  v-model="form.result">
+                  @change="changeresult">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -191,16 +191,16 @@
           <el-row>
 
             <!--<el-col :span="8">-->
-              <!--<el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">-->
-                <!--<dicselect-->
-                  <!--:code="code5"-->
-                  <!--:data="form.technology"-->
-                  <!--:disabled="!disabled"-->
-                  <!--:multiple="multiple"-->
-                  <!--@change="changetechnology"-->
-                  <!--style="width: 20vw">-->
-                <!--</dicselect>-->
-              <!--</el-form-item>-->
+            <!--<el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">-->
+            <!--<dicselect-->
+            <!--:code="code5"-->
+            <!--:data="form.technology"-->
+            <!--:disabled="!disabled"-->
+            <!--:multiple="multiple"-->
+            <!--@change="changetechnology"-->
+            <!--style="width: 20vw">-->
+            <!--</dicselect>-->
+            <!--</el-form-item>-->
             <!--</el-col>-->
 
             <el-col :span="8">
@@ -210,8 +210,8 @@
                   :data="form.rn"
                   :disabled="!disabled"
                   :multiple="multiple"
-                  @change="changern"
-                  style="width: 20vw">
+                  style="width: 20vw"
+                  @change="changern">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -223,8 +223,8 @@
                   :data="form.whetherentry"
                   :disabled="!disabled"
                   :multiple="multiple"
-                  @change="changewhetherentry"
-                  style="width: 20vw">
+                  style="width: 20vw"
+                  @change="changewhetherentry">
                 </dicselect>
               </el-form-item>
             </el-col>
@@ -232,26 +232,27 @@
 
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.center')" :error="errororgInformationcenterid" prop="orgInformationcenterid">
+              <el-form-item :error="errororgInformationcenterid" :label="$t('label.center')"
+                            prop="orgInformationcenterid">
                 <org
+                  :error="errororgInformationcenterid"
                   :orglist="form.orgInformationcenterid"
                   orgtype="1"
-                  style="width:20vw"
                   selectType="Single"
+                  style="width:20vw"
                   @getOrgids="getOrgInformationCenterid"
-                  :error="errororgInformationcenterid"
                 ></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.group')" :error="errororgInformationgroupid" prop="orgInformationgroupid">
+              <el-form-item :error="errororgInformationgroupid" :label="$t('label.group')" prop="orgInformationgroupid">
                 <org
+                  :error="errororgInformationgroupid"
                   :orglist="form.orgInformationgroupid"
                   orgtype="2"
-                  style="width:20vw"
                   selectType="Single"
+                  style="width:20vw"
                   @getOrgids="getOrgInformationGroupId"
-                  :error="errororgInformationgroupid"
                 ></org>
               </el-form-item>
             </el-col>
@@ -260,8 +261,8 @@
                 <org
                   :orglist="form.orgInformationteamid"
                   orgtype="3"
-                  style="width:20vw"
                   selectType="Single"
+                  style="width:20vw"
                   @getOrgids="getOrgInformationTeamid"
                 ></org>
               </el-form-item>
@@ -272,10 +273,10 @@
               <el-form-item :error="erroradmissiontime" :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
                             prop="admissiontime">
                 <el-date-picker
+                  v-model="form.admissiontime"
                   :disabled="!disabled"
                   style="width:20vw"
-                  type="date"
-                  v-model="form.admissiontime">
+                  type="date">
                 </el-date-picker>
               </el-form-item>
             </el-col>
@@ -284,8 +285,8 @@
 
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="!disabled" :rows="2" style="width: 71vw" type="textarea"
-                          v-model="form.remarks"></el-input>
+                <el-input v-model="form.remarks" :disabled="!disabled" :rows="2" style="width: 71vw"
+                          type="textarea"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -296,749 +297,730 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import PFANS6001View from '../PFANS6001/PFANS6001View.vue';
-  import dicselect from '../../../components/dicselect.vue';
-  import {Message} from 'element-ui';
-  import moment from 'moment';
-  import org from '../../../components/org';
-  import {isvalidPhone} from '@/utils/validate';
-  import {getOrgInfo} from "../../../../utils/customize";
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import PFANS6001View from '../PFANS6001/PFANS6001View.vue';
+import dicselect from '../../../components/dicselect.vue';
+import {Message} from 'element-ui';
+import moment from 'moment';
+import org from '../../../components/org';
+import {isvalidPhone} from '@/utils/validate';
+import {getOrgInfo} from '../../../../utils/customize';
 
-  export default {
-    name: 'PFANS6001FormView',
-    components: {
-      EasyNormalContainer,
-      PFANS6001View,
-      dicselect,
-      org,
-    },
-    data() {
-      var validateTel = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error(this.$t('label.PFANSUSERFORMVIEW_TRUEMOBILE')));
-        } else if (!isvalidPhone(value)) {
-          callback(new Error(this.$t('label.PFANSUSERFORMVIEW_EFFECTIVEMOBILE')));
-        } else {
-          callback();
-        }
-      };
-      var checksuppliername = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
-          this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME')));
-        } else {
-          this.errorsuppliername = '';
-          return callback();
-        }
-      };
-      var checkinterview_date = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
-          this.errorinterviewdep = this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')));
-        } else {
-          this.errorinterviewdep = '';
-          return callback();
-        }
-      };
-      //group
-      var checkgroup = (rule, value, callback) => {
-        if (!value || value === '') {
-          if(this.form.whetherentry === "BP006001"){
-            this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
-            return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
-          }
-          else{
-            this.errorgroup = '';
-            return callback();
-          }
+export default {
+  name: 'PFANS6001FormView',
+  components: {
+    EasyNormalContainer,
+    PFANS6001View,
+    dicselect,
+    org,
+  },
+  data() {
+    var validateTel = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error(this.$t('label.PFANSUSERFORMVIEW_TRUEMOBILE')));
+      } else if (!isvalidPhone(value)) {
+        callback(new Error(this.$t('label.PFANSUSERFORMVIEW_EFFECTIVEMOBILE')));
+      } else {
+        callback();
+      }
+    };
+    var checksuppliername = (rule, value, callback) => {
+      if (!value || value === '' || value === 'undefined') {
+        this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
+        return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME')));
+      } else {
+        this.errorsuppliername = '';
+        return callback();
+      }
+    };
+    var checkinterview_date = (rule, value, callback) => {
+      if (!value || value === '' || value === 'undefined') {
+        this.errorinterviewdep = this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP');
+        return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')));
+      } else {
+        this.errorinterviewdep = '';
+        return callback();
+      }
+    };
+    //group
+    var checkgroup = (rule, value, callback) => {
+      if (!value || value === '') {
+        if (this.form.whetherentry === 'BP006001') {
+          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
         } else {
           this.errorgroup = '';
           return callback();
         }
-      };
-      //add ccm 20210901 外注添加组织信息 fr
-      var checkorgInformationcenterid = (rule, value, callback) => {
-        if (!this.form.orgInformationcenterid || this.form.orgInformationcenterid === '') {
-          if(this.form.whetherentry === "BP006001"){
-            this.errororgInformationcenterid = this.$t('normal.error_09') + this.$t('label.center');
-            return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
-          }
-          else{
-            this.errororgInformationcenterid = '';
-            return callback();
-          }
+      } else {
+        this.errorgroup = '';
+        return callback();
+      }
+    };
+    //add ccm 20210901 外注添加组织信息 fr
+    var checkorgInformationcenterid = (rule, value, callback) => {
+      if (!this.form.orgInformationcenterid || this.form.orgInformationcenterid === '') {
+        if (this.form.whetherentry === 'BP006001') {
+          this.errororgInformationcenterid = this.$t('normal.error_09') + this.$t('label.center');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
         } else {
           this.errororgInformationcenterid = '';
           return callback();
         }
-      };
-      var checkorgInformationgroupid = (rule, value, callback) => {
-        if (!this.form.orgInformationgroupid || this.form.orgInformationgroupid === '') {
-          if(this.form.whetherentry === "BP006001"){
-            this.errororgInformationgroupid = this.$t('normal.error_09') + this.$t('label.group');
-            return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
-          }
-          else{
-            this.errororgInformationgroupid = '';
-            return callback();
-          }
+      } else {
+        this.errororgInformationcenterid = '';
+        return callback();
+      }
+    };
+    var checkorgInformationgroupid = (rule, value, callback) => {
+      if (!this.form.orgInformationgroupid || this.form.orgInformationgroupid === '') {
+        if (this.form.whetherentry === 'BP006001') {
+          this.errororgInformationgroupid = this.$t('normal.error_09') + this.$t('label.group');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
         } else {
           this.errororgInformationgroupid = '';
           return callback();
         }
-      };
-      //add ccm 20210901 外注添加组织信息 to
-
-      //入场时间
-      var valadmissiontime = (rule, value, callback) => {
-        if (this.form.exits == '0') {
-          if (this.form.exitime !== null && this.form.exitime !== '') {
-            if (moment(value).format('YYYY-MM-DD') > moment(this.form.exitime).format('YYYY-MM-DD')) {
-              callback(new Error(this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME')));
-              this.erroradmissiontime = this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME');
-            } else {
-              callback();
-              this.erroradmissiontime = '';
-              this.errorexitime = '';
-            }
-          }
-        } else {
-          callback();
-          this.erroradmissiontime = '';
-        }
-      };
-      return {
-        age: '',
-        loading: false,
-        selectType: 'Single',
-        title: 'title.PFANS6001VIEW',
-        errorinterviewdep: '',
-        errorsuppliername: '',
-        disabled: false,
-        buttonList: [],
-        tabledate: [],
-        multiple: false,
-        search: '',
-        tempupdexpname:'',
-        gridData: [],
-        form: {
-          expatriatesinfor_id: '',
-          expname: '',
-          sex: '',
-          contactinformation: '',
-          birth: '',
-          supplierinfor_id: '',
-          suppliername: '',
-          graduateschool: '',
-          education: '',
-          graduation_year: '',
-          speciality: '',
-          interviewdep: '',
-          interview_date: '',
-          result: '',
-          technology: '',
-          rn: '',
-          whetherentry: '',
-          remarks: '',
-          group_id: '',
-          admissiontime: '',
-          //add ccm 20210901 外注添加组织信息 fr
-          orgInformationcenterid:'',
-          orgInformationgroupid:'',
-          orgInformationteamid:'',
-          //add ccm 20210901 外注添加组织信息 to
-        },
-
-        code1: 'PR019',
-
-        code2: 'PR022',
-
-        code3: 'BP003',
-
-        code4: 'PR021',
-
-        code5: 'BP005',
-
-        code6: 'BP006',
-        disabled: true,
-        dialogTableVisible: false,
-        erroradmissiontime: '',
-        grouporglist: '',
-        errorgroup: '',
-        //add ccm 20210901 外注添加组织信息 fr
-        errororgInformationcenterid:'',
-        errororgInformationgroupid:'',
-        //add ccm 20210901 外注添加组织信息 to
-        rules: {
-
-          expname: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.user_name'),
-              trigger: 'blur',
-            }],
-
-          sex: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.sex'),
-              trigger: 'change',
-            },
-          ],
-
-          // contactinformation: [
-          //   {
-          //     required: true,
-          //     message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_CONTACTINFORMATION'),
-          //     trigger: 'blur',
-          //   },
-          //   {validator: validateTel, trigger: 'blur'}
-          //   ],
-
-          birth: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_BIRTH'),
-              trigger: 'change',
-            },
-          ],
-
-          suppliername: [
-            {
-              required: true,
-              validator: checksuppliername,
-              trigger: 'change',
-            },
-          ],
-
-          graduateschool: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_GRADUATESCHOOL'),
-              trigger: 'blur',
-            }],
-
-          education: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND'),
-              trigger: 'change',
-            },
-          ],
-
-          //毕业年
-          graduation_year: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2024VIEW_GRADUATIONYEAR'),
-              trigger: 'change',
-            },
-          ],
-
-          interviewdep: [
-            {
-              required: true,
-              validator: checkinterview_date,
-              trigger: 'change',
-            },
-          ],
-
-          interview_date: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE'),
-              trigger: 'change',
-            },
-          ],
-
-            result: [
-              {
-                required: true,
-                message: this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_RESULT'),
-                trigger: 'change',
-              },
-            ],
-          //
-          // technology: [
-          //   {
-          //     required: true,
-          //     message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_TECHNOLOGY'),
-          //     trigger: 'change',
-          //   },
-          // ],
-
-          rn: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_RN'),
-              trigger: 'change',
-            },
-          ],
-
-          whetherentry: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_WHETHERENTRY'),
-              trigger: 'change',
-            },
-          ],
-          //所属部门
-          group_id: [
-            {
-              required: true,
-              validator: checkgroup,
-              trigger: 'change',
-            },
-          ],
-          // 入场时间
-          admissiontime: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME'),
-              trigger: 'change',
-            },
-            {validator: valadmissiontime, trigger: 'change'},
-          ],
-          //add ccm 20210901 外注添加组织信息 fr
-          orgInformationcenterid: [
-            {
-              required: true,
-              validator: checkorgInformationcenterid,
-              trigger: 'blur',
-            },
-          ],
-          orgInformationgroupid: [
-            {
-              required: true,
-              validator: checkorgInformationgroupid,
-              trigger: 'blur',
-            },
-          ],
-          //add ccm 20210901 外注添加组织信息 to
-        },
-      };
-    },
-    mounted() {
-      this.getExp();
-      this.getSupplierNameList();
-
-      if (this.$route.params._id) {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
-          .then(response => {
-            this.form = response;
-            this.tempupdexpname = this.form.expname;
-            this.grouporglist = this.form.group_id;
-            if(this.form.birth!=''){
-              let birthdays = new Date(this.form.birth);
-              let d = new Date();
-              let age = 0;
-              let agenew = 0;
-              age = d.getFullYear() - birthdays.getFullYear();
-              agenew = d.getFullYear() - birthdays.getFullYear();
-              if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
-                agenew = age;
-              } else {
-                agenew = age - 1;
-              }
-              this.age = agenew;
-            }else{
-              this.age = 0 ;
-            }
-            //入场与否
-            if(this.form.whetherentry === "BP006002"){
-              // upd ccm 20210901 外注添加组织信息 fr
-              //所属部门
-              // this.rules.group_id[0].required = false;
-              this.rules.orgInformationcenterid[0].required = false;
-              this.rules.orgInformationgroupid[0].required = false;
-              // upd ccm 20210901 外注添加组织信息 to
-              //入场时间
-              this.rules.admissiontime[0].required = false;
-            }
-            else{
-              // upd ccm 20210901 外注添加组织信息 fr
-              //所属部门
-              // this.rules.group_id[0].required = true;
-              this.rules.orgInformationcenterid[0].required = true;
-              this.rules.orgInformationgroupid[0].required = true;
-              // upd ccm 20210901 外注添加组织信息 to
-              //入场时间
-              this.rules.admissiontime[0].required = true;
-            }
-            //this.form.interview_date = moment(response.interview_date).format('YYYY-MM-DD');
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
+      } else {
+        this.errororgInformationgroupid = '';
+        return callback();
       }
-    },
-    created() {
-      this.disabled = this.$route.params.disabled;
-      if (this.disabled) {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
-      }
-    },
+    };
+    //add ccm 20210901 外注添加组织信息 to
 
-    methods: {
-      setdisabled(val){
-        if(this.$route.params.disabled){
-          this.disabled = val;
-        }
-      },
-      getInterviewDep(val) {
-        this.form.interviewdep = val;
-        if (!this.form.interviewdep || this.form.interviewdep === '' || val === 'undefined') {
-          this.errorinterviewdep = this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP');
-        } else {
-          this.errorinterviewdep = '';
-        }
-      },
-
-      changesex(val) {
-        this.form.sex = val;
-      },
-      changeinterviewdate(val) {
-        this.form.interview_date = val;
-      },
-      changeeducation(val) {
-        this.form.education = val;
-      },
-      changeresult(val) {
-        this.form.result = val;
-      },
-      // changetechnology(val) {
-      //   this.form.technology = val;
-      // },
-      changern(val) {
-        this.form.rn = val;
-      },
-      changewhetherentry(val) {
-        this.form.whetherentry = val;
-        if(val === "BP006002"){
-          // upd ccm 20210901 外注添加组织信息 fr
-          //所属部门
-          // this.rules.group_id[0].required = false;
-          // this.errorgroup = '';
-          this.rules.orgInformationcenterid[0].required = false;
-          this.errororgInformationcenterid ='';
-          this.rules.orgInformationgroupid[0].required = false;
-          this.errororgInformationgroupid ='';
-          // upd ccm 20210901 外注添加组织信息 to
-          //入场时间
-          this.rules.admissiontime[0].required = false;
-          this.erroradmissiontime = '';
-        }
-        else{
-          // upd ccm 20210901 外注添加组织信息 fr
-          //所属部门
-          // this.rules.group_id[0].required = true;
-          this.rules.orgInformationcenterid[0].required = true;
-          this.rules.orgInformationgroupid[0].required = true;
-          // upd ccm 20210901 外注添加组织信息 to
-          //入场时间
-          this.rules.admissiontime[0].required = true;
-        }
-      },
-      handleCurrentChange(val) {
-        this.currentRow = val;
-      },
-      arraySpanMethod({row, column, rowIndex, columnIndex}) {
-        if (columnIndex === 3) {
-          return [1, 2];
-        }
-      },
-      getAge() {
-          let birthdays = new Date(this.form.birth);
-          let d = new Date();
-          let age = 0;
-          let agenew = 0;
-          age = d.getFullYear() - birthdays.getFullYear();
-          agenew = d.getFullYear() - birthdays.getFullYear();
-          if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
-              agenew = age;
+    //入场时间
+    var valadmissiontime = (rule, value, callback) => {
+      if (this.form.exits == '0') {
+        if (this.form.exitime !== null && this.form.exitime !== '') {
+          if (moment(value).format('YYYY-MM-DD') > moment(this.form.exitime).format('YYYY-MM-DD')) {
+            callback(new Error(this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME')));
+            this.erroradmissiontime = this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME');
           } else {
-              agenew = age - 1;
+            callback();
+            this.erroradmissiontime = '';
+            this.errorexitime = '';
           }
-          this.age = agenew;
+        }
+      } else {
+        callback();
+        this.erroradmissiontime = '';
+      }
+    };
+    return {
+      age: '',
+      loading: false,
+      selectType: 'Single',
+      title: 'title.PFANS6001VIEW',
+      errorinterviewdep: '',
+      errorsuppliername: '',
+      disabled: false,
+      buttonList: [],
+      tabledate: [],
+      multiple: false,
+      search: '',
+      tempupdexpname: '',
+      gridData: [],
+      form: {
+        expatriatesinfor_id: '',
+        expname: '',
+        sex: '',
+        contactinformation: '',
+        birth: '',
+        supplierinfor_id: '',
+        suppliername: '',
+        graduateschool: '',
+        education: '',
+        graduation_year: '',
+        speciality: '',
+        interviewdep: '',
+        interview_date: '',
+        result: '',
+        technology: '',
+        rn: '',
+        whetherentry: '',
+        remarks: '',
+        group_id: '',
+        admissiontime: '',
+        //add ccm 20210901 外注添加组织信息 fr
+        orgInformationcenterid: '',
+        orgInformationgroupid: '',
+        orgInformationteamid: '',
+        //add ccm 20210901 外注添加组织信息 to
       },
-      submit() {
-        let val = this.currentRow;
-        let val1 = this.currentRow1;
-        this.dialogTableVisible = false;
-        this.form.suppliername = val;
-        this.form.supplierinfor_id = val1;
-        this.errorsuppliername = '';
-      },
-      handleClickChange(val) {
-        this.currentRow = val.suppliername;
-        this.currentRow1 = val.supplierinfor_id;
-      },
-      getSupplierNameList() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6001Store/getSupplierNameList', {})
-          .then(response => {
-            this.gridData = [];
-            for (let i = 0; i < response.length; i++) {
-              var vote = {};
-              vote.suppliername = response[i].supchinese;
-              vote.userid = response[i].prochinese;
-              vote.contactinformation = response[i].protelephone;
-              vote.supplierinfor_id = response[i].supplierinfor_id;
-              this.gridData.push(vote);
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
-      buttonClick(val) {
-        this.$refs['refform'].validate(valid => {
-          if (valid) {
-            this.form.expatriatesinfor_id = this.$route.params._id;
-            this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
-            this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
 
-            // add ccm 20210901 外注添加组织信息 fr
-            if (this.form.orgInformationcenterid != null && this.form.orgInformationcenterid !='')
-            {
-              let centerInfo = getOrgInfo(this.form.orgInformationcenterid);
-              if (centerInfo && centerInfo.encoding != null && centerInfo.encoding != '' && centerInfo.encoding!= undefined)
-              {
-                this.form.group_id = this.form.orgInformationcenterid;
-              }
-              else
-              {
-                let groupInfo = getOrgInfo(this.form.orgInformationgroupid);
-                if (groupInfo && groupInfo.encoding != null && groupInfo.encoding != '' && groupInfo.encoding!= undefined)
-                {
-                  this.form.group_id = this.form.orgInformationgroupid;
-                }
-              }
-            }
-            // add ccm 20210901 外注添加组织信息 to
+      code1: 'PR019',
 
-            this.loading = true;
-            if (this.$route.params._id) {
-              let exp = this.tabledate.filter(item => item.expname === this.form.expname);
-              if (exp.length > 0 && exp[0].expname != this.tempupdexpname)
-              {
-                Message({
-                  message: this.$t('normal.error_17'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              }
-              else
-              {
-                this.$store
-                  .dispatch('PFANS6004Store/updateexpatriatesinforApply', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    if (val !== 'update') {
-                      Message({
-                        message: this.$t('normal.success_02'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                      });
-                      if (this.$store.getters.historyUrl) {
-                        this.$router.push(this.$store.getters.historyUrl);
-                      }
-                    }
-                  })
-                  .catch(error => {
-                    this.$message.error({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              }
+      code2: 'PR022',
+
+      code3: 'BP003',
+
+      code4: 'PR021',
+
+      code5: 'BP005',
+
+      code6: 'BP006',
+      disabled: true,
+      dialogTableVisible: false,
+      erroradmissiontime: '',
+      grouporglist: '',
+      errorgroup: '',
+      //add ccm 20210901 外注添加组织信息 fr
+      errororgInformationcenterid: '',
+      errororgInformationgroupid: '',
+      //add ccm 20210901 外注添加组织信息 to
+      rules: {
+
+        expname: [
+          {
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.user_name'),
+            trigger: 'blur',
+          }],
+
+        sex: [
+          {
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.sex'),
+            trigger: 'change',
+          },
+        ],
+
+        // contactinformation: [
+        //   {
+        //     required: true,
+        //     message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_CONTACTINFORMATION'),
+        //     trigger: 'blur',
+        //   },
+        //   {validator: validateTel, trigger: 'blur'}
+        //   ],
+
+        birth: [
+          {
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_BIRTH'),
+            trigger: 'change',
+          },
+        ],
+
+        suppliername: [
+          {
+            required: true,
+            validator: checksuppliername,
+            trigger: 'change',
+          },
+        ],
+
+        graduateschool: [
+          {
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS6001VIEW_GRADUATESCHOOL'),
+            trigger: 'blur',
+          }],
+
+        education: [
+          {
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND'),
+            trigger: 'change',
+          },
+        ],
+
+        //毕业年
+        graduation_year: [
+          {
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS2024VIEW_GRADUATIONYEAR'),
+            trigger: 'change',
+          },
+        ],
+
+        interviewdep: [
+          {
+            required: true,
+            validator: checkinterview_date,
+            trigger: 'change',
+          },
+        ],
+
+        interview_date: [
+          {
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE'),
+            trigger: 'change',
+          },
+        ],
+
+        result: [
+          {
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_RESULT'),
+            trigger: 'change',
+          },
+        ],
+        //
+        // technology: [
+        //   {
+        //     required: true,
+        //     message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_TECHNOLOGY'),
+        //     trigger: 'change',
+        //   },
+        // ],
+
+        rn: [
+          {
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_RN'),
+            trigger: 'change',
+          },
+        ],
+
+        whetherentry: [
+          {
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_WHETHERENTRY'),
+            trigger: 'change',
+          },
+        ],
+        //所属部门
+        group_id: [
+          {
+            required: true,
+            validator: checkgroup,
+            trigger: 'change',
+          },
+        ],
+        // 入场时间
+        admissiontime: [
+          {
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME'),
+            trigger: 'change',
+          },
+          {validator: valadmissiontime, trigger: 'change'},
+        ],
+        //add ccm 20210901 外注添加组织信息 fr
+        orgInformationcenterid: [
+          {
+            required: true,
+            validator: checkorgInformationcenterid,
+            trigger: 'blur',
+          },
+        ],
+        orgInformationgroupid: [
+          {
+            required: true,
+            validator: checkorgInformationgroupid,
+            trigger: 'blur',
+          },
+        ],
+        //add ccm 20210901 外注添加组织信息 to
+      },
+    };
+  },
+  mounted() {
+    this.getExp();
+    this.getSupplierNameList();
+
+    if (this.$route.params._id) {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
+        .then(response => {
+          this.form = response;
+          this.tempupdexpname = this.form.expname;
+          this.grouporglist = this.form.group_id;
+          if (this.form.birth != '') {
+            let birthdays = new Date(this.form.birth);
+            let d = new Date();
+            let age = 0;
+            let agenew = 0;
+            age = d.getFullYear() - birthdays.getFullYear();
+            agenew = d.getFullYear() - birthdays.getFullYear();
+            if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
+              agenew = age;
             } else {
-              this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
-              this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
-              let exp = this.tabledate.filter(item => item.expname === this.form.expname);
-              if (exp.length > 0)
-              {
-                Message({
-                  message: this.$t('normal.error_17'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
+              agenew = age - 1;
+            }
+            this.age = agenew;
+          } else {
+            this.age = 0;
+          }
+          //入场与否
+          if (this.form.whetherentry === 'BP006002') {
+            // upd ccm 20210901 外注添加组织信息 fr
+            //所属部门
+            // this.rules.group_id[0].required = false;
+            this.rules.orgInformationcenterid[0].required = false;
+            this.rules.orgInformationgroupid[0].required = false;
+            // upd ccm 20210901 外注添加组织信息 to
+            //入场时间
+            this.rules.admissiontime[0].required = false;
+          } else {
+            // upd ccm 20210901 外注添加组织信息 fr
+            //所属部门
+            // this.rules.group_id[0].required = true;
+            this.rules.orgInformationcenterid[0].required = true;
+            this.rules.orgInformationgroupid[0].required = true;
+            // upd ccm 20210901 外注添加组织信息 to
+            //入场时间
+            this.rules.admissiontime[0].required = true;
+          }
+          //this.form.interview_date = moment(response.interview_date).format('YYYY-MM-DD');
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    }
+  },
+  created() {
+    this.disabled = this.$route.params.disabled;
+    if (this.disabled) {
+      this.buttonList = [
+        {
+          key: 'save',
+          name: 'button.save',
+          disabled: false,
+          icon: 'el-icon-check',
+        },
+      ];
+    }
+  },
+
+  methods: {
+    setdisabled(val) {
+      if (this.$route.params.disabled) {
+        this.disabled = val;
+      }
+    },
+    getInterviewDep(val) {
+      this.form.interviewdep = val;
+      if (!this.form.interviewdep || this.form.interviewdep === '' || val === 'undefined') {
+        this.errorinterviewdep = this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDEP');
+      } else {
+        this.errorinterviewdep = '';
+      }
+    },
+
+    changesex(val) {
+      this.form.sex = val;
+    },
+    changeinterviewdate(val) {
+      this.form.interview_date = val;
+    },
+    changeeducation(val) {
+      this.form.education = val;
+    },
+    changeresult(val) {
+      this.form.result = val;
+    },
+    // changetechnology(val) {
+    //   this.form.technology = val;
+    // },
+    changern(val) {
+      this.form.rn = val;
+    },
+    changewhetherentry(val) {
+      this.form.whetherentry = val;
+      if (val === 'BP006002') {
+        // upd ccm 20210901 外注添加组织信息 fr
+        //所属部门
+        // this.rules.group_id[0].required = false;
+        // this.errorgroup = '';
+        this.rules.orgInformationcenterid[0].required = false;
+        this.errororgInformationcenterid = '';
+        this.rules.orgInformationgroupid[0].required = false;
+        this.errororgInformationgroupid = '';
+        // upd ccm 20210901 外注添加组织信息 to
+        //入场时间
+        this.rules.admissiontime[0].required = false;
+        this.erroradmissiontime = '';
+      } else {
+        // upd ccm 20210901 外注添加组织信息 fr
+        //所属部门
+        // this.rules.group_id[0].required = true;
+        this.rules.orgInformationcenterid[0].required = true;
+        this.rules.orgInformationgroupid[0].required = true;
+        // upd ccm 20210901 外注添加组织信息 to
+        //入场时间
+        this.rules.admissiontime[0].required = true;
+      }
+    },
+    handleCurrentChange(val) {
+      this.currentRow = val;
+    },
+    arraySpanMethod({row, column, rowIndex, columnIndex}) {
+      if (columnIndex === 3) {
+        return [1, 2];
+      }
+    },
+    getAge() {
+      let birthdays = new Date(this.form.birth);
+      let d = new Date();
+      let age = 0;
+      let agenew = 0;
+      age = d.getFullYear() - birthdays.getFullYear();
+      agenew = d.getFullYear() - birthdays.getFullYear();
+      if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
+        agenew = age;
+      } else {
+        agenew = age - 1;
+      }
+      this.age = agenew;
+    },
+    submit() {
+      let val = this.currentRow;
+      let val1 = this.currentRow1;
+      this.dialogTableVisible = false;
+      this.form.suppliername = val;
+      this.form.supplierinfor_id = val1;
+      this.errorsuppliername = '';
+    },
+    handleClickChange(val) {
+      this.currentRow = val.suppliername;
+      this.currentRow1 = val.supplierinfor_id;
+    },
+    getSupplierNameList() {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS6001Store/getSupplierNameList', {})
+        .then(response => {
+          this.gridData = [];
+          for (let i = 0; i < response.length; i++) {
+            var vote = {};
+            vote.suppliername = response[i].supchinese;
+            vote.userid = response[i].prochinese;
+            vote.contactinformation = response[i].protelephone;
+            vote.supplierinfor_id = response[i].supplierinfor_id;
+            this.gridData.push(vote);
+          }
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    },
+    buttonClick(val) {
+      this.$refs['refform'].validate(valid => {
+        if (valid) {
+          this.form.expatriatesinfor_id = this.$route.params._id;
+          this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
+          this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
+
+          // add ccm 20210901 外注添加组织信息 fr
+          if (this.form.orgInformationcenterid != null && this.form.orgInformationcenterid != '') {
+            let centerInfo = getOrgInfo(this.form.orgInformationcenterid);
+            if (centerInfo && centerInfo.encoding != null && centerInfo.encoding != '' && centerInfo.encoding != undefined) {
+              this.form.group_id = this.form.orgInformationcenterid;
+            } else {
+              let groupInfo = getOrgInfo(this.form.orgInformationgroupid);
+              if (groupInfo && groupInfo.encoding != null && groupInfo.encoding != '' && groupInfo.encoding != undefined) {
+                this.form.group_id = this.form.orgInformationgroupid;
               }
-              else
-              {
-                this.loading = true;
-                this.$store
-                  .dispatch('PFANS6004Store/createexpatriatesinforApply', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
+            }
+          }
+          // add ccm 20210901 外注添加组织信息 to
+
+          this.loading = true;
+          if (this.$route.params._id) {
+            let exp = this.tabledate.filter(item => item.expname === this.form.expname);
+            if (exp.length > 0 && exp[0].expname != this.tempupdexpname) {
+              Message({
+                message: this.$t('normal.error_17'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            } else {
+              this.$store
+                .dispatch('PFANS6004Store/updateexpatriatesinforApply', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== 'update') {
                     Message({
-                      message: this.$t('normal.success_01'),
+                      message: this.$t('normal.success_02'),
                       type: 'success',
                       duration: 5 * 1000,
                     });
                     if (this.$store.getters.historyUrl) {
                       this.$router.push(this.$store.getters.historyUrl);
                     }
-                  })
-                  .catch(error => {
-                    this.$message.error({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
+                  }
+                })
+                .catch(error => {
+                  this.$message.error({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
                   });
-              }
+                  this.loading = false;
+                });
+            }
+          } else {
+            this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
+            this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
+            let exp = this.tabledate.filter(item => item.expname === this.form.expname);
+            if (exp.length > 0) {
+              Message({
+                message: this.$t('normal.error_17'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            } else {
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS6004Store/createexpatriatesinforApply', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_01'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
+                  }
+                })
+                .catch(error => {
+                  this.$message.error({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
             }
           }
-          else{
-              Message({
-                  message: this.$t("normal.error_12"),
-                  type: 'error',
-                  duration: 5 * 1000
-              });
-          }
-        });
-      },
-      getExp(){
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6004Store/getexpatriatesinfor')
-          .then(response => {
-            this.tabledate = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
-      getGroupId(val) {
-        this.form.group_id = val;
-        this.grouporglist = val;
-        if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
-          if(this.form.whetherentry === "BP006001"){
-            this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
-          }
         } else {
-          this.errorgroup = '';
+          Message({
+            message: this.$t('normal.error_12'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
         }
-      },
-      //add ccm 20210901 外注添加组织信息 fr
-      getOrgInformationCenterid(val) {
-        this.getOrgInformation(val);
-        this.form.orgInformationcenterid = val;
-        if (!this.form.orgInformationcenterid || this.form.orgInformationcenterid === '' || val === 'undefined') {
-          if(this.form.whetherentry === "BP006001"){
-            this.errororgInformationcenterid = this.$t('normal.error_09') + this.$t('label.center');
-          }
-          else {
-            this.errororgInformationcenterid = '';
-          }
+      });
+    },
+    getExp() {
+      this.loading = true;
+      this.$store
+        .dispatch('PFANS6004Store/getexpatriatesinfor')
+        .then(response => {
+          this.tabledate = response;
+          this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+    },
+    getGroupId(val) {
+      this.form.group_id = val;
+      this.grouporglist = val;
+      if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
+        if (this.form.whetherentry === 'BP006001') {
+          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+        }
+      } else {
+        this.errorgroup = '';
+      }
+    },
+    //add ccm 20210901 外注添加组织信息 fr
+    getOrgInformationCenterid(val) {
+      this.getOrgInformation(val);
+      this.form.orgInformationcenterid = val;
+      if (!this.form.orgInformationcenterid || this.form.orgInformationcenterid === '' || val === 'undefined') {
+        if (this.form.whetherentry === 'BP006001') {
+          this.errororgInformationcenterid = this.$t('normal.error_09') + this.$t('label.center');
         } else {
           this.errororgInformationcenterid = '';
         }
-      },
-      getOrgInformationGroupId(val) {
-        this.getOrgInformation(val);
-        this.form.orgInformationgroupid = val;
-        if (!this.form.orgInformationgroupid || this.form.orgInformationgroupid === '' || val === 'undefined') {
-          if(this.form.whetherentry === "BP006001"){
-            this.errororgInformationgroupid = this.$t('normal.error_09') + this.$t('label.group');
-          }
-          else {
-            this.errororgInformationgroupid = '';
-          }
+      } else {
+        this.errororgInformationcenterid = '';
+      }
+    },
+    getOrgInformationGroupId(val) {
+      this.getOrgInformation(val);
+      this.form.orgInformationgroupid = val;
+      if (!this.form.orgInformationgroupid || this.form.orgInformationgroupid === '' || val === 'undefined') {
+        if (this.form.whetherentry === 'BP006001') {
+          this.errororgInformationgroupid = this.$t('normal.error_09') + this.$t('label.group');
         } else {
           this.errororgInformationgroupid = '';
         }
-      },
-      getOrgInformationTeamid(val) {
-        this.getOrgInformation(val);
-      },
-      getOrgInformation(id) {
-        let org = {};
-        let treeCom = this.$store.getters.orgs;
-
-        if (id && treeCom.getNode(id)) {
-          let node = id;
-          let type = treeCom.getNode(id).data.type || 0;
-          for (let index = parseInt(type); index >= 1; index--) {
-            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
-              org.teamname = treeCom.getNode(node).data.departmentname;
-              org.teamid = treeCom.getNode(node).data._id;
-            }
-            if (index === 2) {
-              org.groupname = treeCom.getNode(node).data.departmentname;
-              org.groupid = treeCom.getNode(node).data._id;
-              org.budgetunit = treeCom.getNode(node).data.companyen;
-            }
-            if (index === 1) {
-              org.centername = treeCom.getNode(node).data.companyname;
-              org.centerid = treeCom.getNode(node).data._id;
-            }
-            node = treeCom.getNode(node).parent.data._id;
-          }
-          ({
-            centerid: this.form.orgInformationcenterid,
-            groupid: this.form.orgInformationgroupid,
-            teamid: this.form.orgInformationteamid,
-          } = org);
-        }
-      },
-      //add ccm 20210901 外注添加组织信息 to
+      } else {
+        this.errororgInformationgroupid = '';
+      }
     },
-  };
+    getOrgInformationTeamid(val) {
+      this.getOrgInformation(val);
+    },
+    getOrgInformation(id) {
+      let org = {};
+      let treeCom = this.$store.getters.orgs;
+
+      if (id && treeCom.getNode(id)) {
+        let node = id;
+        let type = treeCom.getNode(id).data.type || 0;
+        for (let index = parseInt(type); index >= 1; index--) {
+          if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+            org.teamname = treeCom.getNode(node).data.departmentname;
+            org.teamid = treeCom.getNode(node).data._id;
+          }
+          if (index === 2) {
+            org.groupname = treeCom.getNode(node).data.departmentname;
+            org.groupid = treeCom.getNode(node).data._id;
+            org.budgetunit = treeCom.getNode(node).data.companyen;
+          }
+          if (index === 1) {
+            org.centername = treeCom.getNode(node).data.companyname;
+            org.centerid = treeCom.getNode(node).data._id;
+          }
+          node = treeCom.getNode(node).parent.data._id;
+        }
+        ({
+          centerid: this.form.orgInformationcenterid,
+          groupid: this.form.orgInformationgroupid,
+          teamid: this.form.orgInformationteamid,
+        } = org);
+      }
+    },
+    //add ccm 20210901 外注添加组织信息 to
+  },
+};
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  .dpSupIndex {
-    .content {
-      height: 34px;
-      min-width: 80%;
-      border: 0.1rem solid #ebeef5;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      line-height: 34px;
-      padding: 0.1rem 0.5rem 0.2rem 0.5rem;
-    }
-
-    .bg {
-      background: white;
-      border-width: 1px;
-    }
+.dpSupIndex {
+  .content {
+    height: 34px;
+    min-width: 80%;
+    border: 0.1rem solid #ebeef5;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    line-height: 34px;
+    padding: 0.1rem 0.5rem 0.2rem 0.5rem;
   }
+
+  .bg {
+    background: white;
+    border-width: 1px;
+  }
+}
 </style>

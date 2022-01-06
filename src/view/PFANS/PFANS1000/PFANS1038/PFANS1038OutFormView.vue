@@ -1,30 +1,30 @@
 <template>
   <EasyNormalContainer
+    ref="container"
+    v-loading="loading"
     :buttonList="buttonList"
     :title="titles"
     @buttonClick="buttonClick"
-    ref="container"
-    v-loading="loading"
   >
     <div slot="customize" style="margin-top:2vw">
-      <el-form :model="form" label-position="top" label-width="8vw" ref="form" :rules="rules">
+      <el-form ref="form" :model="form" :rules="rules" label-position="top" label-width="8vw">
         <el-row style="padding-top: 2%;padding-bottom: 2%">
           <el-col :span="6">
             <el-form-item :label="$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')">
               <div class="block">
                 <el-date-picker
                   v-model="form.years"
-                  type="year"
                   :disabled="true"
+                  :placeholder="$t('normal.error_09')"
                   format="yyyy"
-                  :placeholder="$t('normal.error_09')">
+                  type="year">
                 </el-date-picker>
               </div>
             </el-form-item>
           </el-col>
           <el-col :span="6">
             <el-form-item :label="$t('label.PFANS2036VIEW_DEPARTMENT')" prop="centerid">
-              <el-select v-model="form.centerid" style="width: 20vw" :disabled="disabledC"
+              <el-select v-model="form.centerid" :disabled="disabledC" style="width: 20vw"
                          @change="groupChange">
                 <el-option
                   v-for="item in grp_options"
@@ -39,32 +39,32 @@
 
         <el-table
           :data="tableDataBp"
-          border stripe
-          :style="{width:'75VW',marginLeft:'0%',marginTop: '1%'}"
-          header-cell-class-name="sub_bg_color_blue">
+          :style="{width:'75VW',marginLeft:'0%',marginTop: '1%'}" border
+          header-cell-class-name="sub_bg_color_blue"
+          stripe>
           <el-table-column
-            prop="thisyear"
+            :formatter="formatterIro"
             :label="$t('label.PFANS1038VIEW_ISINOROUT')"
-            width="120"
             align="center"
-            :formatter="formatterIro">
+            prop="thisyear"
+            width="120">
           </el-table-column>
           <!--四月-->
           <el-table-column
             :label="$t('label.April')"
             align="center"
-            width="130"
-            prop="april">
+            prop="april"
+            width="130">
             <template slot-scope="scope">
               <el-input-number
-                size="mini"
+                v-model.trim="scope.row.april"
                 :disabled="disabled"
                 :min="0"
                 :precision="2"
                 :step="0.01"
                 controls-position="right"
-                style="width:90%"
-                v-model.trim="scope.row.april">
+                size="mini"
+                style="width:90%">
               </el-input-number>
             </template>
           </el-table-column>
@@ -72,18 +72,18 @@
           <el-table-column
             :label="$t('label.May')"
             align="center"
-            width="130"
-            prop="may">
+            prop="may"
+            width="130">
             <template slot-scope="scope">
               <el-input-number
-                size="mini"
+                v-model.trim="scope.row.may"
                 :disabled="disabled"
                 :min="0"
                 :precision="2"
                 :step="0.01"
                 controls-position="right"
-                style="width:90%"
-                v-model.trim="scope.row.may">
+                size="mini"
+                style="width:90%">
               </el-input-number>
             </template>
           </el-table-column>
@@ -91,18 +91,18 @@
           <el-table-column
             :label="$t('label.June')"
             align="center"
-            width="130"
-            prop="june">
+            prop="june"
+            width="130">
             <template slot-scope="scope">
               <el-input-number
-                size="mini"
+                v-model.trim="scope.row.june"
                 :disabled="disabled"
                 :min="0"
                 :precision="2"
                 :step="0.01"
                 controls-position="right"
-                style="width:90%"
-                v-model.trim="scope.row.june">
+                size="mini"
+                style="width:90%">
               </el-input-number>
             </template>
           </el-table-column>
@@ -110,18 +110,18 @@
           <el-table-column
             :label="$t('label.July')"
             align="center"
-            width="130"
-            prop="july">
+            prop="july"
+            width="130">
             <template slot-scope="scope">
               <el-input-number
-                size="mini"
+                v-model.trim="scope.row.july"
                 :disabled="disabled"
                 :min="0"
                 :precision="2"
                 :step="0.01"
                 controls-position="right"
-                style="width:90%"
-                v-model.trim="scope.row.july">
+                size="mini"
+                style="width:90%">
               </el-input-number>
             </template>
           </el-table-column>
@@ -129,18 +129,18 @@
           <el-table-column
             :label="$t('label.August')"
             align="center"
-            width="130"
-            prop="august">
+            prop="august"
+            width="130">
             <template slot-scope="scope">
               <el-input-number
-                size="mini"
+                v-model.trim="scope.row.august"
                 :disabled="disabled"
                 :min="0"
                 :precision="2"
                 :step="0.01"
                 controls-position="right"
-                style="width:90%"
-                v-model.trim="scope.row.august">
+                size="mini"
+                style="width:90%">
               </el-input-number>
             </template>
           </el-table-column>
@@ -148,18 +148,18 @@
           <el-table-column
             :label="$t('label.September')"
             align="center"
-            width="130"
-            prop="september">
+            prop="september"
+            width="130">
             <template slot-scope="scope">
               <el-input-number
-                size="mini"
+                v-model.trim="scope.row.september"
                 :disabled="disabled"
                 :min="0"
                 :precision="2"
                 :step="0.01"
                 controls-position="right"
-                style="width:90%"
-                v-model.trim="scope.row.september">
+                size="mini"
+                style="width:90%">
               </el-input-number>
             </template>
           </el-table-column>
@@ -167,18 +167,18 @@
           <el-table-column
             :label="$t('label.October')"
             align="center"
-            width="130"
-            prop="october">
+            prop="october"
+            width="130">
             <template slot-scope="scope">
               <el-input-number
-                size="mini"
+                v-model.trim="scope.row.october"
                 :disabled="disabled"
                 :min="0"
                 :precision="2"
                 :step="0.01"
                 controls-position="right"
-                style="width:90%"
-                v-model.trim="scope.row.october">
+                size="mini"
+                style="width:90%">
               </el-input-number>
             </template>
           </el-table-column>
@@ -186,18 +186,18 @@
           <el-table-column
             :label="$t('label.November')"
             align="center"
-            width="130"
-            prop="november">
+            prop="november"
+            width="130">
             <template slot-scope="scope">
               <el-input-number
-                size="mini"
+                v-model.trim="scope.row.november"
                 :disabled="disabled"
                 :min="0"
                 :precision="2"
                 :step="0.01"
                 controls-position="right"
-                style="width:90%"
-                v-model.trim="scope.row.november">
+                size="mini"
+                style="width:90%">
               </el-input-number>
             </template>
           </el-table-column>
@@ -205,18 +205,18 @@
           <el-table-column
             :label="$t('label.December')"
             align="center"
-            width="130"
-            prop="december">
+            prop="december"
+            width="130">
             <template slot-scope="scope">
               <el-input-number
-                size="mini"
+                v-model.trim="scope.row.december"
                 :disabled="disabled"
                 :min="0"
                 :precision="2"
                 :step="0.01"
                 controls-position="right"
-                style="width:90%"
-                v-model.trim="scope.row.december">
+                size="mini"
+                style="width:90%">
               </el-input-number>
             </template>
           </el-table-column>
@@ -224,18 +224,18 @@
           <el-table-column
             :label="$t('label.January')"
             align="center"
-            width="130"
-            prop="january">
+            prop="january"
+            width="130">
             <template slot-scope="scope">
               <el-input-number
-                size="mini"
+                v-model.trim="scope.row.january"
                 :disabled="disabled"
                 :min="0"
                 :precision="2"
                 :step="0.01"
                 controls-position="right"
-                style="width:90%"
-                v-model.trim="scope.row.january">
+                size="mini"
+                style="width:90%">
               </el-input-number>
             </template>
           </el-table-column>
@@ -243,18 +243,18 @@
           <el-table-column
             :label="$t('label.February')"
             align="center"
-            width="130"
-            prop="february">
+            prop="february"
+            width="130">
             <template slot-scope="scope">
               <el-input-number
-                size="mini"
+                v-model.trim="scope.row.february"
                 :disabled="disabled"
                 :min="0"
                 :precision="2"
                 :step="0.01"
                 controls-position="right"
-                style="width:90%"
-                v-model.trim="scope.row.february">
+                size="mini"
+                style="width:90%">
               </el-input-number>
             </template>
           </el-table-column>
@@ -262,37 +262,37 @@
           <el-table-column
             :label="$t('label.March')"
             align="center"
-            width="130"
-            prop="march">
+            prop="march"
+            width="130">
             <template slot-scope="scope">
               <el-input-number
-                size="mini"
+                v-model.trim="scope.row.march"
                 :disabled="disabled"
                 :min="0"
                 :precision="2"
                 :step="0.01"
                 controls-position="right"
-                style="width:90%"
-                v-model.trim="scope.row.march">
+                size="mini"
+                style="width:90%">
               </el-input-number>
             </template>
           </el-table-column>
           <el-table-column
+            v-if="false"
             :label="$t('label.PFANS2005FORMVIEW_TOTAL')"
             align="center"
-            width="130"
             prop="moneytotal"
-            v-if="false">
+            width="130">
             <template slot-scope="scope">
               <el-input-number
-                size="mini"
+                v-model.trim="scope.row.moneytotal"
                 :disabled="true"
                 :min="0"
                 :precision="2"
                 :step="0.01"
                 controls-position="right"
-                style="width:90%"
-                v-model.trim="scope.row.moneytotal">
+                size="mini"
+                style="width:90%">
               </el-input-number>
             </template>
           </el-table-column>
@@ -303,20 +303,20 @@
 </template>
 
 <script>
-import EasyNormalContainer from "@/components/EasyNormalContainer";
-import dicselect from "../../../components/dicselect";
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import dicselect from '../../../components/dicselect';
 import {Message} from 'element-ui';
-import {getCurrentRoleNew, getDepartmentById, getOrgInfoByUserId, getUserInfo,getDictionaryInfo, getOrgInfo} from "../../../../utils/customize";
-import moment from "moment";
+import {getCurrentRoleNew, getDepartmentById, getOrgInfo} from '../../../../utils/customize';
+import moment from 'moment';
 
 export default {
   name: 'PFANS1038OutFormView',
   components: {
     dicselect,
-    EasyNormalContainer
+    EasyNormalContainer,
   },
   watch: {
-    tableDataBp:{
+    tableDataBp: {
       deep: true,
       handler: function() {
         this.tableDataBp[0].moneytotal = (
@@ -345,8 +345,8 @@ export default {
           Number(this.tableDataBp[1].january || 0) +
           Number(this.tableDataBp[1].february || 0) +
           Number(this.tableDataBp[1].march || 0)).toFixed(2);
-      }
-    }
+      },
+    },
 
   },
   created() {
@@ -354,11 +354,11 @@ export default {
     if (!this.disabled) {
       this.buttonList = [
         {
-          key: "save",
-          disabled : false,
-          name: "button.save",
-          icon: "el-icon-check"
-        }
+          key: 'save',
+          disabled: false,
+          name: 'button.save',
+          icon: 'el-icon-check',
+        },
       ];
     }
   },
@@ -366,7 +366,7 @@ export default {
     if (this.$route.params._id) {
       this.disabledC = true;
       this.getOne(this.$route.params._id);
-    }else{
+    } else {
       this.buttonList[0].disabled = false;
       if (this.userlist !== null && this.userlist !== '') {
         this.disabledC = false;
@@ -384,12 +384,12 @@ export default {
           if (!this.$route.params._id) {
             this.loading = true;
             this.$store
-              .dispatch("PFANS1038Store/insert", this.form)
+              .dispatch('PFANS1038Store/insert', this.form)
               .then(response => {
                 this.loading = false;
                 this.$message.success({
-                  message: this.$t("normal.success_01"),
-                  type: "success"
+                  message: this.$t('normal.success_01'),
+                  type: 'success',
                 });
                 if (this.$store.getters.historyUrl) {
                   this.$router.push(this.$store.getters.historyUrl);
@@ -399,21 +399,21 @@ export default {
                 this.loading = false;
                 this.$message.error({
                   message: err,
-                  type: "error",
-                  duration: 5 * 1000
+                  type: 'error',
+                  duration: 5 * 1000,
                 });
               });
-          }else {
+          } else {
             this.loading = true;
             this.$store
-              .dispatch("PFANS1038Store/update", this.form)
+              .dispatch('PFANS1038Store/update', this.form)
               .then(response => {
                 this.loading = false;
                 this.$message.success({
-                  message: this.$t("normal.success_02"),
-                  type: "success"
+                  message: this.$t('normal.success_02'),
+                  type: 'success',
                 });
-                if (val !== "update") {
+                if (val !== 'update') {
                   if (this.$store.getters.historyUrl) {
                     this.$router.push(this.$store.getters.historyUrl);
                   }
@@ -423,12 +423,12 @@ export default {
                 this.loading = false;
                 this.$message.error({
                   message: err,
-                  type: "error",
-                  duration: 5 * 1000
+                  type: 'error',
+                  duration: 5 * 1000,
                 });
               });
           }
-        }else {
+        } else {
           this.loading = false;
           Message({
             message: this.$t('normal.error_12'),
@@ -436,7 +436,7 @@ export default {
             duration: 5 * 1000,
           });
         }
-      })
+      });
     },
     getorglistname() {
       let role = getCurrentRoleNew();
@@ -449,12 +449,9 @@ export default {
           },
         );
         //add ccm 0112 兼职部门
-        if (this.$store.getters.userinfo.userinfo.otherorgs)
-        {
-          for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
-          {
-            if (others.centerid)
-            {
+        if (this.$store.getters.userinfo.userinfo.otherorgs) {
+          for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
+            if (others.centerid) {
               this.$store.getters.orgGroupList.filter((item) => {
                 if (item.centerid === others.centerid) {
                   vote.push(
@@ -464,7 +461,7 @@ export default {
                     },
                   );
                 }
-              })
+              });
             }
           }
         }
@@ -479,14 +476,11 @@ export default {
               },
             );
           }
-        })
+        });
         //add ccm 0112 兼职部门
-        if (this.$store.getters.userinfo.userinfo.otherorgs)
-        {
-          for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
-          {
-            if (others.centerid)
-            {
+        if (this.$store.getters.userinfo.userinfo.otherorgs) {
+          for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
+            if (others.centerid) {
               this.$store.getters.orgGroupList.filter((item) => {
                 if (item.centerid === others.centerid) {
                   vote.push(
@@ -496,19 +490,16 @@ export default {
                     },
                   );
                 }
-              })
+              });
             }
           }
         }
         //add ccm 0112 兼职部门
-      }
-      else if (role === '4') //GM
+      } else if (role === '4') //GM
       {
         let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
-        if (centers)
-        {
-          if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
-          {
+        if (centers) {
+          if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined) {
             vote.push(
               {
                 value: this.$store.getters.userinfo.userinfo.groupid,
@@ -520,9 +511,9 @@ export default {
       }
       const vote1 = [];
       if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
-        || this.$store.getters.roles.indexOf("11") != -1 //总经理
-        || this.$store.getters.roles.indexOf("16") != -1//财务部长
-        || this.$store.getters.roles.indexOf("18") != -1) //企划部长部长
+        || this.$store.getters.roles.indexOf('11') != -1 //总经理
+        || this.$store.getters.roles.indexOf('16') != -1//财务部长
+        || this.$store.getters.roles.indexOf('18') != -1) //企划部长部长
       {
         this.$store.getters.orgGroupList.filter((item) => {
           vote1.push(
@@ -531,43 +522,41 @@ export default {
               lable: item.centername,
             },
           );
-        })
+        });
         this.grp_options = vote1;
-      }
-      else
-      {
+      } else {
         this.grp_options = vote;
       }
       //去重
       let letoptionsdata = [];
       let arrId = [];
-      for(var item of this.grp_options){
-        if(arrId.indexOf(item['lable']) == -1){
+      for (var item of this.grp_options) {
+        if (arrId.indexOf(item['lable']) == -1) {
           arrId.push(item['lable']);
           letoptionsdata.push(item);
         }
       }
       //针对经营管理统计到group修改 start
       let incfmyList = [];
-      for(let item of letoptionsdata){
-        if(getOrgInfo(item.value).encoding == ''){
-          incfmyList.push(item.value)
+      for (let item of letoptionsdata) {
+        if (getOrgInfo(item.value).encoding == '') {
+          incfmyList.push(item.value);
         }
       }
-      if(incfmyList.length > 0){
-        for(let item of incfmyList){
-          letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
+      if (incfmyList.length > 0) {
+        for (let item of incfmyList) {
+          letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item);
         }
         let orgInfo = [];
-        for(let item of incfmyList){
-          if(item){
-            if(getOrgInfo(item).orgs.length != 0){
-              orgInfo.push(getOrgInfo(item).orgs)
+        for (let item of incfmyList) {
+          if (item) {
+            if (getOrgInfo(item).orgs.length != 0) {
+              orgInfo.push(getOrgInfo(item).orgs);
             }
           }
         }
         let groInfo = orgInfo[0].filter(item => item.type == '2');
-        for(let item of groInfo){
+        for (let item of groInfo) {
           letoptionsdata.push(
             {
               value: item._id,
@@ -578,50 +567,48 @@ export default {
       }
       //针对经营管理统计到group修改 end
       this.grp_options = letoptionsdata;
-      if (!this.form.centerid && this.grp_options.length > 0)
-      {
+      if (!this.form.centerid && this.grp_options.length > 0) {
         this.form.centerid = this.grp_options[0].value;
       }
       //UPD CCM 20210422
     },
     getOne(id) {
       this.loading = true;
-      this.show2=true;
+      this.show2 = true;
       this.$store
-        .dispatch("PFANS1038Store/getOne", id)
+        .dispatch('PFANS1038Store/getOne', id)
         .then(response => {
           this.loading = false;
           this.form = response;
-          this.form.years = response.years+ "";
-          if (response.centerid)
-          {
+          this.form.years = response.years + '';
+          if (response.centerid) {
             this.grp_options = [];
             let user = getDepartmentById(response.centerid);
             if (user) {
               this.grp_options.push({
                 value: response.centerid,
                 lable: user,
-              },)
+              });
               this.form.centerid = response.centerid;
             }
           }
           // this.form.center_id = response.center_id;
           this.tableDataBp = [];
-          this.tableDataBp.push(JSON.parse(this.form.employed))
-          this.tableDataBp.push(JSON.parse(this.form.newentry))
+          this.tableDataBp.push(JSON.parse(this.form.employed));
+          this.tableDataBp.push(JSON.parse(this.form.newentry));
         })
         .catch(error => {
           this.$message.error({
             message: error,
-            type: "error",
-            duration: 5 * 1000
+            type: 'error',
+            duration: 5 * 1000,
           });
           this.loading = false;
         });
     },
     groupChange(val) {
       this.form.centerid = val;
-      this.getExpatriatesinfor()
+      this.getExpatriatesinfor();
     },
     getExpatriatesinfor() {
       let id = this.form.centerid;
@@ -654,15 +641,15 @@ export default {
           this.$message.error({
             message: error,
             type: 'error',
-            duration: 5 * 1000
+            duration: 5 * 1000,
           });
-        })
+        });
     },
     formatterIro(row, column, cellValue, index) {
       if (index === 0) {
-        return this.$t('label.PFANS1038VIEW_INSIDE')
-      }else {
-        return this.$t('label.PFANS1038VIEW_OUTSIDE')
+        return this.$t('label.PFANS1038VIEW_INSIDE');
+      } else {
+        return this.$t('label.PFANS1038VIEW_OUTSIDE');
       }
     },
   },
@@ -670,45 +657,45 @@ export default {
     return {
       loading: false,
       disabled: true,
-      disabledC:false,
+      disabledC: false,
       buttonList: [],
-      titles: "label.PFANS1038VIEW_OUTOFHOME",
+      titles: 'label.PFANS1038VIEW_OUTOFHOME',
       grp_options: [],
       form: {
-        years:parseInt(moment(new Date()).format("MM")) >=  4 ? parseInt(moment(new Date()).format("YYYY"))+1+ "" : moment(new Date()).format("YYYY"),
-        centerid:'',
+        years: parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY'),
+        centerid: '',
       },
       tableDataBp: [
         {
-          april:'',
-          may:'',
-          june:'',
-          july:'',
-          august:'',
-          september:'',
-          october:'',
-          november:'',
-          december:'',
-          january:'',
-          february:'',
-          march:'',
-          moneytotal:'',
+          april: '',
+          may: '',
+          june: '',
+          july: '',
+          august: '',
+          september: '',
+          october: '',
+          november: '',
+          december: '',
+          january: '',
+          february: '',
+          march: '',
+          moneytotal: '',
         },
         {
-          april:'',
-          may:'',
-          june:'',
-          july:'',
-          august:'',
-          september:'',
-          october:'',
-          november:'',
-          december:'',
-          january:'',
-          february:'',
-          march:'',
-          moneytotal:'',
-        }
+          april: '',
+          may: '',
+          june: '',
+          july: '',
+          august: '',
+          september: '',
+          october: '',
+          november: '',
+          december: '',
+          january: '',
+          february: '',
+          march: '',
+          moneytotal: '',
+        },
       ],
       rules: {
         centerid: [
@@ -721,9 +708,9 @@ export default {
           },
         ],
       },
-    }
-  }
-}
+    };
+  },
+};
 </script>
 
 <style scoped>

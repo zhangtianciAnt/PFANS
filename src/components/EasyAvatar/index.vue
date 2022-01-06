@@ -1,58 +1,58 @@
 <template>
-  <div class="easy_avatar" :style="{height:avatarHeight,width:avatarWidth,cursor:'pointer'}" @click="redirect">
+  <div :style="{height:avatarHeight,width:avatarWidth,cursor:'pointer'}" class="easy_avatar" @click="redirect">
     <div class="avatar_image">
       <img :src="avatarImage" alt="avatar" style="width:90%">
-        </div>
+    </div>
     <div class="avatar_dep">
-      {{avatarDep}}
+      {{ avatarDep }}
     </div>
-      <div class="avatar_name">
-        {{avatarName ===""?$store.getters.name:avatarName}}
-      </div>
+    <div class="avatar_name">
+      {{ avatarName === '' ? $store.getters.name : avatarName }}
     </div>
+  </div>
 </template>
 
 <script>
-import basselogo from "@/assets/svg/user.svg";
+import basselogo from '@/assets/svg/user.svg';
+
 export default {
-  name: "Avatar",
+  name: 'Avatar',
   components: {},
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
-    redirect(){
-      this.$store.commit('global/SET_HISTORYURL', "/index");
+    redirect() {
+      this.$store.commit('global/SET_HISTORYURL', '/index');
       this.$router.push(this.mainPage);
-      this.$emit('changeMenu')
-    }
+      this.$emit('changeMenu');
+    },
   },
   props: {
     avatarImage: {
       type: String,
-      default: basselogo
+      default: basselogo,
     },
     avatarName: {
       type: String,
-      default: ""
+      default: '',
     },
     avatarDep: {
       type: String,
-      default: ""
+      default: '',
     },
     avatarHeight: {
       type: String,
-      default: "90%"
+      default: '90%',
     },
     avatarWidth: {
       type: String,
-      default: "100%"
+      default: '100%',
     },
-    mainPage:{
-      type:String
-    }
-  }
+    mainPage: {
+      type: String,
+    },
+  },
 };
 </script>
 
@@ -72,6 +72,7 @@ $bg: #fff;
     justify-self: center;
     align-self: center;
   }
+
   .avatar_name {
     grid-column-start: 2;
     grid-column-end: 4;
@@ -79,9 +80,10 @@ $bg: #fff;
     font-size: 12px;
     text-align: left;
     justify-self: center;
-    align-self:  start;
+    align-self: start;
     color: white;
   }
+
   .avatar_dep {
     grid-column-start: 2;
     grid-column-end: 4;

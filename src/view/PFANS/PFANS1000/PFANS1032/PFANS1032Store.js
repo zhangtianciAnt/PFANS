@@ -1,10 +1,4 @@
-import {
-  getPage,
-  get,
-  one,
-  update,
-  downLoad,
-} from './PFANS1032Api'
+import {downLoad, get, getPage, one, update} from './PFANS1032Api';
 
 const PFANS1032Store = {
   namespaced: true,
@@ -17,12 +11,12 @@ const PFANS1032Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //  add  ml  211201  分页  from
     getPage() {
@@ -31,12 +25,12 @@ const PFANS1032Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     //  add  ml  211201  分页  to
     update({commit}, data) {
@@ -45,12 +39,12 @@ const PFANS1032Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     one({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -58,12 +52,12 @@ const PFANS1032Store = {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message)
+            reject(response.message);
           }
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
     downLoad({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -71,10 +65,10 @@ const PFANS1032Store = {
           resolve(response);
         }).catch(error => {
           reject(error);
-        })
-      })
+        });
+      });
     },
-  }
+  },
 };
 export default PFANS1032Store;
 

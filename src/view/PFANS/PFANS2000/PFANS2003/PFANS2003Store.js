@@ -1,9 +1,9 @@
 import {
-  getinterviewrecord,
   createinterviewrecord,
+  createinterviewrecord2,
+  getinterviewrecord,
   getinterviewrecordOne,
   updateinterviewrecord,
-  createinterviewrecord2
 } from './PFANS2003Api';
 
 const PFANS2003Store = {

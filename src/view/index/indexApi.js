@@ -1,10 +1,12 @@
-import request from '../../utils/request'
+import request from '../../utils/request';
+
 export function get() {
   return request({
     url: 'ToDoNotice/get',
-    method: 'get'
-  })
+    method: 'get',
+  });
 }
+
 export function getStatus(data) {
   return request({
     url: 'ToDoNotice/getList',

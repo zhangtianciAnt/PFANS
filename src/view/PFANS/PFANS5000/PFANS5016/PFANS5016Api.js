@@ -1,11 +1,11 @@
-import request from '../../../../utils/request'
+import request from '../../../../utils/request';
 
 export function getLogPerson(data) {
   return request({
     url: 'personlog/getLogPerson',
     method: 'get',
-    params: data
-  })
+    params: data,
+  });
 }
 
 export function updateByVoId(data) {

@@ -1,34 +1,36 @@
-import request from '../../../../utils/request'
-import requestDownload from '../../../../utils/requestDownload'
-import requestPdf from "../../../../utils/requestPdf";
+import request from '../../../../utils/request';
+import requestDownload from '../../../../utils/requestDownload';
 
 export function get() {
   return request({
     url: 'quotation/get',
-    method: 'get'
-  })
+    method: 'get',
+  });
 }
+
 //  add  ml  211130  报价单分页  from
 export function getQuotation() {
   return request({
     url: 'quotation/getQuotation',
-    method: 'get'
-  })
+    method: 'get',
+  });
 }
+
 //  add  ml  211130  报价单分页  to
 export function selectById(data) {
   return request({
     url: 'quotation/selectById',
     method: 'get',
-    params: data
-  })
+    params: data,
+  });
 }
+
 export function update(data) {
   return request({
     url: 'quotation/update',
     method: 'post',
-    data: data
-  })
+    data: data,
+  });
 }
 
 export function downLoad(data) {
@@ -36,7 +38,7 @@ export function downLoad(data) {
     url: 'quotation/downLoad',
     method: 'post',
     data: data,
-    responseType: 'blob'
-  })
+    responseType: 'blob',
+  });
 }
 
