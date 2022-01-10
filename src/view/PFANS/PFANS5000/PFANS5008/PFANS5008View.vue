@@ -624,13 +624,26 @@
         } else if (val === 'delete') {
           /*   upd  只能删除自己日志   from   */
           for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
-            if (this.$refs.roletable.selectedList[i].createby.trim() !== this.$store.getters.userinfo.userid.trim()) {
-              Message({
-                message: this.$t('normal.error_26'),
-                type: 'info',
-                duration: 2 * 1000,
-              });
-              return;
+            //region scc upd 22/1/10 外注能正常删除日志 from
+            if(this.$store.getters.userinfo.userid){//社员，选中记录和userid一致时可以删除
+              if (this.$refs.roletable.selectedList[i].createby.trim() !== this.$store.getters.userinfo.userid.trim()) {
+                Message({
+                  message: this.$t('normal.error_26'),
+                  type: 'info',
+                  duration: 2 * 1000,
+                });
+                return;
+              }
+            }else{//外注，无userinfo.userid，选中记录和_id一致时可以删除
+              if (this.$refs.roletable.selectedList[i].createby.trim() !== this.$store.getters.useraccount._id.trim()) {
+                Message({
+                  message: this.$t('normal.error_26'),
+                  type: 'info',
+                  duration: 2 * 1000,
+                });
+                return;
+              }
+              //endregion scc upd 22/1/10 外注能正常删除日志 to
             }
           }
           if (this.$refs.roletable.selectedList.length === 0) {
