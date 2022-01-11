@@ -204,6 +204,13 @@
                 <!--                  </el-form-item>-->
                 <!--                </el-col>-->
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1045VIEW_POLICYNUMBERS')">
+                    <el-input v-model="form.policynumbers" :disabled="true"
+                              style="width: 20vw">
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1025FORMVIEW_DRAFTINGDATE')">
                     <div class="block">
                       <el-date-picker
@@ -547,6 +554,7 @@
         this.$store
           .dispatch('PFANS1006Store/getpolicycontractOne', {'policycontract_id': this.$route.params._id})
           .then(response => {
+            debugger
             this.form = response.policycontract;
 
             if (response.policycontractdetails.length > 0) {
