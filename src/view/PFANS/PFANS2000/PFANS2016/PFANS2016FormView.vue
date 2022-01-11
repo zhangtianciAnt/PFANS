@@ -305,8 +305,9 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <!-- 页面育儿假和父母照料假提示 -->
           <div class="sub_color_red" style="margin-bottom: 1vw" v-if="form.errortype == 'PR013023' || form.errortype == 'PR013024'">
-            {{ this.form.tenantid }}
+            {{ this.form.parentmsg }}
           </div>
           <el-row>
             <el-col>
@@ -763,7 +764,7 @@
           dateofbirth: '',
           parentsdate: '',
           suchconfinement: '',
-          tenantid: '',
+          parentmsg: '',
         },
         code: 'PR013',
         multiple: false,
