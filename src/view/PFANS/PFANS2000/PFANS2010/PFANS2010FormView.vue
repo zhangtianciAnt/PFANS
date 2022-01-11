@@ -165,6 +165,22 @@
             filter: true,
           },
           {
+            code: 'parenting',
+            label: 'label.PFANS2010VIEW_PARENTING',
+            labelClass: 'pfans2010view_column_6',
+            width: 90,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'parentalcare',
+            label: 'label.PFANS2010VIEW_PARENTALCARE',
+            labelClass: 'pfans2010view_column_6',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
             code: 'welfare',
             label: 'label.PFANS2010VIEW_WELFARE',
             labelClass: 'pfans2010view_column_6',
@@ -787,6 +803,10 @@
             var total_womensday = 0;
             var total_annualrest = 0;
             var total_daixiu = 0;
+            //add ccm 20220110 考勤管理增加育儿假和父母照料假 fr
+            var total_parenting = 0;
+            var total_parentalcare = 0;
+            //add ccm 20220110 考勤管理增加育儿假和父母照料假 to
             var total_welfare = 0;
             var total_shortsickleave = 0;
             var total_longsickleave = 0;
@@ -805,6 +825,10 @@
               total_womensday += parseFloat(res[i]['womensday'] === undefined ? '0' : (res[i]['womensday'] === null || res[i]['womensday'] === '' ? '0' : res[i]['womensday']));
               total_annualrest += parseFloat(res[i]['annualrest'] === undefined ? '0' : (res[i]['annualrest'] === null || res[i]['annualrest'] === '' ? '0' : res[i]['annualrest']));
               total_daixiu += parseFloat(res[i]['daixiu'] === undefined ? '0' : (res[i]['daixiu'] === null || res[i]['daixiu'] === '' ? '0' : res[i]['daixiu']));
+              //add ccm 20220110 考勤管理增加育儿假和父母照料假 fr
+              total_parenting += parseFloat(res[i]['parenting'] === undefined ? '0' : (res[i]['parenting'] === null || res[i]['parenting'] === '' ? '0' : res[i]['parenting']));
+              total_parentalcare += parseFloat(res[i]['parentalcare'] === undefined ? '0' : (res[i]['parentalcare'] === null || res[i]['parentalcare'] === '' ? '0' : res[i]['parentalcare']));
+              //add ccm 20220110 考勤管理增加育儿假和父母照料假 to
               total_welfare += parseFloat(res[i]['welfare'] === undefined ? '0' : (res[i]['welfare'] === null || res[i]['welfare'] === '' ? '0' : res[i]['welfare']));
               total_shortsickleave += parseFloat(res[i]['shortsickleave'] === undefined ? '0' : (res[i]['shortsickleave'] === null || res[i]['shortsickleave'] === '' ? '0' : res[i]['shortsickleave']));
               total_longsickleave += parseFloat(res[i]['longsickleave'] === undefined ? '0' : (res[i]['longsickleave'] === null || res[i]['longsickleave'] === '' ? '0' : res[i]['longsickleave']));
@@ -824,6 +848,10 @@
               womensday: total_womensday,
               annualrest: total_annualrest,
               daixiu: total_daixiu,
+              //add ccm 20220110 考勤管理增加育儿假和父母照料假 fr
+              parenting: total_parenting,
+              parentalcare: total_parentalcare,
+              //add ccm 20220110 考勤管理增加育儿假和父母照料假 to
               welfare: total_welfare,
               shortsickleave: total_shortsickleave,
               longsickleave: total_longsickleave,

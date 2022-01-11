@@ -103,27 +103,13 @@
                   <el-form-item :label="$t('label.PFANS1045VIEW_AMOUNTCASE')">
                     <el-input-number
                       :disabled="this.form.type === '1' ?true:!disable"
-                      :max="999999999"
                       :min="0"
                       :precision="2"
                       :step="1"
                       @change="getamountcase"
                       controls-position="right"
-                      style="width: 19.4vw"
+                      style="width: 20vw"
                       v-model="form.amountcase">
-                    </el-input-number>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1045VIEW_MODIFIEDAMOUNT')">
-                    <el-input-number
-                      :disabled="true"
-                      :max="999999999"
-                      :precision="2"
-                      :step="1"
-                      controls-position="right"
-                      style="width: 19.4vw"
-                      v-model="form.modifiedamount">
                     </el-input-number>
                   </el-form-item>
                 </el-col>
@@ -131,41 +117,12 @@
                   <el-form-item :label="$t('label.PFANS1045VIEW_NEWAMOUNTCASE')">
                     <el-input-number
                       :disabled="true"
-                      :max="999999999"
                       :min="0"
                       :precision="2"
                       :step="1"
                       controls-position="right"
                       style="width: 20vw"
                       v-model="form.newamountcase">
-                    </el-input-number>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1025FORMVIEW_DRAFTINGDATE')">
-                    <div class="block">
-                      <el-date-picker
-                        :disabled="true"
-                        style="width: 20vw"
-                        type="date"
-                        v-model="form.applicationdate">
-                      </el-date-picker>
-                    </div>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1045VIEW_SUMMONET')">
-                    <el-input-number
-                      :disabled="true"
-                      :max="999999999"
-                      :min="0"
-                      :precision="2"
-                      :step="1"
-                      controls-position="right"
-                      style="width: 20vw"
-                      v-model="form.summonet">
                     </el-input-number>
                   </el-form-item>
                 </el-col>
@@ -177,6 +134,46 @@
                       controls-position="right"
                       style="width: 20vw"
                       v-model="form.avbleamount">
+                    </el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1045VIEW_AFTERADDITION')">
+                    <el-input-number
+                      :disabled="true"
+                      :min="0"
+                      :precision="2"
+                      :step="1"
+                      controls-position="right"
+                      style="width: 20vw"
+                      v-model="form.addition">
+                    </el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1045VIEW_SUMMONET')" v-show="false">
+                    <el-input-number
+                      :disabled="true"
+                      :min="0"
+                      :precision="2"
+                      :step="1"
+                      controls-position="right"
+                      style="width: 20vw"
+                      v-model="form.summonet">
+                    </el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1045VIEW_MODIFIEDAMOUNT')">
+                    <el-input-number
+                      :disabled="true"
+                      :precision="2"
+                      :step="1"
+                      controls-position="right"
+                      style="width: 20vw"
+                      v-model="form.modifiedamount">
                     </el-input-number>
                   </el-form-item>
                 </el-col>
@@ -197,6 +194,25 @@
                 <!--                  </el-form-item>-->
                 <!--                </el-col>-->
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1045VIEW_POLICYNUMBERS')">
+                    <el-input v-model="form.policynumbers" :disabled="true"
+                              style="width: 20vw">
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1025FORMVIEW_DRAFTINGDATE')">
+                    <div class="block">
+                      <el-date-picker
+                        :disabled="true"
+                        style="width: 20vw"
+                        type="date"
+                        v-model="form.applicationdate">
+                      </el-date-picker>
+                    </div>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="yearss">
                     <!--                    NT_PFANS_20210304_BUG_090 更改组件活性-->
                     <el-date-picker
@@ -204,7 +220,7 @@
                       unlink-panels
                       class="bigWidth"
                       v-model="form.yearss"
-                      style="margin-right:1vw"
+                      style="width: 20vw"
                       type="monthrange"
                       :end-placeholder="$t('label.enddate')"
                       :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -254,7 +270,6 @@
                       <el-input-number
                         :disabled="!disable2"
                         :precision="2"
-                        :max="999999999"
                         controls-position="right"
                         :no="scope.row"
                         :step="1"
@@ -460,6 +475,8 @@
           yearss: '',
           //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
           summonet: '',
+          //ztc 追加后总金额
+          addition: '',
           remark: '',
           //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
           // cycle: '',
@@ -641,6 +658,7 @@
       },
       getamountcase(val) {
         this.form.modifiedamount = val;
+        this.form.addition = val;
       },
       setdisabled(val) {
         if (this.$route.params.disabled) {
@@ -793,6 +811,7 @@
           remark: '',
           money: '',
         });
+        this.changeSum();
       },
       deleteRow7(index, rows) {
         if (rows.length > 1) {
@@ -1180,6 +1199,20 @@
         }
       },
     },
+    watch: {
+      tableF: {
+        handler: function () {
+          let sum = 0;
+          if(this.tableF.length > 0){
+            this.tableF.forEach((tf) => {
+              sum += Number(tf.money);
+            });
+          }
+          this.form.addition = sum + this.form.amountcase;
+        },
+        deep: true,
+      },
+    }
   };
 </script>
 

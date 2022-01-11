@@ -98,6 +98,20 @@
                   prop="daixiu"
                   width="90" >
                 </plx-table-column>
+                <!--              育儿假-->
+                <plx-table-column
+                  :label="$t('label.PFANS2010VIEW_PARENTING')"
+                  align="center"
+                  prop="parenting"
+                  width="90" >
+                </plx-table-column>
+                <!--              父母照料假-->
+                <plx-table-column
+                  :label="$t('label.PFANS2010VIEW_PARENTALCARE')"
+                  align="center"
+                  prop="parentalcare"
+                  width="110" >
+                </plx-table-column>
                 <!--              其他福利休假-->
                 <plx-table-column
                   :label="$t('label.PFANS2010VIEW_WELFARE')"
@@ -199,6 +213,8 @@
           compassionateleave:'',
           annualrest:'',
           daixiu:'',
+          parenting:'',
+          parentalcare:'',
           nursingleave:'',
           welfare:'',
           absenteeism:'',
@@ -260,7 +276,7 @@
             border: '1px solid white',
           };
         }
-        if (column.level === 1 && columnIndex >=9 && columnIndex <=11)
+        if (column.level === 1 && columnIndex >=9 && columnIndex <=13)
         {
           return {
             height: '40px',
@@ -269,7 +285,7 @@
             border: '1px solid white',
           };
         }
-        if (column.level === 1 && columnIndex === 6)
+        if (column.level === 1 && columnIndex === 8)
         {
           return {
             height: '20px',
@@ -279,7 +295,7 @@
             border: '1px solid white',
           };
         }
-        if (column.level === 2 && columnIndex >= 12 && columnIndex <= 13)
+        if (column.level === 2 && columnIndex >= 14 && columnIndex <= 15)
         {
           return {
             height: '20px',
@@ -288,7 +304,7 @@
             border: '1px solid white',
           };
         }
-        if (column.level === 1 && columnIndex >= 6 && columnIndex >= 8)
+        if (column.level === 1 && columnIndex >= 8)
         {
           return {
             height: '40px',
@@ -545,6 +561,8 @@
                 compassionateleave:response[j].compassionateleave,
                 annualrest:response[j].annualrest,
                 daixiu:response[j].daixiu,
+                parenting:response[j].parenting,
+                parentalcare:response[j].parentalcare,
                 nursingleave:response[j].nursingleave,
                 welfare:response[j].welfare,
                 absenteeism:response[j].absenteeism,

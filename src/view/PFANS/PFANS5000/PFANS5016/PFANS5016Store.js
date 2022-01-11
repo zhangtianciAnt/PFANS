@@ -1,7 +1,7 @@
 import {
-  getLogPerson, updateByVoId
+  getLogPerson, downloadExcel, updateByVoId
 } from './PFANS5016Api';
-import {deletePersonal} from "../PFANS5008/PFANS5008Api";
+
 
 const PFANS5016Store = {
   namespaced: true,
@@ -37,6 +37,22 @@ const PFANS5016Store = {
         });
       });
     },
+
+    //region scc add 21/12/6 日志人别导出 from
+    downloadExcel({commit}, data) {
+      return new Promise((resolve, reject) => {
+        downloadExcel(data).then(response => {
+          if ( response.type.indexOf("json") == -1 ) {
+            resolve(response)
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion scc add 21/12/6 日志人别导出 to
 
   },
 };
