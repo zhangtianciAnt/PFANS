@@ -147,6 +147,34 @@
               </el-form-item>
             </el-col>
             <!--           add_fjl_05/26 &#45;&#45;添加代休剩余-->
+            <!--           add_scc_22/1/6 添加结婚日期-->
+            <el-col :span="8" v-if="form.errortype == 'PR013011'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_WEDDINGDATE')" prop="weddingdate">
+                <el-date-picker :disabled="!disable" style="width:20vw" type="date" v-model="form.weddingdate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <!--           add_scc_22/1/6 添加结婚日期-->
+            <!--           add_scc_22/1/6 添加子女出生日期-->
+            <el-col :span="8" v-if="form.errortype == 'PR013023'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_DATEOFBIRTH')" prop="dateofbirth">
+                <el-date-picker :disabled="!disable" style="width:20vw" type="date" v-model="form.dateofbirth"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <!--           add_scc_22/1/6 添加子女出生日期-->
+            <!--           add_scc_22/1/6 添加父母出生日期-->
+            <el-col :span="4" v-if="form.errortype == 'PR013024'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_PARENTSDATE')" prop="parentsdate">
+                <el-date-picker :disabled="!disable" style="width:8vw" type="date" v-model="form.parentsdate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <!--           add_scc_22/1/6 添加父母出生日期-->
+            <!--           add_scc_22/1/6 添加父母住院开始日期-->
+            <el-col :span="4" v-if="form.errortype == 'PR013024'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_SUCHCONFINEMENT')" prop="suchconfinement">
+                <el-date-picker :disabled="!disable" style="width:8vw" type="date" v-model="form.suchconfinement"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <!--           add_scc_22/1/6 添加父母住院开始日期-->
           </el-row>
           <div class="sub_color_red" v-if="checkerrortishi">
             {{$t('label.PFANS2016FORMVIEW_TISHICHECKERROR')}}
@@ -586,7 +614,7 @@
           if (this.form.errortype == 'PR013009' || this.form.errortype == 'PR013010' || this.form.errortype == 'PR013011'
             || this.form.errortype == 'PR013012' || this.form.errortype == 'PR013013' || this.form.errortype == 'PR013015'
             || this.form.errortype == 'PR013016' || this.form.errortype == 'PR013017' || this.form.errortype == 'PR013020'
-            || this.form.errortype == 'PR013021' || this.form.errortype == 'PR013022') {
+            || this.form.errortype == 'PR013021' || this.form.errortype == 'PR013022' || this.form.errortype == 'PR013023' || this.form.errortype == 'PR013024') {
             if (!this.form.uploadfile || this.form.uploadfile === '' || this.form.uploadfile === undefined) {
               return callback(new Error(this.$t('normal.error_16') + this.$t('label.enclosure')));
             } else {
@@ -603,6 +631,42 @@
         }
       };
       //add ccm 0720
+      //region scc_add_21/1/6 结婚日期必填 from
+      var validateWeddingdate = (rule, value, callback) => {
+        if (!this.form.weddingdate || this.form.weddingdate === '' || this.form.weddingdate === 'undefined') {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_WEDDINGDATE')));
+        } else {
+          callback();
+        }
+      };
+      //endregion scc_add_21/1/6 结婚日期必填 to
+      //region scc_add_21/1/6 子女出生日期必填 from
+      var validateDateofbirth = (rule, value, callback) => {
+        if (!this.form.dateofbirth || this.form.dateofbirth === '' || this.form.dateofbirth === 'undefined') {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_DATEOFBIRTH')));
+        } else {
+          callback();
+        }
+      };
+      //endregion scc_add_21/1/6 子女出生日期必填 to
+      //region scc_add_21/1/6 父母出生日期 from
+      var validateParentsdate = (rule, value, callback) => {
+        if (!this.form.parentsdate || this.form.parentsdate === '' || this.form.parentsdate === 'undefined') {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_PARENTSDATE')));
+        } else {
+          callback();
+        }
+      };
+      //endregion scc_add_21/1/6 父母出生日期 to
+      //region scc_add_21/1/6 父母住院开始日期 from
+      var validateSuchconfinement = (rule, value, callback) => {
+        if (!this.form.suchconfinement || this.form.suchconfinement === '' || this.form.suchconfinement === 'undefined') {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_SUCHCONFINEMENT')));
+        } else {
+          callback();
+        }
+      };
+      //endregion scc_add_21/1/6 父母住院开始日期 to
       return {
         roles: '',
         //add ccm 0806 剩余年休
@@ -692,6 +756,10 @@
           uploadfile: '',
           cause: '',
           status: '',
+          weddingdate: '',
+          dateofbirth: '',
+          parentsdate: '',
+          suchconfinement: '',
         },
         code: 'PR013',
         multiple: false,
@@ -783,6 +851,34 @@
             {validator: revalidateLength, trigger: 'change'}],
           hospital: [{required: true, validator: validatePass, trigger: 'blur'}],
           // edate: [{required: true, validator: validatePass2, trigger: 'change'}],
+          //region scc_add_21/1/6 结婚日期必填 from
+          weddingdate: [{
+            required: true,
+            validator: validateWeddingdate,
+            trigger: 'change',
+          }],
+          //endregion scc_add_21/1/6 结婚日期必填 to
+          // region scc_add_21/1/6 子女出生日期必填 from
+          dateofbirth: [{
+            required: true,
+            validator: validateDateofbirth,
+            trigger: 'change',
+          }],
+          //endregion scc_add_21/1/6 子女出生日期必填 to
+          // region scc_add_21/1/6 父母出生日期 from
+          parentsdate: [{
+            required: true,
+            validator: validateParentsdate,
+            trigger: 'change',
+          }],
+          //endregion scc_add_21/1/6 父母出生日期 to
+          // region scc_add_21/1/6 父母住院开始日期 from
+          suchconfinement: [{
+            required: true,
+            validator: validateSuchconfinement,
+            trigger: 'change',
+          }],
+          //endregion scc_add_21/1/6 父母住院开始日期 to
         },
         fileList: [],
         upload: uploadUrl(),
@@ -919,7 +1015,7 @@
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                   || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                   || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                  || this.form.errortype === 'PR013022') {
+                  || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
                   this.workflowCode = 'W0087';
                 } else {
                   this.workflowCode = 'W0070';
@@ -929,7 +1025,7 @@
                 || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                 || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                 || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                || this.form.errortype === 'PR013022') {
+                || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
                 this.workflowCode = 'W0085';
               } else {
                 this.workflowCode = 'W0003';
@@ -948,7 +1044,7 @@
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                   || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                   || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                  || this.form.errortype === 'PR013022') {
+                  || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
                   this.workflowCode = 'W0088';
                 } else {
                   this.workflowCode = 'W0071';
@@ -959,7 +1055,7 @@
                 || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                 || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                 || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                || this.form.errortype === 'PR013022') {
+                || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
                 this.workflowCode = 'W0086';
               } else {
                 this.workflowCode = 'W0059';
@@ -991,7 +1087,7 @@
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                   || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                   || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                  || this.form.errortype === 'PR013022') {
+                  || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
                   this.workflowCode = 'W0088';
                 } else {
                   this.workflowCode = 'W0071';
@@ -1002,7 +1098,7 @@
                 || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                 || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                 || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                || this.form.errortype === 'PR013022') {
+                || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
                 this.workflowCode = 'W0086';
               } else {
                 this.workflowCode = 'W0059';
@@ -1056,7 +1152,7 @@
             || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
             || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
             || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-            || this.form.errortype === 'PR013022') {
+            || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
             this.workflowCode = 'W0087';
           } else {
             this.workflowCode = 'W0070';
@@ -1067,7 +1163,7 @@
           || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
           || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
           || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-          || this.form.errortype === 'PR013022') {
+          || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
           this.workflowCode = 'W0085';
         } else {
           this.workflowCode = 'W0003';
@@ -1633,9 +1729,9 @@
           }
           this.form.finisheddate = this.form.occurrencedate;
         }
-        //请假单位为8小时    （结婚，产休，男护理，丧假，计划生育，工伤，流产） 包含公休日
+        //请假单位为8小时    （结婚，产休，男护理，丧假，计划生育，工伤，流产,育儿假,父母照料假） 包含公休日
         if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015' ||
-          this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021') {
+          this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
           if (diffDate > 0) {
             this.form.lengthtime = 8 * diffDate;
           }
@@ -1695,14 +1791,14 @@
         // if (this.form.errortype != 'PR013001') {
         // }
         //add-ws-01/15-禅道任务712
-        //当天时间    （外出，家长会，妊娠检查，劳灾，其他福利）
+        //当天时间    （外出，家长会，妊娠检查，劳灾，其他福利，育儿假）
         if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014' || this.form.errortype === 'PR013016'
-          || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
+          || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013023') {
           this.form.refinisheddate = this.form.reoccurrencedate;
         }
-        //请假单位为8小时    （结婚，产休，男护理，丧假，计划生育，工伤，流产） 包含公休日
+        //请假单位为8小时    （结婚，产休，男护理，丧假，计划生育，工伤，流产,父母照料假） 包含公休日
         if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015' ||
-          this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021') {
+          this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013024') {
           if (rediffDate > 0) {
             this.form.relengthtime = 8 * rediffDate;
           }
@@ -1855,6 +1951,10 @@
         // this.form.finisheddate = moment(new Date()).format('YYYY-MM-DD');
         // this.form.occurrencedate = moment(new Date()).format('YYYY-MM-DD');
         this.form.worktime = '';
+        this.form.weddingdate = '';//结婚日
+        this.form.dateofbirth = '';//子女出生日
+        this.form.parentsdate = '';//父母出生日期
+        this.form.suchconfinement = '';//父母住院开始日期
         this.typecheck = '';
         let dictionaryInfo = getDictionaryInfo(val);
         if (dictionaryInfo) {
@@ -2053,6 +2153,28 @@
           this.rules.enclosurecontent[0].required = true;
           //add ccm 0720
         }
+        //region scc add 21/1/6 育儿假 from
+        else if (val === 'PR013023'){
+          this.checkerrortishi = false;//产休（女）的对应提示
+          this.checkrelengthtime = true;//实际时间长度组件
+          this.dislengthtime = true;//时间长度显示组件
+          this.form.finisheddate = this.form.occurrencedate;
+          this.form.lengthtime = 8;//时间长度总计
+          this.showVacation = true;//附件说明
+          this.rules.enclosurecontent[0].required = true;//附件必填
+        }
+        //endregion scc add 21/1/6 育儿假 to
+        //region scc add 21/1/6 父母照料假 from
+        else if (val === 'PR013024'){
+          this.checkerrortishi = false;//产休（女）的对应提示
+          this.checkrelengthtime = true;//实际时间长度组件
+          this.dislengthtime = true;//时间长度显示组件
+          this.form.finisheddate = this.form.occurrencedate;
+          this.form.lengthtime = 8;//时间长度总计
+          this.showVacation = true;//附件说明
+          this.rules.enclosurecontent[0].required = true;//附件必填
+        }
+        //endregion scc add 21/1/6 父母照料假 to
         if (this.form.errortype === 'PR013014') {
           if (2 - this.parent <= 0) {
             Message({
