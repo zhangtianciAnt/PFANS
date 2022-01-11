@@ -11,7 +11,8 @@ import {
   getUserTableList3,
   download,
   getSigninlog,
-  checkPassword
+  checkPassword,
+  resetPassword
 } from './usersApi'
 
 const usersStore = {
@@ -202,6 +203,21 @@ const usersStore = {
         })
       })
     },
+    //  region  add  ml  211224  密码重置  from
+    resetPassword({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        resetPassword(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //  endregion  add  ml  211224  密码重置  to
   }
 }
 
