@@ -305,6 +305,9 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <div class="sub_color_red" style="margin-bottom: 1vw" v-if="form.errortype == 'PR013023' || form.errortype == 'PR013024'">
+            {{ this.form.tenantid }}
+          </div>
           <el-row>
             <el-col>
               <el-form-item :label="$t('label.cause')" prop="cause">
@@ -760,6 +763,7 @@
           dateofbirth: '',
           parentsdate: '',
           suchconfinement: '',
+          tenantid: '',
         },
         code: 'PR013',
         multiple: false,
@@ -1791,14 +1795,14 @@
         // if (this.form.errortype != 'PR013001') {
         // }
         //add-ws-01/15-禅道任务712
-        //当天时间    （外出，家长会，妊娠检查，劳灾，其他福利，育儿假）
+        //当天时间    （外出，家长会，妊娠检查，劳灾，其他福利）
         if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014' || this.form.errortype === 'PR013016'
-          || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013023') {
+          || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
           this.form.refinisheddate = this.form.reoccurrencedate;
         }
         //请假单位为8小时    （结婚，产休，男护理，丧假，计划生育，工伤，流产,父母照料假） 包含公休日
         if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015' ||
-          this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013024') {
+          this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
           if (rediffDate > 0) {
             this.form.relengthtime = 8 * rediffDate;
           }
