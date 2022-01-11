@@ -295,6 +295,7 @@ export default {
       //考勤导出 1125 ztc fr
       else if (val === 'export') {
         //  region  update  ml  220105  考勤导出   from
+        this.radio = '1';
         this.daochu = true;
         // let params = {
         //   year: this.montvalue.substring(0, 4),
