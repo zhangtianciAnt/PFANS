@@ -614,7 +614,7 @@
           if (this.form.errortype == 'PR013009' || this.form.errortype == 'PR013010' || this.form.errortype == 'PR013011'
             || this.form.errortype == 'PR013012' || this.form.errortype == 'PR013013' || this.form.errortype == 'PR013015'
             || this.form.errortype == 'PR013016' || this.form.errortype == 'PR013017' || this.form.errortype == 'PR013020'
-            || this.form.errortype == 'PR013021' || this.form.errortype == 'PR013022' || this.form.errortype == 'PR013023') {
+            || this.form.errortype == 'PR013021' || this.form.errortype == 'PR013022' || this.form.errortype == 'PR013023' || this.form.errortype == 'PR013024') {
             if (!this.form.uploadfile || this.form.uploadfile === '' || this.form.uploadfile === undefined) {
               return callback(new Error(this.$t('normal.error_16') + this.$t('label.enclosure')));
             } else {
@@ -1015,7 +1015,7 @@
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                   || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                   || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                  || this.form.errortype === 'PR013022') {
+                  || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
                   this.workflowCode = 'W0087';
                 } else {
                   this.workflowCode = 'W0070';
@@ -1025,7 +1025,7 @@
                 || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                 || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                 || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                || this.form.errortype === 'PR013022') {
+                || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
                 this.workflowCode = 'W0085';
               } else {
                 this.workflowCode = 'W0003';
@@ -1044,7 +1044,7 @@
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                   || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                   || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                  || this.form.errortype === 'PR013022') {
+                  || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
                   this.workflowCode = 'W0088';
                 } else {
                   this.workflowCode = 'W0071';
@@ -1055,7 +1055,7 @@
                 || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                 || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                 || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                || this.form.errortype === 'PR013022') {
+                || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
                 this.workflowCode = 'W0086';
               } else {
                 this.workflowCode = 'W0059';
@@ -1087,7 +1087,7 @@
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                   || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                   || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                  || this.form.errortype === 'PR013022') {
+                  || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
                   this.workflowCode = 'W0088';
                 } else {
                   this.workflowCode = 'W0071';
@@ -1098,7 +1098,7 @@
                 || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                 || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                 || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                || this.form.errortype === 'PR013022') {
+                || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
                 this.workflowCode = 'W0086';
               } else {
                 this.workflowCode = 'W0059';
@@ -1152,7 +1152,7 @@
             || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
             || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
             || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-            || this.form.errortype === 'PR013022') {
+            || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
             this.workflowCode = 'W0087';
           } else {
             this.workflowCode = 'W0070';
@@ -1163,7 +1163,7 @@
           || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
           || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
           || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-          || this.form.errortype === 'PR013022') {
+          || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
           this.workflowCode = 'W0085';
         } else {
           this.workflowCode = 'W0003';
@@ -1796,9 +1796,9 @@
           || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013023') {
           this.form.refinisheddate = this.form.reoccurrencedate;
         }
-        //请假单位为8小时    （结婚，产休，男护理，丧假，计划生育，工伤，流产） 包含公休日
+        //请假单位为8小时    （结婚，产休，男护理，丧假，计划生育，工伤，流产,父母照料假） 包含公休日
         if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015' ||
-          this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021') {
+          this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013024') {
           if (rediffDate > 0) {
             this.form.relengthtime = 8 * rediffDate;
           }
@@ -2167,7 +2167,7 @@
         //region scc add 21/1/6 父母照料假 from
         else if (val === 'PR013024'){
           this.checkerrortishi = false;//产休（女）的对应提示
-          this.checkrelengthtime = false;//实际时间长度组件
+          this.checkrelengthtime = true;//实际时间长度组件
           this.dislengthtime = true;//时间长度显示组件
           this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = 8;//时间长度总计
