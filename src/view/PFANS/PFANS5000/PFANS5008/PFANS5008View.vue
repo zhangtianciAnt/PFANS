@@ -2,13 +2,54 @@
   <div>
     <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList" ref="roletable"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="rowid" @reget="getProjectList"
-                     :showSelection="isShow">
-      <el-date-picker
-        v-model="month"
-        type="month"
-        slot="customize"
-        @change="showData">
-      </el-date-picker>
+                     :showSelection="isShow" :selectable="selectInit">
+<!--      <el-date-picker-->
+<!--        v-model="month"-->
+<!--        type="month"-->
+<!--        slot="customize"-->
+<!--        @change="showData">-->
+<!--      </el-date-picker>-->
+      <el-form label-position="top" label-width="4vw" slot="search">
+        <el-row>
+          <el-col :span="5">
+          <el-form-item :label="$t('label.group')">
+            <org :orglist="retral.group_id"
+                 @getOrgids="getGroupId"
+                 orgtype="2"
+                 style="width: 14vw"
+            ></org>
+          </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.user_name')">
+              <user :disabled="false" :selectType="selectType" :userlist="retral.createby"
+                    style="width: 67%" @getUserids="getCreateby"></user>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS5008VIEW_RZNY')">
+              <el-date-picker
+                unlink-panels
+                v-model="month"
+                style="width: 14vw"
+                type="month"
+                @change="getMonth">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')">
+              <el-date-picker
+                unlink-panels
+                v-model="retral.log_date"
+                style="width: 14vw"
+                type="date"
+                @change="getDate"
+              ></el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
@@ -118,6 +159,8 @@
   import EasyNormalTable from '@/components/EasyBigDataTable';
   import EasyNumBar from '@/components/EasyNumBar';
   import {Message} from 'element-ui';
+  import org from '../../../components/org';
+  import user from '../../../components/user.vue';
   import {
     getOrgInfoByUserId,
     getUserInfo,
@@ -133,9 +176,11 @@
   export default {
     name: 'PFANS5008View',
     components: {
+      user,
       EasyNormalTable,
       FullCalendar,
       EasyNumBar,
+      org,
     },
     data() {
       return {
@@ -152,7 +197,7 @@
         showNonCurrentDates: false,
         checkdata: false,
         // add-ws-5/26-No.68
-        month: moment(new Date()).format('YYYY-MM-DD'),
+        month: moment(new Date()).format('YYYY-MM'),
         pop_download: false,
         totaldata: [],
         listQuery: {
@@ -186,6 +231,12 @@
         data: [],
         transferData: [],
         selectedlist: [],
+        retral:{
+          group_id:'',
+          createby: '',
+          log_date: moment(new Date()).format(('YYYY-MM-DD')),
+        },
+        selectType:'Single',
         isShow: true,
         columns: [
           {
@@ -252,6 +303,12 @@
             fix: false,
             filter: false,
           },
+          {
+            key: 'search',
+            name: 'button.search',
+            disabled: false,
+            icon: 'el-icon-search'
+          },
           // {
           //   code: 'confirmstatus',
           //   label: 'label.PFANS5008FORMVIEW_CONFIRMSTATUS',
@@ -268,6 +325,7 @@
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'delete', 'name': 'button.delete', 'disabled': false, 'icon': 'el-icon-delete'},
+          {'key': 'search', 'name': 'button.search', 'disabled': false, 'icon': 'el-icon-search'},
           // {'key': 'import', 'name': 'button.import', 'disabled': false,icon: 'el-icon-download'},
           // {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'},
           // {'key': 'export2', 'name': 'button.download2', 'disabled': false, 'icon': 'el-icon-download'},
@@ -340,14 +398,14 @@
           });
       },
       // add-ws-5/26-No.68
-      showData() {
-        this.getProjectList(this.month);
-        // add-ws-5/26-No.68
-        this.defaultDate = this.month;
-        let calendarApi1 = this.$refs.fullCalendar1.getApi();
-        calendarApi1.gotoDate(this.defaultDate);
-        // add-ws-5/26-No.68
-      },
+      // showData() {
+      //   this.getProjectList(this.month);
+      //   // add-ws-5/26-No.68
+      //   this.defaultDate = this.month;
+      //   let calendarApi1 = this.$refs.fullCalendar1.getApi();
+      //   calendarApi1.gotoDate(this.defaultDate);
+      //   // add-ws-5/26-No.68
+      // },
       handleDownload(row) {
         this.loading = true;
         this.$store
@@ -556,6 +614,8 @@
         }));
       }
       ,
+      selectInit(row, index) {
+      },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 'update') {
@@ -661,6 +721,9 @@
           this.checkdata = true;
         }
         // add-ws-5/26-No.68
+        else if (val === 'search') {
+          this.search();
+        }
       },
       delete() {
         this.loading = true;
@@ -699,6 +762,81 @@
           this.loading = false;
         });
       },
+      getGroupId(val) {
+        this.retral.group_id = val;
+      },
+      getCreateby(val) {
+        this.retral.createby = val;
+      },
+      getDate(val) {
+        // this.retral.log_date = moment(val).format('YYYY-MM-DD');
+        if(val !== null) {
+          this.month = moment(val).format('YYYY-MM');
+        } else {
+          this.month = ''
+        }
+      },
+      getMonth(val) {
+        if(val !== null) {
+          this.retral.log_date = moment(val).format('YYYY-MM-DD');
+        } else {
+          this.retral.log_date = ''
+        }
+      },
+      search(){
+        if((this.retral.createby === null || this.retral.createby === '') && (this.retral.group_id === null || this.retral.group_id === '') && (this.retral.log_date === null || this.retral.log_date === '') && (this.month === null || this.month === '')){
+            Message({
+              message: this.$t('normal.search'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+        }
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5008Store/getDataList3', this.retral)
+        .then(response => {
+          for (let j = 0; j < response.length; j++) {
+            let user = getUserInfo(response[j].createby);
+            if (user) {
+              response[j].username = user.userinfo.customername;
+            } else {
+              let co = getCooperinterviewListByAccount(response[j].createby);
+              if (co) {
+                response[j].username = co.expname;
+              }
+            }
+            if (response[j].group_id) {
+              response[j].groupname = getDepartmentById(response[j].group_id);
+            }
+            if (response[j].work_phase != '' && response[j].work_phase != null) {
+              let letErrortype = getDictionaryInfo(response[j].work_phase);
+              if (letErrortype != null) {
+                response[j].work_phase = letErrortype.value1;
+              }
+            }
+            if (response[j].behavior_breakdown != '' && response[j].behavior_breakdown != null) {
+              let letErrortype = getDictionaryInfo(response[j].behavior_breakdown);
+              if (letErrortype != null) {
+                response[j].behavior_breakdown = letErrortype.value1;
+              }
+            }
+            response[j].log_date = moment(response[j].log_date).format('YYYY-MM-DD');
+            if (response[j].time_end !== null && response[j].time_end !== '') {
+              response[j].time_end = moment(response[j].time_end).format('HH:mm');
+            }
+          }
+          this.data = response;
+          this.loading = false;
+        }).catch((err) => {
+            this.$message.info({
+              type: 'info',
+              message: err,
+            });
+            this.loading = false;
+          });
+        // this.loading = false;
+      }
     },
   };
 </script>
