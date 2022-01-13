@@ -30,3 +30,13 @@ export function createOffshore(data) {
     data: data
   })
 }
+
+//region   add  ml  220112  检索  from
+export function getOffshoreSearch(data) {
+  return request({
+    url: 'offshore/getOffshoreSearch',
+    method: 'post',
+    data: data
+  })
+}
+//endregion   add  ml  220112  检索  to

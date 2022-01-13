@@ -134,3 +134,13 @@ export function getpublice(data) {
     data: data
   })
 }
+
+//region   add  ml  220112  检索  from
+export function getLoanapplicationSearch(data) {
+  return request({
+    url: 'loanapplication/getLoanapplicationSearch',
+    method: 'post',
+    data: data
+  });
+}
+//endregion   add  ml  220112  检索  to
