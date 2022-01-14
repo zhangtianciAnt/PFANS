@@ -2142,7 +2142,9 @@
             getOrgId = this.form.group_id
           }
           let params = {
-            yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 && parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+            yearInfo: (parseInt(moment(new Date()).format('MM')) > 4) ? (moment(new Date()).format('YYYY'))
+              : (parseInt(moment(new Date()).format('MM')) === 4 && parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY')
+                : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
             getOrgIdInfo: getOrgId,
             classInfo: val,
           };
@@ -2222,11 +2224,12 @@
           getOrgId = this.form.group_id
         }
         let params = {
-          yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 && parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+          yearInfo: (parseInt(moment(new Date()).format('MM')) > 4) ? (moment(new Date()).format('YYYY'))
+            : (parseInt(moment(new Date()).format('MM')) === 4 && parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY')
+              : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
           getOrgIdInfo: getOrgId,
           classInfo: val,
         };
-        debugger
         if(val != '' && val != null){
           this.$store
             .dispatch('PFANS1036Store/getBusBalns',params)
