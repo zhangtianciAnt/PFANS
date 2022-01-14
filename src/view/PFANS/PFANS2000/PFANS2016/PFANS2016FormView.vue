@@ -277,13 +277,6 @@
                 ></el-input-number>
               </el-form-item>
             </el-col>
-            <!-- 申请天数,只有育儿假显示 -->
-            <el-col  :span="8" v-if="form.errortype == 'PR013023'">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_APPLYFORDAYS')">
-                <el-input-number :disabled="true" controls-position="right"
-                                 style="width:8vw" v-model="form.lengthtime / 8"></el-input-number>
-              </el-form-item>
-            </el-col>
           </el-row>
 
           <el-row
@@ -300,6 +293,22 @@
                 <el-date-picker @change="rechange"
                                 :disabled="((form.errortype == 'PR013007' || form.errortype == 'PR013005') && form.status >= 4) ? true: disrevacationtype"
                                 style="width:20vw" type="date" v-model="form.refinisheddate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--    显示育儿假申请时长，或履历按钮      -->
+          <el-row>
+            <!-- 申请天数,只有育儿假显示 -->
+            <el-col  :span="4" v-if="form.errortype == 'PR013023'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_APPLYFORDAYS')">
+                <el-input-number :disabled="true" controls-position="right"
+                                  v-model="form.relengthtime ? form.relengthtime / 8 : form.lengthtime / 8"></el-input-number>
+              </el-form-item>
+            </el-col>
+            <!-- 履历按钮 -->
+            <el-col :span="4" v-if="form.errortype == 'PR013023' || form.errortype == 'PR013024'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_CV')">
+                <el-button type="info" :disabled="false"  plain @click="handleView">显示履历</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -360,6 +369,7 @@
         </el-form>
       </div>
     </EasyNormalContainer>
+    <PFANS2013Pop :params="urlparams" :url="url" ref="PFANS2013Pop"></PFANS2013Pop>
   </div>
 </template>
 
@@ -372,6 +382,7 @@
   import {getOrgInfoByUserId, getCurrentRole, getUserInfo} from '@/utils/customize';
   import moment from 'moment';
   import {downLoadUrl, getDictionaryInfo, uploadUrl,getCurrentRoleNew} from '../../../../utils/customize';
+  import PFANS2013Pop from '@/components/EasyPop/PFANS2013Pop';
 
   export default {
     name: 'PFANS2016FormView',
@@ -380,6 +391,7 @@
       PFANS2016View,
       dicselect,
       user,
+      PFANS2013Pop,
     },
     data() {
       var validateUserid = (rule, value, callback) => {
@@ -752,6 +764,8 @@
         childrenage: '',//育儿假孩子年龄显示
         parentsage: '',//父母照料加父母年龄
         cumulative: '',//年累计天数
+        url: '',
+        urlparams: {},
         options: [{
           value: '0',
           label: this.$t('label.PFANS2016FORMVIEW_QUANTIAN'),
@@ -992,8 +1006,16 @@
           .dispatch('PFANS2016Store/getPfans2016One', {'abnormalid': this.$route.params._id})
           .then(response => {
             this.form = response;
+            //存在附件提醒予以提醒
             if(response.enclosureexplain){
               this.showVacation = true;
+            }
+            //计算年龄和取年累计
+            if(this.form.errortype === 'PR013023'){
+              this.changeBirth();
+            }
+            if(this.form.errortype === 'PR013024'){
+              this.changeParent();
             }
             this.userlist = this.form.user_id;
             // this.getRestday(this.userlist);
@@ -1812,7 +1834,6 @@
               .dispatch('PFANS2016Store/getParentmsg', this.form)
               .then(res => {
                 this.form.parentmsg = res.parentmsg.replace(/\n/g,"<br/>");
-                console.log(this.form.parentmsg)
               })
           }
           this.getAge();//计算孩子或父母年龄
@@ -3005,6 +3026,47 @@
               }
               //add ccm 0806 请事假保存时，check是否有年休，有年休，不允许保存事假，
 
+              //region scc add 育儿假超过规定天数予以提示 from
+              if (this.form.errortype === 'PR013023') {
+                if (Number(this.cumulative) >= 10) {
+                  this.$confirm("您近一年内休假育儿假已经超过10天（上限），请确认是否提出?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning",
+                    center: true
+                  })
+                    .then(() => {
+                      this.updint(val);
+                    }).catch(() => {
+                    this.$message.info({
+                      type: "info",
+                      message: this.$t('normal.confirm_tipis')
+                    })
+                    return;
+                  })
+                }
+                //判断申请时长或实际申请时长是否大于1天
+                else if ((this.form.relengthtime ? Number(this.form.relengthtime / 8) : Number(this.form.lengthtime / 8)) > 1) {
+                  this.$confirm("每个月可申请1天，您已经超出当月可申请天数限制，请明记理由,确认是否提出?", "提示", {
+                    confirmButtonText: "确定",
+                    cancelButtonText: "取消",
+                    type: "warning",
+                    center: true
+                  }).then(() => {
+                    this.updint(val);
+                  }).catch(() => {
+                    this.$message.info({
+                      type: "info",
+                      message: this.$t('normal.confirm_tipis')
+                    })
+                    return;
+                  })
+                }else{
+                  this.updint(val);
+                }
+              }
+              //region scc add 育儿假超过规定天数予以提示 to
+
               //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  start
               //               this.loading = true;
               //               this.$store
@@ -3074,7 +3136,10 @@
               //                       });
               //                       return;
               //                     } else {
-              this.updint(val);
+              //育儿假的保存需要手动确认
+              if(this.form.errortype !== 'PR013023'){
+                this.updint(val);
+              }
               //     }
               //   }
               // })
@@ -3227,7 +3292,6 @@
           if(this.form.occurrencedate && !this.form.reoccurrencedate){//开始
             //获取孩子年龄,开始时间减出生日期
             let duration = moment.duration(moment(this.form.occurrencedate).diff(moment(this.form.dateofbirth)))
-            console.log(duration)
             let years = duration._data.years;
             let month = duration._data.months;
             let days = duration._data.days;
@@ -3282,6 +3346,26 @@
             }
           }
         }
+      },
+      //考勤异常申请显示履历
+      handleView(){
+        this.url = '';
+        this.urlparams = {};
+        this.url = 'PFANS2013FormView';
+        if(!this.form.occurrencedate){
+          this.$message.info({
+            type: 'info',
+            message: this.$t('normal.error_09') + this.$t('label.startdate'),
+          })
+          return;
+        }else{
+          if(this.form.reoccurrencedate){
+            this.urlparams = {'_userid': this.form.user_id, '_date':moment(this.form.reoccurrencedate).format('YYYY-MM-DD'), '_errortype': this.form.errortype, '_view':'2016FormView'};
+          }else{
+            this.urlparams = {'_userid': this.form.user_id, '_date':moment(this.form.occurrencedate).format('YYYY-MM-DD'), '_errortype': this.form.errortype, '_view':'2016FormView'};
+          }
+        }
+        this.$refs.PFANS2013Pop.open = true;
       }
     },
   };
