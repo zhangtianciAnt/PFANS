@@ -18,6 +18,7 @@ import {
   getDataList2,
   getLogDataList,
   sumlogdate,
+  getDataList3
 } from './PFANS5008Api';
 
 const PFANS5008Store = {
@@ -275,7 +276,21 @@ const PFANS5008Store = {
         });
       });
     },
-
+    //add-zjz-01/12-日志管理添加检索条件
+    getDataList3({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getDataList3(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //add-zjz-01/12-日志管理添加检索条件
   },
 };
 

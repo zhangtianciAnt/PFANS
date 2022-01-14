@@ -51,6 +51,16 @@ export function busdelete(data) {
 }
 //endregion scc add 境内外出差决裁删除 to
 
+//region   add  ml  220112  检索  from
+export function getBusinessSearch(data) {
+  return request({
+    url: 'business/getBusinessSearch',
+    method: 'post',
+    data: data
+  })
+}
+//endregion   add  ml  220112  检索  to
+
 
 
 

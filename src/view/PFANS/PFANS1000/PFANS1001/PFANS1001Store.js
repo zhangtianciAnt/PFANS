@@ -1,10 +1,11 @@
-import {getBusiness,busdelete} from '../PFANS1002/PFANS1002Api';
-import {getJudgement,juddelete} from '../PFANS1004/PFANS1004Api';
-import {getpurchaseApply,purdelete} from '../PFANS1005/PFANS1005Api';
-import {getLoanapplication} from '../PFANS1006/PFANS1006Api';
-import {getCommunication,comdelete} from '../PFANS1010/PFANS1010Api';
-import {getOffshore} from '../PFANS1011/PFANS1011Api';
+import {getBusiness,busdelete,getBusinessSearch} from '../PFANS1002/PFANS1002Api';
+import {getJudgement,juddelete,getJudgementSearch} from '../PFANS1004/PFANS1004Api';
+import {getpurchaseApply,purdelete,getpurchaseApplySearch} from '../PFANS1005/PFANS1005Api';
+import {getLoanapplication,getLoanapplicationSearch} from '../PFANS1006/PFANS1006Api';
+import {getCommunication,comdelete,getCommunicationSearch} from '../PFANS1010/PFANS1010Api';
+import {getOffshore,getOffshoreSearch} from '../PFANS1011/PFANS1011Api';
 import {change} from "../../PFANS1000/PFANS1001/PFANS1001Api";
+import {getList} from "../../../ASSETS/ASSETS1000/ASSETS1001/ASSETS1001Api";
 
 const PFANS1001Store = {
   namespaced: true,
@@ -177,6 +178,92 @@ const PFANS1001Store = {
     },
     //endregion scc add 其他业务决裁逻辑删除 to
 
+    //region   add  ml  220112  检索  from
+    getJudgementSearch({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getJudgementSearch(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    getpurchaseApplySearch({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getpurchaseApplySearch(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    getLoanapplicationSearch({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getLoanapplicationSearch(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    getBusinessSearch({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getBusinessSearch(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    getCommunicationSearch({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getCommunicationSearch(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    getOffshoreSearch({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getOffshoreSearch(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    //endregion  add  ml  220112  检索  to
   }
 }
 

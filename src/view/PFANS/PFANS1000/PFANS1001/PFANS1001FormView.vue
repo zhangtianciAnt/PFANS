@@ -4,33 +4,271 @@
     <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonListAnt" @reget="inint"
                      :showSelection="isShow" ref="roletable5" :selectable="selectInit"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" v-show="this.showTable===1">
+      <!--  region  add   ml   220112  添加筛选条件   from    -->
+      <el-form label-position="top" label-width="8vw" slot="search">
+        <el-row>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.PFANS1001FORMVIEW_BUSINESS_NUMBER')">
+              <el-input style="width: 90%" v-model="form1.business_number"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.applicant')">
+              <user :userlist="form1.user_id"
+                    @getUserids="getUserids" style="width: 80%"></user>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.center')">
+              <org :orglist="form1.center_id"
+                   orgtype="1"
+                   style="width: 80%"
+                   @getOrgids="getCenter"
+              ></org>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.group')">
+              <org :orglist="form1.group_id"
+                   orgtype="2"
+                   style="width: 80%"
+                   @getOrgids="getGroup"
+              ></org>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.PFANS3001VIEW_TRIPPOINT')">
+              <dicselect v-if="showOut"
+                :code="code2"
+                :data="form1.region"
+                :multiple="multiple"
+                @change="getregion"
+                style="width: 90%"
+              >
+              </dicselect>
+              <dicselect v-if="showIn"
+                         :code="code3"
+                         :data="form1.city"
+                         :multiple="multiple"
+                         @change="getCity"
+                         style="width: 90%"
+              >
+              </dicselect>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <!--  endregion  add   ml   220112  添加筛选条件   to    -->
     </EasyNormalTable>
     <!--    ADD-WS-决裁编号添加 无偿设备 其他业务决裁-->
     <EasyNormalTable :buttonList="buttonListAnt" :columns="columns2" :data="data" :rowid="row" :selectable="selectInit1"
                      :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"  @reget="inint"
                      ref="roletable3" v-loading="loading" v-show="this.showTable===2">
+<!--  region  add   ml   220112  添加筛选条件   from    -->
+      <el-form label-position="top" label-width="8vw" slot="search">
+        <el-row>
+            <el-col :span="6">
+              <el-form-item :label="$t('label.PFANS1001FORMVIEW_NUMBERS')">
+                <el-input style="width: 75%" v-model="form1.judgnumbers"></el-input>
+              </el-form-item>
+            </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.applicant')">
+              <user :userlist="form1.user_id"
+                    @getUserids="getUserids" style="width: 67%"></user>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.center')">
+              <org :orglist="form1.center_id"
+                   orgtype="1"
+                   style="width: 67%"
+                   @getOrgids="getCenter"
+              ></org>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.group')">
+              <org :orglist="form1.group_id"
+                   orgtype="2"
+                   style="width: 67%"
+                   @getOrgids="getGroup"
+              ></org>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+<!--  endregion  add   ml   220112  添加筛选条件   to    -->
     </EasyNormalTable>
     <!--    ADD-WS-决裁编号添加-->
     <!--    ADD-WS-费用编号添加 千元以下费用申请-->
     <EasyNormalTable :buttonList="buttonListAnt" :columns="columns3" :data="data" :rowid="row" :selectable="selectInit"
                      :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"  @reget="inint"
                      ref="roletable2" v-loading="loading" v-show="this.showTable===3">
+      <!--  region  add   ml   220112  添加筛选条件   from    -->
+      <el-form label-position="top" label-width="8vw" slot="search">
+        <el-row>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.PFANS1005VIEW_NUMBERS')">
+              <el-input style="width: 75%" v-model="form1.purchasenumbers"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.applicant')">
+              <user :userlist="form1.user_id"
+                    @getUserids="getUserids" style="width: 67%"></user>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.center')">
+              <org :orglist="form1.center_id"
+                   orgtype="1"
+                   style="width: 67%"
+                   @getOrgids="getCenter"
+              ></org>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.group')">
+              <org :orglist="form1.group_id"
+                   orgtype="2"
+                   style="width: 67%"
+                   @getOrgids="getGroup"
+              ></org>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <!--  endregion  add   ml   220112  添加筛选条件   to    -->
     </EasyNormalTable>
     <!--    ADD-WS-费用编号添加 暂借款申请单-->
     <!--    add_fjl_05/27  添加暂借款申请编号的列表-->
     <EasyNormalTable :buttonList="buttonListAnt" :columns="columns4" :data="data" :rowid="row" :selectable="selectInit"
                      :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"  @reget="inint"
                      ref="roletable4" v-loading="loading" v-show="this.showTable===4">
+      <!--  region  add   ml   220112  添加筛选条件   from    -->
+      <el-form label-position="top" label-width="8vw" slot="search">
+        <el-row>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.PFANS1006FORMVIEW_LOANAPNO')">
+              <el-input style="width: 90%" v-model="form1.loanapno"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.applicant')">
+              <user :userlist="form1.user_id"
+                    @getUserids="getUserids" style="width: 80%"></user>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.center')">
+              <org :orglist="form1.center_id"
+                   orgtype="1"
+                   style="width: 80%"
+                   @getOrgids="getCenter"
+              ></org>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.group')">
+              <org :orglist="form1.group_id"
+                   orgtype="2"
+                   style="width: 80%"
+                   @getOrgids="getGroup"
+              ></org>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.status')">
+              <el-select @change="change" v-model="form1.processingstatus" clearable style="width: 90%">
+                <el-option
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  v-for="item in codes"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <!--  endregion  add   ml   220112  添加筛选条件   to    -->
     </EasyNormalTable>
     <!--    add_fjl_05/27  添加暂借款申请编号的列表-->
     <!--    add-ws-5/27-No.170 交际费事前决裁-->
     <EasyNormalTable :buttonList="buttonListAnt" :columns="columns5" :data="data" :rowid="row" :selectable="selectInit"
                      :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"  @reget="inint"
                      ref="roletable1" v-loading="loading" v-show="this.showTable===5">
+      <!--  region  add   ml   220112  添加筛选条件   from    -->
+      <el-form label-position="top" label-width="8vw" slot="search">
+        <el-row>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.PFANS1006FORMVIEW_NUMBERCATION')">
+              <el-input style="width: 75%" v-model="form1.numbercation"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.applicant')">
+              <user :userlist="form1.user_id"
+                    @getUserids="getUserids" style="width: 67%"></user>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.center')">
+              <org :orglist="form1.center_id"
+                   orgtype="1"
+                   style="width: 67%"
+                   @getOrgids="getCenter"
+              ></org>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.group')">
+              <org :orglist="form1.group_id"
+                   orgtype="2"
+                   style="width: 67%"
+                   @getOrgids="getGroup"
+              ></org>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <!--  endregion  add   ml   220112  添加筛选条件   to    -->
     </EasyNormalTable>
     <!--  add-ws-5/27-No.170 事前面谈票-->
     <EasyNormalTable :buttonList="buttonList" :columns="columns6" :data="data" :title="title" v-loading="loading"  @reget="inint"
                      v-show="this.showTable===6" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
+      <!--  region  add   ml   220112  添加筛选条件   from    -->
+      <el-form label-position="top" label-width="8vw" slot="search">
+        <el-row>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.applicant')">
+              <user :userlist="form1.user_id"
+                    @getUserids="getUserids" style="width: 67%"></user>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.center')">
+              <org :orglist="form1.center_id"
+                   orgtype="1"
+                   style="width: 67%"
+                   @getOrgids="getCenter"
+              ></org>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.group')">
+              <org :orglist="form1.group_id"
+                   orgtype="2"
+                   style="width: 67%"
+                   @getOrgids="getGroup"
+              ></org>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <!--  endregion  add   ml   220112  添加筛选条件   to    -->
     </EasyNormalTable>
     <el-dialog center
                :visible.sync="dialogVisible"
@@ -124,6 +362,8 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
+  import user from '../../../components/user.vue';
+  import dicselect from '../../../components/dicselect';
   import org from '@/view/components/org';
   import {
     getDictionaryInfo,
@@ -141,6 +381,8 @@
     components: {
       EasyNormalTable,
       org,
+      user,
+      dicselect,
     },
     data() {
       // add-ztc  数据转结 fr
@@ -219,6 +461,42 @@
           new_team_id: '',
           new_budgetunit: '',
         },
+        //region  add  ml  220112   筛选条件   from
+        form1: {
+          equipment: '',
+          judgnumbers: '',
+          user_id: '',
+          center_id: '',
+          group_id: '',
+          purchasenumbers: '',
+          loanapno: '',
+          processingstatus: '',
+          business_number: '',
+          region: '',
+          city: '',
+          businesstype: '',
+          numbercation: '',
+        },
+        codes: [
+          {
+            value: '0',
+            label:this.$t('label.PFANS1006FORMVIEW_OPTIONS1')
+          },
+          {
+            value: '1',
+            label:this.$t('label.PFANS1006FORMVIEW_OPTIONS2')
+          },
+          {
+            value: '2',
+            label:this.$t('label.PFANS1006FORMVIEW_OPTIONS3')
+          }
+        ],
+        code2: 'PJ017',
+        code3: 'PJ036',
+        multiple: false,
+        showOut: false,
+        showIn: false,
+        //endregion  add  ml  220112   筛选条件   to
         dialogVisible: false,
         //error_group: '',
         error_center: '',
@@ -654,6 +932,9 @@
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          //region   add    ml   220112   筛选条件   from
+          {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
+          //endregion   add    ml   220112   筛选条件   to
         ],
         //add_fjl  start
         buttonList4: [ //暂借款申请单
@@ -661,6 +942,9 @@
           // {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'export1', 'name': 'button.printing', 'disabled': false, 'icon': 'el-icon-upload2'},
+          //region   add    ml   220112   筛选条件   from
+          {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
+          //endregion   add    ml   220112   筛选条件   to
         ],
         buttonListCarry4: [ //暂借款申请单
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -670,6 +954,9 @@
           // add-ztc  数据转结 fr
           {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
           // add-ztc  数据转结 to
+          //region   add    ml   220112   筛选条件   from
+          {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
+          //endregion   add    ml   220112   筛选条件   to
         ],
         buttonList3: [ //千元以下费用申请
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -680,6 +967,9 @@
           //region scc add 10/28 千元以下费用申请,删除按钮 from
           {'key': 'delete', 'name': 'button.delete', 'disabled': true, 'icon': 'el-icon-delete'},
           //endregion scc add 10/28 千元以下费用申请,删除按钮 to
+          //region   add    ml   220112   筛选条件   from
+          {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
+          //endregion   add    ml   220112   筛选条件   to
         ],
         buttonListCarry3: [ //千元以下费用申请
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -693,6 +983,9 @@
           // add-ztc  数据转结 fr
           {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
           // add-ztc  数据转结 to
+          //region   add    ml   220112   筛选条件   from
+          {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
+          //endregion   add    ml   220112   筛选条件   to
         ],
         //add_fjl  end
         //add-ws-7/7-禅道247
@@ -706,6 +999,9 @@
           //region scc add 10/28 境外出差申请,删除按钮 from
           {'key': 'delete', 'name': 'button.delete', 'disabled': true, 'icon': 'el-icon-delete'},
           //endregion scc add 10/28 境外出差申请,删除按钮 to
+          //region   add    ml   220112   筛选条件   from
+          {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
+          //endregion   add    ml   220112   筛选条件   to
         ],
         buttonListCarry2: [ //境外出差申请 境内出差申請
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -720,6 +1016,9 @@
           // add-ztc  数据转结 fr
           {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
           // add-ztc  数据转结 to
+          //region   add    ml   220112   筛选条件   from
+          {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
+          //endregion   add    ml   220112   筛选条件   to
         ],
         //add-ws-7/7-禅道247
         rowid: '',
@@ -742,6 +1041,13 @@
         this.columns2 = this.columns2.filter(item => item.code !== 'careerplantempp');
       }
       //endregion scc add 无偿设备，无事业计划列 to
+      //region   add  ml  220113  检索  from (境内境外出差地切换）
+      if(this.$route.params.title === 1){
+        this.showOut = true;
+      } else if(this.$route.params.title === 2) {
+        this.showIn = true;
+      }
+      //endregion  add  ml  220113  检索  to
     },
     methods: {
       inint(){
@@ -807,6 +1113,25 @@
         });
         this.loading = false;
       },
+      //  region   add  ml  220112  检索  from
+      getCenter(val) {
+        this.form1.center_id = val;
+        this.form1.group_id = '';
+        this.getBudt(val);
+        if(val === ""){
+          this.form1.group_id = "";
+        }
+      },
+      getGroup(val) {
+        this.form1.group_id = val;
+        if(val != ""){
+          this.getOrgInformation1(val);
+          this.getBudt(val);
+        }else{
+          this.getBudt(this.form1.center_id);
+        }
+      },
+      //  endregion   add   ml   220112  检索  to
       getCenterid(val){
         this.form.new_center_id = val;
         this.form.new_group_id = '';
@@ -854,6 +1179,33 @@
           } = org);
         }
       },
+      //  region  add  ml  220112  检索  from
+      getOrgInformation1(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            // centername: this.form.centername,
+            // groupname: this.form.groupname,
+            center_id: this.form1.center_id,
+            group_id: this.form1.group_id,
+          } = org);
+        }
+      },
+      //  endregion  add  ml  220112  检索  to
       getNewbudgetunit(val) {
         this.form.new_budgetunit = val;
       },
@@ -2397,7 +2749,90 @@
             //endregion scc add 10/28 决裁逻辑删除 to
           }
         }
+        //region   add   ml   220112   检索   from
+        if (val === 'search') {
+          //其他业务
+          if (this.$route.params.title === 4 ) {
+            this.form1.equipment = '0';
+            this.getJudgementSearch('PFANS1001Store/getJudgementSearch', this.form1);
+            //无偿设备
+          } else if (this.$route.params.title === 3 ) {
+            this.form1.equipment = '1';
+            this.getJudgementSearch('PFANS1001Store/getJudgementSearch', this.form1);
+            //千元以下
+          } else if (this.$route.params.title === 5) {
+            this.getJudgementSearch('PFANS1001Store/getpurchaseApplySearch', this.form1);
+            //暂借款
+          } else if (this.$route.params.title === 6) {
+            this.getJudgementSearch('PFANS1001Store/getLoanapplicationSearch', this.form1);
+            //境外
+          } else if (this.$route.params.title === 1) {
+            this.form1.businesstype = '0'
+            this.getJudgementSearch('PFANS1001Store/getBusinessSearch', this.form1);
+            //境内
+          } else if (this.$route.params.title === 2) {
+            this.form1.businesstype = '1'
+            this.getJudgementSearch('PFANS1001Store/getBusinessSearch', this.form1);
+            //交际费
+          } else if (this.$route.params.title === 10) {
+            this.getJudgementSearch('PFANS1001Store/getCommunicationSearch', this.form1);
+            //事前面谈
+          }else if (this.$route.params.title === 11) {
+            this.getJudgementSearch('PFANS1001Store/getOffshoreSearch', this.form1);
+          }
+        }
+        //endregion   add  ml  220112  检索   to
       },
+      //region   add  ml  220112  检索  from
+      getregion(val) {
+        this.form1.region = val;
+      },
+      getCity(val) {
+        this.form1.city = val;
+      },
+      change(val) {
+        this.form1.processingstatus = val;
+      },
+      getUserids(val) {
+        this.form1.user_id = val;
+      },
+      getJudgementSearch(val,search){
+        this.data = [];
+        this.loading = true;
+        this.$store
+        .dispatch(val,search)
+        .then(response => {
+          for(let i = 0; i < response.length; i++){
+            if(this.$route.params.title === 4){//其他决裁
+              if (response[i].careerplan === '1') {
+                if (this.$i18n) {
+                  response[i].careerplantempp = this.$t('label.PFANS1004VIEW_INSIDE');
+                }
+              } else {
+                if (this.$i18n) {
+                  response[i].careerplantempp = this.$t('label.PFANS1004VIEW_OUTER');
+                }
+              }
+            }
+          }
+          this.data = this.setuser(response);
+          Message({
+            message: this.$t('normal.success_03'),
+            type: 'success',
+            duration: 2 * 1000,
+          });
+          this.loading = false;
+        })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //endregion   add  ml  220112  检索  to
     },
   };
 </script>
