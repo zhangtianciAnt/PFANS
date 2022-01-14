@@ -13,6 +13,51 @@
     :showSelection="isShow"
     ref="roletable"
     v-loading="loading">
+<!--    添加筛选条件 ztc fr-->
+    <el-form slot="search" label-position="top" label-width="8vw">
+      <el-row>
+        <el-col :span="4">
+          <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')">
+            <el-input v-model="retral.contractnumber" clearable style="width: 80%"/>
+          </el-form-item>
+        </el-col>
+        <el-col :span="5">
+          <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')">
+            <dicselect
+              :data="retral.contracttype"
+              code="HT008"
+              style="width: 90%"
+              @change="changeType"
+            />
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item :label="$t('label.PFANS1025VIEW_ENTRUST')">
+            <el-input v-model="retral.custochinese" clearable style="width: 90%"/>
+          </el-form-item>
+        </el-col>
+        <el-col :span="6">
+          <el-form-item :label="$t('label.department')">
+            <org :orglist="retral.group_id"
+                 orgtype="4"
+                 style="width: 90%"
+                 @getOrgids="getGroupId"
+            ></org>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')">
+            <el-date-picker
+              v-model="retralTwo.deliveryfinshdate"
+              style="width: 90%"
+              type="month"
+              @change="getFinDate"
+            ></el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
+<!--    添加筛选条件 ztc to-->
   </EasyNormalTable>
 </template>
 <script>
@@ -20,11 +65,15 @@
   import {Message} from 'element-ui';
   import moment from 'moment';
   import {getDictionaryInfo, getUserInfo, getOrgInfoByUserId,getMonthlyrateInfo} from '@/utils/customize';
+  import dicselect from "../../../components/dicselect";
+  import org from '@/view/components/org';
 
   export default {
     name: 'PFANS1031View',
     components: {
       EasyNormalTable,
+      dicselect,
+      org,
     },
     data() {
       return {
@@ -34,6 +83,18 @@
         handleShow: true,
         title: 'title.PFANS1031VIEW',
         data: [],
+        // 添加筛选条件 ztc fr
+        retral: {
+          contractnumber: '',
+          contracttype: '',
+          group_id: '',
+          custochinese: '',
+          type: '1',
+        },
+        retralTwo: {
+          deliveryfinshdate: '',
+        },
+        // 添加筛选条件 ztc to
         columns: [
           {
             code: 'contractnumber',
@@ -144,6 +205,14 @@
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-view'},
+          // 添加筛选条件 ztc fr
+          {
+            key: 'search',
+            name: 'button.search',
+            disabled: false,
+            icon: 'el-icon-search'
+          },
+          // 添加筛选条件 ztc to
         ],
         selectedlist: [],
         rowid: '',
@@ -151,157 +220,177 @@
       };
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1026Store/get', {'type': '1'})
-        .then(response => {
-          let data = [];
-          for (let i = 0; i < response.contractapplication.length; i++) {
-            if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-              data.push({
-                contractnumber: response.contractapplication[i].contractnumber,
-              });
-              this.checkdata = data;
-            }
-          }
-          this.$store
-            .dispatch('PFANS1031Store/get', {})
-            .then(response => {
-              const datated = [];
-              for (let d = 0; d < this.checkdata.length; d++) {
-                for (let j = 0; j < response.length; j++) {
-                  if (this.checkdata[d].contractnumber === response[j].contractnumber) {
-                    if (response[j].contracttype !== null && response[j].contracttype !== '') {
-                      let letContracttype = getDictionaryInfo(response[j].contracttype);
-                      if (letContracttype != null) {
-                        response[j].contracttype = letContracttype.value1;
-                      }
-                    }
-
-                    if (response[j].claimtype !== null && response[j].claimtype !== '') {
-
-                      let letContracttype = getDictionaryInfo(response[j].claimtype);
-
-                      if (letContracttype != null) {
-                        response[j].claimtype = letContracttype.value1;
-                      }
-                    }
-
-                    if (response[j].currencyformat !== null && response[j].currencyformat !== '') {
-                      let letContracttype = getMonthlyrateInfo(response[j].currencyformat);
-                      if (letContracttype != null) {
-                        response[j].currencyformat = letContracttype.currencyname;
-                      }
-                    }
-
-                    if (response[j].toto !== null && response[j].toto !== '') {
-                      let letContracttype = getDictionaryInfo(response[j].toto);
-                      if (letContracttype != null) {
-                        response[j].toto = letContracttype.value1;
-                      }
-                    }
-
-                    if (response[j].judgment !== null && response[j].judgment !== '') {
-                      let letContracttype = getDictionaryInfo(response[j].judgment);
-                      if (letContracttype != null) {
-                        response[j].judgment = letContracttype.value1;
-                      }
-                    }
-
-                    if (response[j].determination !== null && response[j].determination !== '') {
-                      let letContracttype = getDictionaryInfo(response[j].determination);
-                      if (letContracttype != null) {
-                        response[j].determination = letContracttype.value1;
-                      }
-                    }
-                    if (response[j].enddate !== null && response[j].enddate !== '') {
-                      response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
-                    }
-                    if (response[j].deliveryfinshdate !== null && response[j].deliveryfinshdate !== '') {
-                      response[j].deliveryfinshdate = moment(response[j].deliveryfinshdate).format('YYYY-MM-DD');
-                    }
-                    if (response[j].deliverydate !== null && response[j].deliverydate !== '') {
-                      response[j].deliverydate = moment(response[j].deliverydate).format('YYYY-MM-DD');
-                    }
-                    if (response[j].openingdate !== null && response[j].openingdate !== '') {
-                      response[j].openingdate = moment(response[j].openingdate).format('YYYY-MM-DD');
-                    }
-                    if (response[j].depositjapanese !== null && response[j].depositjapanese !== '') {
-                      let letUser = getUserInfo(response[j].depositjapanese);
-                      if (letUser != null) {
-                        response[j].depositjapanese = letUser.userinfo.customername;
-                      }
-                    }
-                    if (this.$i18n) {
-                      if (response[j].sealstatus === null || response[j].sealstatus === '') {
-                        response[j].sealstatus = '';
-                      } else if (response[j].sealstatus === '1') {
-                        response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
-                      } else if (response[j].sealstatus === '2') {
-                        response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
-                      } else if (response[j].sealstatus === '3') {
-                        response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
-                      }
-                    }
-                    datated.push({
-                      contractnumber: response[j].contractnumber,
-                      contracttype: response[j].contracttype,
-                      depositjapanese: response[j].depositjapanese,
-                      entrustment: response[j].entrustment,
-                      deployment: response[j].deployment,
-                      pjnamejapanese: response[j].pjnamejapanese,
-                      openingdate: response[j].openingdate,
-                      enddate: response[j].enddate,
-                      deliveryfinshdate: response[j].deliveryfinshdate,
-                      deliverydate: response[j].deliverydate,
-                      claimamount: response[j].claimamount,
-                      claimnumber: response[j].claimnumber,
-                      claimtype: response[j].claimtype,
-                      toto: response[j].toto,
-                      sealstatus: response[j].sealstatus,
-                      sealid: response[j].sealid,
-                      napalm_id: response[j].napalm_id,
-                    });
-                  }
-                }
-              }
-              // const datatade = [];
-              // for (let m = 0; m < response.length; m++) {
-              //   for (let n = 0; n < datated.length; n++) {
-              //     if (datated[n].contractnumber === response[m].contractnumber) {
-              //       datatade.push({
-              //         contractnumber: response[m].contractnumber,
-              //         contracttype: response[m].contracttype,
-              //         depositjapanese: response[m].depositjapanese,
-              //         entrustment: response[m].entrustment,
-              //         deployment: response[m].deployment,
-              //         pjnamejapanese: response[m].pjnamejapanese,
-              //         openingdate: response[m].openingdate,
-              //         enddate: response[m].enddate,
-              //         deliveryfinshdate: response[m].deliveryfinshdate,
-              //         claimamount: response[m].claimamount,
-              //         claimnumber: response[m].claimnumber,
-              //         claimtype: response[m].claimtype,
-              //         toto: response[m].toto,
-              //         napalm_id: response[m].napalm_id,
-              //       });
-              //     }
-              //   }
-              // }
-              this.data = datated;
-              this.loading = false;
-            })
-            .catch(error => {
-              this.$message.error({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        });
+      // 添加筛选条件 ztc fr
+      this.getList();
+      // 添加筛选条件 ztc to
     },
     methods: {
+      // 添加筛选条件 ztc fr
+      getFinDate(val) {
+        if(val !== null) {
+          this.retralTwo.deliveryfinshdate = moment(val).format("YYYY-MM-DD");
+        } else {
+          this.retralTwo.deliveryfinshdate = null
+        }
+      },
+      getGroupId(val) {
+        this.retral.group_id = val;
+      },
+      changeType(val) {
+        this.retral.contracttype = val;
+      },
+      getList(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1026Store/get', this.retral)
+          .then(response => {
+            let data = [];
+            for (let i = 0; i < response.contractapplication.length; i++) {
+              if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+                data.push({
+                  contractnumber: response.contractapplication[i].contractnumber,
+                });
+              }
+            }
+            this.checkdata = data;
+            this.$store
+              .dispatch('PFANS1031Store/get', this.retralTwo)
+              .then(response => {
+                const datated = [];
+                for (let d = 0; d < this.checkdata.length; d++) {
+                  for (let j = 0; j < response.length; j++) {
+                    if (this.checkdata[d].contractnumber === response[j].contractnumber) {
+                      if (response[j].contracttype !== null && response[j].contracttype !== '') {
+                        let letContracttype = getDictionaryInfo(response[j].contracttype);
+                        if (letContracttype != null) {
+                          response[j].contracttype = letContracttype.value1;
+                        }
+                      }
+
+                      if (response[j].claimtype !== null && response[j].claimtype !== '') {
+
+                        let letContracttype = getDictionaryInfo(response[j].claimtype);
+
+                        if (letContracttype != null) {
+                          response[j].claimtype = letContracttype.value1;
+                        }
+                      }
+
+                      if (response[j].currencyformat !== null && response[j].currencyformat !== '') {
+                        let letContracttype = getMonthlyrateInfo(response[j].currencyformat);
+                        if (letContracttype != null) {
+                          response[j].currencyformat = letContracttype.currencyname;
+                        }
+                      }
+
+                      if (response[j].toto !== null && response[j].toto !== '') {
+                        let letContracttype = getDictionaryInfo(response[j].toto);
+                        if (letContracttype != null) {
+                          response[j].toto = letContracttype.value1;
+                        }
+                      }
+
+                      if (response[j].judgment !== null && response[j].judgment !== '') {
+                        let letContracttype = getDictionaryInfo(response[j].judgment);
+                        if (letContracttype != null) {
+                          response[j].judgment = letContracttype.value1;
+                        }
+                      }
+
+                      if (response[j].determination !== null && response[j].determination !== '') {
+                        let letContracttype = getDictionaryInfo(response[j].determination);
+                        if (letContracttype != null) {
+                          response[j].determination = letContracttype.value1;
+                        }
+                      }
+                      if (response[j].enddate !== null && response[j].enddate !== '') {
+                        response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
+                      }
+                      if (response[j].deliveryfinshdate !== null && response[j].deliveryfinshdate !== '') {
+                        response[j].deliveryfinshdate = moment(response[j].deliveryfinshdate).format('YYYY-MM-DD');
+                      }
+                      if (response[j].deliverydate !== null && response[j].deliverydate !== '') {
+                        response[j].deliverydate = moment(response[j].deliverydate).format('YYYY-MM-DD');
+                      }
+                      if (response[j].openingdate !== null && response[j].openingdate !== '') {
+                        response[j].openingdate = moment(response[j].openingdate).format('YYYY-MM-DD');
+                      }
+                      if (response[j].depositjapanese !== null && response[j].depositjapanese !== '') {
+                        let letUser = getUserInfo(response[j].depositjapanese);
+                        if (letUser != null) {
+                          response[j].depositjapanese = letUser.userinfo.customername;
+                        }
+                      }
+                      if (this.$i18n) {
+                        if (response[j].sealstatus === null || response[j].sealstatus === '') {
+                          response[j].sealstatus = '';
+                        } else if (response[j].sealstatus === '1') {
+                          response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
+                        } else if (response[j].sealstatus === '2') {
+                          response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+                        } else if (response[j].sealstatus === '3') {
+                          response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
+                        }
+                      }
+                      datated.push({
+                        contractnumber: response[j].contractnumber,
+                        contracttype: response[j].contracttype,
+                        depositjapanese: response[j].depositjapanese,
+                        entrustment: response[j].entrustment,
+                        deployment: response[j].deployment,
+                        pjnamejapanese: response[j].pjnamejapanese,
+                        openingdate: response[j].openingdate,
+                        enddate: response[j].enddate,
+                        deliveryfinshdate: response[j].deliveryfinshdate,
+                        deliverydate: response[j].deliverydate,
+                        claimamount: response[j].claimamount,
+                        claimnumber: response[j].claimnumber,
+                        claimtype: response[j].claimtype,
+                        toto: response[j].toto,
+                        sealstatus: response[j].sealstatus,
+                        sealid: response[j].sealid,
+                        napalm_id: response[j].napalm_id,
+                      });
+                    }
+                  }
+                }
+                // const datatade = [];
+                // for (let m = 0; m < response.length; m++) {
+                //   for (let n = 0; n < datated.length; n++) {
+                //     if (datated[n].contractnumber === response[m].contractnumber) {
+                //       datatade.push({
+                //         contractnumber: response[m].contractnumber,
+                //         contracttype: response[m].contracttype,
+                //         depositjapanese: response[m].depositjapanese,
+                //         entrustment: response[m].entrustment,
+                //         deployment: response[m].deployment,
+                //         pjnamejapanese: response[m].pjnamejapanese,
+                //         openingdate: response[m].openingdate,
+                //         enddate: response[m].enddate,
+                //         deliveryfinshdate: response[m].deliveryfinshdate,
+                //         claimamount: response[m].claimamount,
+                //         claimnumber: response[m].claimnumber,
+                //         claimtype: response[m].claimtype,
+                //         toto: response[m].toto,
+                //         napalm_id: response[m].napalm_id,
+                //       });
+                //     }
+                //   }
+                // }
+                this.data = datated;
+                this.loading = false;
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+          });
+      },
+      // 添加筛选条件 ztc to
       //add_fjl_添加合同回款相关  start
       selectInit(row, index) {
         return (moment(row.deliverydate).format('YYYY-MM') <= new moment().format('YYYY-MM') && row.sealstatus === '');
@@ -460,6 +549,11 @@
         }
         //upd-ws-9/3-禅道任务493
         //add_fjl_添加合同回款相关  end
+        // 添加筛选条件 ztc fr
+        if (val === 'search') {
+          this.getList();
+        }
+        // 添加筛选条件 ztc to
       },
     },
   };

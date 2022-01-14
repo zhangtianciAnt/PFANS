@@ -29,7 +29,7 @@
               />
             </el-form-item>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="6">
             <el-form-item :label="$t('label.department')">
               <org :orglist="retral.group_id"
                    orgtype="4"
@@ -359,9 +359,11 @@
                 data.push({
                   contractnumber: response.contractapplication[i].contractnumber,
                 });
-                this.checkdata = data;
               }
             }
+            //添加筛选条件 ztc fr
+            this.checkdata = data;
+            // 添加筛选条件 ztc to
             this.$store
               .dispatch('PFANS5001Store/getFpans5001List', {})
               .then(response => {

@@ -13,6 +13,41 @@
                      @handleEdit="handleEdit"
                      ref="roletable"
                      :showSelection="isShow">
+<!--      添加筛选条件 ztc fr-->
+      <el-form slot="search" label-position="top" label-width="8vw">
+        <el-row>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')">
+              <el-input v-model="retral.contractnumber" clearable style="width: 80%"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')">
+              <dicselect
+                :data="retral.contracttype"
+                code="HT015"
+                style="width: 14vw"
+                @change="changeType"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.department')">
+              <org :orglist="retral.group_id"
+                   orgtype="4"
+                   style="width: 90%"
+                   @getOrgids="getGroupId"
+              ></org>
+            </el-form-item>
+          </el-col>
+<!--          <el-col :span="5">-->
+<!--            <el-form-item :label="$t('label.PFANS1025VIEW_ENTRUST')">-->
+<!--              <el-input v-model="retral.custochinese" clearable style="width: 80%"/>-->
+<!--            </el-form-item>-->
+<!--          </el-col>-->
+        </el-row>
+      </el-form>
+<!--      添加筛选条件 ztc to-->
     </EasyNormalTable>
     <el-container>
       <el-dialog center
@@ -63,11 +98,13 @@
   import {Message} from 'element-ui';
   let moment = require('moment');
   import org from '@/view/components/org';
+  import dicselect from "../../../components/dicselect";
 
   export default {
     name: 'PFANS1047View',
     components: {
       EasyNormalTable,
+      dicselect,
       org,
     },
     data() {
@@ -109,6 +146,15 @@
           org: '',
         },
         checkdata: [],
+        // 添加筛选条件 ztc fr
+        retral: {
+          contractnumber: '',
+          contracttype: '',
+          group_id: '',
+          // custochinese: '',
+          type: '2',
+        },
+        // 添加筛选条件 ztc to
         columns: [
           {
             code: 'contractnumber',
@@ -165,12 +211,26 @@
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
+          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
+          // 添加筛选条件 ztc fr
+          {
+            key: 'search',
+            name: 'button.search',
+            disabled: false,
+            icon: 'el-icon-search'
+          },
         ],
         buttonListOld: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-view'},
+          // 添加筛选条件 ztc fr
+          {
+            key: 'search',
+            name: 'button.search',
+            disabled: false,
+            icon: 'el-icon-search'
+          },
         ],
         selectedlist: [],
         rowid: '',
@@ -226,11 +286,20 @@
           return (row.status === this.$t("label.PFANS5004VIEW_OVERTIME") && (row.sealstatus === '' || row.sealstatus === null || row.sealstatus === undefined));
         }
       },
+      // 添加筛选条件 ztc fr
+      getGroupId(val) {
+        this.retral.group_id = val;
+      },
+      changeType(val) {
+        this.retral.contracttype = val;
+      },
+      // 添加筛选条件 ztc to
       getPjanme() {
         this.loading = true;
         this.$store
         //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
-          .dispatch('PFANS1026Store/get', {'type': '2'})
+        // 添加筛选条件 ztc fr
+          .dispatch('PFANS1026Store/get', this.retral)
           .then(response => {
             let data = [];
             for (let i = 0; i < response.contractapplication.length; i++) {
@@ -238,9 +307,10 @@
                 data.push({
                   contractnumber: response.contractapplication[i].contractnumber,
                 });
-                this.checkdata = data;
               }
             }
+            this.checkdata = data;
+            // 添加筛选条件 ztc to
             this.loading = true;
             this.$store
             //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
@@ -295,7 +365,6 @@
                           deployment: response[i].deployment,
                           pjnamechinese: response[i].pjnamechinese,
                           claimdatetime: response[i].claimdatetime,
-                          contractnumber: response[i].contractnumber,
                           currencyposition: response[i].currencyposition,
                           claimamount: response[i].claimamount,
                           award_id: response[i].award_id,
@@ -324,7 +393,6 @@
                         deployment: response[m].deployment,
                         pjnamechinese: response[m].pjnamechinese,
                         claimdatetime: response[m].claimdatetime,
-                        contractnumber: response[m].contractnumber,
                         currencyposition: response[m].currencyposition,
                         claimamount: response[m].claimamount,
                         award_id: response[m].award_id,
@@ -570,6 +638,11 @@
           });
           //upd-ws-9/3-禅道任务493
         }
+        // 添加筛选条件 ztc fr
+        if (val === 'search') {
+          this.getPjanme();
+        }
+        // 添加筛选条件 ztc to
       },
     },
   };

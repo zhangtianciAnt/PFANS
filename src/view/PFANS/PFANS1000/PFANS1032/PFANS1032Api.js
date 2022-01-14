@@ -2,10 +2,13 @@ import request from '../../../../utils/request'
 import requestDownload from '../../../../utils/requestDownload'
 import requestPdf from "../../../../utils/requestPdf";
 
-export function get() {
+// 添加筛选条件 ztc fr
+export function get(data) {
   return request({
     url: 'petition/get',
-    method: 'get'
+    method: 'post',
+    data: data
+    // 添加筛选条件 ztc to
   })
 }
 export function one(data) {
