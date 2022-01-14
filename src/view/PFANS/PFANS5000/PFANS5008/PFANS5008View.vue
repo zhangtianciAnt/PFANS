@@ -788,7 +788,7 @@
         }
         this.loading = true;
         this.$store
-          .dispatch('PFANS5008Store/getDataList3', this.retral)
+          .dispatch('PFANS5008Store/getEligibleDataList', this.retral)
         .then(response => {
           for (let j = 0; j < response.length; j++) {
             let user = getUserInfo(response[j].createby);

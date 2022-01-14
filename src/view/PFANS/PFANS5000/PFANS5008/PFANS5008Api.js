@@ -151,9 +151,9 @@ export function sumlogdate(data) {
 //add-ws-01/05-优化接口
 
 //add-zjz-01/12-日志管理添加检索条件
-export function getDataList3(data) {
+export function getEligibleDataList(data) {
   return request({
-    url: 'logmanagement/getDataList3',
+    url: 'logmanagement/getEligibleDataList',
     method: 'post',
     data: data
   })
