@@ -1788,9 +1788,9 @@
         claimamount4: '',
         peid: '',
         tempMountList: [],
-        NaPpinAftercount:[],
+        NaPpinAftercount: [],
         //add_qhr_20210707 添加年份参数
-        year: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+        year: (parseInt(moment(new Date()).format('MM')) >= 4 && parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
       };
     },
     mounted() {

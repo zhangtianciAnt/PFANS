@@ -3609,13 +3609,12 @@
                 this.$set(this.tableP[39], val + this.arr[i], (Number(0) - (Number(this.tableP[39][val + this.arr[i - 2]]) + Number(this.tableP[39][val + this.arr[i - 1]]))).toFixed(2));
               } else {
                 /*
-                *
-                * （
-                * 0-人件费小计-固定資産費用小計 -研究開発費・ソフト費用小計
-                *     - (原動費 + 旅費交通費 + 通信費 +消耗品費+会議費/交際費/研修費 + 共同事務費 +ブランド使用料 + その他経費)
-                *     + 売上合計（税抜き、社内委託除き）*0.7
-                * ）
-                *
+                  *（
+                     0- 人件费小计- 固定資産費用小計 - 研究開発費・ソフト費用小計
+                         - (原動費 + 旅費交通費 + 通信費 + 消耗品費+ 会議費/交際費/研修費 + 共同事務費 +ブランド使用料 + その他経費)
+                         + （売上合計（税抜き、社内委託除き）*0.7）
+                     ）
+                  *
                  */
                 this.$set(this.tableP[39], val + this.arr[i], (0 - Number(this.tableP[13][val + this.arr[i]]) - Number(this.tableP[20][val + this.arr[i]]) - Number(this.tableP[26][val + this.arr[i]]) - (Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
                   Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]])) + Number(this.tableP[5][val + this.arr[i]]) * 0.70).toFixed(2));

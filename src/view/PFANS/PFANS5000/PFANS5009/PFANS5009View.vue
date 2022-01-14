@@ -95,6 +95,8 @@ export default {
         contractstatus2: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS2'),
         contractstatus3: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS3'),
         // 添加筛选条件 ztc fr
+        userlist: '',
+        selectType: 'Single',
         retral: {
           group_id: '',
           numbers: '',

@@ -12,6 +12,39 @@
                      @rowClick="rowClick"
                      v-loading="loading"
                      :psearchValue="search">
+      <el-form slot="search" label-position="top" label-width="8vw">
+        <el-row>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')">
+              <el-input v-model="retral.contractnumber" clearable style="width: 80%"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')">
+              <dicselect
+                :data="retral.contracttype"
+                code="HT014"
+                style="width: 14vw"
+                @change="changeType"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.department')">
+              <org :orglist="retral.group_id"
+                   orgtype="4"
+                   style="width: 90%"
+                   @getOrgids="getGroupId"
+              ></org>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS1025VIEW_ENTRUST')">
+              <el-input v-model="retral.custochinese" clearable style="width: 80%"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
     </EasyNormalTable>
     <el-container>
       <el-dialog center
@@ -62,11 +95,13 @@
   import {Message} from 'element-ui';
   import moment from 'moment';
   import org from '@/view/components/org';
+  import dicselect from "../../../components/dicselect";
 
   export default {
     name: 'PFANS1025View',
     components: {
       EasyNormalTable,
+      dicselect,
       org,
     },
     data() {
@@ -113,6 +148,13 @@
           new_group_id: '',
           new_team_id: '',
           org: '',
+        },
+        retral: {
+          contractnumber: '',
+          contracttype: '',
+          group_id: '',
+          custochinese: '',
+          type: '0',
         },
         columns: [
           {
@@ -237,7 +279,14 @@
           {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
           {'key': 'pubilc', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
-          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
+          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
+          // 添加筛选条件 ztc fr
+          {
+            key: 'search',
+            name: 'button.search',
+            disabled: false,
+            icon: 'el-icon-search'
+          },
         ],
         buttonListOld: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -246,6 +295,13 @@
           {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
           {'key': 'pubilc', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
+          // 添加筛选条件 ztc fr
+          {
+            key: 'search',
+            name: 'button.search',
+            disabled: false,
+            icon: 'el-icon-search'
+          },
         ],
         status: '',
         mounth: '',
@@ -286,10 +342,16 @@
         }
       },
       //add-ws-7/20-禅道任务342
+      getGroupId(val) {
+        this.retral.group_id = val;
+      },
+      changeType(val) {
+        this.retral.contracttype = val;
+      },
       getPjanme() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1026Store/get', {'type': '0'})
+          .dispatch('PFANS1026Store/get', this.retral)
           .then(response => {
             let data = [];
             for (let i = 0; i < response.contractapplication.length; i++) {
@@ -954,6 +1016,11 @@
           // }
           //del ccm 0813 决裁到暂借款，精算  check去掉
         }
+        // 添加筛选条件 ztc fr
+        if (val === 'search') {
+          this.getPjanme();
+        }
+        // 添加筛选条件 ztc to
 
       },
     },

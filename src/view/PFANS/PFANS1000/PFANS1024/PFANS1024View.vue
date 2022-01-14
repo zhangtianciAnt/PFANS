@@ -2,6 +2,40 @@
   <div>
   <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList" @reget="load"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+    <el-form slot="search" label-position="top" label-width="8vw">
+      <el-row>
+        <el-col :span="5">
+          <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')">
+            <el-input v-model="retral.contractnumber" clearable style="width: 80%"/>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item :label="$t('label.applicant')">
+            <user :disabled="false" :selectType="selectType" :userlist="userlist"
+                  style="width: 67%" @getUserids="getUserids"></user>
+          </el-form-item>
+        </el-col>
+        <el-col :span="5">
+          <el-form-item :label="$t('label.department')">
+            <org :orglist="retral.group_id"
+                 orgtype="4"
+                 style="width: 90%"
+                 @getOrgids="getGroupId"
+            ></org>
+          </el-form-item>
+        </el-col>
+        <el-col :span="5">
+          <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')">
+            <dicselect
+              :data="retral.contracttype"
+              code="HT014"
+              style="width: 14vw"
+              @change="changeType"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
   </EasyNormalTable>
     <el-container>
       <el-dialog center
@@ -47,19 +81,23 @@
 </template>
 
 <script>
-  import EasyNormalTable from '@/components/EasyNormalTable';
-  import {Message} from 'element-ui';
-  import moment from 'moment';
-  import {getDictionaryInfo, getOrgInfo, getStatus, getUserInfo} from '@/utils/customize';
-  import org from '@/view/components/org';
+import EasyNormalTable from '@/components/EasyNormalTable';
+import {Message} from 'element-ui';
+import moment from 'moment';
+import {getDictionaryInfo, getOrgInfo, getStatus, getUserInfo} from '@/utils/customize';
+import org from '@/view/components/org';
+import user from "../../../components/user";
+import dicselect from "../../../components/dicselect";
 
-  export default {
-    name: 'PFANS1024View',
-    components: {
-      EasyNormalTable,
-      org,
-    },
-    data() {
+export default {
+  name: 'PFANS1024View',
+  components: {
+    EasyNormalTable,
+    dicselect,
+    org,
+    user,
+  },
+  data() {
       var centerId = (rule, value, callback) => {
         if (!this.form.new_center_id || this.form.new_center_id === '') {
           callback(new Error(this.$t('normal.error_08') + this.$t('label.center')));
@@ -99,6 +137,16 @@
           new_group_id: '',
           new_team_id: '',
           org: '',
+        },
+        userlist: '',
+        selectType: 'Single',
+        // 添加筛选条件 ztc fr
+        retral: {
+          contractnumber: '',
+          user_id: '',
+          group_id: '',
+          contracttype: '',
+          type: '0',
         },
         columns: [
           {
@@ -175,12 +223,28 @@
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
+          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
+          // 添加筛选条件 ztc fr
+          {
+            key: 'search',
+            name: 'button.search',
+            disabled: false,
+            icon: 'el-icon-search'
+          },
+          // 添加筛选条件 ztc to
         ],
         buttonListOld: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          // 添加筛选条件 ztc fr
+          {
+            key: 'search',
+            name: 'button.search',
+            disabled: false,
+            icon: 'el-icon-search'
+          },
+          // 添加筛选条件 ztc to
         ],
         rowid: '',
         contractnumber: '',
@@ -196,19 +260,29 @@
       this.getdateInfo();
     },
     methods: {
-      getdateInfo(){
+      getdateInfo() {
         this.mounth = new Date().getMonth() + 1;
         this.date = new Date().getDate();
-        if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
+        if (this.mounth === 4 && this.date >= 10 && this.date <= 30) {
           this.buttonList = this.buttonListAnt;
-        }else{
+        } else {
           this.buttonList = this.buttonListOld;
         }
       },
-      load(){
+      getUserids(val) {
+        this.userlist = val;
+        this.retral.user_id = val;
+      },
+      getGroupId(val) {
+        this.retral.group_id = val;
+      },
+      changeType(val) {
+        this.retral.contracttype = val;
+      },
+      load() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1026Store/get', {'type': '0'})
+          .dispatch('PFANS1026Store/get', this.retral)
           .then(response => {
             let letcontractnumber = [];
             let tabledata = response.contractapplication;
@@ -363,6 +437,11 @@
             },
           });
         }
+        // 添加筛选条件 ztc fr
+        if (val === 'search') {
+          this.load();
+        }
+        // 添加筛选条件 ztc to
       },
       //update   ml   20210716   主键判断改为合同号判断  to
       submit(){
