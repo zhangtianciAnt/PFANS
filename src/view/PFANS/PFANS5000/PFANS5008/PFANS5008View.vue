@@ -15,7 +15,7 @@
           <el-form-item :label="$t('label.group')">
             <org :orglist="retral.group_id"
                  @getOrgids="getGroupId"
-                 orgtype="2"
+                 orgtype="4"
                  style="width: 14vw"
             ></org>
           </el-form-item>
@@ -30,7 +30,7 @@
             <el-form-item :label="$t('label.PFANS5008VIEW_RZNY')">
               <el-date-picker
                 unlink-panels
-                v-model="month"
+                v-model="retral.month"
                 style="width: 14vw"
                 type="month"
                 @change="getMonth">
@@ -235,6 +235,7 @@
           group_id:'',
           createby: '',
           log_date: moment(new Date()).format(('YYYY-MM-DD')),
+          month: moment(new Date()).format('YYYY-MM'),
         },
         selectType:'Single',
         isShow: true,
@@ -768,29 +769,22 @@
       getCreateby(val) {
         this.retral.createby = val;
       },
-      getDate(val) {
-        // this.retral.log_date = moment(val).format('YYYY-MM-DD');
-        if(val !== null) {
-          this.month = moment(val).format('YYYY-MM');
-        } else {
-          this.month = ''
-        }
-      },
       getMonth(val) {
         if(val !== null) {
+          this.retral.month = moment(val).format('YYYY-MM');
           this.retral.log_date = moment(val).format('YYYY-MM-DD');
-        } else {
-          this.retral.log_date = ''
+        }
+      },
+      getDate(val) {
+        if(val !== null) {
+          this.retral.month = moment(val).format('YYYY-MM');
+          this.retral.log_date = moment(val).format('YYYY-MM-DD');
         }
       },
       search(){
-        if((this.retral.createby === null || this.retral.createby === '') && (this.retral.group_id === null || this.retral.group_id === '') && (this.retral.log_date === null || this.retral.log_date === '') && (this.month === null || this.month === '')){
-            Message({
-              message: this.$t('normal.search'),
-              type: 'info',
-              duration: 2 * 1000,
-            });
-            return;
+        if((this.retral.createby === null || this.retral.createby === '') && (this.retral.group_id === null || this.retral.group_id === '') && (this.retral.log_date === null || this.retral.log_date === '') && (this.retral.month === null || this.retral.month === '')){
+          this.getProjectList();
+          return;
         }
         this.loading = true;
         this.$store
