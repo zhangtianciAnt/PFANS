@@ -74,3 +74,13 @@ export function purchdelete(data) {
   });
 }
 //endregion scc add 购买决裁删除 to
+
+//region   add  ml  220112  检索  from
+export function getPurchaseSearch(data) {
+  return request({
+    url: 'purchase/getPurchaseSearch',
+    method: 'post',
+    data: data
+  })
+}
+//endregion   add  ml  220112  检索  to

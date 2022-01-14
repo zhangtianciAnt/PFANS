@@ -3028,6 +3028,20 @@ module.exports = {
     PFANS2016FORMVIEW_DATEOFBIRTH:'子女出生日期',
     PFANS2016FORMVIEW_PARENTSDATE:'父母出生日期',
     PFANS2016FORMVIEW_SUCHCONFINEMENT:'父母住院开始日期',
+    PFANS2016FORMVIEW_REASON:'请附加描述上述 系统提醒内容 的理由',
+    PFANS2016FORMVIEW_CHILDRENAGE:'孩子年龄',
+    PFANS2016FORMVIEW_CUMULATIVE:'年累计申请天数',
+    PFANS2016FORMVIEW_PARENTSNAME:'住院父母名字',
+    PFANS2016FORMVIEW_PARENTSAGE:'父母年龄',
+    PFANS2016FORMVIEW_APPLYFORDAYS:'申请天数',
+    PFANS2016FORMVIEW_REMIND1: '育儿假申请: <br/>' +
+      '①、育儿假按照整天申请。<br/>' +
+      '②、每个月可申请1天，每年可累计申请10天，不休假视为自动放弃。<br/>'+
+      '③、如员工子女发生特殊事项，需要每月超过一天的育儿假时，应向公司人事部门提交相关证明和申请。',
+    PFANS2016FORMVIEW_REMIND2: '父母照料假申请: <br/>' +
+      '①、照料假按照整天申请。<br/>' +
+      '②、在父母住院期间内可申请休假。<br/>'+
+      '③、从每次住院时间开始计算满一年，累计不超过15天。',
     PFANS2017VIEW_START: '首次打卡',
     PFANS2017VIEW_WORKHOURS: '合计出勤时间',
     PFANS2017VIEW_EFFECTIVEDURATION: '有效时长',

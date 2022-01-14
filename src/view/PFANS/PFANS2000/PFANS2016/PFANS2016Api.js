@@ -132,3 +132,13 @@ export function getremainingByuserid(data) {
   })
 }
 //add ccm 0806 查询申请人的剩余年休，
+
+//region scc add 根据页面输入状态，返回check提示 from
+export function getParentmsg(data) {
+  return request({
+    url: 'abNormal/getParentmsg',
+    method: 'post',
+    data: data
+  })
+}
+//endregion scc add 根据页面输入状态，返回check提示 to
