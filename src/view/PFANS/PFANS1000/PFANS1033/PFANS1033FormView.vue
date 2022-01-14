@@ -912,7 +912,7 @@
         disableCG: false,
         //add ccm 0722
         //add_qhr_20210707添加年份参数
-        year: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+        year: (parseInt(moment(new Date()).format('MM')) >= 4 && parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
       };
     },
     mounted() {
