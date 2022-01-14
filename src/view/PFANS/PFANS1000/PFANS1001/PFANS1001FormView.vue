@@ -9,7 +9,7 @@
         <el-row>
           <el-col :span="4">
             <el-form-item :label="$t('label.PFANS1001FORMVIEW_BUSINESS_NUMBER')">
-              <el-input style="width: 90%" v-model="form1.business_number"></el-input>
+              <el-input style="width: 90%" v-model="form1.business_number" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
@@ -69,7 +69,7 @@
         <el-row>
             <el-col :span="6">
               <el-form-item :label="$t('label.PFANS1001FORMVIEW_NUMBERS')">
-                <el-input style="width: 75%" v-model="form1.judgnumbers"></el-input>
+                <el-input style="width: 75%" v-model="form1.judgnumbers" clearable></el-input>
               </el-form-item>
             </el-col>
           <el-col :span="6">
@@ -110,7 +110,7 @@
         <el-row>
           <el-col :span="6">
             <el-form-item :label="$t('label.PFANS1005VIEW_NUMBERS')">
-              <el-input style="width: 75%" v-model="form1.purchasenumbers"></el-input>
+              <el-input style="width: 75%" v-model="form1.purchasenumbers" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
@@ -151,7 +151,7 @@
         <el-row>
           <el-col :span="4">
             <el-form-item :label="$t('label.PFANS1006FORMVIEW_LOANAPNO')">
-              <el-input style="width: 90%" v-model="form1.loanapno"></el-input>
+              <el-input style="width: 90%" v-model="form1.loanapno" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
@@ -205,7 +205,7 @@
         <el-row>
           <el-col :span="6">
             <el-form-item :label="$t('label.PFANS1006FORMVIEW_NUMBERCATION')">
-              <el-input style="width: 75%" v-model="form1.numbercation"></el-input>
+              <el-input style="width: 75%" v-model="form1.numbercation" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="6">
