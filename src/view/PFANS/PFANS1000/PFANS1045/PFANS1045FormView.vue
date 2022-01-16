@@ -20,9 +20,10 @@
             <el-tab-pane :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')" name="first">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
-                    <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
-                          @getUserids="getUserids" style="width: 20vw" v-model="form.user_id"></user>
+                  <el-form-item :label="$t('label.PFANS1045VIEW_POLICYNUMBERS')">
+                    <el-input v-model="form.policynumbers" :disabled="true"
+                              style="width: 20vw">
+                    </el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -90,21 +91,20 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1002VIEW_CURRENCY')" prop="currency">
-                    <!--                      add-ws-12/10-汇率字典-->
-                    <!--                    <dicselect :code="code7"-->
-                    <!--                               :data="form.currency"-->
-                    <!--                               :disabled="true"-->
-                    <!--                               :multiple="multiple"-->
-                    <!--                               style="width: 20vw">-->
-                    <!--                    </dicselect>-->
-                    <monthlyrate :month="month7"
-                                 :data="form.currency"
-                                 :disabled="true"
-                                 :multiple="multiple"
-                                 style="width: 20vw">
-                    </monthlyrate>
-                    <!--                      add-ws-12/10-汇率字典-->
+                  <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="yearss">
+                    <!--                    NT_PFANS_20210304_BUG_090 更改组件活性-->
+                    <el-date-picker
+                      :disabled="!disable"
+                      unlink-panels
+                      class="bigWidth"
+                      v-model="form.yearss"
+                      style="width: 20vw"
+                      type="monthrange"
+                      :end-placeholder="$t('label.enddate')"
+                      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                      :start-placeholder="$t('label.startdate')"
+                      @change="filterInfo"
+                    ></el-date-picker>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -204,10 +204,9 @@
                 <!--                  </el-form-item>-->
                 <!--                </el-col>-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1045VIEW_POLICYNUMBERS')">
-                    <el-input v-model="form.policynumbers" :disabled="true"
-                              style="width: 20vw">
-                    </el-input>
+                  <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
+                    <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
+                          @getUserids="getUserids" style="width: 20vw" v-model="form.user_id"></user>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -223,20 +222,21 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="yearss">
-                    <!--                    NT_PFANS_20210304_BUG_090 更改组件活性-->
-                    <el-date-picker
-                      :disabled="!disable"
-                      unlink-panels
-                      class="bigWidth"
-                      v-model="form.yearss"
-                      style="width: 20vw"
-                      type="monthrange"
-                      :end-placeholder="$t('label.enddate')"
-                      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-                      :start-placeholder="$t('label.startdate')"
-                      @change="filterInfo"
-                    ></el-date-picker>
+                  <el-form-item :label="$t('label.PFANS1002VIEW_CURRENCY')" prop="currency">
+                    <!--                      add-ws-12/10-汇率字典-->
+                    <!--                    <dicselect :code="code7"-->
+                    <!--                               :data="form.currency"-->
+                    <!--                               :disabled="true"-->
+                    <!--                               :multiple="multiple"-->
+                    <!--                               style="width: 20vw">-->
+                    <!--                    </dicselect>-->
+                    <monthlyrate :month="month7"
+                                 :data="form.currency"
+                                 :disabled="true"
+                                 :multiple="multiple"
+                                 style="width: 20vw">
+                    </monthlyrate>
+                    <!--                      add-ws-12/10-汇率字典-->
                   </el-form-item>
                 </el-col>
                 <!--                UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to -->
