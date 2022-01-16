@@ -320,6 +320,7 @@ export default {
     //  region  add  ml  220105  考勤导出   from
     checkliste() {
       this.daochu = false;
+      this.loading = true;
       let params = {
         status: this.radio,
         year: this.montvalue.substring(0, 4),
@@ -328,7 +329,17 @@ export default {
       this.$store
         .dispatch('PFANS2010Store/exportReported', params)
         .then(response => {
-          this.download(response, '考勤管理');
+          //  region   update   ml  220114  考勤导出文件名修改   from
+          let title = '';
+          if (this.radio === '1') {
+             title = this.montvalue.substring(0, 4) + "年" + this.montvalue.substring(5, 7) + "月考勤—在职";
+          } else if (this.radio === '2') {
+             title = this.montvalue.substring(0, 4) + "年" + this.montvalue.substring(5, 7) + "月考勤—离职";
+          }
+          this.download(response, title);
+          this.loading = false;
+          // this.download(response, '考勤管理');
+          //  endregion   update   ml  220114  考勤导出文件名修改   to
         }).catch(error => {
         this.$message.error({
           message: error,
