@@ -369,7 +369,7 @@
         </el-form>
       </div>
     </EasyNormalContainer>
-    <PFANS2013Pop :params="urlparams" :url="url" ref="PFANS2013Pop"></PFANS2013Pop>
+    <PFANS2033Pop :params="urlparams" :url="url" ref="PFANS2033Pop"></PFANS2033Pop>
   </div>
 </template>
 
@@ -382,7 +382,7 @@
   import {getOrgInfoByUserId, getCurrentRole, getUserInfo} from '@/utils/customize';
   import moment from 'moment';
   import {downLoadUrl, getDictionaryInfo, uploadUrl,getCurrentRoleNew} from '../../../../utils/customize';
-  import PFANS2013Pop from '@/components/EasyPop/PFANS2013Pop';
+  import PFANS2033Pop from '@/components/EasyPop/PFANS2033Pop';
 
   export default {
     name: 'PFANS2016FormView',
@@ -391,7 +391,7 @@
       PFANS2016View,
       dicselect,
       user,
-      PFANS2013Pop,
+      PFANS2033Pop,
     },
     data() {
       var validateUserid = (rule, value, callback) => {
@@ -3365,7 +3365,7 @@
             this.urlparams = {'_userid': this.form.user_id, '_date':moment(this.form.occurrencedate).format('YYYY-MM-DD'), '_errortype': this.form.errortype, '_view':'2016FormView'};
           }
         }
-        this.$refs.PFANS2013Pop.open = true;
+        this.$refs.PFANS2033Pop.open = true;
       }
     },
   };
