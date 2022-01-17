@@ -7,7 +7,9 @@
                      :rowid="row_id"
                      @buttonClick="buttonClick"
                      @rowClick="rowClick"
-                     v-loading="loading">
+                     v-loading="loading"
+                     :showSelectBySearch="false">
+<!--      检索画面样式调整并取消共通检索 ztc-->
       <el-form slot="search" label-position="top" label-width="8vw">
         <el-row>
           <el-col :span="5">

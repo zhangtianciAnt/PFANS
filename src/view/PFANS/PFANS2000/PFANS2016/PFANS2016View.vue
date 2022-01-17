@@ -11,7 +11,8 @@
     v-loading="loading"
     :showSelection="true"
     :selectable="selectInit"
-  >
+    :showSelectBySearch="false">
+<!--    检索画面样式调整并取消共通检索 ztc-->
     <!--    <el-date-picker-->
     <!--      :placeholder="$t('normal.error_09')"-->
     <!--      @change="changed"-->

@@ -25,12 +25,15 @@
           <i class="el-icon-question" v-if="showHelp" slot="reference"/>
           </el-popover></span>
         <slot name="customize"></slot>
+<!--        检索画面样式调整并取消共通检索 ztc fr-->
         <el-input :placeholder="defaultSerchTooltip" class="filter-item" clearable
-                  style="width: 25%;vertical-align:top" v-model="searchValue" v-if="showSelectByCondition && listQuery.limit === 99999">
+                  style="width: 25%;vertical-align:top" v-model="searchValue" v-if="showSelectBySearch && showSelectByCondition && listQuery.limit === 99999">
           <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
         </el-input>
+<!--        检索画面样式调整并取消共通检索 ztc to-->
       </div>
       <slot name="search"></slot>
+<!--      检索画面样式调整并取消共通检索 ztc fr-->
       <el-table :cell-class-name="rowheight" :data="pagedate" :default-sort='defaultSort'
                 :element-loading-text="$t('normal.waiting')"
                 :row-key="rowid" :span-method="SpanMethod" @filter-change="tableFilter"
@@ -38,10 +41,11 @@
                 :summary-method="summaryMethod"
                 @selection-change="handleSelectionChange" @sort-change="sortChange" border
                 header-cell-class-name="sub_bg_color_blue" header-row-class-name="height"
-                height="calc(100vh - 60px - 15rem)"
-                highlight-current-row max-height="calc(100vh - 60px - 15rem)" ref="eltable"
+                :height="showSelectBySearch ? 'calc(100vh - 60px - 15rem)' : 'calc(100vh - 60px - 21rem)'"
+                highlight-current-row :max-height="showSelectBySearch ? 'calc(100vh - 60px - 15rem)' : 'calc(100vh - 60px - 21rem)'" ref="eltable"
                 :row-class-name="rowClassName"
                 stripe style="width: 100%;" v-loading='loading'>
+<!--        检索画面样式调整并取消共通检索 ztc to-->
         <el-table-column reserve-selection type="selection" v-if="showSelection" width="55" :selectable="selectable">
         </el-table-column>
         <el-table-column label="NO" type="index" v-if="showIndex" width="55" fixed>
@@ -214,6 +218,11 @@
       },
       //工资详细页面是否显示条件搜索框
       showSelectByCondition: {
+        type: Boolean,
+        default: true,
+      },
+      //检索条件是否显示共通条件检索框
+      showSelectBySearch: {
         type: Boolean,
         default: true,
       },

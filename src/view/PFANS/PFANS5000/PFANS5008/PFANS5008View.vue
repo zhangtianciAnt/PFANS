@@ -2,8 +2,9 @@
   <div>
     <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList" ref="roletable"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="rowid" @reget="getProjectList"
-                     :showSelection="isShow" :selectable="selectInit">
-<!--      <el-date-picker-->
+                     :showSelection="isShow" :selectable="selectInit" :showSelectBySearch="false">
+<!--      检索画面样式调整并取消共通检索 ztc-->
+      <!--      <el-date-picker-->
 <!--        v-model="month"-->
 <!--        type="month"-->
 <!--        slot="customize"-->

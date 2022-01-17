@@ -1,7 +1,9 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" @reget="load"
-                     :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+                     :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
+                     :showSelectBySearch="false">
+<!--      检索画面样式调整并取消共通检索 ztc-->
       <!--    添加筛选条件 ztc fr-->
       <el-form slot="search" label-position="top" label-width="8vw">
         <el-row>
