@@ -58,26 +58,15 @@
               <span>{{scope.row.status}}</span>
             </template>
           </el-table-column>
-          <el-table-column :label="$t('label.operation')" align="center" width="93">
-            <template slot-scope="scope">
-              <el-button
-                @click.native.prevent="viewBook(scope.row)"
-                plain
-                size="small"
-                type="primary"
-              >{{$t('button.viewdetails')}}
-              </el-button>
-            </template>
-          </el-table-column>
         </el-table>
       </div>
     </EasyNormalContainer>
-    <PFANS2016Pop :params="urlparams" :url="url" ref="PFANS2016Pop"></PFANS2016Pop>
+
   </div>
 </template>
 
 <script>
-  import PFANS2016Pop from '@/components/EasyPop/PFANS2016Pop';
+
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from "element-ui";
   import moment from "moment";
@@ -91,9 +80,8 @@
   import org from "../../../components/org";
 
   export default {
-    name: 'PFANS2013FormView',
+    name: 'PFANS2033FormView',
     components: {
-      PFANS2016Pop,
       EasyNormalContainer,
       user,
       org,

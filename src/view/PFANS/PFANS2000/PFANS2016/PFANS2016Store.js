@@ -1,7 +1,7 @@
 import {
   createPfans2016, getFpans2016List, updatePfans2016, deletePfans2016, getPfans2016One,
         getOvertimelist,getReplacerest,cklength,updateNewUser,getSickleave,getFpans2016List2,
-  selectAbNormalParent, updateOvertime, getRestday, getLeaveNumber,getremainingByuserid
+  selectAbNormalParent, updateOvertime, getRestday, getLeaveNumber,getremainingByuserid,getParentmsg,lookingFor
 } from './PFANS2016Api'
 import {getAttendancelist} from '../PFANS2010/PFANS2010Api';
 
@@ -242,6 +242,37 @@ const PFANS2016Store = {
       })
     },
     //add ccm 0806 查询申请人的剩余年休，
+
+    //region scc add 根据页面输入状态，返回check提示 from
+    getParentmsg({ commit },data) {
+      return new Promise((resolve, reject) => {
+        getParentmsg(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion scc add 根据页面输入状态，返回check提示 to
+    //region scc add 22/1/14 考勤异常申请显示履历 from
+    lookingFor({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        lookingFor(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion scc add 22/1/14 考勤异常申请显示履历 to
   }
 };
 
