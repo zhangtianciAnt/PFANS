@@ -1214,10 +1214,7 @@
             });
             this.loading = false;
           });
-        // let dictionaryInfo = getDictionaryInfo(this.form.errortype);
-        // if (dictionaryInfo) {
-        //   this.form.enclosureexplain = dictionaryInfo.value2;
-        // }
+
       } else {
         this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2016FormView');
         this.userlist = this.$store.getters.userinfo.userid;
@@ -2165,7 +2162,6 @@
           //add ccm 0720
           this.rules.enclosurecontent[0].required = true;
           //add ccm 0720
-          // this.clearValidate(['weddingdate']);
         } else if (val === 'PR013012') {
           this.checkerrortishi = true;
           this.checkrelengthtime = true;
@@ -2275,7 +2271,6 @@
           this.form.lengthtime = 8;//时间长度总计
           this.showVacation = true;//附件说明
           this.rules.enclosurecontent[0].required = true;//附件必填
-          // this.clearValidate(['dateofbirth']);
         }
         //endregion scc add 21/1/6 育儿假 to
         //region scc add 21/1/6 父母照料假 from
@@ -2287,7 +2282,6 @@
           this.form.lengthtime = 8;//时间长度总计
           this.showVacation = true;//附件说明
           this.rules.enclosurecontent[0].required = true;//附件必填
-          // this.clearValidate(['parentsdate', 'suchconfinement']);
         }
         //endregion scc add 21/1/6 父母照料假 to
         if (this.form.errortype === 'PR013014') {
@@ -3351,7 +3345,7 @@
       handleView(){
         this.url = '';
         this.urlparams = {};
-        this.url = 'PFANS2013FormView';
+        this.url = 'PFANS2033FormView';
         if(!this.form.occurrencedate){
           this.$message.info({
             type: 'info',

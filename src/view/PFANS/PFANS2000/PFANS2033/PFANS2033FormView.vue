@@ -82,7 +82,6 @@
   export default {
     name: 'PFANS2033FormView',
     components: {
-      PFANS2033Pop,
       EasyNormalContainer,
       user,
       org,
