@@ -163,9 +163,9 @@
         }, []);
         for (let it of filtersrst){
           let time = 0;
-          //region scc upd 根据人，项目，公司合并多条数据 from
-          let r = rst.filter(item => item.username === it.username && item.project_id === it.project_id && item.company === it.company);
-          //endregion scc upd 根据人，项目，公司合并多条数据 to
+          //region scc upd 根据人，项目，合并多条数据 from
+          let r = rst.filter(item => item.username === it.username && item.project_id === it.project_id && item.createby === it.createby);
+          //endregion scc upd 根据人，项目，合并多条数据 to
           for (let su of r){
             time = Number(time) + Number(su.time_start);
           }
@@ -278,7 +278,7 @@
                   response[j].time_end = moment(response[j].time_end).format('HH:mm');
                 }
                 //region scc upd filter()方法，合并数据时，set集合不重复的唯一标识 from
-                response[j].unique = response[j].username + response[j].project_id + response[j].company;
+                response[j].unique = response[j].username + response[j].project_id + response[j].createby;
                 //endregion scc upd filter()方法，合并数据时，set集合不重复的唯一标识 to
                 response[j].contractno='';
               }
