@@ -1,6 +1,6 @@
 <template>
   <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList" @reget="getdata"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :showSelectBySearch="false">
     <!--    添加筛选条件 ztc fr-->
     <el-form slot="search" label-position="top" label-width="8vw">
       <el-row>

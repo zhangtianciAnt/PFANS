@@ -8,10 +8,27 @@
   >
     <div slot="customize" style="margin-top:2rem">
       <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
-        <el-form-item :label="$t('label.PFANS8008VIEW_MESSAGE_HEADER')" prop="title">
-          <el-input :disabled="!disable" class="width" maxlength="50" v-model="form.title" style="width:20vw"></el-input>
-        </el-form-item>
-        <el-form-item :label="$t('label.PFANS8008VIEW_AVAILABLESTATE')">
+        <el-row>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS8008VIEW_MESSAGE_HEADER')" prop="title">
+              <el-input :disabled="!disable" class="width" maxlength="50" v-model="form.title" style="width:20vw"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS8008VIEW_MESSAGE_TYPE')" prop="title">
+              <dicselect
+                :disabled="!disable"
+                code="RS004"
+                :multiple="multiple"
+                :data="form.filetype"
+                style="width:20vw"
+                @change="changeType">
+              </dicselect>
+<!--              @change="wjlx"-->
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS8008VIEW_AVAILABLESTATE')">
           <el-radio
             :disabled="!disable"
             label="0"
@@ -23,6 +40,8 @@
             v-model="form.availablestate"
           >{{this.$t('label.PFANS8008FORMVIEW_INVALID')}}</el-radio>
         </el-form-item>
+          </el-col>
+        </el-row>
         <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
           <el-upload
             :action="upload"
@@ -60,10 +79,15 @@
   import 'quill/dist/quill.snow.css'
   import 'quill/dist/quill.bubble.css'
   import {downLoadUrl, uploadUrl} from '../../../../utils/customize';
+  import dicselect from '../../../components/dicselect.vue';
 
   export default {
     name: "PFANS8008FormView",
-    components: { EasyNormalContainer, quillEditor },
+    components: {
+      EasyNormalContainer,
+      quillEditor,
+      dicselect,
+    },
     data() {
       return {
         upload: uploadUrl(),
@@ -75,6 +99,7 @@
         form: {
           informationid: "",
           title: "",
+          filetype: '',
           availablestate: "0",
           richtext: "",
           uploadfile: '',
@@ -276,6 +301,9 @@
               });
           }
         });
+      },
+      changeType(val){
+        this.form.filetype = val;
       }
     }
   };
