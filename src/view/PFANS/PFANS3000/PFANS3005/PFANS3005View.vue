@@ -2,7 +2,7 @@
   <div class="pfans3005view">
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title" @reget="selectInfo"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowClassName="rowClassName"
-                     :showSelection="isShow" ref="roletable" :selectable="selectInit" :showSelectByCondition="false">
+                     :showSelection="isShow" ref="roletable" :selectable="selectInit" :showSelectBySearch="false">
       <!--  region  add   ml   220112  添加筛选条件   from    -->
       <el-form label-position="top" label-width="8vw" slot="search">
         <el-row>
