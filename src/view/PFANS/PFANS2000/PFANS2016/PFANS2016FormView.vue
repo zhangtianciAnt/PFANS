@@ -3345,7 +3345,7 @@
       handleView(){
         this.url = '';
         this.urlparams = {};
-        this.url = 'PFANS2013FormView';
+        this.url = 'PFANS2033FormView';
         if(!this.form.occurrencedate){
           this.$message.info({
             type: 'info',
