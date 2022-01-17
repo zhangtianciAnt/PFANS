@@ -2,7 +2,7 @@
   <div>
     <!--境外出差申请 境内出差申請-->
     <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonListAnt" @reget="inint"
-                     :showSelection="isShow" ref="roletable5" :selectable="selectInit"
+                     :showSelection="isShow" ref="roletable5" :selectable="selectInit" :showSelectByCondition="false"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" v-show="this.showTable===1">
       <!--  region  add   ml   220112  添加筛选条件   from    -->
       <el-form label-position="top" label-width="8vw" slot="search">
@@ -63,7 +63,7 @@
     <!--    ADD-WS-决裁编号添加 无偿设备 其他业务决裁-->
     <EasyNormalTable :buttonList="buttonListAnt" :columns="columns2" :data="data" :rowid="row" :selectable="selectInit1"
                      :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"  @reget="inint"
-                     ref="roletable3" v-loading="loading" v-show="this.showTable===2">
+                     ref="roletable3" v-loading="loading" v-show="this.showTable===2" :showSelectByCondition="false">
 <!--  region  add   ml   220112  添加筛选条件   from    -->
       <el-form label-position="top" label-width="8vw" slot="search">
         <el-row>
@@ -104,7 +104,7 @@
     <!--    ADD-WS-费用编号添加 千元以下费用申请-->
     <EasyNormalTable :buttonList="buttonListAnt" :columns="columns3" :data="data" :rowid="row" :selectable="selectInit"
                      :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"  @reget="inint"
-                     ref="roletable2" v-loading="loading" v-show="this.showTable===3">
+                     ref="roletable2" v-loading="loading" v-show="this.showTable===3" :showSelectByCondition="false">
       <!--  region  add   ml   220112  添加筛选条件   from    -->
       <el-form label-position="top" label-width="8vw" slot="search">
         <el-row>
@@ -145,7 +145,7 @@
     <!--    add_fjl_05/27  添加暂借款申请编号的列表-->
     <EasyNormalTable :buttonList="buttonListAnt" :columns="columns4" :data="data" :rowid="row" :selectable="selectInit"
                      :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"  @reget="inint"
-                     ref="roletable4" v-loading="loading" v-show="this.showTable===4">
+                     ref="roletable4" v-loading="loading" v-show="this.showTable===4" :showSelectByCondition="false">
       <!--  region  add   ml   220112  添加筛选条件   from    -->
       <el-form label-position="top" label-width="8vw" slot="search">
         <el-row>
@@ -199,7 +199,7 @@
     <!--    add-ws-5/27-No.170 交际费事前决裁-->
     <EasyNormalTable :buttonList="buttonListAnt" :columns="columns5" :data="data" :rowid="row" :selectable="selectInit"
                      :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"  @reget="inint"
-                     ref="roletable1" v-loading="loading" v-show="this.showTable===5">
+                     ref="roletable1" v-loading="loading" v-show="this.showTable===5" :showSelectByCondition="false">
       <!--  region  add   ml   220112  添加筛选条件   from    -->
       <el-form label-position="top" label-width="8vw" slot="search">
         <el-row>
@@ -238,7 +238,7 @@
     </EasyNormalTable>
     <!--  add-ws-5/27-No.170 事前面谈票-->
     <EasyNormalTable :buttonList="buttonList" :columns="columns6" :data="data" :title="title" v-loading="loading"  @reget="inint"
-                     v-show="this.showTable===6" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
+                     v-show="this.showTable===6" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row" :showSelectByCondition="false">
       <!--  region  add   ml   220112  添加筛选条件   from    -->
       <el-form label-position="top" label-width="8vw" slot="search">
         <el-row>
