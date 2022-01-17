@@ -4,8 +4,8 @@
                      :showSelection="showSelection" @reget="getListData"
                      :selectable="selectInit" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                      ref="roletable"
-                     v-loading="loading">
-
+                     v-loading="loading" :showSelectBySearch="false">
+<!--      检索画面样式调整并取消共通检索 ztc  -->
       <!--条件筛选 scc add from -->
       <el-form label-position="top" label-width="8vw" slot="search">
         <el-row>

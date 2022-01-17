@@ -12,8 +12,10 @@
     @handleEdit="handleEdit"
     :showSelection="isShow"
     ref="roletable"
-    v-loading="loading">
-<!--    添加筛选条件 ztc fr-->
+    v-loading="loading"
+    :showSelectBySearch="false">
+<!--    检索画面样式调整并取消共通检索 ztc-->
+    <!--    添加筛选条件 ztc fr-->
     <el-form slot="search" label-position="top" label-width="8vw">
       <el-row>
         <el-col :span="4">
