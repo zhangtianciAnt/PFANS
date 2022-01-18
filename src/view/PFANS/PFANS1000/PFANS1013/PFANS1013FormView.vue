@@ -3408,6 +3408,11 @@
           } else {
             sums[index] = '--';
           }
+          //region scc add 22/1/18 表格非数字合计 from
+            if(isNaN(sums[index])){
+              sums[index] = '--';
+            }
+          //endregion scc add 22/1/18 表格非数字合计 to
         });
         if (this.form.type === '0') {
           sums[9] = Math.round(sums[9] * 100) / 100;
@@ -3417,13 +3422,6 @@
           sums[10] = Math.round(sums[10] * 100) / 100;
           sums[12] = Math.round(sums[12] * 100) / 100;
         }
-        //region scc add 11/3 from
-        for(let i = 0; i < sums.length; i++){
-          if(isNaN(sums[i])){
-            sums[i] = '--';
-          }
-        }
-        //endregion scc add 11/3 to
         this.getMoney(sums);
         return sums;
       },
@@ -3465,6 +3463,11 @@
           } else {
             sums[index] = '--';
           }
+          //region scc add 22/1/18 表格非数字合计 from
+          if(isNaN(sums[index])){
+            sums[index] = '--';
+          }
+          //endregion scc add 22/1/18 表格非数字合计 to
         });
         if (this.form.type === '0') {
           sums[12] = Math.round(sums[12] * 100) / 100;
@@ -3476,13 +3479,6 @@
           sums[12] = Math.round(sums[12] * 100) / 100;
           sums[14] = Math.round(sums[14] * 100) / 100;
         }
-        //region scc add 11/3 from
-        for(let i = 0; i < sums.length; i++){
-          if(isNaN(sums[i])){
-            sums[i] = '--';
-          }
-        }
-        //endregion scc add 11/3 to
         this.tableAValue = sums;
         return sums;
       },
