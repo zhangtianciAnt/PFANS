@@ -74,12 +74,12 @@
             <!--不为  年休 代休-特别休日-->
             <el-col :span="8"
                     v-show="(form.errortype != 'PR013005' && form.errortype != 'PR013007') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_RELENGTHTIMETO')" label-width="9rem"
-                            prop="relengthtime">
+              <el-form-item :label="form.errortype === 'PR013022' || form.errortype === 'PR013025' ? $t('label.PFANS2016FORMVIEW_ACVACATIONDAY') : $t('label.PFANS2016FORMVIEW_RELENGTHTIMETO')"
+                            label-width="9rem" prop="relengthtime">
                 <el-input-number
                   v-if="form.errortype === 'PR013001'"
                   :disabled="checkrelengthtime"
-                  step-strictly
+                  :step-strictly="true"
                   :max="1000000000"
                   :min="0"
                   :precision="2"
@@ -93,6 +93,19 @@
                   :disabled="checkrelengthtime"
                   step-strictly
                   :max="7.75"
+                  :min="0"
+                  :precision="2"
+                  :step="0.25"
+                  controls-position="right"
+                  style="width:20vw"
+                  v-model="form.relengthtime"
+                ></el-input-number>
+                <!-- 加餐哺乳实际 -->
+                <el-input-number
+                  v-else-if="form.errortype === 'PR013022' || form.errortype === 'PR013025'"
+                  :disabled="checkrelengthtime"
+                  :step-strictly="true"
+                  :max="form.errortype === 'PR013022' ? 0.5 : 1.0"
                   :min="0"
                   :precision="2"
                   :step="0.25"
@@ -238,7 +251,9 @@
           <el-row :span="24"
                     v-show="(form.errortype != 'PR013005' && form.errortype != 'PR013007') && form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'&& form.status != '8'">
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime">
+              <!--  scc  upd 时间长度总计 加餐和哺乳时，名字变更为每天休假长度  -->
+              <el-form-item :label="form.errortype === 'PR013022' || form.errortype === 'PR013025' ? $t('label.PFANS2016FORMVIEW_VACATIONDAY') : $t('label.PFANS2016FORMVIEW_LENGTHTIME')"
+                            label-width="9rem" prop="lengthtime">
                 <el-input-number
                   v-if="form.errortype === 'PR013001'"
                   :disabled="dislengthtime"
@@ -256,6 +271,19 @@
                   :disabled="dislengthtime"
                   step-strictly
                   :max="7.75"
+                  :min="0"
+                  :precision="2"
+                  :step="0.25"
+                  controls-position="right"
+                  style="width:20vw"
+                  v-model="form.lengthtime"
+                ></el-input-number>
+                <!-- 加餐和哺乳 -->
+                <el-input-number
+                  v-else-if="form.errortype === 'PR013022' || form.errortype === 'PR013025'"
+                  :disabled="dislengthtime"
+                  step-strictly
+                  :max="form.errortype === 'PR013022' ? 0.5 : 1.0"
                   :min="0"
                   :precision="2"
                   :step="0.25"
@@ -296,7 +324,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--    显示育儿假申请时长，或履历按钮      -->
           <el-row>
             <!-- 申请天数,只有育儿假显示 -->
             <el-col  :span="4" v-if="form.errortype == 'PR013023'">
@@ -309,6 +336,27 @@
             <el-col :span="4" v-if="form.errortype == 'PR013023' || form.errortype == 'PR013024'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_CV')">
                 <el-button type="info" :disabled="false"  plain @click="handleView">显示履历</el-button>
+              </el-form-item>
+            </el-col>
+            <!-- 婴儿数量 -->
+            <el-col  :span="4" v-if="form.errortype == 'PR013025'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_BABYNUMBER')" prop="babynumber">
+                <el-input-number
+                  :disabled="!disable"
+                  step-strictly
+                  :min="0"
+                  :step="1"
+                  controls-position="right"
+                  style="width:8vw"
+                  v-model="form.babynumber"
+                ></el-input-number>
+              </el-form-item>
+            </el-col>
+            <!-- 时间长度总计 -->
+            <el-col :span="4" v-if="form.errortype == 'PR013022' || form.errortype == 'PR013025'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')">
+                <el-input-number :disabled="true" controls-position="right" style="width:8vw"
+                                 v-model="total"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
@@ -336,7 +384,7 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
+              <el-form-item :label="$t('label.enclosure')" >
                 <el-upload
                   :action="upload"
                   :disabled="disableupload"
@@ -670,7 +718,8 @@
           if (this.form.errortype == 'PR013009' || this.form.errortype == 'PR013010' || this.form.errortype == 'PR013011'
             || this.form.errortype == 'PR013012' || this.form.errortype == 'PR013013' || this.form.errortype == 'PR013015'
             || this.form.errortype == 'PR013016' || this.form.errortype == 'PR013017' || this.form.errortype == 'PR013020'
-            || this.form.errortype == 'PR013021' || this.form.errortype == 'PR013022' || this.form.errortype == 'PR013023' || this.form.errortype == 'PR013024') {
+            || this.form.errortype == 'PR013021' || this.form.errortype == 'PR013022' || this.form.errortype == 'PR013023'
+            || this.form.errortype == 'PR013024' || this.form.errortype == 'PR013025') {
             if (!this.form.uploadfile || this.form.uploadfile === '' || this.form.uploadfile === undefined) {
               return callback(new Error(this.$t('normal.error_16') + this.$t('label.enclosure')));
             } else {
@@ -832,6 +881,7 @@
           suchconfinement: '',
           parentmsg: '',
           parentsname: '',
+          babynumber: '',
         },
         code: 'PR013',
         multiple: false,
@@ -1054,7 +1104,7 @@
             //add  ml   20210702  年休或特别休日   to
             if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
               || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
-              || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013022') {
+              || this.form.errortype === 'PR013021') {
               this.dislengthtime = true;
             } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013008' || this.form.errortype === 'PR013006') {
               if (moment(this.form.occurrencedate).format('YYYY-MM-DD') !== moment(this.form.finisheddate).format('YYYY-MM-DD')) {
@@ -1105,7 +1155,8 @@
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                   || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                   || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                  || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
+                  || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023'
+                  || this.form.errortype === 'PR013024' || this.form.errortype === 'PR013025') {
                   this.workflowCode = 'W0087';
                 } else {
                   this.workflowCode = 'W0070';
@@ -1115,7 +1166,8 @@
                 || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                 || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                 || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
+                || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023'
+                || this.form.errortype === 'PR013024' || this.form.errortype === 'PR013025') {
                 this.workflowCode = 'W0085';
               } else {
                 this.workflowCode = 'W0003';
@@ -1134,7 +1186,8 @@
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                   || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                   || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                  || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
+                  || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023'
+                  || this.form.errortype === 'PR013024' || this.form.errortype === 'PR013025') {
                   this.workflowCode = 'W0088';
                 } else {
                   this.workflowCode = 'W0071';
@@ -1145,7 +1198,8 @@
                 || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                 || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                 || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
+                || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023'
+                || this.form.errortype === 'PR013024' || this.form.errortype === 'PR013025') {
                 this.workflowCode = 'W0086';
               } else {
                 this.workflowCode = 'W0059';
@@ -1177,7 +1231,8 @@
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                   || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                   || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                  || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
+                  || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023'
+                  || this.form.errortype === 'PR013024' || this.form.errortype === 'PR013025') {
                   this.workflowCode = 'W0088';
                 } else {
                   this.workflowCode = 'W0071';
@@ -1188,7 +1243,8 @@
                 || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                 || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                 || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
+                || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023'
+                || this.form.errortype === 'PR013024' || this.form.errortype === 'PR013025') {
                 this.workflowCode = 'W0086';
               } else {
                 this.workflowCode = 'W0059';
@@ -1242,7 +1298,8 @@
             || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
             || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
             || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-            || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
+            || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023'
+            || this.form.errortype === 'PR013024' || this.form.errortype === 'PR013025') {
             this.workflowCode = 'W0087';
           } else {
             this.workflowCode = 'W0070';
@@ -1253,7 +1310,8 @@
           || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
           || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
           || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-          || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024') {
+          || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013023'
+          || this.form.errortype === 'PR013024' || this.form.errortype === 'PR013025') {
           this.workflowCode = 'W0085';
         } else {
           this.workflowCode = 'W0003';
@@ -1802,13 +1860,15 @@
         if (!this.form.finisheddate || !this.form.occurrencedate) {
           return;
         }
-        //加餐，哺乳（女）时，不清空，时间长度为1  add_fjl_06/16  start
+        //region scc upd 加餐，哺乳（女）时， from
         if (this.form.errortype === 'PR013022') {
-          this.form.lengthtime = '1';
-        } else {
+          this.form.lengthtime = '0.5';//加餐默认最大0.5h
+        } else if(this.form.errortype === 'PR013025') {
+          this.form.lengthtime = '1';//哺乳默认最大1.0h
+        } else{
           this.form.lengthtime = '0';
         }
-        //加餐，哺乳（女）时，不清空，时间长度为1  add_fjl_06/16  end
+        //endregion scc upd 加餐，哺乳（女）时， to
         this.diffNoDays();
         let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
         //当天时间    （外出，家长会，妊娠检查，劳灾，其他福利）
@@ -1911,6 +1971,11 @@
           }
           this.getAge();//计算孩子或父母年龄
         }
+        //region scc upd 加餐，哺乳（女）时， from
+        if (this.form.errortype === 'PR013022' || this.form.errortype === 'PR013025') {
+          this.form.lengthtime = this.form.errortype === 'PR013022' ? 0.5 : 1.0;
+        }
+        //endregion scc upd 加餐，哺乳（女）时， to
         //add-ws-01/15-禅道任务712
         if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
           if (this.retypecheck == '0') {
@@ -2254,9 +2319,9 @@
           //add ccm 0720
         } else if (val === 'PR013022') {
           this.checkerrortishi = false;
-          this.checkrelengthtime = true;
-          this.dislengthtime = true;
-          this.form.lengthtime = '1';
+          this.checkrelengthtime = false;//实际每天长度
+          this.dislengthtime = false;//每天长度
+          this.form.lengthtime = '0.5';
           this.showVacation = true;
           //add ccm 0720
           this.rules.enclosurecontent[0].required = true;
@@ -2284,6 +2349,16 @@
           this.rules.enclosurecontent[0].required = true;//附件必填
         }
         //endregion scc add 21/1/6 父母照料假 to
+        //region scc add 22/1/17 哺乳假 from
+        else if(val === 'PR013025'){
+          this.checkerrortishi = false;
+          this.checkrelengthtime = false;
+          this.dislengthtime = false;
+          this.form.lengthtime = '1.0';
+          this.showVacation = true;
+          this.rules.enclosurecontent[0].required = true;
+        }
+        //endregion scc add 22/1/17 哺乳假 to
         if (this.form.errortype === 'PR013014') {
           if (2 - this.parent <= 0) {
             Message({
@@ -2885,16 +2960,29 @@
                   }
                 }
               }
-              //加餐、哺乳（女）
-              if (this.form.errortype === 'PR013022' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
-                Message({
-                  message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                return;
-                this.form.lengthtime = 1;
+              //region scc upd 22/1/17 加餐、哺乳（女）,只能女行填写 from
+              if (this.form.errortype === 'PR013022' || this.form.errortype === 'PR013025') {
+                if(this.$store.getters.userinfo.userinfo.sex !== 'PR019002'){
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.form.lengthtime = this.form.errortype === 'PR013022' ? 0.5 : 1.0;//加餐默认最大0.5，哺乳默认最大1.0
+                  return;
+                }
+                //婴儿数量不为0
+                if(this.form.errortype === 'PR013025' && (!this.form.babynumber || this.form.babynumber === 0)){
+                  Message({
+                    message: this.$t('normal.error_08') + this.$t('label.PFANS2016FORMVIEW_BABYNUMBER'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.form.lengthtime =  1.0;//哺乳默认最大1.0
+                  return;
+                }
               }
+              //endregion scc upd 22/1/17 加餐、哺乳（女）,只能女行填写 to
               //金额不能为0的check
               if ((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&
                 this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8' && this.form.lengthtime <= 0) {
@@ -3362,6 +3450,33 @@
         this.$refs.PFANS2033Pop.open = true;
       }
     },
+    computed: {
+      //获取加餐或哺乳的总时长
+      total: {
+        get() {
+          if (this.form.occurrencedate && this.form.finisheddate && !this.form.reoccurrencedate && !this.form.refinisheddate) {
+            let days = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1
+            if (this.form.errortype == 'PR013025') {//哺乳假，天数*婴儿数量*每天时长
+              return Number(Number(days) * Number(this.form.babynumber) * Number(this.form.lengthtime)).toFixed(2);
+            }
+            if (this.form.errortype == 'PR013022') {//加餐假
+              return Number(Number(days) * Number(this.form.lengthtime)).toFixed(2);
+            }
+          }
+          if (this.form.reoccurrencedate && this.form.refinisheddate) {
+            let days = moment(this.form.refinisheddate).diff(moment(this.form.reoccurrencedate), 'days') + 1
+            if (this.form.errortype == 'PR013025') {//哺乳假，天数*婴儿数量*每天时长
+              return Number(Number(days) * Number(this.form.babynumber) * Number(this.form.relengthtime)).toFixed(2);
+            }
+            if (this.form.errortype == 'PR013022') {//加餐假
+              return Number(Number(days) * Number(this.form.relengthtime)).toFixed(2);
+            }
+          }
+        },
+        set() {
+        }
+      }
+    }
   };
 </script>
 

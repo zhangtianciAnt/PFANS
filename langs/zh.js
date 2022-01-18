@@ -3043,6 +3043,9 @@ module.exports = {
       '①、照料假按照整天申请。<br/>' +
       '②、在父母住院期间内可申请休假。<br/>'+
       '③、从申请开始时间一年内，累计不超过15天。',
+    PFANS2016FORMVIEW_VACATIONDAY:'每天休假长度',
+    PFANS2016FORMVIEW_ACVACATIONDAY:'实际每天休假长度',
+    PFANS2016FORMVIEW_BABYNUMBER:'婴儿数量',
     PFANS2017VIEW_START: '首次打卡',
     PFANS2017VIEW_WORKHOURS: '合计出勤时间',
     PFANS2017VIEW_EFFECTIVEDURATION: '有效时长',
