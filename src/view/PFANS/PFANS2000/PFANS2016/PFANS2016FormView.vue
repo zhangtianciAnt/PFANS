@@ -384,7 +384,7 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.enclosure')" >
+              <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
                 <el-upload
                   :action="upload"
                   :disabled="disableupload"
