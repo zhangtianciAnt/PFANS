@@ -1115,11 +1115,13 @@
             } else {
               this.dislengthtime = false;
             }
-            if (this.form.errortype === 'PR013001') {
+            //region scc upd 22/1/18 在申请加餐假和育儿假时，可以调整实际每天休假长度 from
+            if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013022' || this.form.errortype === 'PR013025') {
               this.checkrelengthtime = false;
             } else if (moment(this.form.refinisheddate).format('YYYY-MM-DD') != moment(this.form.reoccurrencedate).format('YYYY-MM-DD')) {
               this.checkrelengthtime = true;
             }
+            //endregion scc upd 22/1/18 在申请加餐假和育儿假时，可以调整实际每天休假长度 to
             let rst = getOrgInfoByUserId(response.user_id);
             if (rst) {
               this.centerid = rst.centerNmae;
