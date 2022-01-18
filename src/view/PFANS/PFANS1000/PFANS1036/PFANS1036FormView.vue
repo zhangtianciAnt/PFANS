@@ -4991,11 +4991,15 @@
         })
         //region scc add 导出 from
         if(val == 'export'){
+          this.tableP.forEach(items => {
+            items.center_id = this.form.center_id;
+            items.year = this.form.year;
+          });
           this.loading = true;
           this.$store
             .dispatch('PFANS1036Store/BusinessplanExport', this.tableP)
             .then(res => {
-              this.download(res,"事业计划PL")
+              this.download(res,"事业计划_"+this.companyen)
               this.loading = false;
             })
             .catch(error => {
