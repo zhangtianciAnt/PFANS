@@ -1305,6 +1305,7 @@
     getOrgInfoByUserId,
     getUserInfo,
     uploadUrl,
+    accAdd,
   } from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import org from '../../../components/org';
@@ -3410,12 +3411,12 @@
           }
         });
         if (this.form.type === '0') {
-          sums[9] = Math.round(sums[9] * 100) / 100;
-          sums[10] = Math.round(sums[10] * 100) / 100;
+          sums[9] = Number(Math.round(sums[9] * 100) / 100).toFixed(2);
+          sums[10] = Number(Math.round(sums[10] * 100) / 100).toFixed(2);
         } else {
-          sums[9] = Math.round(sums[9] * 100) / 100;
-          sums[10] = Math.round(sums[10] * 100) / 100;
-          sums[12] = Math.round(sums[12] * 100) / 100;
+          sums[9] = Number(Math.round(sums[9] * 100) / 100).toFixed(2);
+          sums[10] = Number(Math.round(sums[10] * 100) / 100).toFixed(2);
+          sums[12] = Number(Math.round(sums[12] * 100) / 100).toFixed(2);
         }
         //region scc add 11/3 from
         for(let i = 0; i < sums.length; i++){
@@ -3467,14 +3468,14 @@
           }
         });
         if (this.form.type === '0') {
-          sums[12] = Math.round(sums[12] * 100) / 100;
-          sums[11] = Math.round(sums[11] * 100) / 100;
-          sums[10] = Math.round(sums[10] * 100) / 100;
+          sums[12] = Number(Math.round(sums[12] * 100) / 100).toFixed(2);
+          sums[11] = Number(Math.round(sums[11] * 100) / 100).toFixed(2);
+          sums[10] = Number(Math.round(sums[10] * 100) / 100).toFixed(2);
         } else {
-          sums[13] = Math.round(sums[13] * 100) / 100;
-          sums[11] = Math.round(sums[11] * 100) / 100;
-          sums[12] = Math.round(sums[12] * 100) / 100;
-          sums[14] = Math.round(sums[14] * 100) / 100;
+          sums[13] = Number(Math.round(sums[13] * 100) / 100).toFixed(2);s
+          sums[11] = Number(Math.round(sums[11] * 100) / 100).toFixed(2);
+          sums[12] = Number(Math.round(sums[12] * 100) / 100).toFixed(2);
+          sums[14] = Number(Math.round(sums[14] * 100) / 100).toFixed(2);
         }
         //region scc add 11/3 from
         for(let i = 0; i < sums.length; i++){
@@ -3903,7 +3904,7 @@
       getMoney(sums) {
         if (this.form.type === '0') {
           // this.form.totalpay = sums[10] + this.tableAValue[11] + this.tableRValue[9];
-          this.form.totalpay = sums[9] + this.tableAValue[10] + this.tableAValue[12];
+          this.form.totalpay = accAdd(sums[9], this.tableAValue[10], this.tableAValue[12]);
         } else if (this.form.type === '1') {
           // this.form.totalpay = sums[10] + this.tableAValue[13] + this.tableRValue[9];
           // this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + this.tableRValue[8];
@@ -3918,7 +3919,7 @@
             moneySumAcocom += Math.round(this.tableA[i].rmb * 100) / 100;//住宿人民币之和
             monetSumSubsidies += Math.round(this.tableA[i].subsidies * 100) / 100;//补贴之和
           }
-          this.form.totalpay = moneySumTraffic + moneySumAcocom + monetSumSubsidies + this.tableRValue[8];
+          this.form.totalpay = accAdd(moneySumTraffic,moneySumAcocom, monetSumSubsidies, this.tableRValue[8]);
           //endregion scc add 境外支出总额计算 to
         }
       },
