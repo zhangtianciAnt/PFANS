@@ -1,4 +1,4 @@
-import {exportjs, create, get, selectById, gettravelcostvo, update, getdate, getLoanApplication,selectByIdone2} from './PFANS1013Api'
+import {exportjs, create, get, selectById, getSearch, gettravelcostvo, update, getdate, getLoanApplication,selectByIdone2} from './PFANS1013Api'
 
 const PFANS1013Store = {
   namespaced: true,
@@ -124,7 +124,23 @@ const PFANS1013Store = {
           reject(error);
         })
       })
-    }
+    },
+
+    // region  add  ml  220112  检索  from
+    getSearch({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getSearch(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion  add  ml  220112  检索  to
 
   }
 };

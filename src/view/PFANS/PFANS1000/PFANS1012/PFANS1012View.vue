@@ -1,7 +1,55 @@
 <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :showSelection="isShow"
                    :title="title" @buttonClick="buttonClick" :selectable="selectInit" @reget="getdata"
-                   @rowClick="rowClick" ref="roletable" v-loading="loading">
+                   @rowClick="rowClick" ref="roletable" v-loading="loading" :showSelectBySearch="false">
+    <!--  region  add   ml   220112  添加筛选条件   from    -->
+    <el-form label-position="top" label-width="8vw" slot="search">
+      <el-row>
+        <el-col :span="4">
+          <el-form-item :label="$t('label.PFANS1013VIEW_REIMNUMBER')">
+            <el-input style="width: 90%" v-model="form1.invoiceno" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item :label="$t('label.applicant')">
+            <user :userlist="form1.user_id"
+                  @getUserids="getUserids" style="width: 80%"></user>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item :label="$t('label.center')">
+            <org :orglist="form1.centerid"
+                 orgtype="1"
+                 style="width: 80%"
+                 @getOrgids="getCenter"
+            ></org>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item :label="$t('label.group')">
+            <org :orglist="form1.groupid"
+                 orgtype="2"
+                 style="width: 80%"
+                 @getOrgids="getGroup"
+            ></org>
+          </el-form-item>
+        </el-col>
+       <el-col :span="4">
+        <el-form-item :label="$t('label.status')">
+        <el-select @change="change" v-model="form1.processingstatus" clearable style="width: 90%">
+                <el-option
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                  v-for="item in codes"
+                >
+                </el-option>
+              </el-select>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
+    <!--  endregion  add   ml   220112  添加筛选条件   to    -->
   </EasyNormalTable>
 
 </template>
@@ -11,12 +59,16 @@
     import {Message} from 'element-ui';
     import {getDepartmentById, getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize';
     import moment from 'moment';
+    import user from '../../../components/user.vue';
+    import org from '@/view/components/org';
 
     const {Parser} = require('json2csv');
     export default {
         name: 'PFANS1012View',
         components: {
             EasyNormalTable,
+          org,
+          user,
         },
         data() {
             return {
@@ -28,6 +80,25 @@
                 startoptionvalue: [],
                 loading: false,
                 title: 'title.PFANS1012VIEW',
+              //region  add  ml  220112   筛选条件   from
+                form1 : {
+                  invoiceno: '',
+                  user_id: '',
+                  centerid: '',
+                  groupid: '',
+                  processingstatus: '',
+                },
+              codes: [
+                {
+                  value: '0',
+                  label:this.$t('label.PFANS1006FORMVIEW_OPTIONS1')
+                },
+                {
+                  value: '1',
+                  label:this.$t('label.PFANS1006FORMVIEW_OPTIONS2')
+                }
+              ],
+              //endregion  add  ml  220112   筛选条件   to
                 // 表格数据源
                 data: [],
                 // 列属性
@@ -158,6 +229,14 @@
                         'disabled': false,
                         icon: 'el-icon-upload2',
                     },
+                  //region   add    ml   220112   筛选条件   from
+                    {
+                      'key': 'search',
+                      'name': 'button.search',
+                      'disabled': false,
+                      icon: 'el-icon-search'
+                    },
+                  //endregion   add    ml   220112   筛选条件   to
                 ],
                 rowid: '',
                 row_id: 'publicexpenseid',
@@ -174,7 +253,10 @@
           getdata(){
             this.loading = true;
             this.$store
-              .dispatch('PFANS1012Store/get', {})
+              //  region  update  ml  220117   检索   from
+              .dispatch('PFANS1012Store/getSearch', this.form1)
+              // .dispatch('PFANS1012Store/get', {})
+              //  endregion  update  ml  220117   检索   to
               .then(response => {
                 for (let j = 0; j < response.length; j++) {
                   if (response[j].user_id !== null && response[j].user_id !== '') {
@@ -671,9 +753,56 @@
                     }
                     this.selectedlist = this.$refs.roletable.selectedList;
                     this.export1(0);
-
+              //  region   add   ml  220112   检索   from
+                } else if(val === 'search'){
+                  this.getdata();
                 }
+              //  endregion   add   ml  220112   检索   to
             },
+          //region   add  ml  220112  检索  from
+          change(val) {
+            this.form1.processingstatus = val;
+          },
+          getUserids(val) {
+            this.form1.user_id = val;
+          },
+          getCenter(val) {
+            this.form1.centerid = val;
+            this.form1.groupid = '';
+            if(val === ""){
+              this.form1.groupid = "";
+            }
+          },
+          getGroup(val) {
+            this.form1.groupid = val;
+            if(val != ""){
+              this.getOrgInformation(val);
+            }
+          },
+          getOrgInformation(id) {
+            let org = {};
+            let treeCom = this.$store.getters.orgs;
+            if (id && treeCom.getNode(id)) {
+              let node = id;
+              let type = treeCom.getNode(id).data.type || 0;
+              for (let index = parseInt(type); index >= 1; index--) {
+                if (index === 2) {
+                  org.groupname = treeCom.getNode(node).data.departmentname;
+                  org.group_id = treeCom.getNode(node).data._id;
+                }
+                if (index === 1) {
+                  org.centername = treeCom.getNode(node).data.companyname;
+                  org.center_id = treeCom.getNode(node).data._id;
+                }
+                node = treeCom.getNode(node).parent.data._id;
+              }
+              ({
+                center_id: this.form1.centerid,
+                group_id: this.form1.groupid,
+              } = org);
+            }
+          },
+          //endregion   add  ml  220112  检索   to
         },
     };
 </script>

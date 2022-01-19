@@ -11,7 +11,74 @@
     :selectable="selectInit"
     ref="roletable" @reget="getdata"
     v-loading="loading"
+    :showSelectBySearch="false"
   >
+    <!--  region  add   ml   220112  添加筛选条件   from    -->
+    <el-form label-position="top" label-width="8vw" slot="search">
+      <el-row>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.PFANS1013VIEW_REIMNUMBER')">
+            <el-input style="width: 90%" v-model="form1.invoiceno" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.applicant')">
+            <user :userlist="form1.userid"
+                  @getUserids="getUserids" style="width: 65%"></user>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.center')">
+            <org :orglist="form1.centerid"
+                 orgtype="1"
+                 style="width: 65%"
+                 @getOrgids="getCenter"
+            ></org>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.group')">
+            <org :orglist="form1.groupid"
+                 orgtype="2"
+                 style="width: 65%"
+                 @getOrgids="getGroup"
+            ></org>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.PFANS1013VIEW_TYPE')">
+            <el-select @change="change" v-model="form1.type" clearable style="width: 85%">
+              <el-option
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+                v-for="item in codes"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.PFANS1013VIEW_STARTDATE')">
+            <el-date-picker
+              style="width: 85%"
+              type="date"
+              v-model="form1.startdate">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.PFANS1013VIEW_ENDDATE')">
+            <el-date-picker
+              style="width: 85%"
+              type="date"
+              v-model="form1.enddate">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
+    <!--  endregion  add   ml   220112  添加筛选条件   to    -->
   </EasyNormalTable>
 </template>
 
@@ -20,6 +87,8 @@
   import {Message} from 'element-ui';
   import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo, getDepartmentById} from '@/utils/customize';
   import moment from 'moment';
+  import user from '../../../components/user.vue';
+  import org from '@/view/components/org';
 
   const {Parser} = require('json2csv');
 
@@ -28,6 +97,8 @@
     components: {
       moment,
       EasyNormalTable,
+      org,
+      user,
     },
     data() {
       return {
@@ -40,6 +111,27 @@
         loading: false,
         title: 'title.PFANS1013VIEW',
         data: [],
+        //region  add  ml  220112   筛选条件   from
+        form1 : {
+          invoiceno: '',
+          userid: '',
+          centerid: '',
+          groupid: '',
+          type: '',
+          startdate: '',
+          enddate: '',
+        },
+        codes: [
+          {
+            value: '0',
+            label:this.$t('label.PFANS1013VIEW_TYPEON')
+          },
+          {
+            value: '1',
+            label:this.$t('label.PFANS1013VIEW_TYPEOFF')
+          }
+        ],
+        //endregion  add  ml  220112   筛选条件   to
         columns: [
           {
             code: 'invoiceno',
@@ -178,6 +270,14 @@
             'disabled': false,
             icon: 'el-icon-upload2',
           },
+          //region   add    ml   220112   筛选条件   from
+          {
+            'key': 'search',
+            'name': 'button.search',
+            'disabled': false,
+            icon: 'el-icon-search'
+          },
+          //endregion   add    ml   220112   筛选条件   to
         ],
         rowid: '',
         row_id: 'evectionid',
@@ -190,7 +290,10 @@
       getdata(){
         this.loading = true;
         this.$store
-          .dispatch('PFANS1013Store/get')
+          //  region  update  ml  220117   检索   from
+          .dispatch('PFANS1013Store/getSearch', this.form1)
+          // .dispatch('PFANS1013Store/get')
+          //  endregion  update  ml  220117   检索   to
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               let user = getUserInfo(response[j].userid);
@@ -612,9 +715,56 @@
           }
           this.selectedlist = this.$refs.roletable.selectedList;
           this.export1(0);
-
+        //  region   add   ml  220112   检索   from
+        } else if(val === 'search') {
+          this.getdata();
+        }
+        //  endregion   add   ml  220112   检索   to
+      },
+      //region   add  ml  220112  检索  from
+      change(val) {
+        this.form1.type = val;
+      },
+      getUserids(val) {
+        this.form1.userid = val;
+      },
+      getCenter(val) {
+        this.form1.centerid = val;
+        this.form1.groupid = '';
+        if(val === ""){
+          this.form1.groupid = "";
         }
       },
+      getGroup(val) {
+        this.form1.groupid = val;
+        if(val != ""){
+          this.getOrgInformation(val);
+        }
+      },
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            center_id: this.form1.centerid,
+            group_id: this.form1.groupid,
+          } = org);
+        }
+      },
+      //endregion   add  ml  220112  检索   to
     },
   };
 </script>

@@ -11,7 +11,8 @@ import {
   crAccount2,
   getWithoutAuth,
   getforSysDiaLog,
-  getGroupexpDetail
+  getGroupexpDetail,
+  getSearch
 } from './PFANS6004Api'
 
 
@@ -210,9 +211,26 @@ const PFANS6004Store = {
           reject(error);
         })
       })
-    }
-  },
-  // 项目dialog 体制 合同优化添加分页 ztc to
+    },
+   // 项目dialog 体制 合同优化添加分页 ztc to
+
+    // region  add  ml  220112  检索  from
+    getSearch({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getSearch(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion  add  ml  220112  检索  to
+
+  }
 };
 
 export default PFANS6004Store;

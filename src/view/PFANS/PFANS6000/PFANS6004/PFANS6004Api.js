@@ -121,3 +121,13 @@ export function crAccount2(data) {
   })
 }
 
+//region   add  ml  220112  检索  from
+export function getSearch(data) {
+  return request({
+    url: 'expatriatesinfor/getSearch',
+    method: 'post',
+    data: data
+  })
+}
+//endregion   add  ml  220112  检索  to
+
