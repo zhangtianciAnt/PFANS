@@ -118,8 +118,8 @@
           centerid: '',
           groupid: '',
           type: '',
-          startdate: '',
-          enddate: '',
+          startdate: null,
+          enddate: null,
         },
         codes: [
           {

@@ -61,7 +61,7 @@
           expname: '',
           suppliername: '',
           interviewdep: '',
-          interview_date: '',
+          interview_date: null,
         },
         //endregion  add  ml  220112   筛选条件   to
         columns: [
