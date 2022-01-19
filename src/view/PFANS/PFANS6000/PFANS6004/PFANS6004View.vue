@@ -143,7 +143,7 @@ export default {
         expname: '',
         group_id: '',
         number: '',
-        admissiontime: '',
+        admissiontime: null,
       },
       //endregion  add  ml  220112   筛选条件   to
       columns: [
