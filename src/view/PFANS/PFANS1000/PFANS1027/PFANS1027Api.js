@@ -8,6 +8,14 @@ export function get() {
     method: 'get'
   })
 }
+//  add  ml  211130  报价单分页  from
+export function getQuotation() {
+  return request({
+    url: 'quotation/getQuotation',
+    method: 'get',
+  });
+}
+//  add  ml  211130  报价单分页  to
 export function selectById(data) {
   return request({
     url: 'quotation/selectById',

@@ -7,6 +7,7 @@
                      :rowid="row_id"
                      @buttonClick="buttonClick"
                      @rowClick="rowClick"
+                     @reget="getPage"
                      v-loading="loading">
     </EasyNormalTable>
   </div>
@@ -112,107 +113,176 @@
       };
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1026Store/get', {'type': '1'})
-        .then(response => {
-          let data = [];
-          for (let i = 0; i < response.contractapplication.length; i++) {
-            if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-              data.push({
-                contractnumber: response.contractapplication[i].contractnumber,
-              });
-              this.checkdata = data;
-            }
-          }
-          this.$store
-            .dispatch('PFANS1029Store/get', {})
-            .then(response => {
-              const datated = [];
-              for (let d = 0; d < this.checkdata.length; d++) {
-                for (let j = 0; j < response.length; j++) {
-                  if (this.checkdata[d].contractnumber === response[j].contractnumber) {
-                    if (response[j].user_id !== null && response[j].user_id !== '') {
-
-                      if (response[j].openingdate !== null && response[j].openingdate !== '') {
-                        response[j].openingdate = moment(response[j].openingdate).format('YYYY-MM-DD');
-                      }
-                      if (response[j].enddate !== null && response[j].enddate !== '') {
-                        response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
-                      }
-                      if (response[j].signingdate !== null && response[j].signingdate !== '') {
-                        response[j].signingdate = moment(response[j].signingdate).format('YYYY-MM-DD');
-                      }
-                      if (response[j].contracttype !== null && response[j].contracttype !== '') {
-                        let letContracttype = getDictionaryInfo(response[j].contracttype);
-                        if (letContracttype != null) {
-                          response[j].contracttype = letContracttype.value1;
-                        }
-                      }
-                      if (response[j].currencyposition !== null && response[j].currencyposition !== '') {
-                        let letCurrencyposition = getDictionaryInfo(response[j].currencyposition);
-                        if (letCurrencyposition != null) {
-                          response[j].currencyposition = letCurrencyposition.value1;
-                        }
-                      }
-                      if (response[j].depositjapanese !== null && response[j].depositjapanese !== '') {
-                        let letUser = getUserInfo(response[j].depositjapanese);
-                        if (letUser != null) {
-                          response[j].depositjapanese = letUser.userinfo.customername;
-                        }
-
-                      }
-                      datated.push({
-                        contracttype: response[j].contracttype,
-                        depositjapanese: response[j].depositjapanese,
-                        prplacejapanese: response[j].prplacejapanese,
-                        deployment: response[j].deployment,
-                        pjnamejapanese: response[j].pjnamejapanese,
-                        openingdate: response[j].openingdate,
-                        contractnumber: response[j].contractnumber,
-                        enddate: response[j].enddate,
-                        currencyposition: response[j].currencyposition,
-                        claimamount: response[j].claimamount,
-                        contract_id: response[j].contract_id,
-                      });
-                    }
-                  }
-                }
-              }
-              const datatade = [];
-              for (let m = 0; m < response.length; m++) {
-                for (let n = 0; n < datated.length; n++) {
-                  if (datated[n].contractnumber === response[m].contractnumber) {
-                    datatade.push({
-                      contracttype: response[m].contracttype,
-                      depositjapanese: response[m].depositjapanese,
-                      prplacejapanese: response[m].prplacejapanese,
-                      deployment: response[m].deployment,
-                      pjnamejapanese: response[m].pjnamejapanese,
-                      openingdate: response[m].openingdate,
-                      contractnumber: response[m].contractnumber,
-                      enddate: response[m].enddate,
-                      currencyposition: response[m].currencyposition,
-                      claimamount: response[m].claimamount,
-                      contract_id: response[m].contract_id,
-                    });
-                  }
-                }
-              }
-              this.data = datatade;
-              this.loading = false;
-            })
-            .catch(error => {
-              this.$message.error({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        });
+      this.getPage();
+      //  delete  ml  211130  分页  from
+      // this.loading = true;
+      // this.$store
+      //   .dispatch('PFANS1026Store/get', {'type': '1'})
+      //   .then(response => {
+      //     let data = [];
+      //     for (let i = 0; i < response.contractapplication.length; i++) {
+      //       if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+      //         data.push({
+      //           contractnumber: response.contractapplication[i].contractnumber,
+      //         });
+      //         this.checkdata = data;
+      //       }
+      //     }
+      //     this.$store
+      //       .dispatch('PFANS1029Store/get', {})
+      //       .then(response => {
+      //         const datated = [];
+      //         for (let d = 0; d < this.checkdata.length; d++) {
+      //           for (let j = 0; j < response.length; j++) {
+      //             if (this.checkdata[d].contractnumber === response[j].contractnumber) {
+      //               if (response[j].user_id !== null && response[j].user_id !== '') {
+      //
+      //                 if (response[j].openingdate !== null && response[j].openingdate !== '') {
+      //                   response[j].openingdate = moment(response[j].openingdate).format('YYYY-MM-DD');
+      //                 }
+      //                 if (response[j].enddate !== null && response[j].enddate !== '') {
+      //                   response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
+      //                 }
+      //                 if (response[j].signingdate !== null && response[j].signingdate !== '') {
+      //                   response[j].signingdate = moment(response[j].signingdate).format('YYYY-MM-DD');
+      //                 }
+      //                 if (response[j].contracttype !== null && response[j].contracttype !== '') {
+      //                   let letContracttype = getDictionaryInfo(response[j].contracttype);
+      //                   if (letContracttype != null) {
+      //                     response[j].contracttype = letContracttype.value1;
+      //                   }
+      //                 }
+      //                 if (response[j].currencyposition !== null && response[j].currencyposition !== '') {
+      //                   let letCurrencyposition = getDictionaryInfo(response[j].currencyposition);
+      //                   if (letCurrencyposition != null) {
+      //                     response[j].currencyposition = letCurrencyposition.value1;
+      //                   }
+      //                 }
+      //                 if (response[j].depositjapanese !== null && response[j].depositjapanese !== '') {
+      //                   let letUser = getUserInfo(response[j].depositjapanese);
+      //                   if (letUser != null) {
+      //                     response[j].depositjapanese = letUser.userinfo.customername;
+      //                   }
+      //
+      //                 }
+      //                 datated.push({
+      //                   contracttype: response[j].contracttype,
+      //                   depositjapanese: response[j].depositjapanese,
+      //                   prplacejapanese: response[j].prplacejapanese,
+      //                   deployment: response[j].deployment,
+      //                   pjnamejapanese: response[j].pjnamejapanese,
+      //                   openingdate: response[j].openingdate,
+      //                   contractnumber: response[j].contractnumber,
+      //                   enddate: response[j].enddate,
+      //                   currencyposition: response[j].currencyposition,
+      //                   claimamount: response[j].claimamount,
+      //                   contract_id: response[j].contract_id,
+      //                 });
+      //               }
+      //             }
+      //           }
+      //         }
+      //         const datatade = [];
+      //         for (let m = 0; m < response.length; m++) {
+      //           for (let n = 0; n < datated.length; n++) {
+      //             if (datated[n].contractnumber === response[m].contractnumber) {
+      //               datatade.push({
+      //                 contracttype: response[m].contracttype,
+      //                 depositjapanese: response[m].depositjapanese,
+      //                 prplacejapanese: response[m].prplacejapanese,
+      //                 deployment: response[m].deployment,
+      //                 pjnamejapanese: response[m].pjnamejapanese,
+      //                 openingdate: response[m].openingdate,
+      //                 contractnumber: response[m].contractnumber,
+      //                 enddate: response[m].enddate,
+      //                 currencyposition: response[m].currencyposition,
+      //                 claimamount: response[m].claimamount,
+      //                 contract_id: response[m].contract_id,
+      //               });
+      //             }
+      //           }
+      //         }
+      //         this.data = datatade;
+      //         this.loading = false;
+      //       })
+      //       .catch(error => {
+      //         this.$message.error({
+      //           message: error,
+      //           type: 'error',
+      //           duration: 5 * 1000,
+      //         });
+      //         this.loading = false;
+      //       });
+      //   });
+      //  delete  ml  211130  分页  to
     },
     methods: {
+      //  add  ml  211130  分页  from
+      getPage() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1029Store/getPage')
+          .then(response => {
+            const datatade = [];
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].user_id !== null && response[j].user_id !== '') {
+
+                if (response[j].openingdate !== null && response[j].openingdate !== '') {
+                  response[j].openingdate = moment(response[j].openingdate).format('YYYY-MM-DD');
+                }
+                if (response[j].enddate !== null && response[j].enddate !== '') {
+                  response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
+                }
+                if (response[j].signingdate !== null && response[j].signingdate !== '') {
+                  response[j].signingdate = moment(response[j].signingdate).format('YYYY-MM-DD');
+                }
+                if (response[j].contracttype !== null && response[j].contracttype !== '') {
+                  let letContracttype = getDictionaryInfo(response[j].contracttype);
+                  if (letContracttype != null) {
+                    response[j].contracttype = letContracttype.value1;
+                  }
+                }
+                if (response[j].currencyposition !== null && response[j].currencyposition !== '') {
+                  let letCurrencyposition = getDictionaryInfo(response[j].currencyposition);
+                  if (letCurrencyposition != null) {
+                    response[j].currencyposition = letCurrencyposition.value1;
+                  }
+                }
+                if (response[j].depositjapanese !== null && response[j].depositjapanese !== '') {
+                  let letUser = getUserInfo(response[j].depositjapanese);
+                  if (letUser != null) {
+                    response[j].depositjapanese = letUser.userinfo.customername;
+                  }
+
+                }
+                datatade.push({
+                  contracttype: response[j].contracttype,
+                  depositjapanese: response[j].depositjapanese,
+                  prplacejapanese: response[j].prplacejapanese,
+                  deployment: response[j].deployment,
+                  pjnamejapanese: response[j].pjnamejapanese,
+                  openingdate: response[j].openingdate,
+                  contractnumber: response[j].contractnumber,
+                  enddate: response[j].enddate,
+                  currencyposition: response[j].currencyposition,
+                  claimamount: response[j].claimamount,
+                  contract_id: response[j].contract_id,
+                });
+              }
+            }
+            this.data = datatade;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //  add  ml  211130  分页  to
       rowClick(row) {
         this.rowid = row.contract_id;
       },

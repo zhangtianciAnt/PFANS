@@ -9,6 +9,15 @@ export function get(data) {
   })
 }
 
+//  add  ml  211130  个别合同分页  from
+export function getindividualPage() {
+  return request({
+    url: 'contractapplication/getindividualPage',
+    method: 'post',
+  });
+}
+//  add  ml  211130  个别合同分页  to
+
 export function getList(data) {
   return request({
     url: 'contractapplication/getList',

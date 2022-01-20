@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns7" :data="data" :title="title" v-loading="loading"
-                     @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row"
+                     @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row" @reget="getCompanyProjectList"
                      :psearchValue="search">
     </EasyNormalTable>
   </div>

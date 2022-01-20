@@ -9,6 +9,7 @@ import {
   existQ,
   getList,
   getPe,
+  getindividualPage,
   purchaseExistCheck,
   getindividual,
   generatesta,
@@ -63,6 +64,21 @@ const PFANS1026Store = {
         });
       });
     },
+    //  add  ml  211130  个别合同分页  from
+    getindividualPage({commit}) {
+      return new Promise((resolve, reject) => {
+        getindividualPage().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //  add  ml  211130  个别合同分页  to
     get2({commit}, data) {
       return new Promise((resolve, reject) => {
         get2(data).then(response => {

@@ -1,6 +1,7 @@
 import {
   get,
   one,
+  getPage,
   update,
   generateJxls
 } from './PFANS1029Api'
@@ -24,7 +25,21 @@ const PFANS1029Store = {
         })
       })
     },
-
+    //  add  ml  211130  分页  from
+    getPage() {
+      return new Promise((resolve, reject) => {
+        getPage().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //  add  ml  211130  分页  to
     one({commit}, data) {
       return new Promise((resolve, reject) => {
         one(data).then(response => {

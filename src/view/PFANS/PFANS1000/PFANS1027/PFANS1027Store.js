@@ -2,6 +2,7 @@ import {
   get,
   update,
   selectById,
+  getQuotation,
   downLoad
   } from './PFANS1027Api'
 
@@ -23,6 +24,21 @@ import {
           })
         })
       },
+      //  add  ml  211130  报价单分页  from
+      getQuotation() {
+        return new Promise((resolve, reject) => {
+          getQuotation().then(response => {
+            if (response.code === 0) {
+              resolve(response.data);
+            } else {
+              reject(response.message);
+            }
+          }).catch(error => {
+            reject(error);
+          });
+        });
+      },
+      //  add  ml  211130  报价单分页  to
       selectById({ commit },data) {
         return new Promise((resolve, reject) => {
           selectById(data).then(response => {
