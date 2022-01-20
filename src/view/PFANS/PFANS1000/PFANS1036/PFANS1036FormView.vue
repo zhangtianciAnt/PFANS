@@ -3211,6 +3211,9 @@
         //region scc add 10/22 在库，合计到PL研究材料费 from
         let inLibrary = {};
         //endregion scc add 10/22 在库，合计到PL研究材料费 to
+        //region ztc add 22/01/20 给予，合计到PL人件费 from
+        let givePeo = {};
+        //endregion ztc add 22/01/20  给予，合计到PL研究材料费 to
 
         //add ccm 20211008 PL添加年间合计 fr
         let total0 = 0;    let total10 = 0;   let total20 = 0;   let total30 = 0;   let total40 = 0;   let total50 = 0;
@@ -3393,6 +3396,13 @@
               }
             }
             //endregion scc add 10/22 各种经费，在库 to
+            //region ztc add 22/01/20 各种经费，给予 from
+            if(val.type === 'PJ111019') {
+              for (let i = 1; i <= 12; i++) {
+                givePeo['money' + i] = (Number(givePeo['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+              }
+            }
+            //endregion ztc add 22/01/20 各种经费，给予 to
           },
         );
 
@@ -3482,11 +3492,13 @@
             - Number(this.tableP[1]['money' + this.arr[i]]) / (1 + Number(getDictionaryInfo('PJ086002').value2)) * Number(getDictionaryInfo('PJ086002').value2)
             - Number(this.tableP[2]['money' + this.arr[i]]) / (1 + Number(getDictionaryInfo('PJ086003').value2)) * Number(getDictionaryInfo('PJ086003').value2)).toFixed(2));
           //人员计划合计下半个
+          //region ztc add 22/01/20 各种经费，给予 from
           if (this.tableA.length > 0) {
-            this.$set(this.tableP[6], 'money' + this.arr[i], ((Number(this.tableA[0]['pay' + this.arr[i]]) + Number(this.tableA[0]['giving' + this.arr[i]])) / 1000).toFixed(2));
+            this.$set(this.tableP[6], 'money' + this.arr[i], ((Number(this.tableA[0]['pay' + this.arr[i]]) + Number(this.tableA[0]['giving' + this.arr[i]])) / 1000 + Number(givePeo['money' + this.arr[i]] || 0) ).toFixed(2));
           } else {
-            this.$set(this.tableP[6], 'money' + this.arr[i], '0.00');
+            this.$set(this.tableP[6], 'money' + this.arr[i], Number(givePeo['money' + this.arr[i]] || '0.00'));
           }
+          //region ztc add 22/01/20 各种经费，给予 to
           this.$set(this.tableP[7], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[8], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[9], 'money' + this.arr[i], '0.00');
