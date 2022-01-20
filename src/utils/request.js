@@ -105,6 +105,9 @@ const ListApi = [
   "loanapplication/getLoanapplicationSearch",
   "communication/getCommunicationSearch",
   "offshore/getOffshoreSearch",
+  "publicexpense/getSearch",
+  "expatriatesinfor/getSearch",
+  "expatriatesinfor/getSearch",
 ]
 const service = axios.create({
   baseURL: process.env.BASE_API,
