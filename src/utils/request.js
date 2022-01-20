@@ -98,6 +98,13 @@ const ListApi = [
   "petition/getPage",
   "award/getVerdict",
   "user/getCustomerPage",
+  "evection/getSearch",
+  "business/getBusinessSearch",
+  "judgement/getJudgementSearch",
+  "purchaseApply/getpurchaseApplySearch",
+  "loanapplication/getLoanapplicationSearch",
+  "communication/getCommunicationSearch",
+  "offshore/getOffshoreSearch",
 ]
 const service = axios.create({
   baseURL: process.env.BASE_API,

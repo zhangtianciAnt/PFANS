@@ -1131,6 +1131,96 @@
           this.getBudt(this.form1.center_id);
         }
       },
+      getOrgInformation1(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            // centername: this.form.centername,
+            // groupname: this.form.groupname,
+            center_id: this.form1.center_id,
+            group_id: this.form1.group_id,
+          } = org);
+        }
+      },
+      getregion(val) {
+        this.form1.region = val;
+      },
+      getCity(val) {
+        this.form1.city = val;
+      },
+      change(val) {
+        this.form1.processingstatus = val;
+      },
+      getUserids(val) {
+        this.form1.user_id = val;
+      },
+      getJudgementSearch(val,search){
+        this.data = [];
+        this.loading = true;
+        this.$store
+          .dispatch(val,search)
+          .then(response => {
+            for(let i = 0; i < response.length; i++){
+              if(this.$route.params.title === 4){//其他决裁
+                if (response[i].careerplan === '1') {
+                  if (this.$i18n) {
+                    response[i].careerplantempp = this.$t('label.PFANS1004VIEW_INSIDE');
+                  }
+                } else {
+                  if (this.$i18n) {
+                    response[i].careerplantempp = this.$t('label.PFANS1004VIEW_OUTER');
+                  }
+                }
+              }
+              if(this.$route.params.title === 5 || this.$route.params.title === 10){//千元以下费用-----交际费
+                if (response[i].plan === '1') {
+                  if (this.$i18n) {
+                    response[i].plantempp = this.$t('label.PFANS1004VIEW_INSIDE');
+                  }
+                } else {
+                  if (this.$i18n) {
+                    response[i].plantempp = this.$t('label.PFANS1004VIEW_OUTER');
+                  }
+                }
+              }
+              if(this.$route.params.title === 1 || this.$route.params.title === 2){//出差
+                if (response[i].plan === '1') {
+                  if (this.$i18n) {
+                    response[i].plantempp = this.$t('label.PFANS1004VIEW_INSIDE');
+                  }
+                } else {
+                  if (this.$i18n) {
+                    response[i].plantempp = this.$t('label.PFANS1004VIEW_OUTER');
+                  }
+                }
+              }
+            }
+            this.data = this.setuser(response);
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       //  endregion   add   ml   220112  检索  to
       getCenterid(val){
         this.form.new_center_id = val;
@@ -1179,33 +1269,6 @@
           } = org);
         }
       },
-      //  region  add  ml  220112  检索  from
-      getOrgInformation1(id) {
-        let org = {};
-        let treeCom = this.$store.getters.orgs;
-        if (id && treeCom.getNode(id)) {
-          let node = id;
-          let type = treeCom.getNode(id).data.type || 0;
-          for (let index = parseInt(type); index >= 1; index--) {
-            if (index === 2) {
-              org.groupname = treeCom.getNode(node).data.departmentname;
-              org.group_id = treeCom.getNode(node).data._id;
-            }
-            if (index === 1) {
-              org.centername = treeCom.getNode(node).data.companyname;
-              org.center_id = treeCom.getNode(node).data._id;
-            }
-            node = treeCom.getNode(node).parent.data._id;
-          }
-          ({
-            // centername: this.form.centername,
-            // groupname: this.form.groupname,
-            center_id: this.form1.center_id,
-            group_id: this.form1.group_id,
-          } = org);
-        }
-      },
-      //  endregion  add  ml  220112  检索  to
       getNewbudgetunit(val) {
         this.form.new_budgetunit = val;
       },
@@ -1277,6 +1340,7 @@
           }
         }
       },
+      //  region   update   ml   220112  检索  from
       getCompanyProjectList(val) {
         if (val === 1) {
           this.flagChange = '1';
@@ -1285,8 +1349,10 @@
           //ADD-WS-决裁编号添加
           this.row = 'business_id';
           this.title = 'title.PFANS1002VIEW';
-          let businesstype = {'businesstype': '0'};
-          this.dispatchparameter('PFANS1001Store/getBusiness', businesstype);
+          // let businesstype = {'businesstype': '0'};
+          // this.dispatchparameter('PFANS1001Store/getBusiness', businesstype);
+          this.form1.businesstype = '0'
+          this.getJudgementSearch('PFANS1001Store/getBusinessSearch', this.form1);
         } else if (val === 2) {
           this.flagChange = '2';
           //ADD-WS-决裁编号添加
@@ -1294,8 +1360,10 @@
           //ADD-WS-决裁编号添加
           this.row = 'business_id';
           this.title = 'title.PFANS1035VIEW';
-          let businesstype = {'businesstype': '1'};
-          this.dispatchparameter('PFANS1001Store/getBusiness', businesstype);
+          // let businesstype = {'businesstype': '1'};
+          // this.dispatchparameter('PFANS1001Store/getBusiness', businesstype);
+          this.form1.businesstype = '1'
+          this.getJudgementSearch('PFANS1001Store/getBusinessSearch', this.form1);
         } else if (val === 3) {
           this.flagChange = '3';
           //ADD-WS-决裁编号添加
@@ -1303,8 +1371,10 @@
           //ADD-WS-决裁编号添加
           this.row = 'judgementid';
           this.title = 'title.PFANS1003VIEW';
-          let letequipment = {'equipment': '1'};
-          this.dispatchparameter('PFANS1001Store/getJudgement', letequipment);
+          // let letequipment = {'equipment': '1'};
+          // this.dispatchparameter('PFANS1001Store/getJudgement', letequipment);
+          this.form1.equipment = '1';
+          this.getJudgementSearch('PFANS1001Store/getJudgementSearch', this.form1);
         } else if (val === 4) {
           this.flagChange = '4';
           //ADD-WS-决裁编号添加
@@ -1312,8 +1382,10 @@
           //ADD-WS-决裁编号添加
           this.row = 'judgementid';
           this.title = 'title.PFANS1004VIEW';
-          let letequipment = {'equipment': '0'};
-          this.dispatchparameter('PFANS1001Store/getJudgement', letequipment);
+          // let letequipment = {'equipment': '0'};
+          // this.dispatchparameter('PFANS1001Store/getJudgement', letequipment);
+          this.form1.equipment = '0';
+          this.getJudgementSearch('PFANS1001Store/getJudgementSearch', this.form1);
         } else if (val === 5) {
           this.flagChange = '5';
           //ADD-WS-费用编号添加
@@ -1321,7 +1393,8 @@
           //ADD-WS-费用编号添加
           this.row = 'purchaseapply_id';
           this.title = 'title.PFANS1005VIEW';
-          this.dispatch('PFANS1001Store/getpurchaseApply');
+          // this.dispatch('PFANS1001Store/getpurchaseApply');
+          this.getJudgementSearch('PFANS1001Store/getpurchaseApplySearch', this.form1);
         } else if (val === 6) {
           this.flagChange = '6';
           //ADD-WS-决裁编号添加
@@ -1329,7 +1402,8 @@
           //ADD-WS-决裁编号添加
           this.row = 'loanapplication_id';
           this.title = 'title.PFANS1006VIEW';
-          this.dispatch('PFANS1001Store/getLoanapplication');
+          // this.dispatch('PFANS1001Store/getLoanapplication');
+          this.getJudgementSearch('PFANS1001Store/getLoanapplicationSearch', this.form1);
         } else if (val === 10) {
           this.flagChange = '10';
           //ADD-WS-决裁编号添加
@@ -1337,7 +1411,8 @@
           //ADD-WS-决裁编号添加
           this.row = 'communication_id';
           this.title = 'title.PFANS1010VIEW';
-          this.dispatch('PFANS1001Store/getCommunication');
+          // this.dispatch('PFANS1001Store/getCommunication');
+          this.getJudgementSearch('PFANS1001Store/getCommunicationSearch', this.form1);
         } else if (val === 11) {
           this.flagChange = '11';
           //ADD-WS-决裁编号添加
@@ -1345,9 +1420,11 @@
           //ADD-WS-决裁编号添加
           this.row = 'offshore_id';
           this.title = 'title.PFANS1011VIEW';
-          this.dispatch('PFANS1001Store/getOffshore');
+          // this.dispatch('PFANS1001Store/getOffshore');
+          this.getJudgementSearch('PFANS1001Store/getOffshoreSearch', this.form1);
         }
       },
+      //  endregion   update   ml   220112  检索  to
       dispatch(val) {
         this.data = [];
         this.loading = true;
@@ -2751,88 +2828,10 @@
         }
         //region   add   ml   220112   检索   from
         if (val === 'search') {
-          //其他业务
-          if (this.$route.params.title === 4 ) {
-            this.form1.equipment = '0';
-            this.getJudgementSearch('PFANS1001Store/getJudgementSearch', this.form1);
-            //无偿设备
-          } else if (this.$route.params.title === 3 ) {
-            this.form1.equipment = '1';
-            this.getJudgementSearch('PFANS1001Store/getJudgementSearch', this.form1);
-            //千元以下
-          } else if (this.$route.params.title === 5) {
-            this.getJudgementSearch('PFANS1001Store/getpurchaseApplySearch', this.form1);
-            //暂借款
-          } else if (this.$route.params.title === 6) {
-            this.getJudgementSearch('PFANS1001Store/getLoanapplicationSearch', this.form1);
-            //境外
-          } else if (this.$route.params.title === 1) {
-            this.form1.businesstype = '0'
-            this.getJudgementSearch('PFANS1001Store/getBusinessSearch', this.form1);
-            //境内
-          } else if (this.$route.params.title === 2) {
-            this.form1.businesstype = '1'
-            this.getJudgementSearch('PFANS1001Store/getBusinessSearch', this.form1);
-            //交际费
-          } else if (this.$route.params.title === 10) {
-            this.getJudgementSearch('PFANS1001Store/getCommunicationSearch', this.form1);
-            //事前面谈
-          }else if (this.$route.params.title === 11) {
-            this.getJudgementSearch('PFANS1001Store/getOffshoreSearch', this.form1);
-          }
+          this.getCompanyProjectList(this.$route.params.title);
         }
         //endregion   add  ml  220112  检索   to
       },
-      //region   add  ml  220112  检索  from
-      getregion(val) {
-        this.form1.region = val;
-      },
-      getCity(val) {
-        this.form1.city = val;
-      },
-      change(val) {
-        this.form1.processingstatus = val;
-      },
-      getUserids(val) {
-        this.form1.user_id = val;
-      },
-      getJudgementSearch(val,search){
-        this.data = [];
-        this.loading = true;
-        this.$store
-        .dispatch(val,search)
-        .then(response => {
-          for(let i = 0; i < response.length; i++){
-            if(this.$route.params.title === 4){//其他决裁
-              if (response[i].careerplan === '1') {
-                if (this.$i18n) {
-                  response[i].careerplantempp = this.$t('label.PFANS1004VIEW_INSIDE');
-                }
-              } else {
-                if (this.$i18n) {
-                  response[i].careerplantempp = this.$t('label.PFANS1004VIEW_OUTER');
-                }
-              }
-            }
-          }
-          this.data = this.setuser(response);
-          Message({
-            message: this.$t('normal.success_03'),
-            type: 'success',
-            duration: 2 * 1000,
-          });
-          this.loading = false;
-        })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
-      //endregion   add  ml  220112  检索  to
     },
   };
 </script>
