@@ -191,6 +191,13 @@
                 <el-input :disabled="true" style="width:8vw" v-model="childrenage"></el-input>
               </el-form-item>
             </el-col>
+            <!--是否是独生子女-->
+            <el-col :span="4" v-if="form.errortype == 'PR013024'">
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_ONLYCHILD')" prop="onlychild">
+                <el-radio v-model="form.onlychild" :disabled="!disable" label="1">{{$t('label.yes')}}</el-radio>
+                <el-radio v-model="form.onlychild" :disabled="!disable" label="2">{{$t('label.no')}}</el-radio>
+              </el-form-item>
+            </el-col>
             <!--父母出生日期-->
             <el-col :span="4" v-if="form.errortype == 'PR013024'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_PARENTSDATE')" prop="parentsdate">
@@ -235,14 +242,14 @@
           <el-row>
             <el-col :span="8"
                     v-if="form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'">
-              <el-form-item :label="$t('label.startdate')" prop="occurrencedate">
+              <el-form-item :label="form.errortype != 'PR013024' ? $t('label.startdate') : $t('label.PFANS2016FORMVIEW_TAKECAREOFSTART')" prop="occurrencedate">
                 <el-date-picker :disabled="!disable" @change="change"
                                 style="width:20vw" type="date" v-model="form.occurrencedate"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8"
                     v-if="form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'">
-              <el-form-item :label="$t('label.enddate')" prop="finisheddate">
+              <el-form-item :label="form.errortype != 'PR013024' ? $t('label.enddate') : $t('label.PFANS2016FORMVIEW_TAKECAREOFEND')" prop="finisheddate">
                 <el-date-picker :disabled="!disable" @change="change"
                                 style="width:20vw" type="date" v-model="form.finisheddate"></el-date-picker>
               </el-form-item>
@@ -310,14 +317,14 @@
           <el-row
             v-if="form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7' ">
             <el-col :span="8">
-              <el-form-item :label="$t('label.restartdate')" prop="reoccurrencedate">
+              <el-form-item :label="form.errortype != 'PR013024' ? $t('label.restartdate') : $t('label.PFANS2016FORMVIEW_ACTAKECAREOFSTART')" prop="reoccurrencedate">
                 <el-date-picker @change="rechange"
                                 :disabled="((form.errortype == 'PR013007' || form.errortype == 'PR013005') && form.status >= 4) ? true: disrevacationtype"
                                 style="width:20vw" type="date" v-model="form.reoccurrencedate"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.reenddate')" prop="refinisheddate">
+              <el-form-item :label="form.errortype != 'PR013024' ? $t('label.reenddate') : $t('label.PFANS2016FORMVIEW_ACTAKECAREOFEND')" prop="refinisheddate">
                 <el-date-picker @change="rechange"
                                 :disabled="((form.errortype == 'PR013007' || form.errortype == 'PR013005') && form.status >= 4) ? true: disrevacationtype"
                                 style="width:20vw" type="date" v-model="form.refinisheddate"></el-date-picker>
@@ -329,7 +336,7 @@
             <el-col  :span="4" v-if="form.errortype == 'PR013023'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_APPLYFORDAYS')">
                 <el-input-number :disabled="true" controls-position="right"
-                                  v-model="form.relengthtime ? form.relengthtime / 8 : form.lengthtime / 8"></el-input-number>
+                                  v-model="allDays"></el-input-number>
               </el-form-item>
             </el-col>
             <!-- 履历按钮 -->
@@ -478,7 +485,12 @@
       var validateEnddate = (rule, value, callback) => {
         if (this.form.finisheddate !== null && this.form.finisheddate !== '') {
           if (moment(value).format('YYYY-MM-DD') < moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.enddate') + this.$t('normal.error_checkTime1') + this.$t('label.startdate')));
+            //父母照料假时，开始事件名称变为父母照料假开始事件
+            if(this.form.errortype != 'PR013024'){
+              callback(new Error(this.$t('label.enddate') + this.$t('normal.error_checkTime1') + this.$t('label.startdate')));
+            }else{
+              callback(new Error(this.$t('label.PFANS2016FORMVIEW_TAKECAREOFEND') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2016FORMVIEW_TAKECAREOFSTART')));
+            }
           } else {
             if (moment(value).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
             }
@@ -598,7 +610,12 @@
       var revalidateEnddate = (rule, value, callback) => {
         if (this.form.refinisheddate !== null && this.form.refinisheddate !== '') {
           if (moment(value).format('YYYY-MM-DD') < moment(this.form.reoccurrencedate).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.reenddate') + this.$t('normal.error_checkTime1') + this.$t('label.restartdate')));
+            //父母照料假时，实际开始事件名称变为实际父母照料假开始事件
+            if(this.form.errortype != 'PR013024'){
+              callback(new Error(this.$t('label.reenddate') + this.$t('normal.error_checkTime1') + this.$t('label.restartdate')));
+            }else{
+              callback(new Error(this.$t('label.PFANS2016FORMVIEW_ACTAKECAREOFEND') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2016FORMVIEW_ACTAKECAREOFSTART')));
+            }
           } else {
             callback();
             this.clearValidate(['reoccurrencedate', 'reperiodend', 'reperiodstart']);
@@ -611,7 +628,12 @@
       var validateStartdate = (rule, value, callback) => {
         if (this.form.occurrencedate !== null && this.form.occurrencedate !== '') {
           if (moment(value).format('YYYY-MM-DD') > moment(this.form.finisheddate).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
+            //父母照料假时，开始事件名称变为父母照料假开始事件
+            if(this.form.errortype != 'PR013024'){
+              callback(new Error(this.$t('label.startdate') + this.$t('normal.error_checkTime2') + this.$t('label.enddate')));
+            }else{
+              callback(new Error(this.$t('label.PFANS2016FORMVIEW_TAKECAREOFSTART') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2016FORMVIEW_TAKECAREOFEND')));
+            }
           } else {
             callback();
             this.clearValidate(['finisheddate', 'periodend', 'periodstart']);
@@ -624,7 +646,12 @@
       var revalidateStartdate = (rule, value, callback) => {
         if (this.form.reoccurrencedate !== null && this.form.reoccurrencedate !== '') {
           if (moment(value).format('YYYY-MM-DD') > moment(this.form.refinisheddate).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.restartdate') + this.$t('normal.error_checkTime2') + this.$t('label.reenddate')));
+            //父母照料假时，实际开始事件名称变为实际父母照料假开始事件
+            if(this.form.errortype != 'PR013024'){
+              callback(new Error(this.$t('label.restartdate') + this.$t('normal.error_checkTime2') + this.$t('label.reenddate')));
+            }else{
+              callback(new Error(this.$t('label.PFANS2016FORMVIEW_ACTAKECAREOFSTART') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2016FORMVIEW_ACTAKECAREOFEND')));
+            }
           } else {
             callback();
             this.clearValidate(['refinisheddate', 'reperiodend', 'reperiodstart']);
@@ -882,6 +909,7 @@
           parentmsg: '',
           parentsname: '',
           babynumber: '',
+          onlychild: '1',
         },
         code: 'PR013',
         multiple: false,
@@ -1889,13 +1917,12 @@
           }
           //获取check提醒
           if(this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024'){
-            this.$store
-              .dispatch('PFANS2016Store/getParentmsg', this.form)
-              .then(res => {
-                this.form.parentmsg = res.parentmsg.replace(/\n/g,"<br/>");
-              })
+            if(this.form.errortype === 'PR013023'){
+              this.changeBirth();
+            }else{
+              this.changeParent();
+            }
           }
-          this.getAge();//计算孩子或父母年龄
         }
         //代休_周末，事休
         if (this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008') {
@@ -1965,13 +1992,12 @@
           }
           //获取check提醒
           if(this.form.errortype === 'PR013023' || this.form.errortype === 'PR013024'){
-            this.$store
-              .dispatch('PFANS2016Store/getParentmsg', this.form)
-              .then(res => {
-                this.form.parentmsg = res.parentmsg.replace(/\n/g,"<br/>");
-              })
+            if(this.form.errortype === 'PR013023'){
+              this.changeBirth();
+            }else{
+              this.changeParent();
+            }
           }
-          this.getAge();//计算孩子或父母年龄
         }
         //region scc upd 加餐，哺乳（女）时， from
         if (this.form.errortype === 'PR013022' || this.form.errortype === 'PR013025') {
@@ -2332,8 +2358,8 @@
         //region scc add 21/1/6 育儿假 from
         else if (val === 'PR013023'){
           this.checkerrortishi = false;//产休（女）的对应提示
-          this.checkrelengthtime = true;//实际时间长度组件
-          this.dislengthtime = true;//时间长度显示组件
+          this.checkrelengthtime = true;//实际时间长度组件可用状态
+          this.dislengthtime = true;//时间长度显示组件可用状态
           this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = 8;//时间长度总计
           this.showVacation = true;//附件说明
@@ -2343,8 +2369,8 @@
         //region scc add 21/1/6 父母照料假 from
         else if (val === 'PR013024'){
           this.checkerrortishi = false;//产休（女）的对应提示
-          this.checkrelengthtime = true;//实际时间长度组件
-          this.dislengthtime = true;//时间长度显示组件
+          this.checkrelengthtime = true;//实际时间长度组件可用状态
+          this.dislengthtime = true;//时间长度显示组件可用状态
           this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = 8;//时间长度总计
           this.showVacation = true;//附件说明
@@ -2985,6 +3011,18 @@
                 }
               }
               //endregion scc upd 22/1/17 加餐、哺乳（女）,只能女行填写 to
+              //region scc add 22/1/19 父母照料假只能独生子女填写 from
+              if (this.form.errortype === 'PR013024') {
+                if(this.form.onlychild === '2'){//为2的时候代表不是独生子女
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_ONLYCHILDFILLIN'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+              }
+              //endregion scc add 22/1/19 父母照料假只能独生子女填写 to
               //金额不能为0的check
               if ((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&
                 this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8' && this.form.lengthtime <= 0) {
@@ -3385,7 +3423,7 @@
             if((years === 0 && month === 0 && days === 0) || years < 0 || month < 0 || days < 0){
               this.childrenage = "0";
             }else{
-              this.childrenage = (years === 0 ? '' : years + "年")  + (month === 0 ? '' : month + "个月")
+              this.childrenage = (years === 0 ? '' : years + "岁")  + (month + "个月")
             }
           }else{//实际开始
             //获取孩子年龄,开始时间减出生日期
@@ -3399,7 +3437,7 @@
             if((years === 0 && month === 0 && days === 0) || years < 0 || month < 0 || days < 0){
               this.childrenage = "0";
             }else{
-              this.childrenage = (years === 0 ? '' : years + "年" )+ (month === 0 ? '' : month + "个月")
+              this.childrenage = (years === 0 ? '' : years + "岁" )+ (month + "个月")
             }
           }
         }
@@ -3414,7 +3452,11 @@
             if((years === 0 && month === 0 && days === 0) || years < 0 || month < 0 || days < 0){
               this.parentsage = "0";
             }else{
-              this.parentsage = (years === 0 ? '' : years + "年") + (month === 0 ? '' : month + "个月")
+              if(month === 0){
+                this.parentsage = (years === 0 ? '' : years + "岁") + 0
+              }else{
+                this.parentsage = (years === 0 ? '' : years + "岁") + (month + "个月")
+              }
             }
           }else{//实际开始
             //获取父母年龄,开始时间减父母出生日期
@@ -3426,7 +3468,11 @@
             if((years === 0 && month === 0 && days === 0) || years < 0 || month < 0 || days < 0){
               this.parentsage = "0";
             }else{
-              this.parentsage = (years === 0 ? '' : years + "年") + (month === 0 ? '' : month + "个月")
+              if(month === 0){
+                this.parentsage = (years === 0 ? '' : years + "岁") + 0
+              }else{
+                this.parentsage = (years === 0 ? '' : years + "岁") + (month + "个月")
+              }
             }
           }
         }
@@ -3450,7 +3496,7 @@
           }
         }
         this.$refs.PFANS2033Pop.open = true;
-      }
+      },
     },
     computed: {
       //获取加餐或哺乳的总时长
@@ -3473,6 +3519,18 @@
             if (this.form.errortype == 'PR013022') {//加餐假
               return Number(Number(days) * Number(this.form.relengthtime)).toFixed(2);
             }
+          }
+        },
+        set() {
+        }
+      },
+      //育儿假申请天数
+      allDays: {
+        get() {
+          if(this.form.relengthtime){
+            return Number(Number(this.form.relengthtime) / 8).toFixed(2);
+          }else{
+            return Number(Number(this.form.lengthtime) / 8).toFixed(2);
           }
         },
         set() {
