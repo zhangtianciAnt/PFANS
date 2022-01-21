@@ -8,14 +8,18 @@
       <div align="right" class="filter-container" style="padding-bottom: 10px">
         <span class="Title_front main_color" style="float:left">{{$t(title)}}{{$t('table.detail')}}</span>
         <slot name="customize"></slot>
+<!--        检索画面样式调整并取消共通检索 ztc fr-->
         <el-input :placeholder="defaultSerchTooltip" class="filter-item" clearable
-                  style="width: 25%;vertical-align:top" v-model="searchValue">
+                  style="width: 25%;vertical-align:top" v-model="searchValue" v-if="showSelectBySearch">
           <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
         </el-input>
+<!--        检索画面样式调整并取消共通检索 ztc to-->
       </div>
       <slot name="search"></slot>
-      <div style="height: calc(100vh - 60px - 15rem);width: 100%">
-      <pl-table :datas="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')" :row-key="rowid"
+<!--      检索画面样式调整并取消共通检索 ztc fr-->
+      <div :style="{'height':showSelectBySearch ? 'calc(100vh - 60px - 15rem)': 'calc(100vh - 60px - 21rem)' }">
+<!--        检索画面样式调整并取消共通检索 ztc to-->
+        <pl-table :datas="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')" :row-key="rowid"
                 @filter-change="tableFilter" @row-click="rowClick" @row-dblclick="rowClick" @selection-change="handleSelectionChange" @sort-change="sortChange"
                 header-cell-class-name="sub_bg_color_blue" header-row-class-name="height" :pagination-show="paginationShow" :height-change="paginationShow"
                 highlight-current-row ref="eltable" stripe border use-virtual big-data-checkbox
@@ -135,6 +139,12 @@
       defaultSerchTooltip: {
         type: String
       },
+      //检索画面样式调整并取消共通检索 ztc fr
+      showSelectBySearch: {
+        type: Boolean,
+        default: true,
+      },
+      // 检索画面样式调整并取消共通检索 ztc to
       buttonList: {
         type: Array,
         default: function () {
@@ -214,7 +224,6 @@
           this.pagedate = pList
           this.total = this.totaldata.length
         }
-
         this.loading = false
       },
       // 每页最大数据变更
