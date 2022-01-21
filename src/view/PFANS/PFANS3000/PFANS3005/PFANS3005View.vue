@@ -2,7 +2,63 @@
   <div class="pfans3005view">
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowClassName="rowClassName"
-                     :showSelection="isShow" ref="roletable" :selectable="selectInit">
+                     :showSelection="isShow" ref="roletable" :selectable="selectInit" :showSelectBySearch="false">
+      <!--  region  add   ml   220112  添加筛选条件   from    -->
+      <el-form label-position="top" label-width="8vw" slot="search">
+        <el-row>
+          <el-col :span="3">
+            <el-form-item :label="$t('label.PFANS3005VIEW_NUMBERS')">
+              <el-input style="width: 92%" v-model="form1.purnumbers" clearable></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item :label="$t('label.applicant')">
+              <user :userlist="form1.user_id"
+                    @getUserids="getUserids" style="width: 67%"></user>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item :label="$t('label.center')">
+              <org :orglist="form1.center_id"
+                   orgtype="1"
+                   style="width: 67%"
+                   @getOrgids="getCenter"
+              ></org>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item :label="$t('label.group')">
+              <org :orglist="form1.group_id"
+                   orgtype="2"
+                   style="width: 67%"
+                   @getOrgids="getGroup"
+              ></org>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item :label="$t('label.PFANS3005VIEW_CONTROLLER')">
+              <user :userlist="form1.controller"
+                    @getUserids="getController" style="width: 67%"></user>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item :label="$t('label.PFANS3005VIEW_USER')">
+              <user :userlist="form1.username"
+                    @getUserids="getUsername" style="width: 67%"></user>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item :label="$t('label.application_date')">
+              <el-date-picker
+                style="width: 98%"
+                type="date"
+                v-model="form1.application_date">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <!--  endregion  add   ml   220112  添加筛选条件   to    -->
     </EasyNormalTable>
     <el-dialog center
                :visible.sync="dialogVisible"
@@ -97,6 +153,7 @@
     import EasyNormalTable from '@/components/EasyNormalTable';
     import {Message} from 'element-ui';
     import org from '@/view/components/org';
+    import user from '../../../components/user.vue';
     import moment from 'moment';
     import {getDepartmentById, getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo,getOrgInfo} from '@/utils/customize';
 
@@ -105,6 +162,7 @@
         components: {
             EasyNormalTable,
             org,
+            user,
         },
         data() {
             // add-ztc  数据转结 fr
@@ -183,6 +241,17 @@
                   new_team_id: '',
                   new_budgetunit: '',
                 },
+              //  region  add    ml   220113  检索  from
+              form1:{
+                purnumbers: '',
+                user_id: '',
+                center_id: '',
+                group_id: '',
+                controller: '',
+                username: '',
+                application_date: moment(new Date()).format('YYYY-MM-DD'),
+              },
+              //  endregion  add    ml   220113  检索  to
                 dialogVisible: false,
                 //error_group: '',
                 error_center: '',
@@ -460,7 +529,9 @@
                   //region scc add 10/28 购买决裁,删除按钮 from
                   {'key': 'delete', 'name': 'button.delete', 'disabled': true, 'icon': 'el-icon-delete'},
                   //endregion scc add 10/28 购买决裁,删除按钮 to
-
+                  //region   add    ml   220112   筛选条件   from
+                  {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
+                  //endregion   add    ml   220112   筛选条件   to
                 ],
                 buttonListAnt: [
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -483,6 +554,9 @@
                   // add-ztc  数据转结 fr
                   {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
                   // add-ztc  数据转结 to
+                  //region   add    ml   220112   筛选条件   from
+                  {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
+                  //endregion   add    ml   220112   筛选条件   to
                 ],
                 rowid: '',
                 mounth: '',
@@ -1357,7 +1431,186 @@
                 }
               }
               //endregion scc add 10/28 购买决裁逻辑删除 to
+              //region   add   ml   220112   检索   from
+              if (val === 'search') {
+                this.getPurchaseSearch();
+              }
+              //endregion   add   ml   220112   检索   to
             },
+          //  region   add  ml  220112  检索  from
+          getPurchaseSearch() {
+              this.loading = true;
+            this.$store
+              .dispatch('PFANS3005Store/getPurchaseSearch', this.form1)
+              .then(response => {
+                if (response.length > 0) {
+                  let now = new Date();
+                  now = moment(now.setMonth(now.getMonth() + 6)).format('YYYY-MM-DD');
+                  let application_date = moment(response[0].application_date).format('YYYY-MM-DD');
+                  if (application_date > now) {
+                    this.buttonList[1].disabled = true;
+                  }
+                }
+                for (let j = 0; j < response.length; j++) {
+                  // let lst = getOrgInfoByUserId(response[j].user_id);
+                  // if (lst) {
+                  //   response[j].group_id1 = response[j].group_id;
+                  //   response[j].center_id1 = response[j].center_id;
+                  //   response[j].center_id = lst.centerNmae;
+                  //   // response[j].group_id = lst.groupNmae;
+                  //   response[j].team_id = lst.teamNmae;
+                  // }
+                  //add_fjl_0927
+                  if (response[j].center_id !== null && response[j].center_id !== '' && response[j].center_id !== undefined) {
+                    response[j].center_id = getDepartmentById(response[j].center_id);
+                  }
+                  //add_fjl_0927
+                  //add_fjl_0927
+                  if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
+                    response[j].group_id = getDepartmentById(response[j].group_id);
+                  }
+                  if (response[j].team_id !== null && response[j].team_id !== '' && response[j].team_id !== undefined) {
+                    response[j].team_id = getDepartmentById(response[j].team_id);
+                  }
+                  //add_fjl_0927
+                  if (response[j].procurementproject !== null && response[j].procurementproject !== '') {
+                    let procurement = getDictionaryInfo(response[j].procurementproject);
+                    if (procurement != null) {
+                      response[j].procurementproject = procurement.value1;
+                    }
+                  }
+                  if (response[j].budgetnumber !== null && response[j].budgetnumber !== '') {
+                    let procurement = getDictionaryInfo(response[j].budgetnumber);
+                    if (procurement != null) {
+                      response[j].budgetnumber = procurement.value1;
+                    }
+                  }
+                  if (response[j].application_date !== null && response[j].application_date !== '') {
+                    response[j].application_date = moment(response[j].application_date).format('YYYY-MM-DD');
+                  }
+                  if (response[j].storagedate !== null && response[j].storagedate !== '') {
+                    response[j].storagedate = moment(response[j].storagedate).format('YYYY-MM-DD');
+                  }
+                  if (response[j].collectionday !== null && response[j].collectionday !== '') {
+                    response[j].collectionday = moment(response[j].collectionday).format('YYYY-MM-DD');
+                  }
+                  if (response[j].actuarialdate !== null && response[j].actuarialdate !== '') {
+                    response[j].actuarialdate = moment(response[j].actuarialdate).format('YYYY-MM-DD');
+                  }
+                  let controller = getUserInfo(response[j].controller);
+                  if (controller) {
+                    response[j].controller = getUserInfo(response[j].controller).userinfo.customername;
+                  }
+                  let username = getUserInfo(response[j].username);
+                  if (username) {
+                    response[j].username = getUserInfo(response[j].username).userinfo.customername;
+                  }
+                  let recipients = getUserInfo(response[j].recipients);
+                  if (recipients) {
+                    response[j].recipients = getUserInfo(response[j].recipients).userinfo.customername;
+                  }
+                  let user = getUserInfo(response[j].user_id);
+                  if (user) {
+                    response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
+                  }
+                  response[j].status = getStatus(response[j].status);
+                  if (response[j].implement_date !== null && response[j].implement_date !== '') {
+                    response[j].implement_date = moment(response[j].implement_date).format('YYYY-MM-DD');
+                  }
+                  if (response[j].careerplan === '1') {
+
+                    if (this.$i18n) {
+                      response[j].careerplantemp = this.$t('label.PFANS1004VIEW_INSIDE');
+                    }
+                  } else {
+                    if (this.$i18n) {
+                      response[j].careerplantemp = this.$t('label.PFANS1004VIEW_OUTER');
+                    }
+                  }
+                  // ADD_FJL   (受理状态)
+                  if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
+                    if (this.$i18n) {
+                      if (response[j].acceptstatus === '0') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
+                      } else if (response[j].acceptstatus === '1') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_DUIYINGZHONG');
+                      } else if (response[j].acceptstatus === '2') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_WEIDUIYING');
+                      }
+                    }
+                  }
+                  // ADD_FJL   (受理时间)
+                  if (response[j].findate !== null && response[j].findate !== "") {
+                    response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
+                  }
+                }
+                this.data = response;
+                Message({
+                  message: this.$t('normal.success_03'),
+                  type: 'success',
+                  duration: 2 * 1000,
+                });
+                this.loading = false;
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+          },
+          getCenter(val) {
+            this.form1.center_id = val;
+            this.form1.group_id = '';
+            this.getBudt(val);
+            if(val === ""){
+              this.form1.group_id = "";
+            }
+          },
+          getGroup(val) {
+            this.form1.group_id = val;
+            if(val != ""){
+              this.getOrgInformation1(val);
+              this.getBudt(val);
+            }else{
+              this.getBudt(this.form1.center_id);
+            }
+          },
+          getOrgInformation1(id) {
+            let org = {};
+            let treeCom = this.$store.getters.orgs;
+            if (id && treeCom.getNode(id)) {
+              let node = id;
+              let type = treeCom.getNode(id).data.type || 0;
+              for (let index = parseInt(type); index >= 1; index--) {
+                if (index === 2) {
+                  org.groupname = treeCom.getNode(node).data.departmentname;
+                  org.group_id = treeCom.getNode(node).data._id;
+                }
+                if (index === 1) {
+                  org.centername = treeCom.getNode(node).data.companyname;
+                  org.center_id = treeCom.getNode(node).data._id;
+                }
+                node = treeCom.getNode(node).parent.data._id;
+              }
+              ({
+                center_id: this.form1.center_id,
+                group_id: this.form1.group_id,
+              } = org);
+            }
+          },
+          getUserids(val) {
+            this.form1.user_id = val;
+          },
+          getController(val) {
+            this.form1.controller = val;
+          },
+          getUsername(val) {
+            this.form1.username = val;
+          },
+          //  endregion   add   ml   220112  检索  to
             export1() {
                 this.loading = true;
                 this.$store
