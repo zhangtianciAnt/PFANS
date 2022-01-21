@@ -3904,7 +3904,9 @@
       getMoney(sums) {
         if (this.form.type === '0') {
           // this.form.totalpay = sums[10] + this.tableAValue[11] + this.tableRValue[9];
-          this.form.totalpay = accAdd(sums[9], this.tableAValue[10], this.tableAValue[12]);
+          // this.form.totalpay = accAdd(sums[9], this.tableAValue[10], this.tableAValue[12]);
+          let sum1 = accAdd(sums[9], this.tableAValue[10]);
+          this.form.totalpay = accAdd(sum1,this.tableAValue[12]);
         } else if (this.form.type === '1') {
           // this.form.totalpay = sums[10] + this.tableAValue[13] + this.tableRValue[9];
           // this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + this.tableRValue[8];
@@ -3919,8 +3921,10 @@
             moneySumAcocom += Math.round(this.tableA[i].rmb * 100) / 100;//住宿人民币之和
             monetSumSubsidies += Math.round(this.tableA[i].subsidies * 100) / 100;//补贴之和
           }
-          this.form.totalpay = accAdd(moneySumTraffic,moneySumAcocom, monetSumSubsidies, this.tableRValue[8]);
-          //endregion scc add 境外支出总额计算 to
+          // this.form.totalpay = accAdd(moneySumTraffic,moneySumAcocom, monetSumSubsidies, this.tableRValue[8]);
+          let sum1 = accAdd(moneySumTraffic,moneySumAcocom);
+          let sum2 = accAdd(monetSumSubsidies, this.tableRValue[8]);
+          this.form.totalpay = accAdd(sum1,sum2);
         }
       },
       workflowState(val) {
