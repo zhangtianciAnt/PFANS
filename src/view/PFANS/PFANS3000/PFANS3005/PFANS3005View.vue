@@ -8,7 +8,7 @@
         <el-row>
           <el-col :span="3">
             <el-form-item :label="$t('label.PFANS3005VIEW_NUMBERS')">
-              <el-input style="width: 92%" v-model="form1.purnumbers" clearable></el-input>
+              <el-input style="width: 80%" v-model="form1.purnumbers" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="3">
@@ -17,7 +17,7 @@
                     @getUserids="getUserids" style="width: 67%"></user>
             </el-form-item>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="4">
             <el-form-item :label="$t('label.center')">
               <org :orglist="form1.center_id"
                    orgtype="1"
@@ -26,7 +26,7 @@
               ></org>
             </el-form-item>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="4">
             <el-form-item :label="$t('label.group')">
               <org :orglist="form1.group_id"
                    orgtype="2"
@@ -249,7 +249,7 @@
                 group_id: '',
                 controller: '',
                 username: '',
-                application_date: moment(new Date()).format('YYYY-MM-DD'),
+                application_date: null,
               },
               //  endregion  add    ml   220113  检索  to
                 dialogVisible: false,
