@@ -14,7 +14,7 @@
           show-icon>
         </el-alert>
       </div>
-      <div align="right" class="filter-container" v-if="titleShow">
+      <div align="right" class="filter-container" v-if="titleShow" style="min-height: 40px">
         <span class="Title_front main_color" style="float:left">{{$t(title)}}{{$t('table.detail')}}
           <el-popover
             placement="right-start"

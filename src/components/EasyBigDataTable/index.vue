@@ -5,7 +5,7 @@
         <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
         <easy-work-flow ref="workflow"> </easy-work-flow>
       </div>
-      <div align="right" class="filter-container" style="padding-bottom: 10px">
+      <div align="right" class="filter-container" style="padding-bottom: 10px;min-height: 40px">
         <span class="Title_front main_color" style="float:left">{{$t(title)}}{{$t('table.detail')}}</span>
         <slot name="customize"></slot>
 <!--        检索画面样式调整并取消共通检索 ztc fr-->
