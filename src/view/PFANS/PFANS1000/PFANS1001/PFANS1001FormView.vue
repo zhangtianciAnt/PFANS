@@ -38,14 +38,7 @@
           </el-col>
           <el-col :span="4">
             <el-form-item :label="$t('label.PFANS3001VIEW_TRIPPOINT')">
-              <dicselect v-if="showOut"
-                :code="code2"
-                :data="form1.region"
-                :multiple="multiple"
-                @change="getregion"
-                style="width: 90%"
-              >
-              </dicselect>
+              <el-input v-if="showOut" style="width: 90%" v-model="form1.region" clearable></el-input>
               <dicselect v-if="showIn"
                          :code="code3"
                          :data="form1.city"
@@ -1155,9 +1148,6 @@
             group_id: this.form1.group_id,
           } = org);
         }
-      },
-      getregion(val) {
-        this.form1.region = val;
       },
       getCity(val) {
         this.form1.city = val;
