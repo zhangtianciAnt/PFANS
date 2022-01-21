@@ -40,3 +40,13 @@ export function purdelete(data) {
   });
 }
 //endregion scc add 千元以下费用决裁删除 to
+
+//region   add  ml  220112  检索  from
+export function getpurchaseApplySearch(data) {
+  return request({
+    url: 'purchaseApply/getpurchaseApplySearch',
+    method: 'post',
+    data: data
+  });
+}
+//endregion   add  ml  220112  检索  to

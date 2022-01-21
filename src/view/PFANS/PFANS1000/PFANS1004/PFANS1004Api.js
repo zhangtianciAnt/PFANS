@@ -57,3 +57,13 @@ export function juddelete(data) {
   });
 }
 //endregion scc add 其他业务决裁逻辑删除 to
+
+//region   add  ml  220112  检索  from
+export function getJudgementSearch(data) {
+  return request({
+    url: 'judgement/getJudgementSearch',
+    method: 'post',
+    data: data
+  })
+}
+//endregion   add  ml  220112  检索  to

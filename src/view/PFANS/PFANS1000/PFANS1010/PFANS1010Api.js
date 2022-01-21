@@ -40,3 +40,13 @@ export function comdelete(data) {
   });
 }
 //endregion scc add 交际费事前决裁删除 to
+
+//region   add  ml  220112  检索  from
+export function getCommunicationSearch(data) {
+  return request({
+    url: 'communication/getCommunicationSearch',
+    method: 'post',
+    data: data
+  })
+}
+//endregion   add  ml  220112  检索  to

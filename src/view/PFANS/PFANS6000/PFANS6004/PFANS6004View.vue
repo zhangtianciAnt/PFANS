@@ -2,7 +2,46 @@
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
                      ref="roletable" :showSelection="isShow"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :showSelectBySearch="false">
+      <!--  region  add   ml   220112  添加筛选条件   from    -->
+      <el-form label-position="top" label-width="8vw" slot="search">
+        <el-row>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')">
+              <el-input style="width: 90%" v-model="form1.suppliername" clearable></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.user_name')">
+              <el-input style="width: 90%" v-model="form1.expname" clearable></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.PFANS5001FORMVIEW_DEPARTMENTID')">
+              <org :orglist="form1.group_id"
+                   orgtype="1"
+                   style="width: 80%"
+                   @getOrgids="getGroup"
+              ></org>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')">
+              <el-input style="width: 90%" v-model="form1.number" clearable></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')">
+              <el-date-picker
+                style="width: 85%"
+                type="date"
+                v-model="form1.admissiontime">
+              </el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <!--  endregion  add   ml   220112  添加筛选条件   to    -->
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
@@ -53,6 +92,7 @@
 import {getToken} from '@/utils/auth';
 import EasyNormalTable from '@/components/EasyNormalTable';
 import {Message} from 'element-ui';
+import org from '@/view/components/org';
 import {
   Decrypt,
   getCooperinterviewList,
@@ -69,6 +109,7 @@ export default {
   name: 'PFANS6004View',
   components: {
     EasyNormalTable,
+    org,
   },
   data() {
     return {
@@ -96,6 +137,15 @@ export default {
       loading: false,
       title: 'title.PFANS6004VIEW',
       data: [],
+      //region  add  ml  220112   筛选条件   from
+      form1 : {
+        suppliername: '',
+        expname: '',
+        group_id: '',
+        number: '',
+        admissiontime: null,
+      },
+      //endregion  add  ml  220112   筛选条件   to
       columns: [
         {
           //供应商名称
@@ -203,6 +253,9 @@ export default {
         // {'key': 'crAccount', 'name': 'button.crAccount', 'disabled': false, icon: 'el-icon-user'},
         {'key': 'crAccount2', 'name': 'button.crAccount2', 'disabled': false, icon: 'el-icon-user'},
         // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
+        //region   add    ml   220112   筛选条件   from
+        {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
+        //endregion   add    ml   220112   筛选条件   to
       ],
       rowid: '',
       row: 'expatriatesinfor_id',
@@ -221,7 +274,10 @@ export default {
         {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
         {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
         {'key': 'crAccount2', 'name': 'button.crAccount2', 'disabled': false, icon: 'el-icon-user'},
-        {'key': 'reset', 'name': 'button.resetPassword', 'disabled': false, icon: 'el-icon-edit'}
+        {'key': 'reset', 'name': 'button.resetPassword', 'disabled': false, icon: 'el-icon-edit'},
+        //region   add    ml   220112   筛选条件   from
+        {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
+        //endregion   add    ml   220112   筛选条件   to
       ]
     }
     // endregion  add  ml  211224  密码重置  to
@@ -231,7 +287,10 @@ export default {
     getexpatriatesinfor() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS6004Store/getexpatriatesinfor')
+        //  region  update  ml  220117   检索   from
+        .dispatch('PFANS6004Store/getSearch', this.form1)
+        // .dispatch('PFANS6004Store/getexpatriatesinfor')
+        //  endregion  update  ml  220117   检索   to
         .then(response => {
           let tabledate = [];
           for (let j = 0; j < response.length; j++) {
@@ -849,7 +908,17 @@ export default {
         })
       }
       //  endregion  add  ml  211224  密码重置  to
+      //  region  update  ml  220117   检索   from
+      if (val === 'search') {
+        this.getexpatriatesinfor();
+      }
+      //  endregion  update  ml  220117   检索   to
     },
+    //  region  update  ml  220117   检索   from
+    getGroup(val) {
+      this.form1.group_id = val;
+    },
+    //  endregion  update  ml  220117   检索   to
   },
 };
 </script>

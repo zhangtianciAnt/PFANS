@@ -1,4 +1,4 @@
-import {exportjs,insert, get,loanapplication, selectById,getpublicelist, update,getJudgement,getLoanApplication,getLoanApplicationList2,selectJudgement,selectPurchaseApply,selectByIdone2,selectCommunication,gettotalcost,getLoanApplicationList,getworkfolwPurchaseData} from './PFANS1012Api'
+import {exportjs,insert, get,loanapplication, getSearch,selectById,getpublicelist, update,getJudgement,getLoanApplication,getLoanApplicationList2,selectJudgement,selectPurchaseApply,selectByIdone2,selectCommunication,gettotalcost,getLoanApplicationList,getworkfolwPurchaseData} from './PFANS1012Api'
 
 const PFANS1012Store = {
   namespaced: true,
@@ -236,6 +236,21 @@ const PFANS1012Store = {
     },
     //采购业务数据流程查看详情
 
+    // region  add  ml  220112  检索  from
+    getSearch({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getSearch(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion  add  ml  220112  检索  to
 
   }
 };
