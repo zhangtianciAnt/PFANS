@@ -235,7 +235,7 @@
         retral:{
           group_id:'',
           createby: '',
-          log_date: moment(new Date()).format(('YYYY-MM-DD')),
+          log_date: null,
           month: moment(new Date()).format('YYYY-MM'),
         },
         selectType:'Single',
@@ -386,6 +386,7 @@
         this.$store
           .dispatch('PFANS5008Store/getDataList2', parameter)
           .then(response => {
+            this.loading = true;
               this.datalistsum = response;
               this.loading = false;
             },
@@ -504,6 +505,7 @@
         this.$store
           .dispatch('PFANS5008Store/getDataList1', {log_date: val})
           .then(response => {
+            this.loading = true;
               for (let j = 0; j < response.length; j++) {
                 let user = getUserInfo(response[j].createby);
 
@@ -791,6 +793,7 @@
         this.$store
           .dispatch('PFANS5008Store/getEligibleDataList', this.retral)
         .then(response => {
+          this.loading = true;
           for (let j = 0; j < response.length; j++) {
             let user = getUserInfo(response[j].createby);
             if (user) {
@@ -830,7 +833,7 @@
             });
             this.loading = false;
           });
-        // this.loading = false;
+        this.loading = false;
       }
     },
   };
