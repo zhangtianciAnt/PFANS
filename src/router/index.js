@@ -236,6 +236,7 @@ import PFANS8009FormView from '@/view/PFANS/PFANS8000/PFANS8009/PFANS8009FormVie
 import PFANS8010View from '@/view/PFANS/PFANS8000/PFANS8010/PFANS8010View.vue'
 import PFANS8011FormView from '@/view/PFANS/PFANS8000/PFANS8011/PFANS8011FormView.vue'
 import PFANS8011View from '@/view/PFANS/PFANS8000/PFANS8011/PFANS8011View.vue'
+import PFANS8012View from '@/view/PFANS/PFANS8000/PFANS8012/PFANS8012View.vue'
 import ASSETS1001View from '@/view/ASSETS/ASSETS1000/ASSETS1001/ASSETS1001View.vue'
 import ASSETS1001FormView from '@/view/ASSETS/ASSETS1000/ASSETS1001/ASSETS1001FormView.vue'
 import ASSETS1002View from '@/view/ASSETS/ASSETS1000/ASSETS1002/ASSETS1002View.vue'
@@ -1442,6 +1443,11 @@ const routes = [
         path: '/PFANS8011View',
         name: 'PFANS8011View',
         component: PFANS8011View
+      },
+      {
+        path: '/PFANS8012View',
+        name: 'PFANS8012View',
+        component: PFANS8012View
       },
       {
         path: '/ASSETS1001View',

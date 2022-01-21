@@ -14,13 +14,13 @@
               <el-input :disabled="!disable" class="width" maxlength="50" v-model="form.title" style="width:20vw"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="8" v-if="show">
             <el-form-item :label="$t('label.PFANS8008VIEW_MESSAGE_TYPE')" prop="title">
               <dicselect
                 :disabled="!disable"
                 code="RS004"
-                :multiple="multiple"
                 :data="form.filetype"
+                :fliCode="'T'"
                 style="width:20vw"
                 @change="changeType">
               </dicselect>
@@ -42,7 +42,7 @@
         </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
+        <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent" v-if="show">
           <el-upload
             :action="upload"
             :file-list="fileList"
@@ -96,6 +96,7 @@
         loading: false,
         disbaled: false,
         titles: "title.PFANS8008VIEW",
+        show: true,//用于区别信息发布和总经理博客
         form: {
           informationid: "",
           title: "",
@@ -137,6 +138,12 @@
     mounted() {
       if (this.$route.params._id) {
         this.getOneInformation(this.$route.params._id);
+      }
+      //博客详情不显示附件，类别等
+      if (this.$store.getters.historyUrl === '/PFANS8012View') {
+        this.show = false;
+        //只有总经理可以从一览跳转到详情，所以固定类型为RS004004
+        this.form.filetype = 'RS004004';
       }
     },
     methods: {

@@ -42,7 +42,7 @@
             </div>
           </el-card>
         </el-row>
-        <el-row style="padding-top: 4px;height: 290px;max-height: 290px">
+        <el-row style="padding-top: 4px;height: 245px;max-height: 245px">
           <el-card class="box-card" shadow="hover">
             <el-row>
               <el-col :span="12">
@@ -63,8 +63,34 @@
               </el-col>
             </el-row>
             <el-divider></el-divider>
-            <el-row style="height:185px;max-height: 185px;overflow: hidden">
+            <el-row style="height:110px;max-height: 110px;overflow: hidden">
               <el-table :show-header="false" :data="DataList2" @row-click="rowclickDataList2">
+                <el-table-column prop="title" width="500"></el-table-column>
+                <el-table-column prop="creaton" width="95"></el-table-column>
+              </el-table>
+            </el-row>
+            <!-- 总经理博客 -->
+            <el-row style="margin-top: 8px">
+              <el-col :span="12">
+                <span
+                  style="float:left;color: #5d9cec;font-size: 0.85rem;margin-left: 3%"
+                >{{$t('label.INDEX_BLOG')}}</span>
+              </el-col>
+              <el-col :span="12">
+                <el-link
+                  :underline="false"
+                  @click="Clickckgd1"
+                  style="margin-left: 75%;color: #5d9cec"
+                  target="_blank"
+                  type="primary"
+                >
+                  <span style="font-size: 0.85rem">{{$t('label.INDEX_CKGD')}}</span>
+                </el-link>
+              </el-col>
+            </el-row>
+            <el-divider></el-divider>
+            <el-row style="height:90px;max-height: 90px;">
+              <el-table :show-header="false" :data="DataList3" @row-click="rowclickDataList2">
                 <el-table-column prop="title" width="500"></el-table-column>
                 <el-table-column prop="creaton" width="95"></el-table-column>
               </el-table>
@@ -86,7 +112,7 @@
             </el-link>
           </el-col>
         </el-row>
-        <el-row style="height: 400px;max-height: 400px">
+        <el-row style="height: 470px;max-height: 470px">
           <full-calendar
             :key="calendarKey"
             :dayRender="dayRender"
@@ -260,6 +286,7 @@
         YBHSX: '',
         availablestate: '',
         DataList2: [{}],
+        DataList3: [{}],//总经理博客
         calendarPlugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
         locale: 'cn',
         listQuery: {
@@ -404,9 +431,23 @@
         this.$emit('changeMenu');
         // }
       },
+      //信息发布查看更多
       Clickckgd() {
         this.$router.push({
           name: 'PFANS8003View',
+          params: {
+            _id: '1',
+          },
+        });
+        this.$emit('changeMenu');
+      },
+      //总经理博客查看更多
+      Clickckgd1() {
+        this.$router.push({
+          name: 'PFANS8003View',
+          params: {
+            _id: '2',
+          },
         });
         this.$emit('changeMenu');
       },
@@ -455,6 +496,37 @@
               }
             }
             this.DataList2 = data.slice(0, 5);
+          })
+          .catch(err => {
+            this.$message.error({
+              message: err,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          });
+      },
+      getBLOB() {
+        this.$store
+          .dispatch('PFANS8008Store/getByManager')
+          .then(response => {
+            let data = [];
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].availablestate === '0') {
+                if (response[j].createon !== null && response[j].createon !== '') {
+                  response[j].createon = moment(response[j].createon).format(
+                    'YYYY-MM-DD',
+                  );
+                }
+                let obj = {};
+                obj.title = response[j].title;
+                obj.url = response[j].url;
+                obj.creaton = response[j].createon;
+                obj.informationid = response[j].informationid;
+                obj.availablestate = response[j].availablestate;
+                data[j] = obj;
+              }
+            }
+            this.DataList3 = data.slice(0, 5);
           })
           .catch(err => {
             this.$message.error({
@@ -532,6 +604,7 @@
       this.$store.commit('global/SET_HISTORYURL', this.$route.path);
       this.getMessageData();
       this.getGSDT();
+      this.getBLOB();//主页总经理博客数据获取
       // this.$emit('showPop',this.flowData)
     },
   };

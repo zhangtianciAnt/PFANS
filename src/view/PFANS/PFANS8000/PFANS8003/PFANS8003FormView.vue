@@ -4,7 +4,7 @@
       v-loading="loading">
       <div slot="customize">
         <div v-html="this.form.richtext" style="overflow: auto"/>
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+        <el-form :model="form" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
           <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
             <el-upload
               :disabled="true"

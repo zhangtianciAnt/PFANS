@@ -87,8 +87,9 @@
     },
     methods: {
       getdata(){
+        let path = this.$route.params._id === '1' ? "getListType" : "getListByManager";//区别查看信息发布还是总经理博客
         this.loading = true;
-        this.$store.dispatch("PFANS8008Store/getListType").then(response => {
+        this.$store.dispatch("PFANS8008Store/" + path).then(response => {
           this.data = response;
           for (let j = 0; j < response.length; j++) {
             if (response[j].availablestate === "0") {

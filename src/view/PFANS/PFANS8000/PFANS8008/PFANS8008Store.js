@@ -3,7 +3,8 @@ import {
   insertInformation,
   updateInformation,
   getOneInformation,
-  getListType
+  getListType,
+  getListByManager,getByManager
 } from './PFANS8008Api'
 
 const PFANS8008Store = {
@@ -73,7 +74,37 @@ const PFANS8008Store = {
           reject(error);
         })
       })
-    }
+    },
+    //region scc add 主页获取博客有效数据 from
+    getListByManager() {
+      return new Promise((resolve, reject) => {
+        getListByManager().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion scc add 主页获取博客有效数据 to
+    //region scc add 获取博客一览 from
+    getByManager() {
+      return new Promise((resolve, reject) => {
+        getByManager().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion scc add 获取博客一览 to
   }
 }
 
