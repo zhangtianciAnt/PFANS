@@ -3060,9 +3060,9 @@
               //region scc add 育儿假超过规定天数予以提示 from
               if (this.form.errortype === 'PR013023') {
                 if (Number(this.cumulative) >= 10) {
-                  this.$confirm("您近一年内休假育儿假已经超过10天（上限），请确认是否提出?", "提示", {
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
+                  this.$confirm(this.$t('label.PFANS2016FORMVIEW_CONFIRM'), this.$t('normal.info'), {
+                    confirmButtonText: this.$t('button.confirm'),
+                    cancelButtonText: this.$t('button.cancel'),
                     type: "warning",
                     center: true
                   })
@@ -3078,9 +3078,9 @@
                 }
                 //判断申请时长或实际申请时长是否大于1天
                 else if ((this.form.relengthtime ? Number(this.form.relengthtime / 8) : Number(this.form.lengthtime / 8)) > 1) {
-                  this.$confirm("每个月可申请1天，您已经超出当月可申请天数限制，请明记理由,确认是否提出?", "提示", {
-                    confirmButtonText: "确定",
-                    cancelButtonText: "取消",
+                  this.$confirm(this.$t('label.PFANS2016FORMVIEW_CONFIRM1'), this.$t('normal.info'), {
+                    confirmButtonText: this.$t('button.confirm'),
+                    cancelButtonText: this.$t('button.cancel'),
                     type: "warning",
                     center: true
                   }).then(() => {
@@ -3332,7 +3332,7 @@
             if((years === 0 && month === 0 && days === 0) || years < 0 || month < 0 || days < 0){
               this.childrenage = "0";
             }else{
-              this.childrenage = (years === 0 ? '' : years + "岁")  + (month + "个月")
+              this.childrenage = (years === 0 ? '' : years + this.$t('label.PFANS2016FORMVIEW_ATAGEOF'))  + (month + this.$t('label.PFANS2016FORMVIEW_MONTHS'))
             }
           }else{//实际开始
             //获取孩子年龄,开始时间减出生日期
@@ -3346,7 +3346,7 @@
             if((years === 0 && month === 0 && days === 0) || years < 0 || month < 0 || days < 0){
               this.childrenage = "0";
             }else{
-              this.childrenage = (years === 0 ? '' : years + "岁" )+ (month + "个月")
+              this.childrenage = (years === 0 ? '' : years + this.$t('label.PFANS2016FORMVIEW_ATAGEOF'))+ (month + this.$t('label.PFANS2016FORMVIEW_MONTHS'))
             }
           }
         }
@@ -3362,9 +3362,9 @@
               this.parentsage = "0";
             }else{
               if(month === 0){
-                this.parentsage = (years === 0 ? '' : years + "岁") + 0
+                this.parentsage = (years === 0 ? '' : years + this.$t('label.PFANS2016FORMVIEW_ATAGEOF'))
               }else{
-                this.parentsage = (years === 0 ? '' : years + "岁") + (month + "个月")
+                this.parentsage = (years === 0 ? '' : years + this.$t('label.PFANS2016FORMVIEW_ATAGEOF')) + (month + this.$t('label.PFANS2016FORMVIEW_MONTHS'))
               }
             }
           }else{//实际开始
@@ -3378,9 +3378,9 @@
               this.parentsage = "0";
             }else{
               if(month === 0){
-                this.parentsage = (years === 0 ? '' : years + "岁") + 0
+                this.parentsage = (years === 0 ? '' : years + this.$t('label.PFANS2016FORMVIEW_ATAGEOF'))
               }else{
-                this.parentsage = (years === 0 ? '' : years + "岁") + (month + "个月")
+                this.parentsage = (years === 0 ? '' : years + this.$t('label.PFANS2016FORMVIEW_ATAGEOF')) + (month + this.$t('label.PFANS2016FORMVIEW_MONTHS'))
               }
             }
           }
