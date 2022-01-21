@@ -26,15 +26,26 @@
             </el-form-item>
           </el-col>
           <el-col :span="4">
+            <el-form-item :label="$t('label.PFANS6004FORMVIEW_OPERATIONFORM')">
+              <dicselect :code="code"
+                         :data="form1.operationform"
+                         :multiple="multiple"
+                         @change="getwork"
+                         style="width: 90%"
+              >
+              </dicselect>
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
             <el-form-item :label="$t('label.PFANSUSERFORMVIEW_JOBNUMBER')">
               <el-input style="width: 90%" v-model="form1.number" clearable></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="4">
-            <el-form-item :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')">
+            <el-form-item :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIMEMONTH')">
               <el-date-picker
                 style="width: 85%"
-                type="date"
+                type="month"
                 v-model="form1.admissiontime">
               </el-date-picker>
             </el-form-item>
@@ -93,6 +104,7 @@ import {getToken} from '@/utils/auth';
 import EasyNormalTable from '@/components/EasyNormalTable';
 import {Message} from 'element-ui';
 import org from '@/view/components/org';
+import dicselect from '../../../components/dicselect.vue';
 import {
   Decrypt,
   getCooperinterviewList,
@@ -110,6 +122,7 @@ export default {
   components: {
     EasyNormalTable,
     org,
+    dicselect,
   },
   data() {
     return {
@@ -143,8 +156,11 @@ export default {
         expname: '',
         group_id: '',
         number: '',
+        operationform: '',
         admissiontime: null,
       },
+      code: 'BP024',
+      multiple: false,
       //endregion  add  ml  220112   筛选条件   to
       columns: [
         {
@@ -917,6 +933,9 @@ export default {
     //  region  update  ml  220117   检索   from
     getGroup(val) {
       this.form1.group_id = val;
+    },
+    getwork(val) {
+      this.form1.operationform = val;
     },
     //  endregion  update  ml  220117   检索   to
   },

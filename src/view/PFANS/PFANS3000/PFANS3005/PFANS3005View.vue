@@ -6,12 +6,12 @@
       <!--  region  add   ml   220112  添加筛选条件   from    -->
       <el-form label-position="top" label-width="8vw" slot="search">
         <el-row>
-          <el-col :span="3">
+          <el-col :span="4">
             <el-form-item :label="$t('label.PFANS3005VIEW_NUMBERS')">
               <el-input style="width: 80%" v-model="form1.purnumbers" clearable></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="4">
             <el-form-item :label="$t('label.applicant')">
               <user :userlist="form1.user_id"
                     @getUserids="getUserids" style="width: 67%"></user>
@@ -35,25 +35,16 @@
               ></org>
             </el-form-item>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="4">
             <el-form-item :label="$t('label.PFANS3005VIEW_CONTROLLER')">
               <user :userlist="form1.controller"
                     @getUserids="getController" style="width: 67%"></user>
             </el-form-item>
           </el-col>
-          <el-col :span="3">
+          <el-col :span="4">
             <el-form-item :label="$t('label.PFANS3005VIEW_USER')">
               <user :userlist="form1.username"
                     @getUserids="getUsername" style="width: 67%"></user>
-            </el-form-item>
-          </el-col>
-          <el-col :span="3">
-            <el-form-item :label="$t('label.application_date')">
-              <el-date-picker
-                style="width: 98%"
-                type="date"
-                v-model="form1.application_date">
-              </el-date-picker>
             </el-form-item>
           </el-col>
         </el-row>
@@ -249,7 +240,6 @@
                 group_id: '',
                 controller: '',
                 username: '',
-                application_date: null,
               },
               //  endregion  add    ml   220113  检索  to
                 dialogVisible: false,

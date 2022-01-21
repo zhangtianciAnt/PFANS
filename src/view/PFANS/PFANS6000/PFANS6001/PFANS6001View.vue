@@ -24,12 +24,14 @@
           </el-form-item>
         </el-col>
         <el-col :span="5">
-          <el-form-item :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDATE')">
-            <el-date-picker
-              style="width: 85%"
-              type="date"
-              v-model="form1.interview_date">
-            </el-date-picker>
+          <el-form-item :label="$t('label.PFANS6004FORMVIEW_WHETHERENTRY')">
+            <dicselect :code="code"
+                       :data="form1.whetherentry"
+                       :multiple="multiple"
+                       @change="getResult"
+                       style="width: 90%"
+            >
+            </dicselect>
           </el-form-item>
         </el-col>
       </el-row>
@@ -42,6 +44,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
+  import dicselect from '../../../components/dicselect.vue';
   import org from '@/view/components/org';
   import {getUserInfo, getDictionaryInfo, getDepartmentById, getSupplierinfor} from '../../../../utils/customize';
 
@@ -50,6 +53,7 @@
     components: {
       EasyNormalTable,
       org,
+      dicselect,
     },
     data() {
       return {
@@ -61,8 +65,10 @@
           expname: '',
           suppliername: '',
           interviewdep: '',
-          interview_date: null,
+          whetherentry: '',
         },
+        multiple: false,
+        code: 'BP006',
         //endregion  add  ml  220112   筛选条件   to
         columns: [
           {
@@ -261,6 +267,9 @@
       //  region  update  ml  220117   检索   from
       getInterviewDep(val) {
         this.form1.interviewdep = val;
+      },
+      getResult(val) {
+        this.form1.whetherentry = val;
       },
       //  endregion  update  ml  220117   检索   to
     },
