@@ -7,7 +7,42 @@
                      :rowid="row_id"
                      @buttonClick="buttonClick"
                      @rowClick="rowClick"
-                     v-loading="loading">
+                     v-loading="loading"
+                     :showSelectBySearch="false">
+<!--      检索画面样式调整并取消共通检索 ztc-->
+      <el-form slot="search" label-position="top" label-width="8vw">
+        <el-row>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')">
+              <el-input v-model="retral.contractnumber" clearable style="width: 80%"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')">
+              <dicselect
+                :data="retral.contracttype"
+                code="HT008"
+                style="width: 14vw"
+                @change="changeType"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.department')">
+              <org :orglist="retral.group_id"
+                   orgtype="4"
+                   style="width: 90%"
+                   @getOrgids="getGroupId"
+              ></org>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS1025VIEW_ENTRUST')">
+              <el-input v-model="retral.custochinese" clearable style="width: 80%"/>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
     </EasyNormalTable>
     <el-container>
       <el-dialog center
@@ -58,11 +93,13 @@
   import {Message} from 'element-ui';
   let moment = require('moment');
   import org from '@/view/components/org';
+  import dicselect from "../../../components/dicselect";
 
   export default {
     name: 'PFANS1025View',
     components: {
       EasyNormalTable,
+      dicselect,
       org,
     },
     data() {
@@ -102,6 +139,13 @@
           new_group_id: '',
           new_team_id: '',
           org: '',
+        },
+        retral: {
+          contractnumber: '',
+          contracttype: '',
+          group_id: '',
+          custochinese: '',
+          type: '1',
         },
         columns: [
           {
@@ -181,11 +225,25 @@
         buttonListAnt: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
+          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
+          // 添加筛选条件 ztc fr
+          {
+            key: 'search',
+            name: 'button.search',
+            disabled: false,
+            icon: 'el-icon-search'
+          },
         ],
         buttonListOld: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          // 添加筛选条件 ztc fr
+          {
+            key: 'search',
+            name: 'button.search',
+            disabled: false,
+            icon: 'el-icon-search'
+          },
         ],
         rowid: '',
         mounth: '',
@@ -200,19 +258,25 @@
       this.getdateInfo();
     },
     methods: {
-      getdateInfo(){
+      getdateInfo() {
         this.mounth = new Date().getMonth() + 1;
         this.date = new Date().getDate();
-        if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
+        if (this.mounth === 4 && this.date >= 10 && this.date <= 30) {
           this.buttonList = this.buttonListAnt;
-        }else{
+        } else {
           this.buttonList = this.buttonListOld;
         }
+      },
+      getGroupId(val) {
+        this.retral.group_id = val;
+      },
+      changeType(val) {
+        this.retral.contracttype = val;
       },
       getPjanme() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1026Store/get', {'type': '1'})
+          .dispatch('PFANS1026Store/get', this.retral)
           .then(response => {
             let data = [];
             for (let i = 0; i < response.contractapplication.length; i++) {
@@ -220,9 +284,11 @@
                 data.push({
                   contractnumber: response.contractapplication[i].contractnumber,
                 });
-                this.checkdata = data;
               }
             }
+            // 添加筛选条件 ztc fr
+            this.checkdata = data;
+            // 添加筛选条件 ztc to
             this.$store
               .dispatch('PFANS5001Store/getFpans5001List', {})
               .then(response => {
@@ -412,7 +478,11 @@
             },
           });
         }
-
+        // 添加筛选条件 ztc fr
+        if (val === 'search') {
+          this.getPjanme();
+        }
+        // 添加筛选条件 ztc to
       },
       submit(){
         this.loading = true;

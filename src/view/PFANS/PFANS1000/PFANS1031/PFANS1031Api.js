@@ -5,8 +5,10 @@ import requestPdf from "../../../../utils/requestPdf";
 export function get(data) {
   return request({
     url: 'napalm/get',
-    method: 'get',
-    params: data
+    // 添加筛选条件 ztc fr
+    method: 'post',
+    data: data
+    // 添加筛选条件 ztc to
   })
 }
 

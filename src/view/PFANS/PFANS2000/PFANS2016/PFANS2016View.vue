@@ -11,7 +11,8 @@
     v-loading="loading"
     :showSelection="true"
     :selectable="selectInit"
-  >
+    :showSelectBySearch="false">
+<!--    检索画面样式调整并取消共通检索 ztc-->
     <!--    <el-date-picker-->
     <!--      :placeholder="$t('normal.error_09')"-->
     <!--      @change="changed"-->
@@ -20,21 +21,60 @@
     <!--      type="month"-->
     <!--      v-model="months">-->
     <!--    </el-date-picker>-->
-
-    <!--    add-ws-9/29-禅道任务547-->
-    <el-date-picker
-      unlink-panels
-      class="bigWidth"
-      v-model="workinghours"
-      style="margin-right:1vw"
-      slot="customize"
-      type="daterange"
-      :end-placeholder="$t('label.enddate')"
-      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-      :start-placeholder="$t('label.startdate')"
-      @change="filterInfo"
-    ></el-date-picker>
-    <!--    add-ws-9/29-禅道任务547-->
+<!--    添加筛选条件 ztc fr-->
+    <el-form label-position="top" label-width="8vw" slot="search">
+      <el-row>
+        <el-col :span="5">
+          <el-form-item :label="$t('label.center')">
+            <org :orglist="retral.centerid"
+                 @getOrgids="getCenterid"
+                 orgtype="1"
+                 style="width: 14vw"
+            ></org>
+          </el-form-item>
+        </el-col>
+        <el-col :span="5">
+          <el-form-item :label="$t('label.group')">
+            <org :orglist="retral.groupid"
+                 @getOrgids="getGroupId"
+                 orgtype="2"
+                 style="width: 14vw"
+            ></org>
+          </el-form-item>
+        </el-col>
+        <el-col :span="4">
+          <el-form-item :label="$t('label.user_name')">
+            <user :disabled="false" :selectType="selectType" :userlist="userlist"
+                  style="width: 67%" @getUserids="getUserids"></user>
+          </el-form-item>
+        </el-col>
+        <el-col :span="5">
+          <el-form-item :label="$t('label.PFANS2016VIEW_ERRORTYPE')">
+            <dicselect
+              :data="retral.errortype"
+              code="PR013"
+              style="width: 14vw"
+              @change="changeType"
+            ></dicselect>
+          </el-form-item>
+        </el-col>
+        <el-col :span="5">
+          <el-form-item :label="$t('label.PFANS2016VIEW_ABNORMALDATE')">
+            <el-date-picker
+              unlink-panels
+              v-model="workinghours"
+              style="width: 250px"
+              type="daterange"
+              :end-placeholder="$t('label.enddate')"
+              :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+              :start-placeholder="$t('label.startdate')"
+              @change="filterInfo"
+            ></el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
+<!--    添加筛选条件 ztc to-->
   </EasyNormalTable>
 </template>
 
@@ -42,6 +82,9 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
+  import user from '../../../components/user.vue';
+  import org from '../../../components/org';
+  import dicselect from '../../../components/dicselect.vue';
   import {
     getDictionaryInfo,
     getStatusNum,
@@ -53,6 +96,9 @@
     name: 'PFANS2016View',
     components: {
       EasyNormalTable,
+      user,
+      org,
+      dicselect,
     },
     data() {
       return {
@@ -68,6 +114,18 @@
         months: moment(new Date()).format('YYYY-MM'),
         data: [],
         selectedlist: [],
+        //添加筛选条件 ztc fr
+        retral:{
+          user_id: '',
+          centerid: '',
+          groupid: '',
+          errortype: '',
+          occurrencedate: '',
+          finisheddate: '',
+        },
+        userlist: '',
+        selectType: 'Single',
+        // 添加筛选条件 ztc to
         columns: [
           {
             code: 'username',
@@ -180,6 +238,14 @@
             disabled: true,
             icon: 'el-icon-delete',
           },
+          // 添加筛选条件 ztc fr
+          {
+            key: 'search',
+            name: 'button.search',
+            disabled: false,
+            icon: 'el-icon-search'
+          },
+          // 添加筛选条件 ztc to
         ],
         rowid: '',
         row_id: 'abnormalid',
@@ -210,13 +276,19 @@
       filterInfo() {
         this.working = this.getworkinghours(this.workinghours);
         if(this.working === ""){
-          this.starttime =  moment(new Date()).startOf('month').format("YYYY-MM-DD");
-          this.endTime =  moment(new Date()).endOf('month').format("YYYY-MM-DD");
-          this.getAbnormalList();
+          // 添加筛选条件 ztc fr
+          // this.starttime =  moment(new Date()).startOf('month').format("YYYY-MM-DD");
+          // this.endTime =  moment(new Date()).endOf('month').format("YYYY-MM-DD");
+          this.starttime =  null;
+          this.endTime =  null;
+          //this.getAbnormalList();
+          // 添加筛选条件 ztc to
         }else{
           this.starttime = this.working.substring(0, 10);
           this.endTime = this.working.substring(13, 23);
-          this.getAbnormalList();
+          // 添加筛选条件 ztc fr
+          //this.getAbnormalList();
+          // 添加筛选条件 ztc to
         }
       },
       getworkinghours(workinghours) {
@@ -261,14 +333,15 @@
         //add_fjl_0904_添加逻辑删除data  end
       },
       getAbnormalList() {
-        let parameter = {
-          occurrencedate: this.starttime,
-          finisheddate: this.endTime,
-        };
+        // 添加筛选条件 ztc fr
+        this.retral.occurrencedate = this.starttime;
+        this.retral.finisheddate = this.endTime;
+
         this.loading = true;
         this.$store
-          .dispatch('PFANS2016Store/getFpans2016List', parameter)
+          .dispatch('PFANS2016Store/getFpans2016List', this.retral)
           .then(response => {
+            // 添加筛选条件 ztc to
             for (let j = 0; j < response.length; j++) {
 
               if (
@@ -447,6 +520,9 @@
             },
           });
         }
+        if (val === 'search'){
+          this.getAbnormalList();
+        }
         //ADD_FJL_0904  添加删除data
         if (val === 'delete') {
           this.deleteData();
@@ -510,6 +586,52 @@
           });
         }
       },
+      // 添加筛选条件 ztc fr
+      getUserids(val) {
+        this.userlist = val;
+        this.retral.user_id = val;
+      },
+      getCenterid(val) {
+        this.retral.centerid = val;
+        if(val === ""){
+          this.retral.groupid = "";
+        }
+      },
+      getGroupId(val) {
+        this.retral.groupid = val;
+        if(val != ""){
+          this.getOrgInformation(val);
+        }
+      },
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.groupid = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.centerid = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            centername: this.retral.centername,
+            groupname: this.retral.groupname,
+            centerid: this.retral.centerid,
+            groupid: this.retral.groupid,
+          } = org);
+        }
+      },
+      changeType(val) {
+        this.retral.errortype = val;
+      },
+      // 添加筛选条件 ztc to
     },
   };
 </script>

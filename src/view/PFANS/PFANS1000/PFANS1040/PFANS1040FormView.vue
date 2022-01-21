@@ -927,7 +927,17 @@
               <!--              添加年间合计 ztc fr-->
               <el-table-column :label="$t('label.PFANS1039FORMVIEW_YEARTOTAL')" align="center" width="150">
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120" :formatter="formatterDir" prop="personnumber"/>
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="120" :formatter="formatterDir" prop="amount"/>
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
+                  <template slot-scope="scope">
+                    <el-input-number v-model="scope.row.amount" controls-position="right"
+                                 style="width: 100%"
+                                 :disabled="true"
+                                 :min="0" :max="10000000000" :precision="2"
+                                 size="small">
+                    </el-input-number>
+                  </template>
+                </el-table-column>
+
               </el-table-column>
               <!--              添加年间合计 ztc to-->
 
@@ -978,6 +988,19 @@
       EasyWorkFlow,
       dicselect,
       org,
+    },
+    watch: {
+      tableDataA: {
+        deep: true,
+        handler(newValue, oldValue) {
+          newValue.forEach((v) => {
+            v['amount'] = Number(v['sumamount1'])
+                + Number(v['sumamount2'])
+                + Number(v['sumamount3'])
+                + Number(v['sumamount4'])
+          });
+        }
+      },
     },
     data() {
       return {
@@ -1049,6 +1072,7 @@
         month5: moment(new Date()).format('YYYY-MM'),
         //add-ws-12/10-汇率字典
         tableDataAcount: 1,
+        exrate: 1,
         tableData: [],
         employed: [],
         newentry: [],
@@ -1130,6 +1154,7 @@
       };
     },
     mounted() {
+      this.exrate = getDictionaryInfo('JY001001') ? getDictionaryInfo('JY001001').value2 : Number(1);
       this.getGroupOptions();
       this.getlisttheme();
       //region scc add 获取客户和供应商信息 from
@@ -1240,65 +1265,81 @@
                   Number(row.personnel11) +
                   Number(row.personnel12)).toFixed(2);
         }else if(column.property === "amount"){
-          return (Number(row.amount1) +
-                  Number(row.amount2) +
-                  Number(row.amount3) +
-                  Number(row.amount4) +
-                  Number(row.amount5) +
-                  Number(row.amount6) +
-                  Number(row.amount7) +
-                  Number(row.amount8) +
-                  Number(row.amount9) +
-                  Number(row.amount10) +
-                  Number(row.amount11) +
-                  Number(row.amount12)).toFixed(2);
+          return (Number(row.sumamount1) +
+                  Number(row.sumamount2) +
+                  Number(row.sumamount3) +
+                  Number(row.sumamount4)).toFixed(2);
         }
       },
       // 添加年间合计 ztc to
       nsum(row) {
         row.sumpersonnel1 = Number(row.personnel4) + Number(row.personnel5) + Number(row.personnel6);
-        row.sumamount1 = Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
+        row.sumamount1 = row.currencytype === 'PG019001' ?
+          ((Number(row.amount4) + Number(row.amount5) + Number(row.amount6)) * this.exrate).toFixed(2)
+          : Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
       },
       wsum(row) {
         row.sumwpersonnel1 = Number(row.wpersonnel4) + Number(row.wpersonnel5) + Number(row.wpersonnel6);
-        row.sumamount1 = Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
+        row.sumamount1 = row.currencytype === 'PG019001' ?
+          ((Number(row.amount4) + Number(row.amount5) + Number(row.amount6)) * this.exrate).toFixed(2)
+          : Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
       },
       amountsum(row) {
-        row.sumamount1 = Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
+        row.sumamount1 = row.currencytype === 'PG019001' ?
+          ((Number(row.amount4) + Number(row.amount5) + Number(row.amount6)) * this.exrate).toFixed(2)
+          : Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
       },
       nsum1(row) {
         row.sumpersonnel2 = Number(row.personnel7) + Number(row.personnel8) + Number(row.personnel9);
-        row.sumamount2 = Number(row.amount7) + Number(row.amount8) + Number(row.amount9);
+        row.sumamount2 = row.currencytype === 'PG019001' ?
+          ((Number(row.amount7) + Number(row.amount8) + Number(row.amount9)) * this.exrate).toFixed(2)
+          : Number(row.amount7) + Number(row.amount8) + Number(row.amount9);
       },
       wsum1(row) {
         row.sumwpersonnel2 = Number(row.wpersonnel7) + Number(row.wpersonnel8) + Number(row.wpersonnel9);
-        row.sumamount2 = Number(row.amount7) + Number(row.amount8) + Number(row.amount9);
+        row.sumamount2 = row.currencytype === 'PG019001' ?
+          ((Number(row.amount7) + Number(row.amount8) + Number(row.amount9)) * this.exrate).toFixed(2)
+          : Number(row.amount7) + Number(row.amount8) + Number(row.amount9);
       },
       amountsum1(row) {
-        row.sumamount2 = Number(row.amount7) + Number(row.amount8) + Number(row.amount9);
+        row.sumamount2 = row.currencytype === 'PG019001' ?
+          ((Number(row.amount7) + Number(row.amount8) + Number(row.amount9)) * this.exrate).toFixed(2)
+          : Number(row.amount7) + Number(row.amount8) + Number(row.amount9);
       },
 
       nsum2(row) {
         row.sumpersonnel3 = Number(row.personnel10) + Number(row.personnel11) + Number(row.personnel12);
-        row.sumamount3 = Number(row.amount10) + Number(row.amount11) + Number(row.amount12);
+        row.sumamount3 = row.currencytype === 'PG019001' ?
+          ((Number(row.amount10) + Number(row.amount11) + Number(row.amount12)) * this.exrate).toFixed(2)
+          : Number(row.amount10) + Number(row.amount11) + Number(row.amount12);
       },
       wsum2(row) {
         row.sumwpersonnel3 = Number(row.wpersonnel10) + Number(row.wpersonnel11) + Number(row.wpersonnel12);
-        row.sumamount3 = Number(row.amount10) + Number(row.amount11) + Number(row.amount12);
+        row.sumamount3 = row.currencytype === 'PG019001' ?
+          ((Number(row.amount10) + Number(row.amount11) + Number(row.amount12)) * this.exrate).toFixed(2)
+          : Number(row.amount10) + Number(row.amount11) + Number(row.amount12);
       },
       amountsum2(row) {
-        row.sumamount3 = Number(row.amount10) + Number(row.amount11) + Number(row.amount12);
+        row.sumamount3 = row.currencytype === 'PG019001' ?
+          ((Number(row.amount10) + Number(row.amount11) + Number(row.amount12)) * this.exrate).toFixed(2)
+          : Number(row.amount10) + Number(row.amount11) + Number(row.amount12);
       },
       nsum3(row) {
         row.sumpersonnel4 = Number(row.personnel1) + Number(row.personnel2) + Number(row.personnel3);
-        row.sumamount4 = Number(row.amount1) + Number(row.amount2) + Number(row.amount3);
+        row.sumamount4 = row.currencytype === 'PG019001' ?
+          ((Number(row.amount1) + Number(row.amount2) + Number(row.amount3)) * this.exrate).toFixed(2)
+          : Number(row.amount1) + Number(row.amount2) + Number(row.amount3);
       },
       wsum3(row) {
         row.sumwpersonnel4 = Number(row.wpersonnel1) + Number(row.wpersonnel2) + Number(row.wpersonnel3);
-        row.sumamount4 = Number(row.amount1) + Number(row.amount2) + Number(row.amount3);
+        row.sumamount4 = row.currencytype === 'PG019001' ?
+          ((Number(row.amount1) + Number(row.amount2) + Number(row.amount3)) * this.exrate).toFixed(2)
+          : Number(row.amount1) + Number(row.amount2) + Number(row.amount3);
       },
       amountsum3(row) {
-        row.sumamount4 = Number(row.amount1) + Number(row.amount2) + Number(row.amount3);
+        row.sumamount4 = row.currencytype === 'PG019001' ?
+          ((Number(row.amount1) + Number(row.amount2) + Number(row.amount3)) * this.exrate).toFixed(2)
+          : Number(row.amount1) + Number(row.amount2) + Number(row.amount3);
       },
       handleClickA($index, row) {
         this.index = $index;

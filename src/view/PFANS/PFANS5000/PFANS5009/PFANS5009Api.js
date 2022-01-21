@@ -42,8 +42,10 @@ export function getSiteList3(data) {
 export function getSiteList4(data) {
   return request({
     url: 'companyprojects/getSiteList4',
-    method: 'get',
-    params: data
+    // 添加筛选条件 ztc fr
+    method: 'post',
+    data: data
+    // 添加筛选条件 ztc to
   })
 }
 
