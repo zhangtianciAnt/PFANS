@@ -21,7 +21,7 @@
             <el-form-item :label="$t('label.center')">
               <org :orglist="form1.center_id"
                    orgtype="1"
-                   style="width: 67%"
+                   style="width: 88%"
                    @getOrgids="getCenter"
               ></org>
             </el-form-item>
@@ -30,7 +30,7 @@
             <el-form-item :label="$t('label.group')">
               <org :orglist="form1.group_id"
                    orgtype="2"
-                   style="width: 67%"
+                   style="width: 88%"
                    @getOrgids="getGroup"
               ></org>
             </el-form-item>

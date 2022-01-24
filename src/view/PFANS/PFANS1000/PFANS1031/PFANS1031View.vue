@@ -48,7 +48,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="4">
-          <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYFINSHDATE')">
+          <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYFINSHMONTH')">
             <el-date-picker
               v-model="retralTwo.deliveryfinshdate"
               style="width: 90%"
