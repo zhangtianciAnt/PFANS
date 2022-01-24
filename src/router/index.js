@@ -159,6 +159,7 @@ import PFANS2030View from '@/view/PFANS/PFANS2000/PFANS2030/PFANS2030View.vue'
 import PFANS2032View from '@/view/PFANS/PFANS2000/PFANS2032/PFANS2032View.vue'
 import PFANS2032FormView from '@/view/PFANS/PFANS2000/PFANS2032/PFANS2032FormView'
 import PFANS2033View from '@/view/PFANS/PFANS2000/PFANS2033/PFANS2033View.vue'
+import PFANS2033FormView from '@/view/PFANS/PFANS2000/PFANS2033/PFANS2033FormView.vue'
 import PFANS2034View from '@/view/PFANS/PFANS2000/PFANS2034/PFANS2034View.vue'
 import PFANS2035View from '@/view/PFANS/PFANS2000/PFANS2035/PFANS2035View.vue'
 import PFANS2036View from '@/view/PFANS/PFANS2000/PFANS2036/PFANS2036View.vue'
@@ -1044,6 +1045,11 @@ const routes = [
         path: '/PFANS2033View',
         name: 'PFANS2033View',
         component: PFANS2033View,
+      },
+      {
+        path: '/PFANS2033FormView',
+        name: 'PFANS2033FormView',
+        component: PFANS2033FormView,
       },
       {
         path: '/PFANS2034View',

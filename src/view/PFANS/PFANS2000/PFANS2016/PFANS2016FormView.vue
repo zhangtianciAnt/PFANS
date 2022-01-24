@@ -314,7 +314,7 @@
             <!-- 履历按钮 -->
             <el-col :span="4" v-if="form.errortype == 'PR013023' || form.errortype == 'PR013024'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_CV')">
-                <el-button type="info" :disabled="false"  plain @click="handleView">显示履历</el-button>
+                <el-button type="info" :disabled="false"  plain @click.native.prevent="handleView">显示履历</el-button>
               </el-form-item>
             </el-col>
           </el-row>
@@ -3399,9 +3399,9 @@
           return;
         }else{
           if(this.form.reoccurrencedate){
-            this.urlparams = {'_userid': this.form.user_id, '_date':moment(this.form.reoccurrencedate).format('YYYY-MM-DD'), '_errortype': this.form.errortype, '_view':'2016FormView'};
+            this.urlparams = {'_userid': this.form.user_id, '_date':moment(this.form.reoccurrencedate).format('YYYY-MM-DD'), '_errortype': this.form.errortype, '_view':'2016FormView','_id':this.$route.params._id};
           }else{
-            this.urlparams = {'_userid': this.form.user_id, '_date':moment(this.form.occurrencedate).format('YYYY-MM-DD'), '_errortype': this.form.errortype, '_view':'2016FormView'};
+            this.urlparams = {'_userid': this.form.user_id, '_date':moment(this.form.occurrencedate).format('YYYY-MM-DD'), '_errortype': this.form.errortype, '_view':'2016FormView','_id':this.$route.params._id};
           }
         }
         this.$refs.PFANS2033Pop.open = true;
