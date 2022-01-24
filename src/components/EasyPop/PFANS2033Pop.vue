@@ -46,7 +46,8 @@
         watch: {
             open(val) {
                 if (val) {
-                    this.bkParams = [...this.$route.params];
+                    // this.bkParams = [...this.$route.params];
+                    this.bkParams = JSON.parse(JSON.stringify(this.$route.params));
                     for (let key in this.params) {
                         this.$route.params[key] = this.params[key];
                     }
