@@ -308,6 +308,8 @@ export default {
                 perioDate: '',
               mounth: '',
               date: '',
+              selectType: 'Single',
+              userlist: '',
                 reportList: [],
             };
         },
