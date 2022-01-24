@@ -11,7 +11,74 @@
     :selectable="selectInit"
     ref="roletable"
     v-loading="loading"
+    :showSelectBySearch="false"
   >
+    <!--  region  add   ml   220112  添加筛选条件   from    -->
+    <el-form label-position="top" label-width="8vw" slot="search">
+      <el-row>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.PFANS1013VIEW_REIMNUMBER')">
+            <el-input style="width: 90%" v-model="form1.invoiceno" clearable></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.applicant')">
+            <user :userlist="form1.userid"
+                  @getUserids="getUserids" style="width: 65%"></user>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.center')">
+            <org :orglist="form1.centerid"
+                 orgtype="1"
+                 style="width: 65%"
+                 @getOrgids="getCenter"
+            ></org>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.group')">
+            <org :orglist="form1.groupid"
+                 orgtype="2"
+                 style="width: 65%"
+                 @getOrgids="getGroup"
+            ></org>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.PFANS1013VIEW_TYPE')">
+            <el-select @change="change" v-model="form1.type" clearable style="width: 85%">
+              <el-option
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+                v-for="item in codes"
+              >
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.PFANS1013VIEW_STARTDATE')">
+            <el-date-picker
+              style="width: 85%"
+              type="date"
+              v-model="form1.startdate">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+        <el-col :span="3">
+          <el-form-item :label="$t('label.PFANS1013VIEW_ENDDATE')">
+            <el-date-picker
+              style="width: 85%"
+              type="date"
+              v-model="form1.enddate">
+            </el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-row>
+    </el-form>
+    <!--  endregion  add   ml   220112  添加筛选条件   to    -->
   </EasyNormalTable>
 </template>
 
@@ -20,6 +87,8 @@
   import {Message} from 'element-ui';
   import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo, getDepartmentById} from '@/utils/customize';
   import moment from 'moment';
+  import user from '../../../components/user.vue';
+  import org from '@/view/components/org';
 
   const {Parser} = require('json2csv');
 
@@ -28,6 +97,8 @@
     components: {
       moment,
       EasyNormalTable,
+      org,
+      user,
     },
     data() {
       return {
@@ -40,6 +111,27 @@
         loading: false,
         title: 'title.PFANS1013VIEW',
         data: [],
+        //region  add  ml  220112   筛选条件   from
+        form1 : {
+          invoiceno: '',
+          userid: '',
+          centerid: '',
+          groupid: '',
+          type: '',
+          startdate: null,
+          enddate: null,
+        },
+        codes: [
+          {
+            value: '0',
+            label:this.$t('label.PFANS1013VIEW_TYPEON')
+          },
+          {
+            value: '1',
+            label:this.$t('label.PFANS1013VIEW_TYPEOFF')
+          }
+        ],
+        //endregion  add  ml  220112   筛选条件   to
         columns: [
           {
             code: 'invoiceno',
@@ -178,105 +270,119 @@
             'disabled': false,
             icon: 'el-icon-upload2',
           },
+          //region   add    ml   220112   筛选条件   from
+          {
+            'key': 'search',
+            'name': 'button.search',
+            'disabled': false,
+            icon: 'el-icon-search'
+          },
+          //endregion   add    ml   220112   筛选条件   to
         ],
         rowid: '',
         row_id: 'evectionid',
       };
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1013Store/get')
-        .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            let user = getUserInfo(response[j].userid);
-            if (user) {
-              response[j].applicant = user.userinfo.customername;
-            }
-            let nameflg = getOrgInfoByUserId(response[j].userid);
-            if (nameflg) {
-              response[j].centername = nameflg.centerNmae;
-                // response[j].groupname = nameflg.groupNmae;
-              response[j].teamname = nameflg.teamNmae;
-            }
-              if (response[j].groupid !== null && response[j].groupid !== '' && response[j].groupid !== undefined) {
-                  response[j].groupname = getDepartmentById(response[j].groupid);
-              }
-            // response[j].centername = response[j].centerid;
-            // response[j].groupname = response[j].groupid;
-            // response[j].teamname = response[j].teamid;
-            // if (response[j].budgetunit !== null && response[j].budgetunit !== "") {
-            //   let letBudgetunit = getDictionaryInfo(response[j].budgetunit);
-            //   if (letBudgetunit != null) {
-            //     response[j].budgetunit = letBudgetunit.value1;
-            //   }
-            // }
-            if (response[j].type !== null && response[j].type !== '') {
-              if (response[j].type === '0') {
-                if (this.$i18n) {
-
-                  response[j].type = this.$t('label.PFANS1013VIEW_TYPEON');
-                }
-              } else if (response[j].type === '1') {
-                if (this.$i18n) {
-
-                  response[j].type = this.$t('label.PFANS1013VIEW_TYPEOFF');
-                }
-              }
-            }
-            // add-ws-8/12-禅道任务446
-            if (response[j].processingstatus != null && response[j].processingstatus != '') {
-              if (this.$i18n) {
-                if (response[j].processingstatus === '0') {
-                  response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS1');
-                } else if (response[j].processingstatus === '1') {
-                  response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS2');
-                }
-              }
-            }
-            // add-ws-8/12-禅道任务446
-            //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
-            if (response[j].realstartdate !== null && response[j].realstartdate !== '') {
-              response[j].startdate = moment(response[j].realstartdate).format('YYYY-MM-DD');
-            } else {
-              if (response[j].startdate !== null && response[j].startdate !== '') {
-                response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
-              }
-            }
-            //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
-            if (response[j].status != '0') {
-              if (response[j].modifyon !== null && response[j].modifyon !== '') {
-                response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
-              }
-            } else {
-              response[j].modifyon = null;
-            }
-            if (response[j].status !== null && response[j].status !== '') {
-              response[j].status = getStatus(response[j].status);
-            }
-            //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
-            if (response[j].realenddate !== null && response[j].realenddate !== '') {
-              response[j].enddate = moment(response[j].realenddate).format('YYYY-MM-DD');
-            } else {
-              if (response[j].enddate !== null && response[j].enddate !== '') {
-                response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
-              }
-            }
-            //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          this.$message.error({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
+      this.getdata();
     },
     methods: {
+      getdata(){
+        this.loading = true;
+        this.$store
+          //  region  update  ml  220117   检索   from
+          .dispatch('PFANS1013Store/getSearch', this.form1)
+          // .dispatch('PFANS1013Store/get')
+          //  endregion  update  ml  220117   检索   to
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              let user = getUserInfo(response[j].userid);
+              if (user) {
+                response[j].applicant = user.userinfo.customername;
+              }
+              let nameflg = getOrgInfoByUserId(response[j].userid);
+              if (nameflg) {
+                response[j].centername = nameflg.centerNmae;
+                // response[j].groupname = nameflg.groupNmae;
+                response[j].teamname = nameflg.teamNmae;
+              }
+              if (response[j].groupid !== null && response[j].groupid !== '' && response[j].groupid !== undefined) {
+                response[j].groupname = getDepartmentById(response[j].groupid);
+              }
+              // response[j].centername = response[j].centerid;
+              // response[j].groupname = response[j].groupid;
+              // response[j].teamname = response[j].teamid;
+              // if (response[j].budgetunit !== null && response[j].budgetunit !== "") {
+              //   let letBudgetunit = getDictionaryInfo(response[j].budgetunit);
+              //   if (letBudgetunit != null) {
+              //     response[j].budgetunit = letBudgetunit.value1;
+              //   }
+              // }
+              if (response[j].type !== null && response[j].type !== '') {
+                if (response[j].type === '0') {
+                  if (this.$i18n) {
+
+                    response[j].type = this.$t('label.PFANS1013VIEW_TYPEON');
+                  }
+                } else if (response[j].type === '1') {
+                  if (this.$i18n) {
+
+                    response[j].type = this.$t('label.PFANS1013VIEW_TYPEOFF');
+                  }
+                }
+              }
+              // add-ws-8/12-禅道任务446
+              if (response[j].processingstatus != null && response[j].processingstatus != '') {
+                if (this.$i18n) {
+                  if (response[j].processingstatus === '0') {
+                    response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS1');
+                  } else if (response[j].processingstatus === '1') {
+                    response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS2');
+                  }
+                }
+              }
+              // add-ws-8/12-禅道任务446
+              //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+              if (response[j].realstartdate !== null && response[j].realstartdate !== '') {
+                response[j].startdate = moment(response[j].realstartdate).format('YYYY-MM-DD');
+              } else {
+                if (response[j].startdate !== null && response[j].startdate !== '') {
+                  response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
+                }
+              }
+              //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+              if (response[j].status != '0') {
+                if (response[j].modifyon !== null && response[j].modifyon !== '') {
+                  response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
+                }
+              } else {
+                response[j].modifyon = null;
+              }
+              if (response[j].status !== null && response[j].status !== '') {
+                response[j].status = getStatus(response[j].status);
+              }
+              //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+              if (response[j].realenddate !== null && response[j].realenddate !== '') {
+                response[j].enddate = moment(response[j].realenddate).format('YYYY-MM-DD');
+              } else {
+                if (response[j].enddate !== null && response[j].enddate !== '') {
+                  response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
+                }
+              }
+              //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+            }
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       //ADD_FJL
       selectInit(row, index) {
         if (this.$i18n) {
@@ -609,9 +715,56 @@
           }
           this.selectedlist = this.$refs.roletable.selectedList;
           this.export1(0);
-
+        //  region   add   ml  220112   检索   from
+        } else if(val === 'search') {
+          this.getdata();
+        }
+        //  endregion   add   ml  220112   检索   to
+      },
+      //region   add  ml  220112  检索  from
+      change(val) {
+        this.form1.type = val;
+      },
+      getUserids(val) {
+        this.form1.userid = val;
+      },
+      getCenter(val) {
+        this.form1.centerid = val;
+        this.form1.groupid = '';
+        if(val === ""){
+          this.form1.groupid = "";
         }
       },
+      getGroup(val) {
+        this.form1.groupid = val;
+        if(val != ""){
+          this.getOrgInformation(val);
+        }
+      },
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            center_id: this.form1.centerid,
+            group_id: this.form1.groupid,
+          } = org);
+        }
+      },
+      //endregion   add  ml  220112  检索   to
     },
   };
 </script>

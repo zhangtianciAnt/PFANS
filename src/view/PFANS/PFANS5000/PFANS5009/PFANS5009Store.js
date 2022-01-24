@@ -68,7 +68,9 @@ import {
       },
       getSiteList4({commit},data) {
         return new Promise((resolve, reject) => {
-          getSiteList4().then(response => {
+          // 添加筛选条件 ztc fr
+          getSiteList4(data).then(response => {
+            // 添加筛选条件 ztc to
             if (response.code === 0) {
               resolve(response.data);
             } else {

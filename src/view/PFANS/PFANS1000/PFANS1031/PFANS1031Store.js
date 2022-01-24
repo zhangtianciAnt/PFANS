@@ -10,9 +10,11 @@ const PFANS1031Store = {
   state: {},
   mutations: {},
   actions: {
-    get() {
+    // 添加筛选条件 ztc fr
+    get({commit}, data) {
       return new Promise((resolve, reject) => {
-        get().then(response => {
+        get(data).then(response => {
+          // 添加筛选条件 ztc to
           if (response.code === 0) {
             resolve(response.data);
           } else {

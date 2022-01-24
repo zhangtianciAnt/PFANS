@@ -142,3 +142,13 @@ export function loanapplication() {
   })
 }
 // add-ws-8/20-禅道469
+
+//region   add  ml  220112  检索  from
+export function getSearch(data) {
+  return request({
+    url: 'publicexpense/getSearch',
+    method: 'post',
+    data: data
+  })
+}
+//endregion   add  ml  220112  检索  to

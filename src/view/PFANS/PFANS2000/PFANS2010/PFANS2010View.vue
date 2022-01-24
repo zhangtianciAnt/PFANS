@@ -48,7 +48,7 @@
 <script>
 import EasyNormalTable from '@/components/EasyNormalTable';
 import {Message} from 'element-ui'
-import {getCurrentRole16, getCurrentRoleNew, getStatus, getUserInfo} from "@/utils/customize";
+import {getCurrentRole16, getCurrentRoleNew, getStatus, getUserInfo,getCurrentRole10} from "@/utils/customize";
 import moment from "moment";
 
 export default {
@@ -152,10 +152,12 @@ export default {
   },
   mounted() {
     this.roles = getCurrentRoleNew();
-    this.roleBility = getCurrentRole16();
+    //region scc upd 22/1/24 考勤导出权限为人事总务部长和工资计算担当 from
+    this.roleBility = getCurrentRole10();
     if (this.roleBility === '0') {
       this.buttonList[1].disabled = false;
     }
+    //endregion scc upd 22/1/24 考勤导出权限为人事总务部长和工资计算担当 to
     this.getWorkflow();
     //await this.getlist();
   },

@@ -1,4 +1,4 @@
-import {getPurchase,getPurchaseOne,updatePurchase,createPurchase,downLoad,getPurchaseList,getworkfolwPurchaseData,change,purchdelete} from './PFANS3005Api'
+import {getPurchase,getPurchaseOne,updatePurchase,createPurchase,downLoad,getPurchaseList,getworkfolwPurchaseData,change,purchdelete,getPurchaseSearch} from './PFANS3005Api'
 
 
 const PFANS3005Store = {
@@ -125,6 +125,21 @@ const PFANS3005Store = {
     },
     //endregion scc add 购买决裁删除 to
 
+    // region  add  ml  220112  检索  from
+    getPurchaseSearch({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getPurchaseSearch(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion  add  ml  220112  检索  to
   }
 };
 

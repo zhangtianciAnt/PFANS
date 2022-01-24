@@ -1,7 +1,55 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row"
-                     :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+                     :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
+                     :showSelectBySearch="false">
+<!--      检索画面样式调整并取消共通检索 ztc-->
+      <!--    添加筛选条件 ztc fr-->
+      <el-form slot="search" label-position="top" label-width="8vw">
+        <el-row>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS5009VIEW_PROJECTNO')">
+              <el-input v-model="retral.numbers" clearable style="width: 80%"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS5001FORMVIEW_PROJECT_NAME')">
+              <el-input v-model="retral.project_name" clearable style="width: 80%"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS5001FORMVIEW_PROJECTTYPE')">
+              <dicselect
+                :data="retral.projecttype"
+                code="PP001"
+                style="width: 14vw"
+                @change="changeType"
+              />
+            </el-form-item>
+          </el-col>
+          <el-col :span="4">
+            <el-form-item :label="$t('label.PFANS5001FORMVIEW_LEADERID')">
+              <user :disabled="false" :selectType="selectType" :userlist="userlist"
+                    style="width: 67%" @getUserids="getUserids"></user>
+            </el-form-item>
+          </el-col>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS5001FORMVIEW_TIMEBETWEEN')">
+              <el-date-picker
+                v-model="workinghours"
+                :end-placeholder="$t('label.enddate')"
+                :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                :start-placeholder="$t('label.startdate')"
+                style="width: 250px"
+                type="daterange"
+                unlink-panels
+                @change="filterInfo"
+              ></el-date-picker>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <!--    添加筛选条件 ztc to-->
     </EasyNormalTable>
     <el-container>
       <el-dialog :visible.sync="dialogTableVisible_h" center
@@ -105,19 +153,23 @@
 </template>
 
 <script>
-    import EasyNormalTable from "@/components/EasyNormalTable";
-    import {getDictionaryInfo, getStatus, getUserInfo,getCurrentRole21,getOrgInfo} from '@/utils/customize';
-    import {Message} from 'element-ui';
-    import moment from "moment";
-    import org from '@/view/components/org';
+import EasyNormalTable from "@/components/EasyNormalTable";
+import {getDictionaryInfo, getStatus, getUserInfo, getCurrentRole21, getOrgInfo} from '@/utils/customize';
+import {Message} from 'element-ui';
+import moment from "moment";
+import org from '@/view/components/org';
+import dicselect from '../../../components/dicselect.vue';
+import user from '../../../components/user.vue';
 
-    export default {
-        name: 'PFANS5001View',
-        components: {
-            EasyNormalTable,
-             org,
-        },
-        data() {
+export default {
+  name: 'PFANS5001View',
+  components: {
+    EasyNormalTable,
+    dicselect,
+    org,
+    user,
+  },
+  data() {
           var centerId = (rule, value, callback) => {
             if (!this.form.new_center_id || this.form.new_center_id === '') {
               callback(new Error(this.$t('normal.error_08') + this.$t('label.center')));
@@ -155,16 +207,30 @@
                 new_team_id: '',
                 org: '',
               },
+              // 添加筛选条件 ztc fr
+              retral: {
+                numbers: '',
+                project_name: '',
+                projecttype: '',
+                leaderid: '',
+                startdate: '',
+                enddate: '',
+              },
+              workinghours: [moment(moment().month(moment().month() - 1).startOf('month').valueOf()).format("YYYY-MM-DD"), moment(new Date()).endOf('month').format("YYYY-MM-DD")],
+              working: '',
+              starttime: moment(moment().month(moment().month() - 1).startOf('month').valueOf()).format("YYYY-MM-DD"),
+              endTime: moment(new Date()).endOf('month').format("YYYY-MM-DD"),
+              // 添加筛选条件 ztc to
               // 列属性
-                columns: [
-                    {
-                        code: 'numbers',
-                        label: 'label.PFANS5009VIEW_PROJECTNO',
-                        width: 110,
-                        fix: false,
-                        filter: false,
-                    },
-                    {
+              columns: [
+                {
+                  code: 'numbers',
+                  label: 'label.PFANS5009VIEW_PROJECTNO',
+                  width: 110,
+                  fix: false,
+                  filter: false,
+                },
+                {
                         code: 'project_name',
                         label: 'label.PFANS5001FORMVIEW_PROJECT_NAME',
                         width: 150,
@@ -226,6 +292,14 @@
                   {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                   {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
                   {'key': 'report', 'name': 'button.report', 'disabled': true, 'icon': 'el-icon-download'},
+                  // 添加筛选条件 ztc fr
+                  {
+                    key: 'search',
+                    name: 'button.search',
+                    disabled: false,
+                    icon: 'el-icon-search'
+                  },
+                  // 添加筛选条件 ztc to
                 ],
                 rowid: '',
                 row:'companyprojects_id',
@@ -234,6 +308,8 @@
                 perioDate: '',
               mounth: '',
               date: '',
+              selectType: 'Single',
+              userlist: '',
                 reportList: [],
             };
         },
@@ -251,6 +327,14 @@
                 {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                 {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
                 {'key': 'report', 'name': 'button.report', 'disabled': true, 'icon': 'el-icon-download'},
+                // 添加筛选条件 ztc fr
+                {
+                  key: 'search',
+                  name: 'button.search',
+                  disabled: false,
+                  icon: 'el-icon-search'
+                },
+                // 添加筛选条件 ztc to
                 {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
               ]
             } else {
@@ -259,6 +343,14 @@
                 {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                 {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
                 {'key': 'report', 'name': 'button.report', 'disabled': true, 'icon': 'el-icon-download'},
+                // 添加筛选条件 ztc fr
+                {
+                  key: 'search',
+                  name: 'button.search',
+                  disabled: false,
+                  icon: 'el-icon-search'
+                },
+                // 添加筛选条件 ztc to
               ]
             }
           },
@@ -317,21 +409,24 @@
               } = org);
             }
           },
-          load(){
+          load() {
             let role = getCurrentRole21();
-            if(role === '0'){
+            if (role === '0') {
               this.buttonList[3].disabled = false
-            }else {
+            } else {
               this.buttonList[3].disabled = true
             }
+            // 添加筛选条件 ztc fr
+            this.retral.startdate = this.starttime;
+            this.retral.enddate = this.endTime;
             this.loading = true;
             this.$store
-              .dispatch('PFANS5001Store/getFpans5001List', {})
+              .dispatch('PFANS5001Store/getFpans5001List', this.retral)
               //根据user_id取组织架构和user_name
               .then(response => {
-                this.data = response.filter(val => Number(val.status) !== 7 && Number(val.status) !== 9 );
+                this.data = response.filter(val => Number(val.status) !== 7 && Number(val.status) !== 9);
                 for (let j = 0; j < response.length; j++) {
-                  if(response[j].createby !== null && response[j].createby !== "") {
+                  if (response[j].createby !== null && response[j].createby !== "") {
                     let user = getUserInfo(response[j].createby);
                     if (user) {
                       response[j].createby = user.userinfo.customername;
@@ -480,16 +575,21 @@
                         return;
                     }
                     this.$router.push({
-                        name: 'PFANS5001FormView',
-                        params: {
-                            _id: this.rowid,
-                            disabled: true
-                        }
+                      name: 'PFANS5001FormView',
+                      params: {
+                        _id: this.rowid,
+                        disabled: true
+                      }
                     })
                 }
-              if(val === 'report'){
+              if (val === 'report') {
                 this.dialogTableVisible_h = true;
               }
+              // 添加筛选条件 ztc fr
+              if (val === 'search') {
+                this.load();
+              }
+              // 添加筛选条件 ztc to
             },
           formatJson(filterVal, jsonData) {
             return jsonData.map(v => filterVal.map(j => {
@@ -554,7 +654,49 @@
               });
               this.dialogTableVisible_h = false;
             }
-          }
+          },
+          // 添加筛选条件 ztc fr
+          getUserids(val) {
+            this.userlist = val;
+            this.retral.leaderid = val;
+          },
+          changeType(val) {
+            this.retral.projecttype = val;
+          },
+          filterInfo() {
+            this.working = this.getworkinghours(this.workinghours);
+            if (this.working === "") {
+              // 添加筛选条件 ztc fr
+              // this.starttime =  moment(new Date()).startOf('month').format("YYYY-MM-DD");
+              // this.endTime =  moment(new Date()).endOf('month').format("YYYY-MM-DD");
+              this.starttime = null;
+              this.endTime = null;
+              //this.getAbnormalList();
+              // 添加筛选条件 ztc to
+            } else {
+              this.starttime = this.working.substring(0, 10);
+              this.endTime = this.working.substring(13, 23);
+              // 添加筛选条件 ztc fr
+              //this.getAbnormalList();
+              // 添加筛选条件 ztc to
+            }
+          },
+          getworkinghours(workinghours) {
+            if (workinghours != null) {
+              if (workinghours.length > 0) {
+                return (
+                  moment(workinghours[0]).format('YYYY-MM-DD') +
+                  ' ~ ' +
+                  moment(workinghours[1]).format('YYYY-MM-DD')
+                );
+              } else {
+                return '';
+              }
+            } else {
+              return '';
+            }
+          },
+          // 添加筛选条件 ztc to
         }
     }
 </script>

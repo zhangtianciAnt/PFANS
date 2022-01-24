@@ -3211,6 +3211,9 @@
         //region scc add 10/22 在库，合计到PL研究材料费 from
         let inLibrary = {};
         //endregion scc add 10/22 在库，合计到PL研究材料费 to
+        //region ztc add 22/01/20 给予，合计到PL人件费 from
+        let givePeo = {};
+        //endregion ztc add 22/01/20  给予，合计到PL研究材料费 to
 
         //add ccm 20211008 PL添加年间合计 fr
         let total0 = 0;    let total10 = 0;   let total20 = 0;   let total30 = 0;   let total40 = 0;   let total50 = 0;
@@ -3393,6 +3396,13 @@
               }
             }
             //endregion scc add 10/22 各种经费，在库 to
+            //region ztc add 22/01/20 各种经费，给予 from
+            if(val.type === 'PJ111019') {
+              for (let i = 1; i <= 12; i++) {
+                givePeo['money' + i] = (Number(givePeo['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+              }
+            }
+            //endregion ztc add 22/01/20 各种经费，给予 to
           },
         );
 
@@ -3482,11 +3492,13 @@
             - Number(this.tableP[1]['money' + this.arr[i]]) / (1 + Number(getDictionaryInfo('PJ086002').value2)) * Number(getDictionaryInfo('PJ086002').value2)
             - Number(this.tableP[2]['money' + this.arr[i]]) / (1 + Number(getDictionaryInfo('PJ086003').value2)) * Number(getDictionaryInfo('PJ086003').value2)).toFixed(2));
           //人员计划合计下半个
+          //region ztc add 22/01/20 各种经费，给予 from
           if (this.tableA.length > 0) {
-            this.$set(this.tableP[6], 'money' + this.arr[i], ((Number(this.tableA[0]['pay' + this.arr[i]]) + Number(this.tableA[0]['giving' + this.arr[i]])) / 1000).toFixed(2));
+            this.$set(this.tableP[6], 'money' + this.arr[i], ((Number(this.tableA[0]['pay' + this.arr[i]]) + Number(this.tableA[0]['giving' + this.arr[i]])) / 1000 + Number(givePeo['money' + this.arr[i]] || 0) ).toFixed(2));
           } else {
-            this.$set(this.tableP[6], 'money' + this.arr[i], '0.00');
+            this.$set(this.tableP[6], 'money' + this.arr[i], Number(givePeo['money' + this.arr[i]] || '0.00'));
           }
+          //region ztc add 22/01/20 各种经费，给予 to
           this.$set(this.tableP[7], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[8], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[9], 'money' + this.arr[i], '0.00');
@@ -3594,16 +3606,28 @@
           ['money', 'actual'].forEach(
             val => {
               //仕掛品
-              //region scc add 10/25 PL中仕掛品，6,9,12,3，是-(4月+5月)，-(7月+8月)，-(10月+11月)，-(1月+2月) from
-              if(this.arr[i] === 6){
-                this.$set(this.tableP[39], val + this.arr[i],(Number(0) - (Number(this.tableP[39][val + this.arr[i - 2]]) + Number(this.tableP[39][val + this.arr[i - 1]]))).toFixed(2));
-              }else if(this.arr[i] === 9){
-                this.$set(this.tableP[39], val + this.arr[i],(Number(0) - (Number(this.tableP[39][val + this.arr[i - 2]]) + Number(this.tableP[39][val + this.arr[i - 1]]))).toFixed(2));
-              }else if(this.arr[i] === 12){
-                this.$set(this.tableP[39], val + this.arr[i],(Number(0) - (Number(this.tableP[39][val + this.arr[i - 2]]) + Number(this.tableP[39][val + this.arr[i - 1]]))).toFixed(2));
-              }else if(this.arr[i] === 3){
-                this.$set(this.tableP[39], val + this.arr[i],(Number(0) - (Number(this.tableP[39][val + this.arr[i - 2]]) + Number(this.tableP[39][val + this.arr[i - 1]]))).toFixed(2));
-              }else {
+              //region scc add 10/25 PL中
+              // 6月仕掛品 = -(4月仕掛品+5月仕掛品)，
+              // 9月仕掛品 = -(7月仕掛品+8月仕掛品)，
+              // 12月仕掛品 = -(10月仕掛品+11月仕掛品)，
+              // 3月仕掛品 = -(1月仕掛品+2月仕掛品) from
+              if (this.arr[i] === 6) {
+                this.$set(this.tableP[39], val + this.arr[i], (Number(0) - (Number(this.tableP[39][val + this.arr[i - 2]]) + Number(this.tableP[39][val + this.arr[i - 1]]))).toFixed(2));
+              } else if (this.arr[i] === 9) {
+                this.$set(this.tableP[39], val + this.arr[i], (Number(0) - (Number(this.tableP[39][val + this.arr[i - 2]]) + Number(this.tableP[39][val + this.arr[i - 1]]))).toFixed(2));
+              } else if (this.arr[i] === 12) {
+                this.$set(this.tableP[39], val + this.arr[i], (Number(0) - (Number(this.tableP[39][val + this.arr[i - 2]]) + Number(this.tableP[39][val + this.arr[i - 1]]))).toFixed(2));
+              } else if (this.arr[i] === 3) {
+                this.$set(this.tableP[39], val + this.arr[i], (Number(0) - (Number(this.tableP[39][val + this.arr[i - 2]]) + Number(this.tableP[39][val + this.arr[i - 1]]))).toFixed(2));
+              } else {
+                /*
+                  *（
+                     0- 人件费小计- 固定資産費用小計 - 研究開発費・ソフト費用小計
+                         - (原動費 + 旅費交通費 + 通信費 + 消耗品費+ 会議費/交際費/研修費 + 共同事務費 +ブランド使用料 + その他経費)
+                         + （売上合計（税抜き、社内委託除き）*0.7）
+                     ）
+                  *
+                 */
                 this.$set(this.tableP[39], val + this.arr[i], (0 - Number(this.tableP[13][val + this.arr[i]]) - Number(this.tableP[20][val + this.arr[i]]) - Number(this.tableP[26][val + this.arr[i]]) - (Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
                   Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]])) + Number(this.tableP[5][val + this.arr[i]]) * 0.70).toFixed(2));
               }
