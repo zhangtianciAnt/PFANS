@@ -21,10 +21,25 @@
             ></org>
           </el-form-item>
           </el-col>
+          <el-col :span="5">
+            <el-form-item :label="$t('label.PFANS2036VIEW_DEPARTMENT')">
+              <el-select v-model="retral.inOrout" style="width: 14vw" :disabled="false"
+                         @change="filterInfo">
+                <el-option
+                  v-for="item in optionsFore"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
           <el-col :span="4">
             <el-form-item :label="$t('label.user_name')">
               <user :disabled="false" :selectType="selectType" :userlist="retral.createby"
-                    style="width: 67%" @getUserids="getCreateby"></user>
+                    style="width: 67%" @getUserids="getCreateby" v-if="retral.inOrout === '0'"></user>
+              <el-input style="width: 83%" v-model="retral.createby" clearable
+                        v-else-if="retral.inOrout === '1'"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="5">
@@ -185,6 +200,18 @@
     },
     data() {
       return {
+        optionsFore: [
+          {
+            value: "0",
+            label: this.$t("label.PFANS5008VIEW_INPERSON")
+          },
+          {
+            value: "1",
+            label: this.$t("label.PFANS5008VIEW_OUTPERSON")
+          },
+          //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-start
+          //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-end
+        ],
             // add-ws-5/26-No.68
         defaultDate: moment(new Date()).format('YYYY-MM-DD'),
         locale: 'cn',
@@ -233,9 +260,10 @@
         transferData: [],
         selectedlist: [],
         retral:{
-          group_id:'',
+          inOrout: '0',
+          group_id: '',
           createby: '',
-          log_date: moment(new Date()).format(('YYYY-MM-DD')),
+          log_date: null,
           month: moment(new Date()).format('YYYY-MM'),
         },
         selectType:'Single',
@@ -361,6 +389,10 @@
       },
     },
     methods: {
+      filterInfo(val) {
+        this.retral.inOrout = val;
+        this.retral.createby = '';
+      },
       // add-ws-5/26-No.68
       checklist() {
         this.checkdata = false;
