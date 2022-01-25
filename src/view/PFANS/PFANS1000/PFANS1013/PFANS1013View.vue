@@ -58,22 +58,18 @@
             </el-select>
           </el-form-item>
         </el-col>
-        <el-col :span="3">
-          <el-form-item :label="$t('label.PFANS1013VIEW_STARTDATE')">
+        <el-col :span="4">
+          <el-form-item :label="$t('label.PFANS1013VIEW_DATE')">
             <el-date-picker
-              style="width: 85%"
-              type="date"
-              v-model="form1.startdate">
-            </el-date-picker>
-          </el-form-item>
-        </el-col>
-        <el-col :span="3">
-          <el-form-item :label="$t('label.PFANS1013VIEW_ENDDATE')">
-            <el-date-picker
-              style="width: 85%"
-              type="date"
-              v-model="form1.enddate">
-            </el-date-picker>
+              unlink-panels
+              v-model="form1.date"
+              style="width: 250px"
+              type="daterange"
+              :end-placeholder="$t('label.enddate')"
+              :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+              :start-placeholder="$t('label.startdate')"
+              @change="filterInfo"
+            ></el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
@@ -118,8 +114,10 @@
           centerid: '',
           groupid: '',
           type: '',
+          bussinessdate: '',
           startdate: null,
           enddate: null,
+          date: null,
         },
         codes: [
           {
@@ -722,6 +720,31 @@
         //  endregion   add   ml  220112   检索   to
       },
       //region   add  ml  220112  检索  from
+      filterInfo() {
+        this.form1.bussinessdate = this.getworkinghours(this.form1.date);
+        if(this.form1.bussinessdate === ""){
+          this.form1.startdate =  null;
+          this.form1.enddate =  null;
+        }else{
+          this.form1.startdate = this.form1.bussinessdate.substring(0, 10);
+          this.form1.enddate = this.form1.bussinessdate.substring(13, 23);
+        }
+      },
+      getworkinghours(workinghours) {
+        if (workinghours != null) {
+          if (workinghours.length > 0) {
+            return (
+              moment(workinghours[0]).format('YYYY-MM-DD') +
+              ' ~ ' +
+              moment(workinghours[1]).format('YYYY-MM-DD')
+            );
+          } else {
+            return '';
+          }
+        } else {
+          return '';
+        }
+      },
       change(val) {
         this.form1.type = val;
       },
