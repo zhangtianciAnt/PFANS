@@ -39,7 +39,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="4">
-          <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMDATE')">
+          <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMMONTH')">
             <el-date-picker
               v-model="retralTwo.claimdate"
               style="width: 90%"
