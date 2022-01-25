@@ -13,6 +13,7 @@
     :showSelection="isShow"
     ref="roletable"
     v-loading="loading"
+    @reget="getList"
     :showSelectBySearch="false">
 <!--    检索画面样式调整并取消共通检索 ztc-->
     <!--    添加筛选条件 ztc fr-->
@@ -41,7 +42,7 @@
         <el-col :span="4">
           <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMMONTH')">
             <el-date-picker
-              v-model="retralTwo.claimdate"
+              v-model="retral.claimdate"
               style="width: 90%"
               type="month"
               @change="getClaDate"
@@ -82,8 +83,6 @@
           group_id: '',
           custochinese: '',
           type: '1',
-        },
-        retralTwo: {
           claimdate: '',
         },
         // 添加筛选条件 ztc to
@@ -185,100 +184,139 @@
       // 添加筛选条件 ztc fr
       getClaDate(val) {
         if(val !== null) {
-          this.retralTwo.claimdate = moment(val).format("YYYY-MM-DD");
+          this.retral.claimdate = moment(val).format("YYYY-MM-DD");
         } else {
-          this.retralTwo.claimdate = null
+          this.retral.claimdate = null
         }
       },
       changeType(val) {
         this.retral.contracttype = val;
       },
-      getList(){
+      getList() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1026Store/get', this.retral)
+          .dispatch('PFANS1032Store/getPetSearch', this.retral)
           .then(response => {
-            let data = [];
-            for (let i = 0; i < response.contractapplication.length; i++) {
-              if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-                data.push({
-                  contractnumber: response.contractapplication[i].contractnumber,
-                });
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].contracttype !== null && response[j].contracttype !== '') {
+                let letContracttype = getDictionaryInfo(response[j].contracttype);
+                if (letContracttype != null) {
+                  response[j].contracttype = letContracttype.value1;
+                }
+              }
+              if (response[j].claimdate !== null && response[j].claimdate !== '') {
+                response[j].claimdate = moment(response[j].claimdate).format('YYYY-MM-DD');
+              }
+              if (this.$i18n) {
+                if (response[j].sealstatus === null || response[j].sealstatus === '') {
+                  response[j].sealstatus = '';
+                } else if (response[j].sealstatus === '1') {
+                  response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
+                } else if (response[j].sealstatus === '2') {
+                  response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+                } else if (response[j].sealstatus === '3') {
+                  response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
+                }
               }
             }
-            this.checkdata = data;
-            this.$store
-              .dispatch('PFANS1032Store/get', this.retralTwo)
-              .then(response => {
-                const datated = [];
-                for (let d = 0; d < this.checkdata.length; d++) {
-                  for (let j = 0; j < response.length; j++) {
-                    if (this.checkdata[d].contractnumber === response[j].contractnumber) {
-                      if (response[j].contracttype !== null && response[j].contracttype !== '') {
-                        let letContracttype = getDictionaryInfo(response[j].contracttype);
-                        if (letContracttype != null) {
-                          response[j].contracttype = letContracttype.value1;
-                        }
-                      }
-                      if (response[j].claimdate !== null && response[j].claimdate !== '') {
-                        response[j].claimdate = moment(response[j].claimdate).format('YYYY-MM-DD');
-                      }
-                      if (this.$i18n) {
-                        if (response[j].sealstatus === null || response[j].sealstatus === '') {
-                          response[j].sealstatus = '';
-                        } else if (response[j].sealstatus === '1') {
-                          response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
-                        } else if (response[j].sealstatus === '2') {
-                          response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
-                        } else if (response[j].sealstatus === '3') {
-                          response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
-                        }
-                      }
-                      datated.push({
-                        contracttype: response[j].contracttype,
-                        custochinese: response[j].custochinese,
-                        businesscode: response[j].businesscode,
-                        pjnamejapanese: response[j].pjnamejapanese,
-                        claimnumber: response[j].claimnumber,
-                        claimdate: response[j].claimdate,
-                        contractnumber: response[j].contractnumber,
-                        sealstatus: response[j].sealstatus,
-                        sealid: response[j].sealid,
-                        petition_id: response[j].petition_id,
-                      });
-                    }
-                  }
-                }
-                // const datatade = [];
-                // for (let m = 0; m < response.length; m++) {
-                //   for (let n = 0; n < datated.length; n++) {
-                //     if (datated[n].contractnumber === response[m].contractnumber) {
-                //       datatade.push({
-                //         contracttype: response[m].contracttype,
-                //         custochinese: response[m].custochinese,
-                //         businesscode: response[m].businesscode,
-                //         pjnamejapanese: response[m].pjnamejapanese,
-                //         claimnumber: response[m].claimnumber,
-                //         deliveryfinshdate: response[m].deliveryfinshdate,
-                //         contractnumber: response[m].contractnumber,
-                //         petition_id: response[m].petition_id,
-                //       });
-                //     }
-                //   }
-                // }
-                this.data = datated;
-                this.loading = false;
-              })
-              .catch(error => {
-                this.$message.error({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
           });
       },
+      // getList(){
+      //   this.loading = true;
+      //   this.$store
+      //     .dispatch('PFANS1026Store/get', this.retral)
+      //     .then(response => {
+      //       let data = [];
+      //       for (let i = 0; i < response.contractapplication.length; i++) {
+      //         if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+      //           data.push({
+      //             contractnumber: response.contractapplication[i].contractnumber,
+      //           });
+      //         }
+      //       }
+      //       this.checkdata = data;
+      //       this.$store
+      //         .dispatch('PFANS1032Store/get', this.retralTwo)
+      //         .then(response => {
+      //           const datated = [];
+      //           for (let d = 0; d < this.checkdata.length; d++) {
+      //             for (let j = 0; j < response.length; j++) {
+      //               if (this.checkdata[d].contractnumber === response[j].contractnumber) {
+      //                 if (response[j].contracttype !== null && response[j].contracttype !== '') {
+      //                   let letContracttype = getDictionaryInfo(response[j].contracttype);
+      //                   if (letContracttype != null) {
+      //                     response[j].contracttype = letContracttype.value1;
+      //                   }
+      //                 }
+      //                 if (response[j].claimdate !== null && response[j].claimdate !== '') {
+      //                   response[j].claimdate = moment(response[j].claimdate).format('YYYY-MM-DD');
+      //                 }
+      //                 if (this.$i18n) {
+      //                   if (response[j].sealstatus === null || response[j].sealstatus === '') {
+      //                     response[j].sealstatus = '';
+      //                   } else if (response[j].sealstatus === '1') {
+      //                     response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
+      //                   } else if (response[j].sealstatus === '2') {
+      //                     response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+      //                   } else if (response[j].sealstatus === '3') {
+      //                     response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
+      //                   }
+      //                 }
+      //                 datated.push({
+      //                   contracttype: response[j].contracttype,
+      //                   custochinese: response[j].custochinese,
+      //                   businesscode: response[j].businesscode,
+      //                   pjnamejapanese: response[j].pjnamejapanese,
+      //                   claimnumber: response[j].claimnumber,
+      //                   claimdate: response[j].claimdate,
+      //                   contractnumber: response[j].contractnumber,
+      //                   sealstatus: response[j].sealstatus,
+      //                   sealid: response[j].sealid,
+      //                   petition_id: response[j].petition_id,
+      //                 });
+      //               }
+      //             }
+      //           }
+      //           // const datatade = [];
+      //           // for (let m = 0; m < response.length; m++) {
+      //           //   for (let n = 0; n < datated.length; n++) {
+      //           //     if (datated[n].contractnumber === response[m].contractnumber) {
+      //           //       datatade.push({
+      //           //         contracttype: response[m].contracttype,
+      //           //         custochinese: response[m].custochinese,
+      //           //         businesscode: response[m].businesscode,
+      //           //         pjnamejapanese: response[m].pjnamejapanese,
+      //           //         claimnumber: response[m].claimnumber,
+      //           //         deliveryfinshdate: response[m].deliveryfinshdate,
+      //           //         contractnumber: response[m].contractnumber,
+      //           //         petition_id: response[m].petition_id,
+      //           //       });
+      //           //     }
+      //           //   }
+      //           // }
+      //           this.data = datated;
+      //           this.loading = false;
+      //         })
+      //         .catch(error => {
+      //           this.$message.error({
+      //             message: error,
+      //             type: 'error',
+      //             duration: 5 * 1000,
+      //           });
+      //           this.loading = false;
+      //         });
+      //     });
+      // },
       // 添加筛选条件 ztc to
       //add_fjl_添加合同回款相关  start
       selectInit(row, index) {

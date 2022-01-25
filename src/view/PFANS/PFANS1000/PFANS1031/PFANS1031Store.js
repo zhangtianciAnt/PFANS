@@ -1,9 +1,4 @@
-import {
-  get,
-  one,
-  update,
-  downLoad
-} from './PFANS1031Api'
+import {downLoad, get, getNapSearch, one, update} from './PFANS1031Api'
 
 const PFANS1031Store = {
   namespaced: true,
@@ -62,6 +57,20 @@ const PFANS1031Store = {
         })
       })
     },
+    getNapSearch({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getNapSearch(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+
   }
 }
 export default PFANS1031Store;

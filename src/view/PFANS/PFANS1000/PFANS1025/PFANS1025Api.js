@@ -1,6 +1,5 @@
 import request from '../../../../utils/request'
 import requestDownload from '../../../../utils/requestDownload';
-import requestPdf from "../../../../utils/requestPdf";
 
 export function get(data) {
   return request({
@@ -111,4 +110,13 @@ export function getAwardEntr(data) {
   })
 }
 //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
+
+export function getEntSearch(data) {
+  return request({
+    url: 'award/getEntSearch',
+    method: 'post',
+    data: data
+  })
+}
+
 

@@ -1,18 +1,18 @@
 import {
-  get,
-  selectById,
-  update,
+  checkby,
+  dataCarryover,
   generateJxls,
+  get,
+  getAwardEntr,
+  getcompanyen,
   getDataOne,
   getDataOne2,
-  checkby,
+  getEntSearch,
   getList,
-  dataCarryover,
-  getcompanyen,
-  getRanks,
   getPersonalBm,
-  getAwardEntr,
-  awddelete
+  getRanks,
+  selectById,
+  update
 } from './PFANS1025Api'
 
 
@@ -200,6 +200,19 @@ const PFANS1025Store = {
     },
   //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
 
+    getEntSearch({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getEntSearch(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
   }
 };
 

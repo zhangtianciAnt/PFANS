@@ -19,7 +19,8 @@ import {
   dataCarryover,
   getforContDiaLog,
   getProject,
-  getContranumber
+  getContranumber,
+  getCotSearch
   } from './PFANS1026Api';
 
 const PFANS1026Store = {
@@ -317,6 +318,19 @@ const PFANS1026Store = {
       });
     },
     //获取合同时间，用于合同check scc
+    getCotSearch({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getCotSearch(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
   },
 };
 

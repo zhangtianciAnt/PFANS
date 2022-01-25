@@ -1,6 +1,5 @@
 import request from '../../../../utils/request'
 import requestDownload from '../../../../utils/requestDownload';
-import requestPdf from "../../../../utils/requestPdf";
 
 export function get(data) {
   return request({
@@ -34,6 +33,14 @@ export function downLoad(data) {
     method: 'post',
     data: data,
     responseType: 'blob'
+  })
+}
+
+export function getNapSearch(data) {
+  return request({
+    url: 'napalm/getNapSearch',
+    method: 'post',
+    data: data
   })
 }
 

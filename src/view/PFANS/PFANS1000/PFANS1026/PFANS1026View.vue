@@ -222,7 +222,7 @@ export default {
           },
           // 禅道70 start
           {
-            code: 'projectnumber',
+            code: 'getprojectnumber',
             label: 'label.PFANS5004VIEW_PROJECTNUMBER',
             width: 280,
             fix: false,
@@ -306,59 +306,95 @@ export default {
       load() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1026Store/get', this.retral)
+          .dispatch('PFANS1026Store/getCotSearch', this.retral)
           .then(response => {
-            let letcontractnumber = [];
-            let tabledata = response.contractapplication;
-            for (let i = 0; i < tabledata.length; i++) {
+            for (let i = 0; i < response.length; i++) {
               //add-ws-6/16-禅道任务135和057
-              if (tabledata[i].entrycondition !== null && tabledata[i].entrycondition !== '') {
-                let letbudge = getDictionaryInfo(tabledata[i].entrycondition);
+              if (response[i].entrycondition !== null && response[i].entrycondition !== '') {
+                let letbudge = getDictionaryInfo(response[i].entrycondition);
                 if (letbudge) {
-                  tabledata[i].entrycondition = letbudge.value1;
+                  response[i].entrycondition = letbudge.value1;
                 }
               }
               //add-ws-6/16-禅道任务135和057
-              if (tabledata[i].currencyposition !== null && tabledata[i].currencyposition !== '') {
-                let letcurrencyposition = getMonthlyrateInfo(tabledata[i].currencyposition);
+              if (response[i].currencyposition !== null && response[i].currencyposition !== '') {
+                let letcurrencyposition = getMonthlyrateInfo(response[i].currencyposition);
                 if (letcurrencyposition) {
-                  tabledata[i].currencyposition = letcurrencyposition.currencyname;
+                  response[i].currencyposition = letcurrencyposition.currencyname;
                 }
               }
-              tabledata[i].status = getStatus(tabledata[i].status);
-              let user = getUserInfo(tabledata[i].user_id);
+              response[i].status = getStatus(response[i].status);
+              let user = getUserInfo(response[i].user_id);
               if (user) {
-                tabledata[i].user_id = getUserInfo(tabledata[i].user_id).userinfo.customername;
+                response[i].user_id = getUserInfo(response[i].user_id).userinfo.customername;
               }
-              if (tabledata[i].applicationdate !== null && tabledata[i].applicationdate !== "") {
-                tabledata[i].applicationdate = moment(tabledata[i].applicationdate).format("YYYY-MM-DD");
+              if (response[i].applicationdate !== null && response[i].applicationdate !== "") {
+                response[i].applicationdate = moment(response[i].applicationdate).format("YYYY-MM-DD");
               }
-              if (tabledata[i].contracttype !== null && tabledata[i].contracttype !== "") {
-                let letContracttype = getDictionaryInfo(tabledata[i].contracttype);
+              if (response[i].contracttype !== null && response[i].contracttype !== "") {
+                let letContracttype = getDictionaryInfo(response[i].contracttype);
                 if (letContracttype != null) {
-                  tabledata[i].contracttype = letContracttype.value1;
+                  response[i].contracttype = letContracttype.value1;
                 }
               }
-              if (tabledata[i].contractnumber != "") {
-                letcontractnumber.push(tabledata[i].contractnumber);
-              }
-              if (tabledata[i].state === '1' && this.$i18n) {
-                tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
-              } else if (tabledata[i].state === '0' && this.$i18n) {
-                tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
+              if (response[i].state === '1' && this.$i18n) {
+                response[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
+              } else if (response[i].state === '0' && this.$i18n) {
+                response[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
               }
             }
-            var arr = new Array();
-            this.data = [];
-            let o;
-            for (var i = 0; i < letcontractnumber.length; i++) {
-              if (arr.indexOf(letcontractnumber[i]) == -1) {
-                arr.push(letcontractnumber[i]);
-                o = Object.assign([], tabledata[i]);
-                this.data.push(o);
-              }
-            }
-            this.contractnumbercount = (letcontractnumber.length + 1);
+            this.data = response;
+            // let letcontractnumber = [];
+            // let tabledata = response.contractapplication;
+            // for (let i = 0; i < tabledata.length; i++) {
+            //   //add-ws-6/16-禅道任务135和057
+            //   if (tabledata[i].entrycondition !== null && tabledata[i].entrycondition !== '') {
+            //     let letbudge = getDictionaryInfo(tabledata[i].entrycondition);
+            //     if (letbudge) {
+            //       tabledata[i].entrycondition = letbudge.value1;
+            //     }
+            //   }
+            //   //add-ws-6/16-禅道任务135和057
+            //   if (tabledata[i].currencyposition !== null && tabledata[i].currencyposition !== '') {
+            //     let letcurrencyposition = getMonthlyrateInfo(tabledata[i].currencyposition);
+            //     if (letcurrencyposition) {
+            //       tabledata[i].currencyposition = letcurrencyposition.currencyname;
+            //     }
+            //   }
+            //   tabledata[i].status = getStatus(tabledata[i].status);
+            //   let user = getUserInfo(tabledata[i].user_id);
+            //   if (user) {
+            //     tabledata[i].user_id = getUserInfo(tabledata[i].user_id).userinfo.customername;
+            //   }
+            //   if (tabledata[i].applicationdate !== null && tabledata[i].applicationdate !== "") {
+            //     tabledata[i].applicationdate = moment(tabledata[i].applicationdate).format("YYYY-MM-DD");
+            //   }
+            //   if (tabledata[i].contracttype !== null && tabledata[i].contracttype !== "") {
+            //     let letContracttype = getDictionaryInfo(tabledata[i].contracttype);
+            //     if (letContracttype != null) {
+            //       tabledata[i].contracttype = letContracttype.value1;
+            //     }
+            //   }
+            //   if (tabledata[i].contractnumber != "") {
+            //     letcontractnumber.push(tabledata[i].contractnumber);
+            //   }
+            //   if (tabledata[i].state === '1' && this.$i18n) {
+            //     tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
+            //   } else if (tabledata[i].state === '0' && this.$i18n) {
+            //     tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
+            //   }
+            // }
+            // var arr = new Array();
+            // this.data = [];
+            // let o;
+            // for (var i = 0; i < letcontractnumber.length; i++) {
+            //   if (arr.indexOf(letcontractnumber[i]) == -1) {
+            //     arr.push(letcontractnumber[i]);
+            //     o = Object.assign([], tabledata[i]);
+            //     this.data.push(o);
+            //   }
+            // }
+            // this.contractnumbercount = (letcontractnumber.length + 1);
             this.loading = false;
           })
           .catch(error => {

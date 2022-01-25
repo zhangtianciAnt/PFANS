@@ -13,6 +13,7 @@
                      @handleEdit="handleEdit"
                      ref="roletable"
                      :showSelection="isShow"
+                     @reget="getPjanme"
                      :showSelectBySearch="false">
 <!--      检索画面样式调整并取消共通检索 ztc-->
       <!--      添加筛选条件 ztc fr-->
@@ -154,7 +155,7 @@
           contracttype: '',
           group_id: '',
           // custochinese: '',
-          type: '2',
+          maketype: '9',
         },
         // 添加筛选条件 ztc to
         columns: [
@@ -295,135 +296,196 @@
       changeType(val) {
         this.retral.contracttype = val;
       },
-      // 添加筛选条件 ztc to
       getPjanme() {
         this.loading = true;
         this.$store
-        //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
-        // 添加筛选条件 ztc fr
-          .dispatch('PFANS1026Store/get', this.retral)
+          .dispatch('PFANS1025Store/getEntSearch', this.retral)
           .then(response => {
-            let data = [];
-            for (let i = 0; i < response.contractapplication.length; i++) {
-              if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-                data.push({
-                  contractnumber: response.contractapplication[i].contractnumber,
-                });
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].contracttype !== null && response[j].contracttype !== '') {
+                let letContracttype = getDictionaryInfo(response[j].contracttype);
+                if (letContracttype != null) {
+                  response[j].contracttype = letContracttype.value1;
+                }
+              }
+              if (response[j].currencyposition !== null && response[j].currencyposition !== '') {
+                let letCurrencyposition = getMonthlyrateInfo(response[j].currencyposition);
+                if (letCurrencyposition != null) {
+                  response[j].currencyposition = letCurrencyposition.currencyname;
+                }
+              }
+              if (response[j].status !== null && response[j].status !== '') {
+                response[j].status = getStatus(response[j].status);
+              }
+              if (response[j].status != '0') {
+                if (response[j].modifyon !== null && response[j].modifyon !== '') {
+                  response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
+                }
+              } else {
+                response[j].modifyon = null;
+              }
+              if (response[j].plan === '0') {
+                if (this.$i18n) {
+                  response[j].plantemp = this.$t('label.PFANS1004VIEW_INSIDE');
+                }
+              } else {
+                if (this.$i18n) {
+                  response[j].plantemp = this.$t('label.PFANS1004VIEW_OUTER');
+                }
+              }
+              if (this.$i18n) {
+                if (response[j].sealstatus === null || response[j].sealstatus === '') {
+                  response[j].sealstatus = '';
+                } else if (response[j].sealstatus === '1') {
+                  response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
+                } else if (response[j].sealstatus === '2') {
+                  response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+                } else if (response[j].sealstatus === '3') {
+                  response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
+                }
               }
             }
-            this.checkdata = data;
-            // 添加筛选条件 ztc to
-            this.loading = true;
-            this.$store
-            //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
-              .dispatch('PFANS1025Store/getList', {'maketype': '9'})
-              .then(response => {
-                //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
-                const datated = [];
-                for(let j = 0; j< this.checkdata.length; j++){
-                  //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
-                  for (let i = 0; i < response.length; i++)
-                    //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
-                    {
-                    if(this.checkdata[j].contractnumber === response[i].contractnumber){
-                      if (response[i].award_id !== null && response[i].award_id !== '')
-                      //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
-                      {
-                        //契约种类
-                        if (response[i].contracttype !== null && response[i].contracttype !== '') {
-                          let letContracttype = getDictionaryInfo(response[i].contracttype);
-                          if (letContracttype != null) {
-                            response[i].contracttype = letContracttype.value1;
-                          }
-                        }
-                        //审批状态
-                        if (response[i].status !== null && response[i].status !== '') {
-                          response[i].status = getStatus(response[i].status);
-                        }
-                        //通货形式
-                        if (response[i].currencyposition !== null && response[i].currencyposition !== '') {
-                          let letCurrencyposition = getMonthlyrateInfo(response[i].currencyposition);
-                          if (letCurrencyposition != null) {
-                            response[i].currencyposition = letCurrencyposition.currencyname;
-                          }
-                        }
-                        //印章状态
-                        if (this.$i18n) {
-                          if (response[i].sealstatus === null || response[i].sealstatus === '') {
-                            response[i].sealstatus = '';
-                          } else if (response[i].sealstatus === '1') {
-                            response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
-                          } else if (response[i].sealstatus === '2') {
-                            response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
-                          } else if (response[i].sealstatus === '3') {
-                            response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
-                            //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
-                          }
-                        }
-                        datated.push({
-                          contracttype: response[i].contracttype,
-                          custochinese: response[i].custochinese,
-                          modifyon: response[i].modifyon,
-                          deployment: response[i].deployment,
-                          pjnamechinese: response[i].pjnamechinese,
-                          claimdatetime: response[i].claimdatetime,
-                          currencyposition: response[i].currencyposition,
-                          claimamount: response[i].claimamount,
-                          award_id: response[i].award_id,
-                          status:response[i].status,
-                          owner: response[i].owner,
-                          sealstatus:response[i].sealstatus,
-                          sealid:response[i].sealid,
-                          contractnumber:response[i].contractnumber,
-                          groupid:response[i].group_id,
-                          maketype:response[i].maketype,
-                        });
-                      }
-                    }
-                  }
-                  //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
-                }
-                //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
-                const datatade = [];
-                for (let m = 0; m < response.length; m++) {
-                  for (let n = 0; n < datated.length; n++) {
-                    if (datated[n].contractnumber === response[m].contractnumber) {
-                      datatade.push({
-                        contracttype: response[m].contracttype,
-                        custochinese: response[m].custochinese,
-                        modifyon: response[m].modifyon,
-                        deployment: response[m].deployment,
-                        pjnamechinese: response[m].pjnamechinese,
-                        claimdatetime: response[m].claimdatetime,
-                        currencyposition: response[m].currencyposition,
-                        claimamount: response[m].claimamount,
-                        award_id: response[m].award_id,
-                        status:response[m].status,
-                        owner: response[m].owner,
-                        sealstatus:response[m].sealstatus,
-                        sealid:response[m].sealid,
-                        contractnumber:response[m].contractnumber,
-                        groupid:response[m].group_id,
-                        maketype:response[m].maketype,
-                      });
-                    }
-                    //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
-                  }
-                }
-                this.data = datatade;
-                this.loading = false;
-              })
-              .catch(error => {
-                this.$message.error({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
-              });
-            //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+            this.data = response;
+            this.loading = false;
           })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
       },
+      // 添加筛选条件 ztc to
+      // getPjanme() {
+      //   this.loading = true;
+      //   this.$store
+      //   //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+      //   // 添加筛选条件 ztc fr
+      //     .dispatch('PFANS1026Store/get', this.retral)
+      //     .then(response => {
+      //       let data = [];
+      //       for (let i = 0; i < response.contractapplication.length; i++) {
+      //         if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+      //           data.push({
+      //             contractnumber: response.contractapplication[i].contractnumber,
+      //           });
+      //         }
+      //       }
+      //       this.checkdata = data;
+      //       // 添加筛选条件 ztc to
+      //       this.loading = true;
+      //       this.$store
+      //       //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+      //         .dispatch('PFANS1025Store/getList', {'maketype': '9'})
+      //         .then(response => {
+      //           //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+      //           const datated = [];
+      //           for(let j = 0; j< this.checkdata.length; j++){
+      //             //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+      //             for (let i = 0; i < response.length; i++)
+      //               //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+      //               {
+      //               if(this.checkdata[j].contractnumber === response[i].contractnumber){
+      //                 if (response[i].award_id !== null && response[i].award_id !== '')
+      //                 //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+      //                 {
+      //                   //契约种类
+      //                   if (response[i].contracttype !== null && response[i].contracttype !== '') {
+      //                     let letContracttype = getDictionaryInfo(response[i].contracttype);
+      //                     if (letContracttype != null) {
+      //                       response[i].contracttype = letContracttype.value1;
+      //                     }
+      //                   }
+      //                   //审批状态
+      //                   if (response[i].status !== null && response[i].status !== '') {
+      //                     response[i].status = getStatus(response[i].status);
+      //                   }
+      //                   //通货形式
+      //                   if (response[i].currencyposition !== null && response[i].currencyposition !== '') {
+      //                     let letCurrencyposition = getMonthlyrateInfo(response[i].currencyposition);
+      //                     if (letCurrencyposition != null) {
+      //                       response[i].currencyposition = letCurrencyposition.currencyname;
+      //                     }
+      //                   }
+      //                   //印章状态
+      //                   if (this.$i18n) {
+      //                     if (response[i].sealstatus === null || response[i].sealstatus === '') {
+      //                       response[i].sealstatus = '';
+      //                     } else if (response[i].sealstatus === '1') {
+      //                       response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
+      //                     } else if (response[i].sealstatus === '2') {
+      //                       response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+      //                     } else if (response[i].sealstatus === '3') {
+      //                       response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
+      //                       //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+      //                     }
+      //                   }
+      //                   datated.push({
+      //                     contracttype: response[i].contracttype,
+      //                     custochinese: response[i].custochinese,
+      //                     modifyon: response[i].modifyon,
+      //                     deployment: response[i].deployment,
+      //                     pjnamechinese: response[i].pjnamechinese,
+      //                     claimdatetime: response[i].claimdatetime,
+      //                     currencyposition: response[i].currencyposition,
+      //                     claimamount: response[i].claimamount,
+      //                     award_id: response[i].award_id,
+      //                     status:response[i].status,
+      //                     owner: response[i].owner,
+      //                     sealstatus:response[i].sealstatus,
+      //                     sealid:response[i].sealid,
+      //                     contractnumber:response[i].contractnumber,
+      //                     groupid:response[i].group_id,
+      //                     maketype:response[i].maketype,
+      //                   });
+      //                 }
+      //               }
+      //             }
+      //             //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+      //           }
+      //           //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+      //           const datatade = [];
+      //           for (let m = 0; m < response.length; m++) {
+      //             for (let n = 0; n < datated.length; n++) {
+      //               if (datated[n].contractnumber === response[m].contractnumber) {
+      //                 datatade.push({
+      //                   contracttype: response[m].contracttype,
+      //                   custochinese: response[m].custochinese,
+      //                   modifyon: response[m].modifyon,
+      //                   deployment: response[m].deployment,
+      //                   pjnamechinese: response[m].pjnamechinese,
+      //                   claimdatetime: response[m].claimdatetime,
+      //                   currencyposition: response[m].currencyposition,
+      //                   claimamount: response[m].claimamount,
+      //                   award_id: response[m].award_id,
+      //                   status:response[m].status,
+      //                   owner: response[m].owner,
+      //                   sealstatus:response[m].sealstatus,
+      //                   sealid:response[m].sealid,
+      //                   contractnumber:response[m].contractnumber,
+      //                   groupid:response[m].group_id,
+      //                   maketype:response[m].maketype,
+      //                 });
+      //               }
+      //               //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+      //             }
+      //           }
+      //           this.data = datatade;
+      //           this.loading = false;
+      //         })
+      //         .catch(error => {
+      //           this.$message.error({
+      //             message: error,
+      //             type: 'error',
+      //             duration: 5 * 1000,
+      //           });
+      //           //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+      //         });
+      //       //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+      //     })
+      // },
       rowClick(row) {
         this.rowid = row.award_id;
         this.rows = row;

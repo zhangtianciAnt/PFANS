@@ -1,6 +1,5 @@
 import request from '../../../../utils/request'
 import requestDownload from '../../../../utils/requestDownload'
-import requestPdf from "../../../../utils/requestPdf";
 
 // 添加筛选条件 ztc fr
 export function get(data) {
@@ -32,5 +31,13 @@ export function downLoad(data) {
     method: 'post',
     data: data,
     responseType: 'blob'
+  })
+}
+
+export function getPetSearch(data) {
+  return request({
+    url: 'petition/getPetSearch',
+    method: 'post',
+    data: data
   })
 }

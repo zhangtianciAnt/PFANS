@@ -181,3 +181,13 @@ export function getContranumber(data) {
   })
 }
 //获取合同时间，用于合同check scc
+
+export function getCotSearch(data) {
+  return request({
+    url: 'contractapplication/getCotSearch',
+    method: 'post',
+    data: data
+  })
+}
+
+
