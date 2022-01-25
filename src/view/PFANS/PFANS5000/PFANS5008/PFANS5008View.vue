@@ -2,7 +2,7 @@
   <div>
     <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList" ref="roletable"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="rowid" @reget="getProjectList"
-                     :showSelection="isShow" :selectable="selectInit" :showSelectBySearch="false">
+                     :showSelection="isShow" :showSelectBySearch="false">
 <!--      检索画面样式调整并取消共通检索 ztc-->
       <!--      <el-date-picker-->
 <!--        v-model="month"-->
@@ -22,7 +22,7 @@
           </el-form-item>
           </el-col>
           <el-col :span="5">
-            <el-form-item :label="$t('label.PFANS2036VIEW_DEPARTMENT')">
+            <el-form-item :label="$t('label.PFANS5008VIEW_TYPE')">
               <el-select v-model="retral.inOrout" style="width: 14vw" :disabled="false"
                          @change="filterInfo">
                 <el-option
@@ -333,12 +333,6 @@
             fix: false,
             filter: false,
           },
-          {
-            key: 'search',
-            name: 'button.search',
-            disabled: false,
-            icon: 'el-icon-search'
-          },
           // {
           //   code: 'confirmstatus',
           //   label: 'label.PFANS5008FORMVIEW_CONFIRMSTATUS',
@@ -378,7 +372,7 @@
       // add-ws-5/26-No.68
       this.getlistdata();
       // add-ws-5/26-No.68
-      this.getProjectList(moment(new Date()).format('YYYY-MM-DD'));
+      this.search();
       this.$store.commit('global/SET_OPERATEID', '');
     },
     computed: {
@@ -646,9 +640,6 @@
             return v[j];
           }
         }));
-      }
-      ,
-      selectInit(row, index) {
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);

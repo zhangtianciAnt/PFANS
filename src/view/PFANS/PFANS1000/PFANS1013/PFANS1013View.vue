@@ -27,20 +27,20 @@
                   @getUserids="getUserids" style="width: 65%"></user>
           </el-form-item>
         </el-col>
-        <el-col :span="3">
+        <el-col :span="4">
           <el-form-item :label="$t('label.center')">
             <org :orglist="form1.centerid"
                  orgtype="1"
-                 style="width: 65%"
+                 style="width: 80%"
                  @getOrgids="getCenter"
             ></org>
           </el-form-item>
         </el-col>
-        <el-col :span="3">
+        <el-col :span="4">
           <el-form-item :label="$t('label.group')">
             <org :orglist="form1.groupid"
                  orgtype="2"
-                 style="width: 65%"
+                 style="width: 80%"
                  @getOrgids="getGroup"
             ></org>
           </el-form-item>

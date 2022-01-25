@@ -1156,7 +1156,7 @@
       };
     },
     mounted() {
-      this.exrate = getDictionaryInfo('JY001001') ? getDictionaryInfo('JY001001').value2 : Number(1);
+      this.exrate = getDictionaryInfo('PG019001') ? getDictionaryInfo('PG019001').value5 : Number(1);
       this.getGroupOptions();
       this.getlisttheme();
       //region scc add 获取客户和供应商信息 from
