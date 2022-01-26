@@ -19,7 +19,7 @@
           <el-col :span="4">
             <el-form-item :label="$t('label.PFANS5001FORMVIEW_DEPARTMENTID')">
               <org :orglist="form1.group_id"
-                   orgtype="1"
+                   orgtype="4"
                    style="width: 80%"
                    @getOrgids="getGroup"
               ></org>

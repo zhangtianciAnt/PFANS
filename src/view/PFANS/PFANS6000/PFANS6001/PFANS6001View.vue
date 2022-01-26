@@ -17,7 +17,7 @@
         <el-col :span="5">
           <el-form-item :label="$t('label.PFANS2003FORMVIEW_INTERVIEWDEP')">
             <org :orglist="form1.interviewdep"
-                 orgtype="1"
+                 orgtype="4"
                  style="width: 80%"
                  @getOrgids="getInterviewDep"
             ></org>
