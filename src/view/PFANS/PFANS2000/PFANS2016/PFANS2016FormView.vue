@@ -2089,6 +2089,7 @@
         this.form.parentsdate = '';//父母出生日期
         this.form.suchconfinement = '';//父母住院开始日期
         this.form.validateParentsname = '';//住院父母名字
+        this.form.onlychild = '';//是否是独生子女
         this.typecheck = '';
         let dictionaryInfo = getDictionaryInfo(val);
         if (dictionaryInfo) {
@@ -2300,6 +2301,7 @@
         //endregion scc add 21/1/6 育儿假 to
         //region scc add 21/1/6 父母照料假 from
         else if (val === 'PR013024'){
+          this.form.onlychild = '1';
           this.checkerrortishi = false;//产休（女）的对应提示
           this.checkrelengthtime = true;//实际时间长度组件可用状态
           this.dislengthtime = true;//时间长度显示组件可用状态
