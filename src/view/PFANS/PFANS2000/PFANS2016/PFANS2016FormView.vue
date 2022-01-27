@@ -307,14 +307,14 @@
             <!-- 申请天数,只有育儿假显示 -->
             <el-col  :span="4" v-if="form.errortype == 'PR013023'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_APPLYFORDAYS')">
-                <el-input-number :disabled="true" controls-position="right"
+                <el-input-number :disabled="true" controls-position="right" style="width:8vw"
                                   v-model="allDays"></el-input-number>
               </el-form-item>
             </el-col>
             <!-- 履历按钮 -->
             <el-col :span="4" v-if="form.errortype == 'PR013023' || form.errortype == 'PR013024'">
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_CV')">
-                <el-button type="info" :disabled="false"  plain @click.native.prevent="handleView">显示履历</el-button>
+                <el-button type="info" :disabled="false" style="width:8vw" plain @click.native.prevent="handleView">显示履历</el-button>
               </el-form-item>
             </el-col>
           </el-row>
