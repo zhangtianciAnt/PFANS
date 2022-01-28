@@ -35,8 +35,9 @@
             </el-col>
           </el-row>
           <el-row style="padding-bottom: 0.5%">
-            <el-table :data="tableData" border default-expand-all header-cell-class-name="sub_bg_color_blue" style="margin-top: 1%;font-size: 13px"
-                      row-key="wai_id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" height="540"
+            <el-table :data="tableData" border header-cell-class-name="sub_bg_color_blue" style="margin-top: 1%;font-size: 13px"
+                      row-key="wai_id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" height="85vh"
+                        :row-class-name="cellStyle"
                       highlight-current-row @current-change="handleCurrentChange" :span-method="this.listSpanMethod">
               <el-table-column
                 show-overflow-tooltip
@@ -403,6 +404,13 @@ export default {
     });
   },
   methods: {
+    cellStyle({row, rowIndex}){
+      if (row.staffrank === '外注费用合计值') {
+        return 'row_52_SpecName'
+      }else if(row.themename === '小计'){
+        return 'row_52_SpecNameXj'
+      }
+    },
     //region scc add 根据数据情况合并table from
     //合并合同号
     flitterData(){
@@ -807,6 +815,18 @@ export default {
 }
 </script>
 
+<style lang="scss">
+.row_52_SpecName {
+  td:nth-child(n+4) {
+    border-bottom: 1px black solid !important;
+  }
+}
+.row_52_SpecNameXj {
+  td {
+    border-bottom: 1px black solid !important;
+  }
+}
+</style>
 <style rel="stylesheet/scss" lang="scss" scoped>
 .el-table {
   overflow-x: auto;
@@ -833,5 +853,6 @@ export default {
     height: 100% !important;
   }
 }
+
 
 </style>

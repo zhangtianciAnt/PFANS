@@ -1886,8 +1886,7 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PL')" style="margin-top: 2%" name="seventh">
-              <div class="test">
-                <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" :span-method="objectSpanMethod"
+              <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" :span-method="objectSpanMethod"
                           height="800" :row-class-name="rowClass">
                   <el-table-column prop="name" :formatter="formatterDir" align="center" width="70" fixed>
                   </el-table-column>
@@ -2193,7 +2192,6 @@
                     </el-table-column>
                   </el-table-column>
                 </el-table>
-              </div>
             </el-tab-pane>
           </el-tabs>
         </el-form>
@@ -3988,6 +3986,9 @@
         } else if ([42].includes(rowIndex)) {
           return 'row2';
         }
+        // if (row.name1 === '売上合計（税抜き、社内委託除き') {
+        //   return 'table_36_Range'
+        // }
       },
       objectSpanMethod({row, column, rowIndex, columnIndex}) {
         if (columnIndex === 0) {
@@ -5203,8 +5204,36 @@
   };
 </script>
 
+<style lang="scss" rel="stylesheet/scss">
+  //.table_36_Range{
+  //  tr.el-table__row.row2 {
+  //    border-style: solid;
+  //    border-width: 0px 0px 1px 0px;
+  //  }
+  //  tr.el-table__row.row3 {
+  //    border-style: solid;
+  //    border-width: 0px 0px 1px 0px;
+  //  }
+  //  .el-table__body, .el-table__footer, .el-table__header{
+  //    table-layout: fixed;
+  //    border-collapse: collapse;
+  //  }
+  //  table tr:nth-child(52){
+  //    border-style: solid;
+  //    border-width: 0px 0px 1px 0px;
+  //  }
+  //  //tbody .el-table--boder th.gutter:last-of-type {
+  //  //  display: block !important
+  //  //}
+  //}
+  .table_36_Range {
+    td:nth-child(n+4) {
+      border-bottom: 1px black solid !important;
+    }
+  }
+</style>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style rel="stylesheet/scss" lang="scss">
 
   .el-table .row1 {
     color: #6d9fd1;
@@ -5241,26 +5270,5 @@
       height: 100% !important;
     }
   }
-
-  tr.el-table__row.row2 {
-    border-style: solid;
-    border-width: 0px 0px 3px 0px;
-  }
-  tr.el-table__row.row3 {
-    border-style: solid;
-    border-width: 0px 0px 3px 0px;
-  }
-  .el-table__body, .el-table__footer, .el-table__header{
-    table-layout: fixed;
-    border-collapse: collapse;
-  }
-  table tr:nth-child(52){
-    border-style: solid;
-    border-width: 0px 0px 3px 0px;
-  }
-  tbody .el-table--boder th.gutter:last-of-type {
-    display: block !important
-  }
-
 
 </style>

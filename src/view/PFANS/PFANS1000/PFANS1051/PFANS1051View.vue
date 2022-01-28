@@ -40,10 +40,11 @@
           </el-row>
           <el-row>
             <!--            ztc 根据数据情况合并table 功能  fr-->
-            <el-table :data="datatotal" border default-expand-all
+            <el-table :data="datatotal" border
                       header-cell-class-name="sub_bg_color_blue"  height="85vh" width="100%"
                       row-key="wai_id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
                       @current-change="handleCurrentChange" highlight-current-row :span-method="this.listSpanMethod"
+                      :row-class-name="cellStyle"
             >
               <!--            ztc 根据数据情况合并table 功能  to-->
               <el-table-column
@@ -405,6 +406,11 @@
       });
     },
     methods: {
+      cellStyle({row, rowIndex}){
+        if (row.amount === '边界利润率') {
+          return 'row_51_SpecName'
+        }
+      },
       // ztc 根据数据情况合并table 功能  fr
       flitterData(){
         let spanOneArr = [];
@@ -679,6 +685,13 @@
   };
 </script>
 
+<style lang="scss">
+.row_51_SpecName {
+  td:nth-child(n+4) {
+    border-bottom: 1px black solid !important;
+  }
+}
+</style>
 <style lang='scss'>
   .custimize_drawer {
     -webkit-box-sizing: border-box;

@@ -43,7 +43,7 @@
           </el-col>
         </el-row>
         <el-row style="padding-bottom: 0.5%" ref="container">
-          <el-table :data="tableData" border default-expand-all header-cell-class-name="sub_bg_color_blue"
+          <el-table :data="tableData" border header-cell-class-name="sub_bg_color_blue"
                     style="margin-top: 1%;font-size: 13px"
                     row-key="wai_id" height="650"
                     highlight-current-row>

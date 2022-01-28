@@ -33,7 +33,7 @@
             </el-col>
           </el-row>
           <el-row style="padding-bottom: 0.5%">
-            <el-table :data="tableData" border default-expand-all header-cell-class-name="sub_bg_color_blue" style="margin-top: 1%;font-size: 13px"
+            <el-table :data="tableData" border header-cell-class-name="sub_bg_color_blue" style="margin-top: 1%;font-size: 13px"
                       row-key="wai_id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" height="540"
                       highlight-current-row @current-change="handleCurrentChange">
               <el-table-column

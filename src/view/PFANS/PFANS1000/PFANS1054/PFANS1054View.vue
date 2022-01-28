@@ -45,7 +45,8 @@
           </el-col>
         </el-row>
         <el-row style="padding-bottom: 0.5%" ref="container">
-          <el-table :data="tableData" border default-expand-all header-cell-class-name="sub_bg_color_blue"
+          <div class="table_54_Range">
+            <el-table :data="tableData" border header-cell-class-name="sub_bg_color_blue"
                     style="margin-top: 1%;font-size: 13px"
                     row-key="wai_id" height="600"
                     highlight-current-row
@@ -1285,6 +1286,7 @@
               </template>
             </el-table-column>
           </el-table>
+          </div>
         </el-row>
           </el-tab-pane>
           <el-tab-pane :label="$t('label.PFANS1054POORPLANNING')" name="second">
@@ -2292,7 +2294,16 @@ export default {
 <!--  z-index: 1;-->
 <!--}-->
 <!--</style>-->
-<style lang="scss" >
-
+<style lang="scss" rel="stylesheet/scss">
+.table_54_Range{
+  .el-table__body, .el-table__footer, .el-table__header{
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+  table tr:nth-child(3n){
+    border-style: solid;
+    border-width: 0px 0px 1px 0px;
+  }
+}
 
 </style>
